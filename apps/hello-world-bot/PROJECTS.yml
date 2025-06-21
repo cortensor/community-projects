@@ -1,0 +1,9 @@
+- name: hello-world-bot
+  category: apps
+  owner: "@cortensor-ryuma"
+  collaborators:
+    - "@alexdev#0001"
+  status: active
+  created: 2025-06-06
+  version: v0.2.0
+  tags: [telegram, llm, bot]
