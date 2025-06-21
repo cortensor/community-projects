@@ -1,0 +1,9 @@
+- name: hello-world-tool
+  category: tools
+  owner: "@cortensor-ryuma"
+  collaborators:
+    - "@tools-team#0001"
+  status: active
+  created: 2025-06-20
+  version: v0.1.0
+  tags: [cli, utility, development]

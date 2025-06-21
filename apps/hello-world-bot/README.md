@@ -1,8 +1,3 @@
-### ✅ Example Project Folder: `apps/hello-world-bot`
-
-#### 1. `README.md`
-
-```md
 # Ask Me Anything Bot
 
 A lightweight Telegram bot that connects to Cortensor’s inference API and answers user questions in natural language.
