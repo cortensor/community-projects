@@ -1,0 +1,9 @@
+- name: hello-world-infra
+  category: infras
+  owner: "@cortensor-ryuma"
+  collaborators:
+    - "@devops-team#0001"
+  status: active
+  created: 2025-06-20
+  version: v0.1.0
+  tags: [infrastructure, template, deployment]

@@ -1,6 +1,6 @@
 # Project Status – Hello World Bot
 
-**Maintainer:** @johndoe#1234  
+**Maintainer:** @cortensor-ryuma  
 **Current Version:** v0.2.0  
 **Status:** Active
 
