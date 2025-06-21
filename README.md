@@ -57,29 +57,46 @@ We provide "Hello World" templates for each category to help you bootstrap your 
 
 ### Contributing to the Repository
 
-1. **Create a feature branch** with the following naming convention:
+We follow this branching structure:
+```
+main <- dev-userid <- dev-userid-feature1
+```
+
+1. **Create your developer branch** first:
    ```bash
-   git checkout -b dev-{userid}-featurename
+   git checkout -b dev-{userid}
+   ```
+   Example: `dev-ryuma`
+
+2. **Create feature branches** from your developer branch:
+   ```bash
+   git checkout -b dev-{userid}-{featurename}
    ```
    Example: `dev-ryuma-wallet-monitor`
 
-2. **Make your changes** and commit them with descriptive messages:
+3. **Make your changes** and commit them with descriptive messages:
    ```bash
    git add .
    git commit -m "Add wallet monitoring functionality"
    ```
 
-3. **Test thoroughly** to ensure your project works as expected
+4. **Test thoroughly** to ensure your project works as expected
 
-4. **Create a pull request** to the main repository:
-   - Push your branch to your fork
+5. **Merge your feature branch** back to your developer branch:
+   ```bash
+   git checkout dev-{userid}
+   git merge dev-{userid}-{featurename}
+   ```
+
+6. **Create a pull request** to the main repository:
+   - Push your developer branch to your fork
    - Go to the main repository on GitHub
    - Click "New Pull Request"
-   - Select your branch
+   - Select your developer branch (not the feature branch)
    - Fill out the PR template with details about your contribution
    - Submit the PR for review
 
-5. **Address review feedback** if requested by maintainers
+7. **Address review feedback** if requested by maintainers
 
 ---
 
