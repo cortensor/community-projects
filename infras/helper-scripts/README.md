@@ -1,6 +1,6 @@
 # Deployment Helper Scripts
 
-This project provides helper scripts for deploying Cortensor.
+This script provides helper scripts for deploying Cortensor and enabling people to run cortensor on their own infrastructure in the matter of minutes.
 
 ## Features
 - Easy Installation for cortensor

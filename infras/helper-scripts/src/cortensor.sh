@@ -14,6 +14,8 @@ PRIV_KEY=""
 RPC_URL=""
 ETH_RPC_URL=""
 CONTRACT_ADDRESS_RUNTIME=""
+TELEGRAM_BOT_TOKEN=""
+TELEGRAM_CHAT_ID=""
 COUNT=0
 START_PORT=49001
 
@@ -243,7 +245,7 @@ else
     msg_error "Cortensor is not installed. Please run the installation script first."
 fi
     if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor" --yesno "Do you want to run the updated Cortensor?" 10 60); then
-        msg_info "Starting Cortensor..."
+        msg_info "Starting Cortensor... (first run may take a while *please take some coffee*)"
         sudo docker compose -f $WORKDIR/docker-compose.yml up -d >/dev/null 2>&1
         msg_ok "Cortensor started successfully.\n"
     fi
@@ -398,11 +400,99 @@ else
     exit_script
 fi
 }
+install_monitoring() {
+if [ -d "$WORKDIR" ]; then
+MONITORING_DIR="$HOME/cortensor-watcher-bot"
+RPC_URL=$(grep "^RPC_URL=" $WORKDIR/.env | cut -d'=' -f2)
+if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --yesno "This script will install the Cortensor Monitoring. Do you want to continue?" 10 60); then
+  while true; do
+    while [ -z "$TELEGRAM_BOT_TOKEN" ]; do
+      if TELEGRAM_BOT_TOKEN=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --inputbox "Input your Telegram Bot Token (get from @BotFather):" 8 60 3>&1 1>&2 2>&3); then
+          continue
+      else
+        exit_script
+      fi
+    done
+    while [ -z "$TELEGRAM_CHAT_ID" ]; do
+      if TELEGRAM_CHAT_ID=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --inputbox "Input your Telegram Chat ID (Default: 123456789):" 8 60 "123456789" 3>&1 1>&2 2>&3); then
+        if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --yesno "\nTelegram Bot Token: $TELEGRAM_BOT_TOKEN\nTelegram Chat ID: $TELEGRAM_CHAT_ID\n\nContinue with the installation?" 10 60); then
+            continue
+        else
+            TELEGRAM_BOT_TOKEN=""
+            TELEGRAM_CHAT_ID=""
+        fi
+      else
+        exit_script
+      fi
+    done
+    break
+  done
+else
+    exit_script
+fi
+
+if [ -d "$MONITORING_DIR" ]; then
+  msg_info "Removing existing Cortensor Monitoring folder..."
+  sudo rm -rf $MONITORING_DIR
+  msg_ok "Cortensor Monitoring folder has been removed."
+fi
+
+msg_info "Installing Cortensor Monitoring..."
+git clone https://github.com/beranalpa/cortensor-watcher-bot.git
+cd cortensor-watcher-bot
+
+echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" > $MONITORING_DIR/.env
+echo "TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID" >> $MONITORING_DIR/.env
+echo "RPC_URL=$RPC_URL" >> $MONITORING_DIR/.env
+
+json="{\"containers\": ["
+while IFS= read -r line; do
+  if [[ $line == NODE_PUBLIC_KEY_* ]]; then
+    number=$(echo "$line" | cut -d'=' -f1 | grep -o '[0-9]\+')
+    pub_key=$(echo "$line" | cut -d'=' -f2)
+    json+="\"cortensor-$number\", "
+  fi
+done < $HOME/cortensor-docker/.env
+json="${json%, }], \"node_addresses\": {"
+while IFS= read -r line; do
+  if [[ $line == NODE_PUBLIC_KEY_* ]]; then
+    number=$(echo "$line" | cut -d'=' -f1 | grep -o '[0-9]\+')
+    pub_key=$(echo "$line" | cut -d'=' -f2)
+    json+="\"cortensor-$number\": \"$pub_key\", "
+  fi
+done < $HOME/cortensor-docker/.env
+json="${json%, }}, \"watch_tx_for_containers\": ["
+while IFS= read -r line; do
+  if [[ $line == NODE_PUBLIC_KEY_* ]]; then
+    number=$(echo "$line" | cut -d'=' -f1 | grep -o '[0-9]\+')
+    pub_key=$(echo "$line" | cut -d'=' -f2)
+    json+="\"cortensor-$number\", "
+  fi
+done < $HOME/cortensor-docker/.env
+json="${json%, }], \"tail_lines\": 500, \"check_interval_seconds\": 2.5, \"grace_period_seconds\": 30, \"stats_api_url\": \"https://lb-be-5.cortensor.network/network-stats-tasks\", \"tx_timeout_seconds\": 45, \"stagnation_alert_enabled\": true, \"stagnation_threshold_minutes\": 30, \"reputation_check_enabled\": true, \"reputation_api_base_url\": \"https://lb-be-5.cortensor.network/session-reputation/\", \"reputation_check_window\": 20, \"reputation_failure_threshold\": 5, \"reputation_restart_cooldown_minutes\": 30}"
+echo "$json" | jq . | tee $MONITORING_DIR/config.json
+msg_ok "Cortensor Monitoring configuration file created successfully."
+
+if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --yesno "Do you want to start the Cortensor Monitoring now?" 10 60); then
+  msg_info "Starting Cortensor Monitoring..."
+  docker-compose -f $MONITORING_DIR/docker-compose.yml up -d
+  msg_ok "Cortensor Monitoring started successfully."
+  echo "Monitoring installed successfully."
+  exit_script
+fi
+
+else
+    whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+      --msgbox "\nPlease install Cortensor Node first." 10 60
+    init_cortensor
+fi
+}
 
 while true; do
     choice=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor-Node" --menu "Choose the type of Cortensor-Node to install:" 10 70 4 \
         "Install" "     Install the Cortensor Node (Default)" \
         "Update" "     Update the Cortensor Node" \
+        "Install Monitoring" "     Install Monitoring for Cortensor Node" \
         "Exit" "     Exit the script"  --nocancel --default-item "Install" 3>&1 1>&2 2>&3)
 
     if [ $? -ne 0 ]; then
@@ -417,6 +507,10 @@ while true; do
           ;;
         "Update")
          update_cortensor
+          break
+          ;;
+        "Install Monitoring")
+          install_monitoring
           break
           ;;
         "Exit")
