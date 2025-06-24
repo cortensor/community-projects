@@ -1,6 +1,6 @@
 - name: eliza-chatbot
   category: apps
-  owner: "@cortensor-ryuma"
+  owner: "@beranalpa"
   collaborators:
     - "@beranalpa"
   status: active

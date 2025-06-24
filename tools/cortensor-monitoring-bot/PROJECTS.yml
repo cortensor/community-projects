@@ -1,0 +1,8 @@
+- name: cortensor-monitoring-bot
+  category: tools
+  owner: "@beranalpa"
+  collaborators: []
+  status: active
+  created: "2025-06-24"
+  version: "v1.0.0"
+  tags: [telegram, monitoring, bot, cortensor, node]
