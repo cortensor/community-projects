@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  watcher:
+    build: .
+    container_name: cortensor-watcher-bot
+    restart: unless-stopped
+    volumes:
+      # Mount Docker socket to manage other containers
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Mount config.json as read-only for live configuration
+      - ./config.json:/app/config.json:ro
+      # Persist restart logs on the host
+      - ./restart_logs:/app/restart_logs
+      # Persist watcher state on the host
+      - ./state_data:/app/state_data
+    # Load environment variables from the .env file
+    env_file:
+      - .env

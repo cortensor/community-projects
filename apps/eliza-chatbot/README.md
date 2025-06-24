@@ -107,7 +107,7 @@ The following variables must be set in your `.env` file for the bot to function 
 
 ## 👤 Maintainer
 
-  * **@beranalpa** (Discord)
+  * **@beranalpagion** (Discord)
 
 ## 📄 License
 

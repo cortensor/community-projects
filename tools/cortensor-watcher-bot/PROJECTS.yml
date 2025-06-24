@@ -1,0 +1,9 @@
+- name: cortensor-watcher-bot
+  category: tools
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-06-17
+  version: v1.2.0
+  tags: [docker, monitoring, python, telegram, bot, cortensor]

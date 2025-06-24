@@ -1,0 +1,29 @@
+{
+  "containers": [
+    "cortensor-1",
+    "cortensor-2",
+    "cortensor-3"
+  ],
+  "node_addresses": {
+    "cortensor-1": "0xYOUR_NODE_ADDRESS_1",
+    "cortensor-2": "0xYOUR_NODE_ADDRESS_2",
+    "cortensor-3": "0xYOUR_NODE_ADDRESS_3"
+  },
+  "tail_lines": 500,
+  "check_interval_seconds": 2.5,
+  "grace_period_seconds": 30,
+  "stats_api_url": "https://lb-be-5.cortensor.network/network-stats-tasks",
+  "watch_tx_for_containers": [
+    "cortensor-1",
+    "cortensor-2",
+    "cortensor-3"
+  ],
+  "tx_timeout_seconds": 45,
+  "stagnation_alert_enabled": true,
+  "stagnation_threshold_minutes": 30,
+  "reputation_check_enabled": true,
+  "reputation_api_base_url": "https://lb-be-5.cortensor.network/session-reputation/",
+  "reputation_check_window": 20,
+  "reputation_failure_threshold": 5,
+  "reputation_restart_cooldown_minutes": 30
+}
