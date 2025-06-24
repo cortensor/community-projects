@@ -9,10 +9,11 @@
 ## ✅ Current State
 
 - Installation for cortensor node
+- Installation for monitoring bot
 
 ## 🔧 Next Steps
 
-- Add Installation for monitoring bot
+- Add skeleton only for cortensor node
 
 ## 🐞 Known Issues
 

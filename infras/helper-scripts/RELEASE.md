@@ -6,3 +6,6 @@
 
 ## v0.1.1 – 2025-06-24
 - Add monitoring installation (monitoring tools by: beranalpagion (discord))
+
+## v0.1.1 – 2025-06-25
+- change monitoring source to cortensor repo

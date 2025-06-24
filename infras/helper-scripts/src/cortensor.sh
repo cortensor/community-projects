@@ -438,8 +438,16 @@ if [ -d "$MONITORING_DIR" ]; then
 fi
 
 msg_info "Installing Cortensor Monitoring..."
-git clone https://github.com/beranalpa/cortensor-watcher-bot.git
-cd cortensor-watcher-bot
+git clone --filter=blob:none --no-checkout https://github.com/cortensor/community-projects.git && \
+cd community-projects && \
+git sparse-checkout init --cone && \
+git sparse-checkout set tools/cortensor-watcher-bot && \
+git checkout main && \
+mv tools/cortensor-watcher-bot ../cortensor-watcher-bot && \
+cd .. && \
+rm -rf community-projects
+
+msg_ok "Cortensor Monitoring has been initialized."
 
 echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" > $MONITORING_DIR/.env
 echo "TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID" >> $MONITORING_DIR/.env
