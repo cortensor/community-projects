@@ -1,0 +1,9 @@
+- name: eliza-chatbot
+  category: apps
+  owner: "@cortensor-ryuma"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-06-23
+  version: v1.0.0
+  tags: [telegram, python, bot, cortensor, llm]
