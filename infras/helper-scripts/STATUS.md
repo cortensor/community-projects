@@ -1,4 +1,4 @@
-# Project Status – Hello World Infrastructure
+# Project Status – Helper Scripts
 
 **Maintainer:** @0xRedd
 **Current Version:** v0.1.2
