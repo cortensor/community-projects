@@ -132,20 +132,7 @@ rm -rf Dockerfile run.sh
 msg_ok "Cortensor has been installed."
 
 if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor" --yesno "Do you want to run the Cortensor?" 10 60); then
-    if [ "$(docker ps -q -f name=cortensor --no-trunc | wc -l)" -ne "0" ]; then
-        msg_error "Cortensor is already running."
-        msg_info "Stopping Cortensor..."
-        sudo docker kill cortensor >/dev/null 2>&1
-        msg_ok "Cortensor has been stopped."
-    fi
-    if [ "$(docker images -q cortensor-cortensor 2> /dev/null)" != "" ]; then
-        msg_error "Old Cortensor found."
-        msg_info "Removing old Cortensor..."
-        sudo docker rmi cortensor-cortensor -f >/dev/null 2>&1
-        msg_ok "Old Cortensor has been removed."        
-    fi
-    msg_ok "Cortensor check complete."
-    msg_info "Starting Cortensor..."
+    msg_info "Starting Cortensor... (first run may take a while *please take some coffee*)"
     sudo docker compose -f $WORKDIR/docker-compose.yml up -d >/dev/null 2>&1
     msg_ok "Cortensor started successfully.\n"
 fi
@@ -157,7 +144,6 @@ echo -e "${INFO}${GN} To check the logs of Cortensor, run the command: 'sudo doc
 
 update_cortensor() {
 if [ -d "$WORKDIR" ]; then
-    msg_info "Updating Cortensor..."
     cd $WORKDIR
     sudo docker compose -f $WORKDIR/docker-compose.yml down >/dev/null 2>&1
     sudo docker compose -f $WORKDIR/docker-compose.yml rm >/dev/null 2>&1
@@ -482,8 +468,8 @@ echo "$json" | jq . | tee $MONITORING_DIR/config.json
 msg_ok "Cortensor Monitoring configuration file created successfully."
 
 if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Monitoring" --yesno "Do you want to start the Cortensor Monitoring now?" 10 60); then
-  msg_info "Starting Cortensor Monitoring..."
-  docker-compose -f $MONITORING_DIR/docker-compose.yml up -d
+  msg_info "Starting Cortensor Monitoring... (first run may take a while *please take some coffee*)"
+  docker compose -f $MONITORING_DIR/docker-compose.yml up -d
   msg_ok "Cortensor Monitoring started successfully."
   echo "Monitoring installed successfully."
   exit_script
