@@ -13,6 +13,7 @@
 
 ## 🔧 Next Steps
 
+- Add option to add nodes
 - Add router node installation
 
 ## 🐞 Known Issues
