@@ -1,7 +1,7 @@
 # Project Status – Hello World Infrastructure
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.1.0  
+**Current Version:** v0.1.2
 **Status:** Active
 
 ---
@@ -13,7 +13,7 @@
 
 ## 🔧 Next Steps
 
-- Add skeleton only for cortensor node
+- Add router node installation
 
 ## 🐞 Known Issues
 

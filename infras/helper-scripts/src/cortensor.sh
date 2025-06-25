@@ -302,44 +302,59 @@ if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" 
     done
     echo "# Node public and private keys" >> $WORKDIR/.env
     COUNT=0
-
-    while true; do
+    if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" --yesno "Do you want to add your node address?\nYes: you will need to input your address and privatekey\nNo: You will be prompted on how many addresses you want to add later" 10 65); then
       while true; do
-        PUB_KEY=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
-          --inputbox "Input your public key (EVM starting with 0x):" 8 60 3>&1 1>&2 2>&3)
-
-        [ $? -ne 0 ] && exit_script
-
-        if [[ $PUB_KEY == 0x* ]]; then
+        while true; do
+          PUB_KEY=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+            --inputbox "Input your public key (EVM starting with 0x):" 8 60 3>&1 1>&2 2>&3)
+          [ $? -ne 0 ] && exit_script
+          if [[ $PUB_KEY == 0x* ]]; then
+            break
+          else
+            whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+              --msgbox "Error: Public Key must start with 0x" 8 60
+          fi
+        done
+        while true; do
+          PRIV_KEY=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+            --inputbox "Input your private key (EVM starting with 0x):" 8 60 3>&1 1>&2 2>&3)
+          [ $? -ne 0 ] && exit_script
+          if [[ $PRIV_KEY == 0x* ]]; then
+            break
+          else
+            whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+              --msgbox "Error: Private Key must start with 0x" 8 60
+          fi
+        done
+        COUNT=$((COUNT + 1))
+        echo "NODE_PUBLIC_KEY_$COUNT=$PUB_KEY" >> "$WORKDIR/.env"
+        echo "NODE_PRIVATE_KEY_$COUNT=$PRIV_KEY" >> "$WORKDIR/.env"
+        if ! whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+          --yesno "\nPublic Key: $PUB_KEY\nPrivate Key: $PRIV_KEY\n\nAdd another node address?" 12 60; then
           break
-        else
-          whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
-            --msgbox "Error: Public Key must start with 0x" 8 60
         fi
       done
-      while true; do
-        PRIV_KEY=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
-          --inputbox "Input your private key (EVM starting with 0x):" 8 60 3>&1 1>&2 2>&3)
-
-        [ $? -ne 0 ] && exit_script
-
-        if [[ $PRIV_KEY == 0x* ]]; then
-          break
-        else
-          whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
-            --msgbox "Error: Private Key must start with 0x" 8 60
-        fi
-      done
-      COUNT=$((COUNT + 1))
-      echo "NODE_PUBLIC_KEY_$COUNT=$PUB_KEY" >> "$WORKDIR/.env"
-      echo "NODE_PRIVATE_KEY_$COUNT=$PRIV_KEY" >> "$WORKDIR/.env"
-      if ! whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
-        --yesno "\nPublic Key: $PUB_KEY\nPrivate Key: $PRIV_KEY\n\nAdd another node address?" 12 60; then
-        break
-      fi
-    done
     whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
       --msgbox "\n$COUNT address(es) added successfully.\nContinuing with installation..." 10 60
+    else
+      while true; do
+        COUNT=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+          --inputbox "Input the number of nodes you want to add (Default: 1):" 8 60 "1" 3>&1 1>&2 2>&3)
+        [ $? -ne 0 ] && exit_script
+        if [[ $COUNT =~ ^[0-9]+$ ]] && [ "$COUNT" -gt 0 ]; then
+          for ((i=1; i<=$COUNT; i++)); do
+              echo "NODE_PUBLIC_KEY_$i=" >> "$WORKDIR/.env"
+              echo "NODE_PRIVATE_KEY_$i=" >> "$WORKDIR/.env"
+          done
+          break
+        else
+          whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+            --msgbox "Error: Please enter a valid number greater than 0." 8 60
+        fi
+      done
+      whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" \
+      --msgbox "\n$COUNT address(es) skeleton added successfully.\nContinuing with installation..." 10 60
+    fi
     
     cat > $WORKDIR/docker-compose.yml <<EOF
 services:
@@ -381,6 +396,7 @@ EOF
 
 EOF
     done
+    msg_ok "Cortensor config has been initialized."
     install_cortensor
 else
     exit_script
@@ -500,7 +516,7 @@ while true; do
           break
           ;;
         "Update")
-         update_cortensor
+          update_cortensor
           break
           ;;
         "Install Monitoring")
