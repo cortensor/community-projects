@@ -12,3 +12,6 @@
 
 ## v0.1.2 – 2025-06-26
 - add option to create .env skeleton only
+
+## v0.1.3 – 2025-06-26
+- fix watchdog config
