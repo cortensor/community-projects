@@ -1,0 +1,8 @@
+# Ignore generated files for the cortensor-watcher-bot
+tools/cortensor-watcher-bot/restart_logs/ 
+tools/cortensor-watcher-bot/state_data/
+
+# 
+.env 
+*.pyc 
+__pycache__/
