@@ -145,9 +145,13 @@ echo -e "${INFO}${GN} To check the logs of Cortensor, run the command: 'sudo doc
 update_cortensor() {
 if [ -d "$WORKDIR" ]; then
     cd $WORKDIR
+    msg_info "Stopping Cortensor..."
     sudo docker compose -f $WORKDIR/docker-compose.yml down >/dev/null 2>&1
     sudo docker compose -f $WORKDIR/docker-compose.yml rm >/dev/null 2>&1
+    msg_ok "Cortensor has been stopped."
+    msg_info "Removing existing Cortensor..."
     sudo docker image rm cortensor-image:latest >/dev/null 2>&1
+    msg_ok "Old Cortensor has been removed."
     tee Dockerfile > /dev/null << EOF
 FROM ipfs/kubo:v0.33.2 AS ipfs
 
