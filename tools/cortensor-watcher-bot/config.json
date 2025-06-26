@@ -12,8 +12,8 @@
     "cortensor-4": "0xB78856353435ced3235B9280ED40C5fBB88c3267"
   },
   "tail_lines": 500,
-  "check_interval_seconds": 180,
-  "grace_period_seconds": 210,
+  "check_interval_seconds": 900,
+  "grace_period_seconds": 930,
   "stats_api_url": "https://lb-be-5.cortensor.network/network-stats-tasks",
   "watch_tx_for_containers": [
     "cortensor-1",
