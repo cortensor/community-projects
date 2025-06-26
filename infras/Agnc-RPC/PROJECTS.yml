@@ -1,0 +1,7 @@
+- name: agnc-rpc
+  category: infras
+  owner: "@Siven-cyber"
+  status: active
+  created: 2025-06-26
+  version: v0.1.0
+  tags: [infrastructure, template, deployment]
