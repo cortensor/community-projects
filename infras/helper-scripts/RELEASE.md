@@ -9,3 +9,6 @@
 
 ## v0.1.1 – 2025-06-25
 - change monitoring source to cortensor repo
+
+## v0.1.2 – 2025-06-26
+- add option to create .env skeleton only
