@@ -1,7 +1,7 @@
 # Project Status – Helper Scripts
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.1.2
+**Current Version:** v0.1.3
 **Status:** Active
 
 ---

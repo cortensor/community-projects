@@ -145,9 +145,13 @@ echo -e "${INFO}${GN} To check the logs of Cortensor, run the command: 'sudo doc
 update_cortensor() {
 if [ -d "$WORKDIR" ]; then
     cd $WORKDIR
+    msg_info "Stopping Cortensor..."
     sudo docker compose -f $WORKDIR/docker-compose.yml down >/dev/null 2>&1
     sudo docker compose -f $WORKDIR/docker-compose.yml rm >/dev/null 2>&1
+    msg_ok "Cortensor has been stopped."
+    msg_info "Removing existing Cortensor..."
     sudo docker image rm cortensor-image:latest >/dev/null 2>&1
+    msg_ok "Old Cortensor has been removed."
     tee Dockerfile > /dev/null << EOF
 FROM ipfs/kubo:v0.33.2 AS ipfs
 
@@ -479,7 +483,7 @@ while IFS= read -r line; do
     json+="\"cortensor-$number\", "
   fi
 done < $HOME/cortensor-docker/.env
-json="${json%, }], \"tail_lines\": 500, \"check_interval_seconds\": 2.5, \"grace_period_seconds\": 30, \"stats_api_url\": \"https://lb-be-5.cortensor.network/network-stats-tasks\", \"tx_timeout_seconds\": 45, \"stagnation_alert_enabled\": true, \"stagnation_threshold_minutes\": 30, \"reputation_check_enabled\": true, \"reputation_api_base_url\": \"https://lb-be-5.cortensor.network/session-reputation/\", \"reputation_check_window\": 20, \"reputation_failure_threshold\": 5, \"reputation_restart_cooldown_minutes\": 30}"
+json="${json%, }], \"tail_lines\": 500, \"check_interval_seconds\": 900, \"grace_period_seconds\": 930, \"stats_api_url\": \"https://lb-be-5.cortensor.network/network-stats-tasks\", \"tx_timeout_seconds\": 45, \"stagnation_alert_enabled\": true, \"stagnation_threshold_minutes\": 30, \"reputation_check_enabled\": true, \"reputation_api_base_url\": \"https://lb-be-5.cortensor.network/reputation/\", \"reputation_check_window\": 20, \"reputation_failure_threshold\": 5, \"reputation_restart_cooldown_minutes\": 30}"
 echo "$json" | jq . | tee $MONITORING_DIR/config.json
 msg_ok "Cortensor Monitoring configuration file created successfully."
 
