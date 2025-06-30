@@ -18,7 +18,7 @@ Needs a lot of refactoring ;)
 
 ## Installl
 ```
-pip install -r rquirements.txt
+pip install -r requirements.txt
 ```
 
 ### Env
