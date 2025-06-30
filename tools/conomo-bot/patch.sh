@@ -1,0 +1,2 @@
+# fix etherscan v2
+sed -i '/self.API_URL = self._get_api_url()/c\        self.API_URL = "https://api.etherscan.io/v2/api?chainid=421614" #self._get_api_url()' venv/lib/python3.12/site-packages/aioetherscan/url_builder.py
