@@ -1,0 +1,9 @@
+- name: docker-installer
+  category: infras
+  owner: "@mrheed"
+  collaborators:
+    - "@0xredd"
+  status: active
+  created: 2025-07-03
+  version: v0.1.0
+  tags: [infrastructure, template, deployment]
