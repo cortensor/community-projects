@@ -150,7 +150,9 @@ if [ -d "$WORKDIR" ]; then
     sudo docker compose -f $WORKDIR/docker-compose.yml rm >/dev/null 2>&1
     msg_ok "Cortensor has been stopped."
     msg_info "Removing existing Cortensor..."
-    sudo docker image rm cortensor-image:latest >/dev/null 2>&1
+    sudo docker rmi -f cortensor-image:latest >/dev/null 2>&1
+    sudo docker rmi $(sudo docker images -f "dangling=true" -q) >/dev/null 2>&1
+    sudo docker system prune -f >/dev/null 2>&1
     msg_ok "Old Cortensor has been removed."
     tee Dockerfile > /dev/null << EOF
 FROM ipfs/kubo:v0.33.2 AS ipfs
@@ -227,7 +229,7 @@ fi
 /home/deploy/.cortensor/cortensord .env minerv4 1 docker
 EOF
     msg_info "Building Cortensor..."
-    sudo docker build -t cortensor-image:latest -f Dockerfile . >/dev/null 2>&1
+    sudo docker build --no-cache -t cortensor-image:latest -f Dockerfile . >/dev/null 2>&1
     msg_ok "Cortensor has been built."
     rm -rf Dockerfile run.sh
     msg_ok "Cortensor has been updated."
