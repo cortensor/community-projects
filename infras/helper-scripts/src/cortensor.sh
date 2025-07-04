@@ -126,7 +126,7 @@ fi
 /home/deploy/.cortensor/cortensord .env minerv4 1 docker
 EOF
 msg_info "Building Cortensor..."
-sudo docker build -t cortensor-image:latest -f Dockerfile . >/dev/null 2>&1
+sudo docker build --no-cache -t cortensor-image:latest -f Dockerfile . >/dev/null 2>&1
 msg_ok "Cortensor has been built."
 rm -rf Dockerfile run.sh
 msg_ok "Cortensor has been installed."
