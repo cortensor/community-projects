@@ -1,0 +1,9 @@
+- name: cortensor-chatweb-eliza
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-07-03
+  version: v1.0.1
+  tags: [nextjs, react, typescript, tailwindcss, cortensor, web-app, docker]
