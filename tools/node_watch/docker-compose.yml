@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: watcher-image:latest
+    container_name: node_watcher
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./:/app:rw
+    environment:
+      PYTHONUNBUFFERED: '1'
+    networks:
+      - docker-host
+
+networks:
+  docker-host:
+    driver: bridge
