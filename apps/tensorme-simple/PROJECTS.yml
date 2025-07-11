@@ -1,0 +1,7 @@
+- name: tensorme-simple
+  category: apps
+  owner: "@mrheed"
+  status: active
+  created: 2025-07-12
+  version: v0.1.0
+  tags: [nextjs, web3, chatbot, tensorme]
