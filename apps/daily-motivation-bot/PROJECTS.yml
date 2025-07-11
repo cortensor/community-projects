@@ -1,0 +1,9 @@
+- name: daily-motivation-bot
+  category: apps
+  owner: "@cevening"
+  collaborators:
+    - "@cevening"
+  status: active
+  created: 2025-07-06
+  version: v1.0.0
+  tags: [telegram, python, bot, cortensor, llm]
