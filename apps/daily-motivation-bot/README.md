@@ -71,7 +71,7 @@ python -m venv venv
 
 pip install -r requirements.txt
 
-5. Configure Environment Variables Create a file named .env inside the apps/eliza-chatbot directory and populate it with your credentials.
+5. Configure Environment Variables Create a file named .env inside the apps/daily-motivation-bot directory and populate it with your credentials.
 
 TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN_HERE"
 CORTENSOR_API_URL="YOUR_CORTENSOR_API_ENDPOINT_URL_HERE"
