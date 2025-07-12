@@ -79,7 +79,7 @@ CORTENSOR_API_KEY="YOUR_CORTENSOR_API_KEY_HERE"
 CORTENSOR_SESSION_ID="YOUR_SESSION_ID_HERE"
 
 🚀 Usage
-Once the configuration is complete, run the bot from within the apps/eliza-chatbot directory:
+Once the configuration is complete, run the bot from within the apps/daily-motivation-bot directory:
 
 python src/main.py
 The bot is now running. Open your Telegram app, find your bot, and start a conversation. You can begin by sending the /start command.
