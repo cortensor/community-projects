@@ -1,0 +1,310 @@
+---
+- name: Deploy Cortensor Node
+  hosts: all
+  become: yes
+  vars:
+    cortensor_user: cortensor
+    cortensor_home: "/home/{{ cortensor_user }}/.cortensor"
+    cortensor_bin: "{{ cortensor_home }}/bin"
+    cortensor_logs: "{{ cortensor_home }}/logs"
+    ipfs_version: "v0.33.0"
+    ipfs_package: "kubo_{{ ipfs_version }}_linux-amd64.tar.gz"
+    ipfs_url: "https://github.com/ipfs/kubo/releases/download/{{ ipfs_version }}/{{ ipfs_package }}"
+    installer_repo: "https://github.com/cortensor/installer"
+    temp_dir: "/tmp/cortensor-install"
+
+  vars_files:
+    - keys.yml
+
+  pre_tasks:
+    - name: Set public and private keys based on key_pair_index
+      set_fact:
+        public_key: "{{ vars['public_key_' + (key_pair_index | string)] | default('') }}"
+        private_key: "{{ vars['private_key_' + (key_pair_index | string)] | default('') }}"
+      when: key_pair_index is defined
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install prerequisite packages
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - apt-transport-https
+        state: present
+
+    - name: Create apt keyrings directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Add Docker GPG key
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        filename: docker
+        state: present
+
+    - name: Update apt cache after adding Docker repo
+      apt:
+        update_cache: yes
+
+    - name: Install Docker and additional packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+          - git
+          - jq
+          - lz4
+          - build-essential
+          - unzip
+          - net-tools
+          - fail2ban
+        state: present
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: yes
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Create temporary directory
+      file:
+        path: "{{ temp_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Clone Cortensor installer repository
+      git:
+        repo: "{{ installer_repo }}"
+        dest: "{{ temp_dir }}/installer"
+        version: "{{ cortensor_branch | default('main') }}"
+        force: yes
+
+    - name: Download IPFS package
+      get_url:
+        url: "{{ ipfs_url }}"
+        dest: "{{ temp_dir }}/{{ ipfs_package }}"
+        mode: '0644'
+      register: ipfs_download
+
+    - name: Extract IPFS package
+      unarchive:
+        src: "{{ temp_dir }}/{{ ipfs_package }}"
+        dest: "{{ temp_dir }}"
+        remote_src: yes
+      when: ipfs_download is succeeded
+
+    - name: Install IPFS
+      shell: ./install.sh
+      args:
+        chdir: "{{ temp_dir }}/kubo"
+      register: ipfs_install
+      failed_when: ipfs_install.rc != 0
+
+    - name: Create cortensor user
+      user:
+        name: "{{ cortensor_user }}"
+        groups: sudo,docker
+        append: yes
+        shell: /bin/bash
+        create_home: yes
+      register: user_created
+
+    - name: Create cortensor directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        mode: '0755'
+      loop:
+        - "{{ cortensor_home }}"
+        - "{{ cortensor_bin }}"
+        - "{{ cortensor_logs }}"
+        - "{{ cortensor_home }}/llm-files"
+
+    - name: Copy cortensord binary to system bin
+      copy:
+        src: "{{ temp_dir }}/installer/dist/cortensord"
+        dest: /usr/local/bin/cortensord
+        mode: '0755'
+        remote_src: yes
+
+    - name: Create symbolic link for cortensord
+      file:
+        src: /usr/local/bin/cortensord
+        dest: "{{ cortensor_bin }}/cortensord"
+        state: link
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+
+    - name: Copy start script
+      copy:
+        src: "{{ temp_dir }}/installer/utils/start-linux.sh"
+        dest: "{{ cortensor_bin }}/start-cortensor.sh"
+        mode: '0755'
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        remote_src: yes
+
+    - name: Copy stop script
+      copy:
+        src: "{{ temp_dir }}/installer/utils/stop-linux.sh"
+        dest: "{{ cortensor_bin }}/stop-cortensor.sh"
+        mode: '0755'
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        remote_src: yes
+      
+    - name: Replace cortensor service file user and group
+      ansible.builtin.replace:
+        path: "{{ temp_dir }}/installer/dist/cortensor.service"
+        regexp: '\bdeploy\b'
+        replace: '{{ cortensor_user }}'
+      notify: reload systemd
+
+    - name: Copy systemd service file
+      copy:
+        src: "{{ temp_dir }}/installer/dist/cortensor.service"
+        dest: /etc/systemd/system/cortensor.service
+        mode: '0644'
+        remote_src: yes
+      notify: reload systemd
+    
+    - name: Copy environment template
+      copy:
+        src: "{{ temp_dir }}/installer/dist/.env-example"
+        dest: "{{ cortensor_home }}/.env"
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        mode: '0600'
+        remote_src: yes
+        force: no
+
+    - name: Create log files
+      file:
+        path: "{{ item }}"
+        state: touch
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        mode: '0644'
+      loop:
+        - "{{ cortensor_logs }}/cortensord.log"
+        - "{{ cortensor_logs }}/cortensord-llm.log"
+
+    - name: Move installer directory to user home
+      command: mv "{{ temp_dir }}/installer" "/home/{{ cortensor_user }}/"
+      args:
+        creates: "/home/{{ cortensor_user }}/installer"
+
+    - name: Set ownership of installer directory
+      file:
+        path: "/home/{{ cortensor_user }}/installer"
+        owner: "{{ cortensor_user }}"
+        group: "{{ cortensor_user }}"
+        recurse: yes
+
+    - name: Configure RPC_URL in environment file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env"
+        regexp: '^HOST=.*'
+        line: "HOST={{ rpc_url }}"
+        backup: yes
+      when: rpc_url != ""
+      become_user: "{{ cortensor_user }}"
+
+    - name: Configure ETH_RPC_URL in environment file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env"
+        regexp: '^HOST_MAINNET=.*'
+        line: "HOST_MAINNET={{ eth_rpc_url }}"
+        backup: yes
+      become_user: "{{ cortensor_user }}"
+
+    - name: Configure PUBLIC_KEY in environment file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env"
+        regexp: '^NODE_PUBLIC_KEY=.*'
+        line: "NODE_PUBLIC_KEY={{ public_key }}"
+        backup: yes
+      when: public_key != ""
+      become_user: "{{ cortensor_user }}"
+
+    - name: Configure PRIVATE_KEY in environment file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env"
+        regexp: '^NODE_PRIVATE_KEY=.*'
+        line: "NODE_PRIVATE_KEY={{ private_key }}"
+        backup: yes
+      when: private_key != ""
+      become_user: "{{ cortensor_user }}"
+
+    - name: Configure CONTRACT_ADDRESS_RUNTIME in environment file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env"
+        regexp: '^CONTRACT_ADDRESS_RUNTIME=.*'
+        line: "CONTRACT_ADDRESS_RUNTIME=\"{{ contract_address_runtime }}\""
+        backup: yes
+      when: contract_address_runtime != ""
+      become_user: "{{ cortensor_user }}"
+
+    - name: Enable cortensor service
+      systemd:
+        name: cortensor
+        enabled: yes
+        daemon_reload: yes
+
+    - name: Verify installations
+      shell: "{{ item }}"
+      loop:
+        - "ls -al /usr/local/bin/cortensord"
+        - "ls -al {{ cortensor_bin }}/cortensord"
+        - "ls -al /etc/systemd/system/cortensor.service"
+        - "ls -al {{ cortensor_bin }}/start-cortensor.sh"
+        - "ls -al {{ cortensor_bin }}/stop-cortensor.sh"
+        - "docker version"
+        - "ipfs version"
+      register: verification_results
+      ignore_errors: yes
+
+    - name: Display verification results
+      debug:
+        msg: "{{ item.cmd }}: {{ 'SUCCESS' if item.rc == 0 else 'FAILED' }}"
+      loop: "{{ verification_results.results }}"
+
+    - name: Display registration and verification results
+      debug:
+        msg: |
+          Registration: {{ 'SUCCESS' if register_result.rc == 0 else 'FAILED' }}
+          Verification: {{ 'SUCCESS' if verify_result.rc == 0 else 'FAILED' }}
+
+    - name: Clean up temporary directory
+      file:
+        path: "{{ temp_dir }}"
+        state: absent
+
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes
