@@ -291,7 +291,7 @@ if (whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" 
       fi
     done
     while [ -z "$CONTRACT_ADDRESS_RUNTIME" ]; do
-      if CONTRACT_ADDRESS_RUNTIME=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" --inputbox "Input your contract address runtime (Default: 0x8361E7821bDAD7F8F0aC7862Bebb190B8Da1A160):" 8 60 "0x8361E7821bDAD7F8F0aC7862Bebb190B8Da1A160" 3>&1 1>&2 2>&3); then
+      if CONTRACT_ADDRESS_RUNTIME=$(whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" --inputbox "Input your contract address runtime (Default: 0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7):" 8 60 "0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7" 3>&1 1>&2 2>&3); then
         if [[ $CONTRACT_ADDRESS_RUNTIME != 0x* ]]; then
             whiptail --backtitle "CryptoNodeID Helper Scripts" --title "Cortensor Node" --msgbox "Error: Contract Address Runtime must start with 0x" 8 60
             CONTRACT_ADDRESS_RUNTIME=""
