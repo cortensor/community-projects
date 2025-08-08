@@ -13,8 +13,8 @@
   "check_interval_seconds": 5,
   "grace_period_seconds": 30,
   "rpc_url": "https://arbitrum-sepolia-rpc.publicnode.com",
-  "stats_api_url": "https://lb-be-5.cortensor.network/network-stats-tasks",
-  "reputation_api_url": "https://lb-be-5.cortensor.network/reputation",
-  "session_reputation_api_url": "https://lb-be-5.cortensor.network/session-reputation",
+  "stats_api_url": "https://db-be-6.cortensor.network/network-stats-tasks",
+  "reputation_api_url": "https://db-be-6.cortensor.network/reputation",
+  "session_reputation_api_url": "https://db-be-6.cortensor.network/session-reputation",
   "tx_timeout_seconds": 30
 }
