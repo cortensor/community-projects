@@ -6,3 +6,6 @@
 
 ## v0.1.1 – 2025-08-08
 - Multi Server Multi Instance Deployment
+
+## v0.1.2 – 2025-08-09
+- Add CPU threads setup

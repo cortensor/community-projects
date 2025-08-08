@@ -182,9 +182,9 @@ update_cortensor() {
     
     read -p "Proceed with update? (y/N): " confirm
     if [[ $confirm =~ ^[Yy]$ ]]; then
-        manage_service "stopped" "Stop services"
+        run_playbook "cortensor-services.yml" "target_hosts=$TARGET_HOSTS service_action=stopped" "Stop services"
         run_playbook "cortensor-deploy.yml" "$extra_vars" "Cortensor update"
-        manage_service "started" "Start services"
+        run_playbook "cortensor-services.yml" "target_hosts=$TARGET_HOSTS service_action=started" "Start services"
     else
         print_color $RED "Update cancelled"
     fi

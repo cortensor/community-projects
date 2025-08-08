@@ -211,6 +211,25 @@
             create: yes
           loop: "{{ key_indices }}"
 
+        - name: Calculate threads per instance
+          set_fact:
+            threads_per_instance: >-
+              {{
+                llm_threads
+                | default(((ansible_processor_vcpus | int) - 2) // (key_indices | length))
+                | int
+              }}
+
+
+        - name: Configure LLM_OPTION_CPU_THREADS in environment files
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^LLM_OPTION_CPU_THREADS=.*'
+            line: "LLM_OPTION_CPU_THREADS={{ threads_per_instance }}"
+            create: yes
+          loop: "{{ key_indices }}"
+
+
         - name: Enable GPU for LLM Manager if gpu_enable is 1
           block:
             - name: Enable GPU flags in env file
@@ -294,6 +313,6 @@
         state: absent
 
   handlers:
-    - name: reload rystemd
+    - name: reload systemd
       systemd:
         daemon_reload: yes
