@@ -16,13 +16,6 @@
   vars_files:
     - keys.yml
 
-  pre_tasks:
-    - name: Set public and private keys based on key_pair_index
-      set_fact:
-        public_key: "{{ vars['public_key_' + (key_pair_index | string)] | default('') }}"
-        private_key: "{{ vars['private_key_' + (key_pair_index | string)] | default('') }}"
-      when: key_pair_index is defined
-
   tasks:
     - name: Update apt cache
       apt:
@@ -129,7 +122,6 @@
         append: yes
         shell: /bin/bash
         create_home: yes
-      register: user_created
 
     - name: Create cortensor directories
       file:
@@ -176,128 +168,125 @@
         owner: "{{ cortensor_user }}"
         group: "{{ cortensor_user }}"
         remote_src: yes
-      
-    - name: Replace cortensor service file user and group
-      ansible.builtin.replace:
-        path: "{{ temp_dir }}/installer/dist/cortensor.service"
-        regexp: '\bdeploy\b'
-        replace: '{{ cortensor_user }}'
-      notify: reload systemd
 
-    - name: Copy systemd service file
-      copy:
-        src: "{{ temp_dir }}/installer/dist/cortensor.service"
-        dest: /etc/systemd/system/cortensor.service
-        mode: '0644'
-        remote_src: yes
-      notify: reload systemd
-    
-    - name: Copy environment template
-      copy:
-        src: "{{ temp_dir }}/installer/dist/.env-example"
-        dest: "{{ cortensor_home }}/.env"
-        owner: "{{ cortensor_user }}"
-        group: "{{ cortensor_user }}"
-        mode: '0600'
-        remote_src: yes
-        force: no
+    - name: Prepare key indices per host
+      set_fact:
+        key_indices: "{{ hostvars[inventory_hostname]['key_pair_index'] | string | replace(' ', '') | split(',') }}"
+      when: hostvars[inventory_hostname]['key_pair_index'] is defined
 
-    - name: Create log files
-      file:
-        path: "{{ item }}"
-        state: touch
-        owner: "{{ cortensor_user }}"
-        group: "{{ cortensor_user }}"
-        mode: '0644'
-      loop:
-        - "{{ cortensor_logs }}/cortensord.log"
-        - "{{ cortensor_logs }}/cortensord-llm.log"
+    - name: Deploy multiple instances based on key indices
+      block:
+        - name: Copy environment file for each instance
+          copy:
+            src: "{{ temp_dir }}/installer/dist/.env-example"
+            dest: "{{ cortensor_home }}/.env-{{ item }}"
+            owner: "{{ cortensor_user }}"
+            group: "{{ cortensor_user }}"
+            mode: '0600'
+            remote_src: yes
+            force: no
+          loop: "{{ key_indices }}"
 
-    - name: Move installer directory to user home
-      command: mv "{{ temp_dir }}/installer" "/home/{{ cortensor_user }}/"
-      args:
-        creates: "/home/{{ cortensor_user }}/installer"
+        - name: Configure RPC_URL in environment files
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^HOST=.*'
+            line: "HOST={{ rpc_url }}"
+          when: rpc_url != ""
+          loop: "{{ key_indices }}"
 
-    - name: Set ownership of installer directory
-      file:
-        path: "/home/{{ cortensor_user }}/installer"
-        owner: "{{ cortensor_user }}"
-        group: "{{ cortensor_user }}"
-        recurse: yes
+        - name: Configure ETH_RPC_URL in environment files
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^HOST_MAINNET=.*'
+            line: "HOST_MAINNET={{ eth_rpc_url }}"
+          when: eth_rpc_url != ""
+          loop: "{{ key_indices }}"
 
-    - name: Configure RPC_URL in environment file
-      lineinfile:
-        path: "{{ cortensor_home }}/.env"
-        regexp: '^HOST=.*'
-        line: "HOST={{ rpc_url }}"
-        backup: yes
-      when: rpc_url != ""
-      become_user: "{{ cortensor_user }}"
+        - name: Enable IPFS only for the first instance
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^ENABLE_IPFS_SERVER=.*'
+            line: "ENABLE_IPFS_SERVER={{ '1' if item == key_indices[0] else '0' }}"
+            create: yes
+          loop: "{{ key_indices }}"
 
-    - name: Configure ETH_RPC_URL in environment file
-      lineinfile:
-        path: "{{ cortensor_home }}/.env"
-        regexp: '^HOST_MAINNET=.*'
-        line: "HOST_MAINNET={{ eth_rpc_url }}"
-        backup: yes
-      become_user: "{{ cortensor_user }}"
+        - name: Enable GPU for LLM Manager if gpu_enable is 1
+          block:
+            - name: Enable GPU flags in env file
+              replace:
+                path: "{{ cortensor_home }}/.env-{{ item }}"
+                regexp: '^LLM_OPTION_GPU=.*'
+                replace: "LLM_OPTION_GPU=1"
+              loop: "{{ key_indices }}"
 
-    - name: Configure PUBLIC_KEY in environment file
-      lineinfile:
-        path: "{{ cortensor_home }}/.env"
-        regexp: '^NODE_PUBLIC_KEY=.*'
-        line: "NODE_PUBLIC_KEY={{ public_key }}"
-        backup: yes
-      when: public_key != ""
-      become_user: "{{ cortensor_user }}"
+            - name: Enable GPU container flag in env file
+              replace:
+                path: "{{ cortensor_home }}/.env-{{ item }}"
+                regexp: '^LLM_GPU_CONTAINER=.*'
+                replace: "LLM_GPU_CONTAINER=1"
+              loop: "{{ key_indices }}"
+          when: (gpu_enable | default(0) | int) == 1
 
-    - name: Configure PRIVATE_KEY in environment file
-      lineinfile:
-        path: "{{ cortensor_home }}/.env"
-        regexp: '^NODE_PRIVATE_KEY=.*'
-        line: "NODE_PRIVATE_KEY={{ private_key }}"
-        backup: yes
-      when: private_key != ""
-      become_user: "{{ cortensor_user }}"
+        - name: Enable Docker LLM Manager for all instances
+          replace:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^DOCKER_LLM_MANAGER=.*'
+            replace: 'DOCKER_LLM_MANAGER=1'
+          loop: "{{ key_indices }}"
 
-    - name: Configure CONTRACT_ADDRESS_RUNTIME in environment file
-      lineinfile:
-        path: "{{ cortensor_home }}/.env"
-        regexp: '^CONTRACT_ADDRESS_RUNTIME=.*'
-        line: "CONTRACT_ADDRESS_RUNTIME=\"{{ contract_address_runtime }}\""
-        backup: yes
-      when: contract_address_runtime != ""
-      become_user: "{{ cortensor_user }}"
+        - name: Replace LLM_WORKER_BASE_PORT
+          replace:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^LLM_WORKER_BASE_PORT=.*'
+            replace: "LLM_WORKER_BASE_PORT=20001"
+          loop: "{{ key_indices }}"
 
-    - name: Enable cortensor service
-      systemd:
-        name: cortensor
-        enabled: yes
-        daemon_reload: yes
+        - name: Replace LLM_WORKER_PORT_PREFIX
+          replace:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^LLM_WORKER_PORT_PREFIX=.*'
+            replace: "LLM_WORKER_PORT_PREFIX={{ 100 * (item | int) }}"
+          loop: "{{ key_indices }}"
 
-    - name: Verify installations
-      shell: "{{ item }}"
-      loop:
-        - "ls -al /usr/local/bin/cortensord"
-        - "ls -al {{ cortensor_bin }}/cortensord"
-        - "ls -al /etc/systemd/system/cortensor.service"
-        - "ls -al {{ cortensor_bin }}/start-cortensor.sh"
-        - "ls -al {{ cortensor_bin }}/stop-cortensor.sh"
-        - "docker version"
-        - "ipfs version"
-      register: verification_results
-      ignore_errors: yes
+        - name: Replace LLM_WORKER_CONTAINER_NAME_PREFIX
+          replace:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^LLM_WORKER_CONTAINER_NAME_PREFIX=.*'
+            replace: "LLM_WORKER_CONTAINER_NAME_PREFIX={{ node_prefix }}-{{ item }}-"
+          loop: "{{ key_indices }}"
 
-    - name: Display verification results
-      debug:
-        msg: "{{ item.cmd }}: {{ 'SUCCESS' if item.rc == 0 else 'FAILED' }}"
-      loop: "{{ verification_results.results }}"
+        - name: Inject public key into .env files
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^NODE_PUBLIC_KEY=.*'
+            line: "NODE_PUBLIC_KEY={{ lookup('vars', 'public_key_' + item) }}"
+            create: yes
+          loop: "{{ key_indices }}"
 
-    - name: Display registration and verification results
-      debug:
-        msg: |
-          Registration: {{ 'SUCCESS' if register_result.rc == 0 else 'FAILED' }}
-          Verification: {{ 'SUCCESS' if verify_result.rc == 0 else 'FAILED' }}
+        - name: Inject private key into .env files
+          lineinfile:
+            path: "{{ cortensor_home }}/.env-{{ item }}"
+            regexp: '^NODE_PRIVATE_KEY=.*'
+            line: "NODE_PRIVATE_KEY={{ lookup('vars', 'private_key_' + item) }}"
+            create: yes
+          loop: "{{ key_indices }}"
+
+        - name: Create cortensor service for each key index
+          template:
+            src: cortensor-instance.service.j2
+            dest: /etc/systemd/system/cortensor-{{ item }}.service
+            mode: '0644'
+          loop: "{{ key_indices }}"
+          notify: reload systemd
+
+        - name: Enable each cortensor instance
+          systemd:
+            name: "cortensor-{{ item }}"
+            enabled: yes
+            daemon_reload: yes
+          loop: "{{ key_indices }}"
+      when: key_indices | length > 0
 
     - name: Clean up temporary directory
       file:
@@ -305,6 +294,6 @@
         state: absent
 
   handlers:
-    - name: reload systemd
+    - name: reload rystemd
       systemd:
         daemon_reload: yes

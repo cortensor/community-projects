@@ -1,38 +1,35 @@
 ---
-- name: Manage Cortensor Service
+- name: Manage Cortensor Services
   hosts: "{{ target_hosts | default('all') }}"
   become: yes
   vars:
     action: "{{ service_action | default('status') }}"
-    
+
   tasks:
-    - name: Manage cortensor service
+    - name: Prepare key indices per host
+      set_fact:
+        key_indices: "{{ hostvars[inventory_hostname]['key_pair_index'] | string | replace(' ', '') | split(',') }}"
+      when: hostvars[inventory_hostname]['key_pair_index'] is defined
+
+    - name: Manage cortensor services
       systemd:
-        name: cortensor
+        name: "cortensor-{{ item }}"
         state: "{{ action }}"
         daemon_reload: "{{ 'yes' if action == 'reloaded' else 'no' }}"
       register: service_result
-      when: action in ['started', 'stopped', 'restarted']
+      when: action in ['started', 'stopped', 'restarted', 'reloaded']
+      loop: "{{ key_indices }}"
 
-    - name: Get service status
-      systemd:
-        name: cortensor
-      register: status_result
-      when: action == 'status'
-
+    - name: Gather all service facts
+      service_facts:
+      when: action in ['started', 'stopped', 'restarted', 'reloaded']
+      
     - name: Display service status
       debug:
         msg: |
-          Node: {{ inventory_hostname }}
-          Service: {{ status_result.status.ActiveState | default('unknown') }}
-          Enabled: {{ status_result.status.UnitFileState | default('unknown') }}
-          Since: {{ status_result.status.ActiveEnterTimestamp | default('unknown') }}
-      when: action == 'status'
-
-    - name: Display action result
-      debug:
-        msg: |
-          Node: {{ inventory_hostname }}
-          Action: {{ action }}
-          Result: {{ 'SUCCESS' if service_result is succeeded else 'FAILED' }}
+          Node:  {{ inventory_hostname }}
+          Instance: cortensor-{{ item }}
+          Service:  {{ ansible_facts.services['cortensor-' ~ item ~ '.service'].state  | default('unknown') }}
+          Enabled:  {{ ansible_facts.services['cortensor-' ~ item ~ '.service'].status | default('unknown') }}
       when: action in ['started', 'stopped', 'restarted', 'reloaded']
+      loop: "{{ key_indices }}"
