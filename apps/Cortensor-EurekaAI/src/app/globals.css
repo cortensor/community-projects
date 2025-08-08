@@ -1,0 +1,411 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 97.5%;
+    --foreground: 240 10% 3.9%;
+    --card: 240 10% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 240 10% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 240 10% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+    --user-bubble-background: 240 5.9% 10%;
+    --user-bubble-foreground: 0 0% 98%;
+    --assistant-bubble-background: 240 5.9% 90%;
+    --assistant-bubble-foreground: 240 10% 3.9%;
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 0 0% 83.1%;
+    --user-bubble-background: 214 90% 52%;
+    --user-bubble-foreground: 0 0% 98%;
+    --assistant-bubble-background: 240 3.7% 15.9%;
+    --assistant-bubble-foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { 
+    @apply bg-background text-foreground; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Professional body states for keyboard handling */
+  body.keyboard-visible {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  body.keyboard-transition {
+    transition: none;
+  }
+}
+
+/* Chat bubble responsive styling */
+.chat-bubble {
+  display: inline-block;
+  width: fit-content;
+  min-width: 100px;
+  max-width: 85%;
+}
+
+.chat-bubble-user {
+  max-width: 75%;
+}
+
+.chat-bubble-assistant {
+  max-width: 85%;
+}
+
+/* Mobile responsive chat bubbles */
+@media (max-width: 768px) {
+  .chat-bubble {
+    max-width: 90%;
+  }
+  
+  .chat-bubble-user {
+    max-width: 85%;
+  }
+  
+  .chat-bubble-assistant {
+    max-width: 90%;
+  }
+}
+
+/* Improved animations and transitions */
+@keyframes spin { 
+  from { transform: rotate(0deg); } 
+  to { transform: rotate(360deg); } 
+}
+
+@keyframes sparkle { 
+  0%, 100% { transform: scale(1); opacity: 1; } 
+  50% { transform: scale(1.3); opacity: 0.8; } 
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-from-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slide-in-from-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.duration-300 {
+  animation-duration: 0.3s;
+}
+
+/* Custom scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent-foreground));
+}
+
+/* Better prose styling */
+.prose {
+  color: inherit !important;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: inherit !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.prose p {
+  color: inherit !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose strong {
+  color: inherit !important;
+  font-weight: 600;
+}
+
+.prose code {
+  color: inherit !important;
+  background-color: hsl(var(--muted)) !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.875em !important;
+}
+
+.prose pre {
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 0.5rem !important;
+}
+
+.prose blockquote {
+  border-left: 4px solid hsl(var(--border)) !important;
+  color: inherit !important;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .prose {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .prose h1, .prose h2, .prose h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  .prose h4, .prose h5, .prose h6 {
+    font-size: 1rem !important;
+  }
+}
+
+/* Improved button focus states */
+button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Better scrollbar for mobile */
+@media (max-width: 768px) {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
+/* Enhanced Loading Screen Animations */
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes text-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.2); }
+}
+
+@keyframes typing {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes progress-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 31.416; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -31.416; }
+}
+
+/* Mobile optimization */
+@layer utilities {
+  .mobile-scroll-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .mobile-input-safe {
+    min-height: 44px; /* iOS touch target minimum */
+  }
+  
+  /* Professional keyboard handling */
+  .keyboard-adaptive {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .keyboard-visible {
+    transform: translateY(0);
+  }
+  
+  /* Prevent zoom on inputs for iOS */
+  @media screen and (max-width: 768px) {
+    input, textarea, select {
+      font-size: 16px !important;
+      line-height: 1.5;
+    }
+    
+    /* Professional focus styles for mobile */
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
+  }
+  
+  /* Professional scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.3);
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.5);
+  }
+}
+
+/* Professional mobile keyboard handling */
+@media screen and (max-width: 768px) {
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  /* Handle viewport units properly */
+  .mobile-height {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+  }
+  
+  /* Professional keyboard transitions */
+  .keyboard-transition {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* Smooth keyboard overlay */
+  .keyboard-overlay {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Professional input styling */
+  .mobile-input {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 12px 16px;
+    line-height: 1.5;
+  }
+  
+  /* Better touch targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* iOS specific professional fixes */
+@supports (-webkit-appearance: none) {
+  .ios-scroll-fix {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Professional iOS input handling */
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"], 
+  textarea {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+  }
+  
+  /* Disable iOS zoom on inputs */
+  @media screen and (max-device-width: 768px) {
+    input, textarea, select {
+      font-size: 16px !important;
+      transform: scale(1);
+    }
+  }
+  
+  /* Professional iOS keyboard handling */
+  .ios-keyboard-fix {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    transition: transform 0.3s ease-out;
+  }
+}

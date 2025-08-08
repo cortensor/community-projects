@@ -1,0 +1,9 @@
+- name: cortensor-eureka-ai
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-08-08
+  version: v1.2.0
+  tags: [nextjs, react, typescript, tailwindcss, shadcn-ui, cortensor, web-app]

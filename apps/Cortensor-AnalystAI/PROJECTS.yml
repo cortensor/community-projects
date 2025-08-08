@@ -1,0 +1,9 @@
+- name: cortensor-analyst-bot
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-08-01
+  version: v1.0.0
+  tags: [nextjs, react, typescript, tailwindcss, shadcn-ui, cortensor, telegram-app]

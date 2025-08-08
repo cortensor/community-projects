@@ -1,0 +1,12 @@
+python-telegram-bot
+urllib3<2.0
+requests
+python-dotenv
+apscheduler
+tinydb
+alpha-vantage 
+pandas
+thefuzz[speedup]
+yfinance
+SQLAlchemy<2.0 
+pytz       
