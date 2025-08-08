@@ -5,12 +5,23 @@ all:
         node1:
           ansible_host: 192.168.1.10
           key_pair_index: 1
+          gpu_enabled: 0 # set to 1 if GPU is available
         node2:
           ansible_host: 192.168.1.11
           key_pair_index: 2
+          gpu_enabled: 0
         node3:
           ansible_host: 192.168.1.12
           key_pair_index: 3
+          gpu_enabled: 0
+        node3:
+          ansible_host: 192.168.1.13
+          key_pair_index: "4, 5, 6, 7" # Multiple keys can be used for the same node, quote is a must for multiple keys
+          gpu_enabled: 0
+        node4:
+          ansible_host: 192.168.1.14
+          key_pair_index: "11, 18" # Follow the numbering, not the index position
+          gpu_enabled: 0
       vars:
         ansible_user: ubuntu
         ansible_ssh_private_key_file: ~/.ssh/id_rsa
@@ -18,3 +29,4 @@ all:
         eth_rpc_url: https://ethereum-rpc.publicnode.com
         contract_address_runtime: "0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7"
         cortensor_branch: main
+        node_prefix: "CNID"

@@ -1,7 +1,7 @@
 # Project Status – Cortensor Ansible
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.1.0
+**Current Version:** v0.1.1
 **Status:** Active
 
 ---
@@ -10,6 +10,7 @@
 
 - Installation for cortensor node
 - Node Management
+- Multi Server Multi Instance Deployment
 
 ## 🔧 Next Steps
 

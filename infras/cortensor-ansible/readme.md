@@ -15,8 +15,8 @@ This repository contains scripts and playbooks for deploying Cortensor infrastru
 ## Setup
 
 1. Review and update the inventory and configuration files as needed:
-   - `inventory.yml`: Define your target hosts and group variables.
-   - `keys.yml`: Manage your SSH keys and credentials.
+   - `inventory.yml`: Define your servers and keypair, username and keys for SSH, rpc and other variables.
+   - `keys.yml`: Wallet Private and Public Keys.
 
 2. Ensure you have the necessary permissions and access to manage the target nodes.
 
