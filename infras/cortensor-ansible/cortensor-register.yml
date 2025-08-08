@@ -1,0 +1,74 @@
+---
+- name: Register and Verify Cortensor Nodes
+  hosts: all
+  become: yes
+  vars:
+    cortensor_user: cortensor
+    cortensor_home: "/home/{{ cortensor_user }}/.cortensor"
+
+  vars_files:
+    - keys.yml
+
+  pre_tasks:
+    - name: Set public and private keys based on key_pair_index
+      set_fact:
+        public_key: "{{ vars['public_key_' + (key_pair_index | string)] | default('') }}"
+        private_key: "{{ vars['private_key_' + (key_pair_index | string)] | default('') }}"
+      when: key_pair_index is defined
+
+    - name: Check if cortensor is installed
+      stat:
+        path: /usr/local/bin/cortensord
+      register: cortensord_binary
+
+    - name: Check if environment file exists
+      stat:
+        path: "{{ cortensor_home }}/.env"
+      register: cortensor_env
+
+    - name: Fail if cortensor is not installed
+      fail:
+        msg: "Cortensor is not installed. Please run the deployment playbook first."
+      when: not cortensord_binary.stat.exists or not cortensor_env.stat.exists
+
+  tasks:
+
+    - name: Register cortensor tool
+      shell: /usr/local/bin/cortensord "{{ cortensor_home }}/.env" tool register
+      become_user: "{{ cortensor_user }}"
+      register: register_result
+      failed_when: false
+      changed_when: register_result.rc == 0
+
+    - name: Display registration result
+      debug:
+        msg: |
+          Registration Status: {{ 'SUCCESS' if register_result.rc == 0 else 'FAILED' }}
+          Output: {{ register_result.stdout }}
+          {% if register_result.stderr %}
+          Error: {{ register_result.stderr }}
+          {% endif %}
+
+    - name: Wait for registration to complete
+      pause:
+        seconds: 5
+      when: register_result.rc == 0
+
+    - name: Verify cortensor tool
+      shell: /usr/local/bin/cortensord "{{ cortensor_home }}/.env" tool verify
+      become_user: "{{ cortensor_user }}"
+      register: verify_result
+      failed_when: false
+      changed_when: verify_result.rc == 0
+
+    - name: Check cortensor service status
+      systemd:
+        name: cortensor
+      register: service_status
+      failed_when: false
+
+    - name: Display service status
+      debug:
+        msg: |
+          Service Status: {{ service_status.status.ActiveState | default('unknown') }}
+          Enabled: {{ service_status.status.UnitFileState | default('unknown') }}

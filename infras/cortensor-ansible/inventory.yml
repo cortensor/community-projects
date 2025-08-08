@@ -1,0 +1,20 @@
+all:
+  children:
+    cortensor_nodes:
+      hosts:
+        node1:
+          ansible_host: 192.168.1.10
+          key_pair_index: 1
+        node2:
+          ansible_host: 192.168.1.11
+          key_pair_index: 2
+        node3:
+          ansible_host: 192.168.1.12
+          key_pair_index: 3
+      vars:
+        ansible_user: ubuntu
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa
+        rpc_url: https://arb-sepolia.cryptonode.id # Contact me for whitelist
+        eth_rpc_url: https://ethereum-rpc.publicnode.com
+        contract_address_runtime: "0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7"
+        cortensor_branch: main

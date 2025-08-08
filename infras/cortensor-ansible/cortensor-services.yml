@@ -1,0 +1,38 @@
+---
+- name: Manage Cortensor Service
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  vars:
+    action: "{{ service_action | default('status') }}"
+    
+  tasks:
+    - name: Manage cortensor service
+      systemd:
+        name: cortensor
+        state: "{{ action }}"
+        daemon_reload: "{{ 'yes' if action == 'reloaded' else 'no' }}"
+      register: service_result
+      when: action in ['started', 'stopped', 'restarted']
+
+    - name: Get service status
+      systemd:
+        name: cortensor
+      register: status_result
+      when: action == 'status'
+
+    - name: Display service status
+      debug:
+        msg: |
+          Node: {{ inventory_hostname }}
+          Service: {{ status_result.status.ActiveState | default('unknown') }}
+          Enabled: {{ status_result.status.UnitFileState | default('unknown') }}
+          Since: {{ status_result.status.ActiveEnterTimestamp | default('unknown') }}
+      when: action == 'status'
+
+    - name: Display action result
+      debug:
+        msg: |
+          Node: {{ inventory_hostname }}
+          Action: {{ action }}
+          Result: {{ 'SUCCESS' if service_result is succeeded else 'FAILED' }}
+      when: action in ['started', 'stopped', 'restarted', 'reloaded']
