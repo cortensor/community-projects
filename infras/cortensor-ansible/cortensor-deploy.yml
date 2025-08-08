@@ -294,6 +294,6 @@
         state: absent
 
   handlers:
-    - name: reload rystemd
+    - name: reload systemd
       systemd:
         daemon_reload: yes
