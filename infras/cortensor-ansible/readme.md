@@ -5,11 +5,11 @@
 cortensor-ansible/
 ├── ansible.cfg
 ├── inventories/
+│   ├── group_vars/
+│   │   └── all/
+│   │       ├── main.yml
+│   │       └── keys.yml
 │   └── hosts.yml
-├── group_vars/
-│   └── all/
-│       ├── main.yml
-│       └── keys.yml
 ├── roles/
 │   ├── cortensor/
 │   │   ├── handlers/
@@ -56,7 +56,8 @@ This repository contains scripts and playbooks for deploying Cortensor infrastru
 ## Setup
 
 1. Review and update the inventory and configuration files as needed:
-   - `inventories/hosts.yml`: Define your servers and keypair, username and keys for SSH, rpc and other variables.
+   - `inventories/hosts.yml`: Define your servers, keys amd other parameter related to cortensor nodes.
+   - `inventories/group_vars/all/main.yml`: Define username and keys for SSH, rpc and other variables.
    - `inventories/group_vars/all/keys.yml`: Wallet Private and Public Keys.
 
 2. Ensure you have the necessary permissions and access to manage the target nodes.
