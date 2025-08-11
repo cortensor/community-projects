@@ -1,0 +1,9 @@
+---
+- name: Register Cortensor Instances
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  tasks:
+    - name: Include cortensor register
+      include_role:
+        name: cortensor
+        tasks_from: register.yml

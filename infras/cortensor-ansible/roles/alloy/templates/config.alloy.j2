@@ -1,0 +1,98 @@
+// ==============
+// LOGS
+// ==============
+local.file_match "cortensor_logs" {
+  path_targets = [
+    {
+      __address__ = "localhost",
+      __path__    = "/var/log/cortensord-*.log",
+    },
+  ]
+}
+
+discovery.relabel "cortensor_logs" {
+  targets = local.file_match.cortensor_logs.targets
+  
+  rule {
+    action       = "replace"
+    source_labels = ["__path__"]
+    regex        = ".*/([^/]+)$"
+    target_label = "filename"
+    replacement  = "${1}"
+  }
+  
+  rule {
+    action       = "replace"
+    source_labels = ["filename"]
+    regex        = "(cortensord-[0-9]+)\\.log"
+    target_label = "instance"
+    replacement  = "${1}"
+  }
+    
+  rule {
+    action       = "replace"
+    target_label = "host"
+    replacement  = "{{ inventory_hostname }}"
+  }
+  
+  rule {
+    action       = "replace"
+    target_label = "job"
+    replacement  = "cortensor_logs"
+  }
+}
+
+loki.source.file "cortensor" {
+  targets       = discovery.relabel.cortensor_logs.output
+  forward_to    = [loki.write.default.receiver]
+  tail_from_end = true
+}
+
+loki.write "default" {
+  endpoint {
+    url = "{{ log_shipping_url }}"
+  }
+}
+
+{% if metric_shipping_url is defined and metric_shipping_url|length > 0 -%}
+// =====================
+// METRICS
+// =====================
+prometheus.exporter.unix "node" {
+  enable_collectors  = ["systemd", "ethtool"]
+  disable_collectors = ["btrfs"]
+  
+  filesystem {
+    mount_points_exclude = "^(?:/dev|/proc|/sys|/run/credentials/.+|/var/lib/docker/.+)($|/)"
+  }
+}
+
+discovery.relabel "node_targets" {
+  targets = prometheus.exporter.unix.node.targets
+  
+  rule {
+    action       = "replace"
+    target_label = "host"
+    replacement  = "{{ inventory_hostname }}"
+  }
+  rule {
+    action       = "replace"
+    target_label = "job"
+    replacement  = "cortensor_node"
+  }
+}
+
+prometheus.scrape "node" {
+  targets         = discovery.relabel.node_targets.output
+  job_name        = "cortensor_node"
+  scrape_interval = "15s"
+  scrape_timeout  = "10s"
+  forward_to      = [prometheus.remote_write.default.receiver]
+}
+
+prometheus.remote_write "default" {
+  endpoint {
+    url = "{{ metric_shipping_url }}"
+  }
+}
+{% endif -%}

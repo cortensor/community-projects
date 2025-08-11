@@ -1,7 +1,7 @@
 # Project Status – Cortensor Ansible
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.1.2
+**Current Version:** v0.2.0
 **Status:** Active
 
 ---
@@ -12,6 +12,8 @@
 - Node Management
 - Multi Server Multi Instance Deployment
 - CPU threads setup
+- Log separation for each instance
+- Added monitoring installation
 
 ## 🔧 Next Steps
 
