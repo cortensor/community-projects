@@ -26,9 +26,9 @@ sed -i 's/yourdomain.com/your-real-domain.com/g' config/nginx.conf
 To ensure proper permissions for Grafana and Loki, execute the following commands:
 
 ```bash
+mkdir -p loki-data/ mimir-data/ minio-data/
 # Change permissions for Grafana
 sudo chown -R 472:472 grafana-data/
-
 # Change permissions for Loki
 sudo chown -R 10001:10001 loki-data/
 ```
