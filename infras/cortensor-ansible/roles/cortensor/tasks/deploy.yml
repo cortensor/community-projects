@@ -59,6 +59,14 @@
       loop: "{{ key_indices }}"
   when: (gpu_enable | default(0) | int) == 1
 
+- name: Enable Docker LLM GPU Threshold for all instances
+  replace:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_OPTION_GPU_THRESHOLD=.*'
+    replace: 'LLM_OPTION_GPU_THRESHOLD={{ gpu_threshold | default(0) }}'
+  loop: "{{ key_indices }}"
+  when: gpu_threshold is defined
+
 - name: Enable Docker LLM Manager for all instances
   replace:
     path: "{{ cortensor_home }}/.env-{{ item }}"
