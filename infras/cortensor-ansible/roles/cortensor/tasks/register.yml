@@ -5,7 +5,7 @@
   when: hostvars[inventory_hostname]['key_pair_index'] is defined
 
 - name: Register cortensor for each instance
-  shell: "{{ cortensor_bin }}/cortensord register --env {{ cortensor_home }}/.env-{{ item }}"
+  shell: "{{ cortensor_bin }}/cortensord {{ cortensor_home }}/.env-{{ item }} tool register"
   args:
     executable: /bin/bash
   become_user: "{{ cortensor_user }}"
@@ -15,7 +15,7 @@
   ignore_errors: yes
 
 - name: Verify cortensor instance
-  shell: "{{ cortensor_bin }}/cortensord verify --env {{ cortensor_home }}/.env-{{ item }}"
+  shell: "{{ cortensor_bin }}/cortensord {{ cortensor_home }}/.env-{{ item }} tool verify"
   args:
     executable: /bin/bash
   become_user: "{{ cortensor_user }}"
