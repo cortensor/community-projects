@@ -1,0 +1,7 @@
+---
+- name: Deploy Cortensor Nodes
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  roles:
+    - role: cortensor
+      tags: [install, deploy]

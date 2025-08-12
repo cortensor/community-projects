@@ -1,0 +1,8 @@
+---
+- import_tasks: install.yml
+  when:
+    - enable_log_shipping | default(false) | bool
+    - log_shipping_url is defined
+    - (log_shipping_url | length) > 0
+    - ansible_os_family == "Debian"
+  tags: [alloy, logging]

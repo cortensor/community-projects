@@ -6,8 +6,8 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INVENTORY_FILE="inventory.yml"
-KEYS_FILE="keys.yml"
+INVENTORY_FILE="inventories/hosts.yml"
+KEYS_FILE="inventories/group_vars/all/keys.yml"
 LOG_DIR="${SCRIPT_DIR}/logs"
 LOG_FILE="${LOG_DIR}/cortensor-$(date +%Y%m%d).log"
 
@@ -157,9 +157,29 @@ deploy_cortensor() {
     
     read -p "Proceed with deployment? (y/N): " confirm
     if [[ $confirm =~ ^[Yy]$ ]]; then\
-        run_playbook "cortensor-deploy.yml" "$extra_vars" "Cortensor deployment"
+        run_playbook "playbooks/deploy.yml" "$extra_vars" "Cortensor deployment"
     else
         print_color $RED "Deployment cancelled"
+    fi
+}
+
+install_monitoring() {
+    echo "=== Monitoring Installation ==="
+    
+    get_target_hosts
+    
+    local extra_vars="target_hosts=$TARGET_HOSTS"
+    
+    echo ""
+    echo "Monitoring Configuration:"
+    echo "  Targets: $TARGET_HOSTS"
+    echo ""
+    
+    read -p "Proceed with monitoring installation? (y/N): " confirm
+    if [[ $confirm =~ ^[Yy]$ ]]; then
+        run_playbook "playbooks/monitor.yml" "$extra_vars" "Monitoring installation"
+    else
+        print_color $RED "Monitoring installation cancelled"
     fi
 }
 
@@ -182,9 +202,9 @@ update_cortensor() {
     
     read -p "Proceed with update? (y/N): " confirm
     if [[ $confirm =~ ^[Yy]$ ]]; then
-        run_playbook "cortensor-services.yml" "target_hosts=$TARGET_HOSTS service_action=stopped" "Stop services"
-        run_playbook "cortensor-deploy.yml" "$extra_vars" "Cortensor update"
-        run_playbook "cortensor-services.yml" "target_hosts=$TARGET_HOSTS service_action=started" "Start services"
+        run_playbook "playbooks/services.yml" "target_hosts=$TARGET_HOSTS service_action=stop" "Stop services"
+        run_playbook "playbooks/deploy.yml" "$extra_vars" "Cortensor update"
+        run_playbook "playbooks/services.yml" "target_hosts=$TARGET_HOSTS service_action=start" "Start services"
     else
         print_color $RED "Update cancelled"
     fi
@@ -208,7 +228,7 @@ manage_service() {
     
     read -p "Proceed with $action? (y/N): " confirm
     if [[ $confirm =~ ^[Yy]$ ]]; then
-        run_playbook "cortensor-services.yml" "$extra_vars" "$description"
+        run_playbook "playbooks/services.yml" "$extra_vars" "$description"
     else
         print_color $RED "$description cancelled"
     fi
@@ -228,7 +248,7 @@ register_nodes() {
     
     read -p "Proceed with registration? (y/N): " confirm
     if [[ $confirm =~ ^[Yy]$ ]]; then
-        run_playbook "cortensor-register.yml" "$extra_vars" "Node registration"
+        run_playbook "playbooks/register.yml" "$extra_vars" "Node registration"
     else
         print_color $RED "Registration cancelled"
     fi
@@ -241,21 +261,7 @@ check_status() {
     
     local extra_vars="target_hosts=$TARGET_HOSTS service_action=status"
     
-    run_playbook "cortensor-services.yml" "$extra_vars" "Status check"
-}
-
-show_logs() {
-    echo "=== Recent Logs ==="
-    
-    if [[ -f "$LOG_FILE" ]]; then
-        echo "Showing last 20 lines from $LOG_FILE:"
-        echo ""
-        tail -n 20 "$LOG_FILE"
-    else
-        echo "No log file found at $LOG_FILE"
-    fi
-    
-    echo ""
+    run_playbook "playbooks/services.yml" "$extra_vars" "Status check"
 }
 
 show_system_info() {
@@ -281,12 +287,12 @@ show_menu() {
     echo "════════════════════════════════════════"
     echo "  1) Deploy Cortensor nodes             "
     echo "  2) Update Cortensor binary            "
-    echo "  3) Start services                     "
-    echo "  4) Stop services                      "
-    echo "  5) Restart services                   "
-    echo "  6) Check status                       "
-    echo "  7) Register/Verify nodes              "
-    echo "  8) Show logs                          "
+    echo "  3) Install monitoring                 "
+    echo "  4) Start services                     "
+    echo "  5) Stop services                      "
+    echo "  6) Restart services                   "
+    echo "  7) Check status                       "
+    echo "  8) Register/Verify nodes              "
     echo "  9) System information                 "
     echo "  q) Quit                               "
     echo "════════════════════════════════════════"
@@ -309,22 +315,22 @@ main() {
                 update_cortensor
                 ;;
             3)
-                manage_service "started" "Start services"
+                install_monitoring
                 ;;
             4)
-                manage_service "stopped" "Stop services"
+                manage_service "start" "Start services"
                 ;;
             5)
-                manage_service "restarted" "Restart services"
+                manage_service "stop" "Stop services"
                 ;;
             6)
-                check_status
+                manage_service "restart" "Restart services"
                 ;;
             7)
-                register_nodes
+                check_status
                 ;;
             8)
-                show_logs
+                register_nodes
                 ;;
             9)
                 show_system_info
