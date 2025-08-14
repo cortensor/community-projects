@@ -40,7 +40,7 @@
     create: yes
   loop: "{{ key_indices }}"
 
-- name: Enable GPU for LLM Manager if gpu_enable is 1
+- name: Enable GPU for LLM Manager if gpu_enabled is 1
   block:
     - name: Enable GPU flag in env file
       lineinfile:
@@ -57,7 +57,7 @@
         line: 'LLM_GPU_CONTAINER=1'
         create: yes
       loop: "{{ key_indices }}"
-  when: (gpu_enable | default(0) | int) == 1
+  when: (gpu_enabled | default(0) | int) == 1
 
 - name: Enable Docker LLM GPU Threshold for all instances
   replace:
