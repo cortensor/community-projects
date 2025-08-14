@@ -1,0 +1,180 @@
+auto everything
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh
+
+
+Respect available VRAM automatically (≈90% of GPU 0)
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh \
+  --vram-cap auto
+
+
+Hard VRAM cap (e.g., 10 GiB)
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh \
+  --vram-cap 10GiB
+
+
+Manual -ngl span and thread sweep:
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh \
+  --ngl 10-33 \
+  --threads 8:2:32 \
+  --step 1 --repeats 2 --gpu 0
+
+
+llama.cpp binary (not a .llamafile)
+
+python3 tune_llamafile.py \
+  --binary ./main \
+  --model ./your_model.gguf \
+  --ngl auto --exec-via direct
+
+
+ngl= layers to test
+threads lowest to test:step:highest
+--repeats=how many times to test each step --step=after base run stepping of threads in ladder
+--vram-cap= vram limit will test layers up to this value
+
+
+What the tool does
+
+Auto‑detects total layers and model size with tiny probes, by reading lines such as offloaded X/Y layers to GPU and model size = … GiB.
+Optionally caps by VRAM (--vram-cap) and computes the maximum -ngl that fits (accounts for KV + compute buffers plus weights).
+Finds best CPU threads per -ngl via a first sweep + small hill‑climb (±1 by default).
+Records tokens/s, wall time, peak GPU MiB and CPU RSS, and writes CSV/JSON summaries.
+
+It works with:
+llamafile binaries (e.g., ./llava-v1.5-7b-q4.llamafile) — often need --exec-via sh.
+llama.cpp CLIs (pass your --model GGUF path).
+Your logs confirm all of the above information is printed at startup and during timings.
+
+Key concepts you’ll see in the logs
+Layer count. LLaMA‑2‑7B has 32 repeating blocks; logs show offloaded 10/33 layers to GPU (first number = offloaded, second = total incl. embedding heads; we use this to compute the max). 
+Buffers that cost VRAM. At ctx=4096 your run showed:
+CUDA0 KV buffer size = 640.00 MiB
+CUDA0 compute buffer size = 353.00 MiB
+Those are fixed-ish overheads that exist even before weights; they explain why a tiny --vram-cap may still force -ngl 0. 
+
+Throughput metric. The tuner pulls the decode speed from lines like:
+eval time = … ( … ms per token, **9.90 tokens per second** ) (decode)
+sample time = … ( … ms per token, **28708.13 tokens per second** ) (sampler)
+Timings often print to stderr; the tuner merges stdout+stderr when parsing.
+
+Practical tuning order (with spare VRAM)
+Max out -ngl (all layers) if VRAM allows; verify with the offloaded X/Y line.
+Keep KV on GPU; scale --ctx-size as needed (KV scales with it).
+Raise --ubatch until tokens/s plateaus (watch compute buffer size).
+If supported, try --flash-attn 1 / Tensor‑Core paths and re‑measure.
+
+Lock in the best threads per ngl (the tuner reports them).
+
+All important options (cheat‑sheet)
+
+Required
+--binary PATH
+Path to your runner (.llamafile or llama.cpp CLI).
+
+Model path (llama.cpp only)
+--model PATH
+GGUF file path (ignored by .llamafile).
+
+Execution
+--exec-via {auto|direct|sh|bash} (default: auto)
+Many .llamafile builds need --exec-via sh (you’ve seen “ENOEXEC” and a file: DOS/MBR boot sector hint; using sh fixes it). 
+
+Offload search (GPU layers)
+--ngl auto (default) → run 1‑token probes to detect total layers and choose a sensible span.
+
+If total layers ≥ 10 ⇒ tests 10..max; else 1..max.
+--ngl A-B or A,B,C or A:step:B → explicit layer counts to test.
+
+VRAM cap (clamps -ngl)
+--vram-cap {NMiB|NGiB|NMB|NGB|auto}
+
+auto ≈ 90% of GPU‑0 total.
+The tuner estimates per‑layer MiB and overhead (KV+compute) from probes, then sets:
+
+ngl_max ≈ floor( (cap_mib - overhead_mib) / per_layer_mib )
+
+CPU thread search
+
+--threads LIST|RANGE for the first NGL (e.g., 16:2:32 or 8,12,16,20).
+
+If omitted: auto plan starts at ~50% of physical cores, then +2,+4,+6.
+
+--step 1 (default) hill‑climbs ±1 around the previous best for subsequent NGLs.
+
+--threads-min, --threads-max (default max = physical cores).
+
+--reserve-cores (default 2) keeps cores for OS/IO.
+
+Generation knobs (passed through to the binary)
+
+--prompt, -n/--n-predict, --ctx-size, --seed, --temp, --top-p, --top-k, --extra-args
+(e.g., --extra-args "--ubatch 512 --flash-attn 1" if your build supports those flags).
+Your logs showed n_batch = 2048, n_ubatch = 512, flash_attn = 0 by default. 
+
+GPU/device & runtime
+
+--gpu 0 (select device), --no-gpu-mon (disable VRAM peak monitor), --timeout (per run).
+
+--outdir (default tune_runs), --no-preflight (skip the help/probing sanity checks).
+
+Typical recipes
+
+A. “Just tune it” on GPU 0
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh --gpu 0
+
+
+What you’ll see:
+
+An auto‑probe block (detected total layers, model size, per‑layer/overhead estimates).
+
+A thread sweep for the first NGL, then small hill‑climbs (±1) for the rest.
+
+Per‑NGL best result lines, e.g., best threads=20 median tok/s=….
+
+B. Fit an exact VRAM budget and search inside it
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile --exec-via sh \
+  --vram-cap 10GiB
+
+
+The probe estimates how many layers fit under 10 GiB given your KV/compute overhead, then tests ngl up to that cap. 
+
+C. Chase more GPU utilization with bigger micro‑batch
+
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile --exec-via sh \
+  --ngl auto --vram-cap auto \
+  --extra-args "--ubatch 768" \
+  --step 1 --repeats 2
+
+
+Larger --ubatch increases compute buffer VRAM and often improves prefill speed until a plateau. The tuner's VRAM math adapts accordingly (you’ll see the compute buffer size change in logs). 
+
+D. Small VRAM cards (try to keep some offload)
+
+# shrink context; KV scales with ctx
+python3 tune_llamafile.py \
+  --binary ./llava-v1.5-7b-q4.llamafile --exec-via sh \
+  --ctx-size 1024 --vram-cap 1GiB
+
+
+Lower --ctx-size cuts the KV buffer substantially (your KV was ~640 MiB at 4096), allowing a few layers to fit. 
+
+Note: Flags like --ubatch, --flash-attn, or “no‑KV‑offload” variants depend on your build; check -h in your runner. The tuner passes them through via --extra-args. Your logs clearly show whether they’re active at startup.
+
