@@ -1,0 +1,9 @@
+- name: cortensor-truth-bot
+  category: apps
+  owner: "@sanzo_sadik"
+  collaborators:
+    - "@sanzo_sadik"
+  status: active
+  created: 2025-06-06
+  version: v0.2.0
+  tags: [telegram, llm, bot]
