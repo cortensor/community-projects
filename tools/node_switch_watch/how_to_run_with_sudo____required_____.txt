@@ -1,0 +1,22 @@
+sudo visudo -f /etc/sudoers.d/cortensor-watcher
+
+
+then
+
+
+# Allow deploy to restart cortensor services without a password
+Cmnd_Alias CORTENSOR_CMDS = /bin/systemctl restart cortensor-*, /bin/systemctl status cortensor-*
+deploy ALL=(root) NOPASSWD: CORTENSOR_CMDS
+
+
+then
+
+set in config
+
+{
+  "use_sudo": true,
+  "sudo_path": "/usr/bin/sudo",
+  "sudo_non_interactive": true,
+  "systemctl_path": "/bin/systemctl",
+  "restart_dry_run": false
+}
