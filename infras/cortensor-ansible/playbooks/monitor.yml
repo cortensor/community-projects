@@ -1,0 +1,7 @@
+---
+- name: Install Cortensor Nodes Log Monitoring
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  roles:
+    - role: alloy
+      tags: [install, logging]

@@ -1,0 +1,9 @@
+- name: cortensor-grafana
+  category: infras
+  owner: "@CryptoNodeRedd"
+  collaborators:
+    - "@CryptoNodeRedd"
+  status: active
+  created: 2025-08-12
+  version: v0.1.0
+  tags: [infrastructure, monitoring, logging]

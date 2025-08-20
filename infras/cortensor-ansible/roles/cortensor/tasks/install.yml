@@ -1,0 +1,152 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install prerequisite packages
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - apt-transport-https
+    state: present
+
+- name: Create apt keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Add Docker GPG key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    filename: docker
+    state: present
+
+- name: Update apt cache after adding Docker repo
+  apt:
+    update_cache: yes
+
+- name: Install Docker and additional packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+      - git
+      - jq
+      - lz4
+      - build-essential
+      - unzip
+      - net-tools
+      - fail2ban
+    state: present
+
+- name: Upgrade all packages
+  apt:
+    upgrade: yes
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Clone Cortensor installer repository
+  git:
+    repo: "{{ installer_repo }}"
+    dest: "{{ temp_dir }}/installer"
+    version: "{{ cortensor_branch | default('main') }}"
+    force: yes
+
+- name: Download IPFS package
+  get_url:
+    url: "{{ ipfs_url }}"
+    dest: "{{ temp_dir }}/{{ ipfs_package }}"
+    mode: '0644'
+  register: ipfs_download
+
+- name: Extract IPFS package
+  unarchive:
+    src: "{{ temp_dir }}/{{ ipfs_package }}"
+    dest: "{{ temp_dir }}"
+    remote_src: yes
+  when: ipfs_download is succeeded
+
+- name: Install IPFS
+  shell: ./install.sh
+  args:
+    chdir: "{{ temp_dir }}/kubo"
+  register: ipfs_install
+  failed_when: ipfs_install.rc != 0
+
+- name: Create cortensor user
+  user:
+    name: "{{ cortensor_user }}"
+    groups: sudo,docker
+    append: yes
+    shell: /bin/bash
+    create_home: yes
+
+- name: Create cortensor directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ cortensor_user }}"
+    group: "{{ cortensor_user }}"
+    mode: '0755'
+  loop:
+    - "{{ cortensor_home }}"
+    - "{{ cortensor_bin }}"
+    - "{{ cortensor_logs }}"
+    - "{{ cortensor_home }}/llm-files"
+
+- name: Copy cortensord binary to system bin
+  copy:
+    src: "{{ temp_dir }}/installer/dist/cortensord"
+    dest: /usr/local/bin/cortensord
+    mode: '0755'
+    remote_src: yes
+
+- name: Create symbolic link for cortensord
+  file:
+    src: /usr/local/bin/cortensord
+    dest: "{{ cortensor_bin }}/cortensord"
+    state: link
+    owner: "{{ cortensor_user }}"
+    group: "{{ cortensor_user }}"
+
+- name: Copy start script
+  copy:
+    src: "{{ temp_dir }}/installer/utils/start-linux.sh"
+    dest: "{{ cortensor_bin }}/start-cortensor.sh"
+    mode: '0755'
+    owner: "{{ cortensor_user }}"
+    group: "{{ cortensor_user }}"
+    remote_src: yes
+
+- name: Copy stop script
+  copy:
+    src: "{{ temp_dir }}/installer/utils/stop-linux.sh"
+    dest: "{{ cortensor_bin }}/stop-cortensor.sh"
+    mode: '0755'
+    owner: "{{ cortensor_user }}"
+    group: "{{ cortensor_user }}"
+    remote_src: yes
