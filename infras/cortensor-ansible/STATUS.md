@@ -1,7 +1,7 @@
 # Project Status – Cortensor Ansible
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.2.0
+**Current Version:** v0.2.1
 **Status:** Active
 
 ---
@@ -14,6 +14,7 @@
 - CPU threads setup
 - Log separation for each instance
 - Added monitoring installation
+- Added watcher installation by @scerb
 
 ## 🔧 Next Steps
 

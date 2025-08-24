@@ -5,5 +5,5 @@
     - "@CryptoNodeRedd"
   status: active
   created: 2025-08-07
-  version: v0.2.0
+  version: v0.2.1
   tags: [infrastructure, scripts, deployment]
