@@ -1,0 +1,48 @@
+---
+- name: install python3
+  apt:
+    name: python3
+    state: present
+
+- name: clone cortensor-watcher repository
+  git:
+    repo: 'https://github.com/scerb/node_switch_watch.git'
+    dest: /home/{{ cortensor_user }}/watcher
+    version: {{ watcher_version | default('v1.0.2') }}
+    force: yes
+    recursive: yes
+  become: yes
+  become_user: "{{ cortensor_user }}"
+
+- name: move watcher folder to base folder
+  shell:
+    cmd: mv /home/{{ cortensor_user }}/watcher/watcher/* /home/{{ cortensor_user }}/watcher/
+  become: yes
+  become_user: "{{ cortensor_user }}"
+
+- name: remove watcher folder
+  file:
+    path: /home/{{ cortensor_user }}/watcher/watcher
+    state: absent
+  become: yes
+  become_user: "{{ cortensor_user }}"
+
+- name: replace deploy with cortensor_user in watcher.py
+  replace:
+    path: /home/{{ cortensor_user }}/watcher/watcher.py
+    regexp: '/deploy/'
+    replace: '/{{ cortensor_user }}/'
+  become: yes
+  become_user: "{{ cortensor_user }}"
+
+- name: copy cortensor-watcher service file
+  template:
+    src: cortensor-watcher.service.j2
+    dest: /etc/systemd/system/cortensor-watcher.service
+    mode: '0644'
+
+- name: enable cortensor-watcher service
+  systemd:
+    name: cortensor-watcher
+    enabled: yes
+    state: restarted

@@ -15,3 +15,7 @@
 - Full folder restructure
 - Log separation for each instance
 - Added monitoring installation
+
+## v0.2.1 – 2025-08-25
+- add watcher installation by @scerb
+- configuration support for cortensor 0.0.1-5d023d9

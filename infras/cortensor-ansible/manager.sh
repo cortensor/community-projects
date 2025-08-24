@@ -183,6 +183,26 @@ install_monitoring() {
     fi
 }
 
+install_watchdog() {
+    echo "=== Watchdog Installation ==="
+    
+    get_target_hosts
+    
+    local extra_vars="target_hosts=$TARGET_HOSTS"
+    
+    echo ""
+    echo "Watchdog Configuration:"
+    echo "  Targets: $TARGET_HOSTS"
+    echo ""
+    
+    read -p "Proceed with watchdog installation? (y/N): " confirm
+    if [[ $confirm =~ ^[Yy]$ ]]; then
+        run_playbook "playbooks/watchdog.yml" "$extra_vars" "Watchdog installation"
+    else
+        print_color $RED "Watchdog installation cancelled"
+    fi
+}
+
 update_cortensor() {
     echo "=== Cortensor Update ==="
     
@@ -287,13 +307,14 @@ show_menu() {
     echo "════════════════════════════════════════"
     echo "  1) Deploy Cortensor nodes             "
     echo "  2) Update Cortensor binary            "
-    echo "  3) Install monitoring                 "
-    echo "  4) Start services                     "
-    echo "  5) Stop services                      "
-    echo "  6) Restart services                   "
-    echo "  7) Check status                       "
-    echo "  8) Register/Verify nodes              "
-    echo "  9) System information                 "
+    echo "  3) Install log monitoring             "
+    echo "  4) Install watchdog service           "
+    echo "  5) Start services                     "
+    echo "  6) Stop services                      "
+    echo "  7) Restart services                   "
+    echo "  8) Check status                       "
+    echo "  9) Register/Verify nodes              "
+    echo "  0) System information                 "
     echo "  q) Quit                               "
     echo "════════════════════════════════════════"
     echo ""
@@ -318,21 +339,24 @@ main() {
                 install_monitoring
                 ;;
             4)
-                manage_service "start" "Start services"
+                install_watchdog
                 ;;
             5)
-                manage_service "stop" "Stop services"
+                manage_service "start" "Start services"
                 ;;
             6)
-                manage_service "restart" "Restart services"
+                manage_service "stop" "Stop services"
                 ;;
             7)
-                check_status
+                manage_service "restart" "Restart services"
                 ;;
             8)
-                register_nodes
+                check_status
                 ;;
             9)
+                register_nodes
+                ;;
+            0)
                 show_system_info
                 ;;
             q|Q)
