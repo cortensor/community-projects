@@ -131,7 +131,8 @@ The following variables must be set in your `.env` file for the bot to function 
   * 4. Bot sends the selected prompt to Cortensor API
   * 5. Results are returned to the user
   * 6. Prompt and results are saved in history
-# Cortensor Ansible (Restructured)
+       
+# Prompt Helper
 
 ## Layout
 ```
