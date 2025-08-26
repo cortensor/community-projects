@@ -1,0 +1,57 @@
+---
+- name: Ensure GPG and keyrings dir
+  apt:
+    name: gpg
+    state: present
+  when: ansible_os_family == "Debian"
+
+- file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Download Grafana ASCII key
+  get_url:
+    url: https://apt.grafana.com/gpg.key
+    dest: /etc/apt/keyrings/grafana.asc
+    mode: '0644'
+
+- name: Convert key to dearmored keyring
+  command: >
+    gpg --dearmor -o /etc/apt/keyrings/grafana.gpg /etc/apt/keyrings/grafana.asc
+  args:
+    creates: /etc/apt/keyrings/grafana.gpg
+
+- name: Add Grafana apt repository
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+    filename: grafana
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Grafana Alloy
+  apt:
+    name: alloy
+    state: present
+
+- name: Ensure Alloy config directory exists
+  file:
+    path: /etc/alloy
+    state: directory
+    mode: '0755'
+
+- name: Render Alloy config
+  template:
+    src: config.alloy.j2
+    dest: /etc/alloy/config.alloy
+    mode: '0644'
+  notify: reload alloy
+
+- name: Enable and start alloy
+  systemd:
+    name: alloy
+    enabled: yes
+    state: restarted

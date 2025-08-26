@@ -1,0 +1,24 @@
+[Unit]
+Description=Cortensor Service Instance {{ item }}
+After=network.target
+
+[Service]
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/{{ cortensor_user }}/.cortensor/bin
+LimitNOFILE=1000000
+MemorySwapMax=0
+TimeoutStartSec=infinity
+Type=simple
+User={{ cortensor_user }}
+Group={{ cortensor_user }}
+StateDirectory=cortensor
+Environment=CORTENSOR_PATH="{{ cortensor_home }}"
+WorkingDirectory={{ cortensor_home }}
+EnvironmentFile={{ cortensor_home }}/.env-{{ item }}
+StandardOutput=append:/var/log/cortensord-{{ item }}.log
+StandardError=append:/var/log/cortensord-{{ item }}.log
+ExecStart=/usr/local/bin/cortensord .env-{{ item }} minerv4 1 docker
+Restart=on-failure
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

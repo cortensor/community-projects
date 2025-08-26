@@ -40,15 +40,17 @@ This project is located within the `cortensor/community-projects` monorepo. Foll
 First clone the Repository to your local machine.
 
 ```bash
-git clone https://github.com/cortensor/community-projects.git
+git clone [https://github.com/cortensor/community-projects.git](https://github.com/cortensor/community-projects.git)
 cd community-projects
-```
+````
 
-### 2. Navigate to the Project Directory
+### 2\. Navigate to the Project Directory
+
 This monitoring tool is located in the `tools/` directory.
+
 ```bash
 cd tools/cortensor-watcher-bot
-````
+```
 
 ### 3\. Set Up Environment and Dependencies
 
@@ -105,7 +107,7 @@ Edit the `config.json` file to list the Docker containers you want to monitor.
   "tail_lines": 500,
   "check_interval_seconds": 2.5,
   "grace_period_seconds": 30,
-  "stats_api_url": "https://lb-be-5.cortensor.network/network-stats-tasks",
+  "stats_api_url": "[https://db-be-6.cortensor.network/network-stats-tasks](https://db-be-6.cortensor.network/network-stats-tasks)",
   "watch_tx_for_containers": [
     "cortensor-1",
     "cortensor-2",
@@ -115,7 +117,7 @@ Edit the `config.json` file to list the Docker containers you want to monitor.
   "stagnation_alert_enabled": true,
   "stagnation_threshold_minutes": 30,
   "reputation_check_enabled": true,
-  "reputation_api_base_url": "https://lb-be-5.cortensor.network/session-reputation/",
+  "reputation_api_base_url": "[https://db-be-6.cortensor.network/session-reputation/](https://db-be-6.cortensor.network/session-reputation/)",
   "reputation_check_window": 20,
   "reputation_failure_threshold": 5,
   "reputation_restart_cooldown_minutes": 30

@@ -1,0 +1,164 @@
+---
+- name: Prepare key indices per host
+  set_fact:
+    key_indices: "{{ hostvars[inventory_hostname]['key_pair_index'] | string | replace(' ', '') | split(',') }}"
+  when: hostvars[inventory_hostname]['key_pair_index'] is defined
+
+- name: Copy environment file for each instance
+  copy:
+    src: "{{ temp_dir }}/installer/dist/.env-example"
+    dest: "{{ cortensor_home }}/.env-{{ item }}"
+    owner: "{{ cortensor_user }}"
+    group: "{{ cortensor_user }}"
+    mode: '0600'
+    remote_src: yes
+    force: no
+  loop: "{{ key_indices }}"
+  when: key_indices is defined
+
+- name: Configure RPC_URL in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^HOST=.*'
+    line: "HOST={{ rpc_url }}"
+  when: rpc_url != ""
+  loop: "{{ key_indices }}"
+
+- name: Configure ETH_RPC_URL in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^HOST_MAINNET=.*'
+    line: "HOST_MAINNET={{ eth_rpc_url }}"
+  when: eth_rpc_url != ""
+  loop: "{{ key_indices }}"
+
+- name: Enable IPFS only for the first instance
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^ENABLE_IPFS_SERVER=.*'
+    line: "ENABLE_IPFS_SERVER={{ '1' if item == key_indices[0] else '0' }}"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Enable GPU for LLM GPU if gpu_enabled is 1
+  block:
+    - name: Enable GPU flag in env file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env-{{ item }}"
+        regexp: '^LLM_OPTION_GPU=.*'
+        line: 'LLM_OPTION_GPU=1'
+        create: yes
+      loop: "{{ key_indices }}"
+
+    - name: Enable GPU container flag in env file
+      lineinfile:
+        path: "{{ cortensor_home }}/.env-{{ item }}"
+        regexp: '^LLM_GPU_CONTAINER=.*'
+        line: 'LLM_GPU_CONTAINER=1'
+        create: yes
+      loop: "{{ key_indices }}"
+  when: (gpu_enabled | default(0) | int) == 1
+
+- name: Enable Docker LLM GPU Threshold for all instances
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_OPTION_GPU_THRESHOLD=.*'
+    line: 'LLM_OPTION_GPU_THRESHOLD={{ gpu_threshold | default(0) }}'
+    create: yes
+  loop: "{{ key_indices }}"
+  when: gpu_threshold is defined
+
+- name: Enable Docker LLM Manager for all instances
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^DOCKER_LLM_MANAGER=.*'
+    line: 'DOCKER_LLM_MANAGER=1'
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Enable LLM_MEMORY_INDEX_DYNAMIC_LOADING
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_MEMORY_INDEX_DYNAMIC_LOADING=.*'
+    line: 'LLM_MEMORY_INDEX_DYNAMIC_LOADING={{ llm_memory_index_dynamic_loading | default(0) }}'
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_WORKER_BASE_PORT in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_WORKER_BASE_PORT=.*'
+    line: "LLM_WORKER_BASE_PORT=20001"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_WORKER_PORT_PREFIX in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_WORKER_PORT_PREFIX=.*'
+    line: "LLM_WORKER_PORT_PREFIX={{ 100 * (item | int) }}"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_WORKER_CONTAINER_NAME_PREFIX in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_WORKER_CONTAINER_NAME_PREFIX=.*'
+    line: "LLM_WORKER_CONTAINER_NAME_PREFIX={{ node_prefix }}-{{ item }}-"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Calculate threads per instance
+  set_fact:
+    threads_per_instance: >-
+      {{
+        llm_threads
+        | default(((ansible_processor_vcpus | int) - 2) // (key_indices | length))
+        | int
+      }}
+
+- name: Configure LLM_OPTION_CPU_THREADS in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_OPTION_CPU_THREADS=.*'
+    line: "LLM_OPTION_CPU_THREADS={{ threads_per_instance }}"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Inject public key into .env files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^NODE_PUBLIC_KEY=.*'
+    line: "NODE_PUBLIC_KEY={{ lookup('vars', 'public_key_' + item) }}"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Inject private key into .env files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^NODE_PRIVATE_KEY=.*'
+    line: "NODE_PRIVATE_KEY={{ lookup('vars', 'private_key_' + item) }}"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Create cortensor service for each key index
+  template:
+    src: cortensor-instance.service.j2
+    dest: /etc/systemd/system/cortensor-{{ item }}.service
+    mode: '0644'
+  loop: "{{ key_indices }}"
+  when: key_indices is defined
+  notify: reload systemd
+
+- name: Enable each cortensor instance
+  systemd:
+    name: "cortensor-{{ item }}"
+    enabled: yes
+    daemon_reload: yes
+  loop: "{{ key_indices }}"
+  when: key_indices is defined
+  
+- name: Clean up temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: absent

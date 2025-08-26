@@ -1,0 +1,53 @@
+---
+- name: Manage Cortensor Services
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  vars:
+    action: "{{ service_action | default('status') }}"
+
+  tasks:
+    - name: Prepare key indices per host
+      set_fact:
+        key_indices: "{{ hostvars[inventory_hostname]['key_pair_index'] | string | replace(' ', '') | split(',') }}"
+      when: hostvars[inventory_hostname]['key_pair_index'] is defined
+
+    - name: Build unit list (list form)
+      set_fact:
+        unit_list: "{{ (unit_list | default([])) + ['cortensor-' ~ (item | string) ~ '.service'] }}"
+      loop: "{{ key_indices }}"
+      when: key_indices is defined
+
+    - name: Compute systemctl action
+      set_fact:
+        systemctl_action: >-
+          {{
+            {
+              'start':'start', 'started':'start',
+              'stop':'stop',   'stopped':'stop',
+              'restart':'restart','restarted':'restart'
+            }.get(action, action)
+          }}
+
+    - name: Manage services . . . *might take a while*
+      command:
+        argv: "{{ ['systemctl', systemctl_action] + unit_list }}"
+      register: svc_cmd
+      changed_when: svc_cmd.rc == 0
+      ignore_errors: yes
+      when:
+        - systemctl_action in ['start','stop','restart']
+        - unit_list is defined
+
+    - name: Gather all service facts
+      service_facts:
+      when: systemctl_action in ['start','stop','restart'] or action == 'status'
+
+    - name: Display service status
+      debug:
+        msg: |
+          Node:    {{ inventory_hostname }}
+          Instance: cortensor-{{ item }}
+          Service: {{ ansible_facts.services['cortensor-' ~ item ~ '.service'].state | default('unknown') }}
+          Enabled: {{ ansible_facts.services['cortensor-' ~ item ~ '.service'].status | default('unknown') }}
+      when: key_indices is defined
+      loop: "{{ key_indices }}"

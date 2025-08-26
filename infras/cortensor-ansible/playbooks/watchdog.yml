@@ -1,0 +1,7 @@
+---
+- name: Install Cortensor Nodes Watcher
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  roles:
+    - role: watchdog
+      tags: [install, logging]

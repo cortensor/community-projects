@@ -1,0 +1,33 @@
+target: all
+multitenancy_enabled: false
+
+server:
+  http_listen_port: 9009
+  
+ingester:
+  ring:
+    replication_factor: 1
+
+common:
+  storage:
+    backend: s3
+    s3:
+      endpoint: minio:9000
+      access_key_id: mimir
+      secret_access_key: supersecret
+      insecure: true
+      bucket_name: mimir
+
+blocks_storage:
+  storage_prefix: blocks
+  tsdb:
+    dir: /mimir-data/ingester
+
+ruler:
+  rule_path: /mimir-data/ruler
+  ring:
+    heartbeat_period: 2s
+    heartbeat_timeout: 10s
+
+alertmanager:
+  data_dir: /mimir-data/alertmanager

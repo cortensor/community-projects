@@ -14,7 +14,7 @@
   "tail_lines": 500,
   "check_interval_seconds": 900,
   "grace_period_seconds": 930,
-  "stats_api_url": "https://lb-be-5.cortensor.network/network-stats-tasks",
+  "stats_api_url": "https://db-be-6.cortensor.network/network-stats-tasks",
   "watch_tx_for_containers": [
     "cortensor-1",
     "cortensor-2",
@@ -25,7 +25,7 @@
   "stagnation_alert_enabled": true,
   "stagnation_threshold_minutes": 30,
   "reputation_check_enabled": true,
-  "reputation_api_base_url": "https://lb-be-5.cortensor.network/reputation/",
+  "reputation_api_base_url": "https://db-be-6.cortensor.network/reputation/",
   "reputation_check_window": 20,
   "reputation_failure_threshold": 5,
   "reputation_restart_cooldown_minutes": 30

@@ -1,0 +1,9 @@
+- name: cortensor-ansible
+  category: infras
+  owner: "@CryptoNodeRedd"
+  collaborators:
+    - "@CryptoNodeRedd"
+  status: active
+  created: 2025-08-07
+  version: v0.2.1
+  tags: [infrastructure, scripts, deployment]

@@ -1,0 +1,26 @@
+# Cortensor Variables
+cortensor_user: cortensor
+cortensor_home: "/home/{{ cortensor_user }}/.cortensor"
+cortensor_bin: "{{ cortensor_home }}/bin"
+cortensor_logs: "{{ cortensor_home }}/logs"
+# IPFS Version
+ipfs_version: "v0.33.0"
+ipfs_package: "kubo_{{ ipfs_version }}_linux-amd64.tar.gz"
+ipfs_url: "https://github.com/ipfs/kubo/releases/download/{{ ipfs_version }}/{{ ipfs_package }}"
+# Installer repository (no need to change)
+installer_repo: "https://github.com/cortensor/installer"
+temp_dir: "/tmp/cortensor-install"
+# Your server configuration details
+ansible_user: ubuntu # Change to your Ansible user
+ansible_ssh_private_key_file: ~/.ssh/id_rsa # Change to your private key
+rpc_url: https://arb-sepolia.cryptonode.id # Contact me for whitelist
+eth_rpc_url: https://ethereum-rpc.publicnode.com
+contract_address_runtime: "0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7"
+cortensor_branch: main
+node_prefix: "CNID" # Change to your desired node prefix
+# Monitoring and Log Shipping
+enable_log_shipping: true # Set to true to enable log shipping to Loki
+log_shipping_url: https://your.loki.endpoint/loki/api/v1/push # Change to your Loki URL
+metric_shipping_url: https://your.metric.endpoint/api/v1/push # Change to your Mimir or Prometheus URL
+# Watchdog version
+watcher_version: v1.0.2
