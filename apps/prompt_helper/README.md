@@ -91,7 +91,7 @@ This project is located within the `Cortensor Community Projects` monorepo. Foll
 
 ## 🚀 Usage
 
-Once the configuration is complete, run the bot from within the `apps/Health_Advisor` directory:
+Once the configuration is complete, run the bot from within the `apps/propmt-helper` directory:
 
 ```bash
 python bot.py
