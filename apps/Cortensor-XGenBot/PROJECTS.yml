@@ -1,0 +1,9 @@
+- name: cortensor-xgen-bot
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-08-28
+  version: v1.0.0
+  tags: [python, telegram, bot, cortensor, ai, twitter]

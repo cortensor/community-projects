@@ -1,0 +1,9 @@
+- name: Cortensor-AIOracle
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-08-23
+  version: v1.0.0
+  tags: ["ai", "oracle", "nextjs", "typescript", "consensus"]
