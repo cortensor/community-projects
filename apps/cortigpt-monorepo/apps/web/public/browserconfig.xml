@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square70x70logo src="/cortigpt-4.png"/>
+      <square150x150logo src="/cortigpt-4.png"/>
+      <square310x310logo src="/cortigpt-4.png"/>
+      <wide310x150logo src="/cortigpt-4.png"/>
+      <TileColor>#0066ff</TileColor>
+    </tile>
+    <notification>
+      <polling-uri src="https://cortigpt.jatique.dev/notifications/feed1.xml"/>
+      <polling-uri2 src="https://cortigpt.jatique.dev/notifications/feed2.xml"/>
+      <polling-uri3 src="https://cortigpt.jatique.dev/notifications/feed3.xml"/>
+      <polling-uri4 src="https://cortigpt.jatique.dev/notifications/feed4.xml"/>
+      <polling-uri5 src="https://cortigpt.jatique.dev/notifications/feed5.xml"/>
+      <frequency>30</frequency>
+      <cycle>1</cycle>
+    </notification>
+  </msapplication>
+</browserconfig>

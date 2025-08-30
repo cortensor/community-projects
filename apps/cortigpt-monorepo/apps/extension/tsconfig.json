@@ -1,0 +1,9 @@
+/// <reference path="./wxt.d.ts" />
+{
+  "extends": "./.wxt/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false
+  }
+}

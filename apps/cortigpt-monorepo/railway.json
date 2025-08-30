@@ -1,0 +1,12 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pnpm install --filter=server && SKIP_ENV_VALIDATION=true pnpm build --filter=server"
+  },
+  "deploy": {
+    "startCommand": "pnpm start --filter=server",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}
