@@ -1,0 +1,54 @@
+Model: granite-3.2-8b-instruct-Q4_K_M
+Request ID: 12
+Timestamp: 2025-08-28T11-33-58
+
+Question:
+Define a labeling guide to classify support tickets into {P1,P2,P3} with decision thresholds and short examples.
+
+Answer:
+1. **Labeling Guide for Support Tickets (P1, P2, P3)**
+
+   **Decision Thresholds:**
+
+   - **P1 (Critical):** High impact on business operations or user experience. Immediate resolution required.
+     - *Threshold*: High urgency, high impact.
+     - *Example*: "The entire website is down, users cannot access any content."
+
+   - **P2 (High):** Significant impact on user experience or business operations. Prompt resolution needed.
+     - *Threshold*: High impact, moderate urgency.
+     - *Example*: "Users are unable to save documents in the cloud service."
+
+   - **P3 (Medium):** Minimal impact on user experience or business operations. Resolution within a reasonable timeframe.
+     - *Threshold*: Low to moderate impact, low to moderate urgency.
+     - *Example*: "The color scheme of the application is off, affecting readability."
+
+2. **Labeling Guide: Step-by-Step Instructions**
+
+   **Step 1: Understand the Ticket**
+
+   - Read the entire support ticket to understand the issue, its context, and its impact.
+
+   **Step 2: Identify Key Factors**
+
+   - **Impact**: How severe is the issue on user experience or business operations?
+     - *Critical*: High impact, e.g., system downtime, data loss.
+     - *High*: Significant impact, e.g., major functionality loss, widespread user inconvenience.
+     - *Medium*: Minimal to moderate impact, e.g., minor usability issues, cosmetic changes.
+   - **Urgency**: How soon does the issue need to be resolved?
+     - *High*: Immediate resolution required.
+     - *Moderate*: Prompt resolution needed, but not immediately critical.
+     - *Low*: Resolution within a reasonable timeframe.
+
+   **Step 3: Apply the Decision Thresholds**
+
+   - Based on the identified impact and urgency, assign the appropriate label (P1, P2, or P3).
+
+   **Step 4: Justify Your Label**
+
+   - Provide a brief explanation for your labeling decision. This helps maintain consistency and improves the model's understanding of the labeling criteria.
+
+   **Example Justification:**
+
+   - Ticket: "Users are experiencing slow load times when accessing certain pages."
+     - *Label*: P3 (Medium)
+     - *Justification*: The issue has a minimal impact

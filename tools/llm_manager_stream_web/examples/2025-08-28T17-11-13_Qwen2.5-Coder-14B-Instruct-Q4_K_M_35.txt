@@ -1,0 +1,40 @@
+Model: Qwen2.5-Coder-14B-Instruct-Q4_K_M
+Request ID: 35
+Timestamp: 2025-08-28T17-11-13
+
+Question:
+For PostgreSQL table users(id, email, last_login_at), write SQL to dedupe by email keeping the most recent login and compute rolling 7-day active users.
+
+Answer:
+To deduplicate the users table by email while keeping the most recent login, and then compute the rolling 7-day active users, you can use the following SQL:
+
+```sql
+-- Create a temporary table to store deduplicated users
+CREATE TEMPORARY TABLE deduplicated_users AS
+SELECT id, email, MAX(last_login_at) AS last_login_at
+FROM users
+GROUP BY email;
+
+-- Create a temporary table to store rolling 7-day active users
+CREATE TEMPORARY TABLE rolling_7day_active_users AS
+SELECT 
+  date_trunc('day', last_login_at) AS day,
+  COUNT(DISTINCT email) AS active_users
+FROM deduplicated_users
+WHERE last_login_at >= NOW() - INTERVAL '7 days'
+GROUP BY day
+ORDER BY day;
+
+-- Select the results from the rolling_7day_active_users table
+SELECT * FROM rolling_7day_active_users;
+```
+
+This SQL query does the following:
+
+1. Creates a temporary table called `deduplicated_users` that stores the deduplicated users by email, keeping the most recent login date.
+
+2. Creates another temporary table called `rolling_7day_active_users` that calculates the number of distinct active users for each day in the last 7 days, based on the deduplicated users.
+
+3. Finally, it selects the results from the `rolling_7day_active_users` table, which gives you the rolling 7-day active users.
+
+Note that this query assumes that the `last_login_at` column is of type `timestamp` or `timestamp with time zone`. If your table uses a different data type, you may need to adjust the query accordingly.

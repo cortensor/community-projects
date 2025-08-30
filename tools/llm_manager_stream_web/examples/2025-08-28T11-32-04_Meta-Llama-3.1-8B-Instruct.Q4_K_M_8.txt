@@ -1,0 +1,112 @@
+Model: Meta-Llama-3.1-8B-Instruct.Q4_K_M
+Request ID: 8
+Timestamp: 2025-08-28T11-32-04
+
+Question:
+List common pitfalls when using threads + blocking I/O in Python, and safer alternatives.
+
+Answer:
+**Common Pitfalls with Threads and Blocking I/O in Python**
+
+When using threads and blocking I/O in Python, there are several common pitfalls to be aware of:
+
+### 1. **Deadlocks**
+
+*   **Caused by:** Two threads holding onto each other's locks, preventing either from continuing.
+*   **Example:**
+
+    ```python
+import threading
+
+lock1 = threading.Lock()
+lock2 = threading.Lock()
+
+def thread1():
+    lock1.acquire()
+    try:
+        lock2.acquire()
+    finally:
+        lock1.release()
+
+def thread2():
+    lock2.acquire()
+    try:
+        lock1.acquire()
+    finally:
+        lock2.release()
+
+t1 = threading.Thread(target=thread1)
+t2 = threading.Thread(target=thread2)
+t1.start()
+t2.start()
+```
+
+*   **Solution:** Use locks in a consistent order, and avoid acquiring locks in a nested manner.
+
+### 2. **Starvation**
+
+*   **Caused by:** One thread monopolizing a resource, preventing others from accessing it.
+*   **Example:**
+
+    ```python
+import threading
+import time
+
+shared_resource = []
+lock = threading.Lock()
+
+def thread():
+    while True:
+        lock.acquire()
+        try:
+            shared_resource.append(1)
+            time.sleep(1)
+        finally:
+            lock.release()
+
+for _ in range(10):
+    t = threading.Thread(target=thread)
+    t.start()
+```
+
+*   **Solution:** Use a lock with a timeout to prevent a thread from monopolizing a resource.
+
+### 3. **Livelocks**
+
+*   **Caused by:** Threads continuously trying to acquire a lock, preventing either from making progress.
+*   **Example:**
+
+    ```python
+import threading
+
+lock = threading.Lock()
+
+def thread1():
+    while True:
+        lock.acquire()
+        try:
+            # Simulate some work
+            time.sleep(1)
+        finally:
+            lock.release()
+
+def thread2():
+    while True:
+        lock.acquire()
+        try:
+            # Simulate some work
+            time.sleep(1)
+        finally:
+            lock.release()
+
+t1 = threading.Thread(target=thread1)
+t2 = threading.Thread(target=thread2)
+t1.start()
+t2.start()
+```
+
+*   **Solution:** Use a lock with a timeout or a retry mechanism to prevent livelocks.
+
+### 4. **Resource Leaks**
+
+*   **Caused by:** Threads failing to release resources they've acquired,
