@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "cortigpt-monorepo",
   "private": true,
   "workspaces": [
@@ -23,9 +23,7 @@
     "sync:dry-run": "node sync-to-community-projects.js --dry-run",
     "sync:verbose": "node sync-to-community-projects.js --verbose"
   },
-  "dependencies": {
-  
-  },
+  "dependencies": {},
   "devDependencies": {
     "turbo": "^2.5.4",
     "chalk": "^4.1.2",
