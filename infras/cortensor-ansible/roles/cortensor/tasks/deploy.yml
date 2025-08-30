@@ -150,6 +150,28 @@
   when: key_indices is defined
   notify: reload systemd
 
+- name: Allow '{{ cortensor_user }}' to manage cortensor-* via polkit
+  copy:
+    dest: /etc/polkit-1/rules.d/10-cortensor-manage-units.rules
+    mode: '0644'
+    content: |
+      polkit.addRule(function(action, subject) {
+        if (subject.user == "{{ cortensor_user }}" || subject.isInGroup("{{ cortensor_user }}")) {
+          if (action.id == "org.freedesktop.systemd1.manage-units" ||
+              action.id == "org.freedesktop.systemd1.reload-daemon") {
+            var unit = action.lookup("unit");
+            var verb = action.lookup("verb");
+            var allowedVerbs = ["start", "stop", "restart", "reload", "try-restart"];
+            var okUnit = unit && unit.indexOf("cortensor-") === 0 && unit.slice(-8) === ".service";
+            var okVerb = allowedVerbs.indexOf(verb) >= 0;
+
+            if (okUnit && okVerb) {
+              return polkit.Result.YES;
+            }
+          }
+        }
+      });
+
 - name: Enable each cortensor instance
   systemd:
     name: "cortensor-{{ item }}"
