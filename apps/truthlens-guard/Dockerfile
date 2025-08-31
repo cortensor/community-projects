@@ -1,17 +1,17 @@
-# TruthLens Backend Dockerfile for Render
+# TruthLens Backend Dockerfile for Render (Subdirectory Deployment)
 FROM node:18-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY backend/package*.json ./
+# Copy package files from the subdirectory
+COPY apps/truthlens-guard/backend/package*.json ./
 
 # Install all dependencies (including dev dependencies for building)
 RUN npm ci
 
-# Copy backend source code
-COPY backend/ ./
+# Copy backend source code from the subdirectory
+COPY apps/truthlens-guard/backend/ ./
 
 # Build the TypeScript code
 RUN npm run build

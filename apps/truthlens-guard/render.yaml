@@ -2,7 +2,7 @@ services:
   - type: web
     name: truthlens-backend
     runtime: node
-    rootDir: backend
+    rootDir: apps/truthlens-guard/backend
     buildCommand: "npm install"
     startCommand: "npm start"
     envVars:
@@ -29,6 +29,7 @@ services:
   - type: web
     name: truthlens-frontend
     runtime: node
+    rootDir: apps/truthlens-guard
     buildCommand: "npm install && npm run build"
     startCommand: "npm run preview"
     envVars:
@@ -39,8 +40,8 @@ services:
           property: host
     buildFilter:
       paths:
-        - "src/**"
-        - "public/**"
-        - "package.json"
-        - "vite.config.ts"
-        - "index.html"
+        - "apps/truthlens-guard/src/**"
+        - "apps/truthlens-guard/public/**"
+        - "apps/truthlens-guard/package.json"
+        - "apps/truthlens-guard/vite.config.ts"
+        - "apps/truthlens-guard/index.html"
