@@ -1,0 +1,776 @@
+================================================================================
+LLM Memory Mapping for: Mistral-7B-Instruct-v0.3.Q4_0.llamafile
+Path           : /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile
+Started        : 2025-08-30T19:47:58
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose --mlock
+Context Size   : 4096
+NGL range      : 0..33
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 4928
+  parsed.n_layer    : 32
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 296.01 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 876
+  peak_cpu_mib      : 5018
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 117.03 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 828
+  peak_cpu_mib      : 4943
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 234.06 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1176
+  peak_cpu_mib      : 5024
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 351.09 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1094
+  peak_cpu_mib      : 4916
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 468.12 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1472
+  peak_cpu_mib      : 4898
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 585.16 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1622
+  peak_cpu_mib      : 4860
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 702.19 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1492
+  peak_cpu_mib      : 4820
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 819.22 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1920
+  peak_cpu_mib      : 4791
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 936.25 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2100
+  peak_cpu_mib      : 4838
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1053.28 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2250
+  peak_cpu_mib      : 4816
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1170.31 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2398
+  peak_cpu_mib      : 4780
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1287.34 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2548
+  peak_cpu_mib      : 4760
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1404.38 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2696
+  peak_cpu_mib      : 4731
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1521.41 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2846
+  peak_cpu_mib      : 4697
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1638.44 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2994
+  peak_cpu_mib      : 4667
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1755.47 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3144
+  peak_cpu_mib      : 4647
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1872.50 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3292
+  peak_cpu_mib      : 4608
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 1989.53 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3442
+  peak_cpu_mib      : 4585
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2106.56 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3590
+  peak_cpu_mib      : 4550
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2223.59 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3740
+  peak_cpu_mib      : 4507
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2340.62 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3888
+  peak_cpu_mib      : 4480
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2457.66 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4038
+  peak_cpu_mib      : 4450
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2574.69 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4186
+  peak_cpu_mib      : 4410
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2691.72 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4336
+  peak_cpu_mib      : 4397
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2808.75 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4484
+  peak_cpu_mib      : 4355
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 2925.78 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4634
+  peak_cpu_mib      : 4324
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3042.81 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4782
+  peak_cpu_mib      : 4294
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3159.84 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4932
+  peak_cpu_mib      : 4254
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3276.88 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5080
+  peak_cpu_mib      : 4229
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3393.91 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5230
+  peak_cpu_mib      : 4202
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3510.94 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5374
+  peak_cpu_mib      : 4170
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3627.97 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5504
+  peak_cpu_mib      : 4132
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3922.02 MiB
+  parsed.gpu_weights: 3745.00 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5610
+  peak_cpu_mib      : 4129
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 72.00 MiB
+  parsed.gpu_weights: 3850.02 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 3921.92 MiB
+  parsed.params(B)  : 7.25
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:49:54
+  Mode               : server
+  Binary             : Mistral-7B-Instruct-v0.3.Q4_0.llamafile
+  n_layer (detected) : 33
+  NGL swept          : 0..33
+  Baseline VRAM      : 296.01 MiB (-ngl 0)
+  Max VRAM           : 5610.00 MiB (-ngl 33)
+  Est. weights-on-GPU: 5313.99 MiB (Max - Baseline)
+  Avg per-layer VRAM : 161.03 MiB (from successive deltas)
+  Per-layer (early)  : 579.99 MiB (ngl 0->1)
+  Overhead (heuristic): 296.01 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 579.99
+    - layer   2: -48.00
+    - layer   3: 348.00
+    - layer   4: -82.00
+    - layer   5: 378.00
+    - layer   6: 150.00
+    - layer   7: -130.00
+    - layer   8: 428.00
+    - layer   9: 180.00
+    - layer  10: 150.00
+    - layer  11: 148.00
+    - layer  12: 150.00
+    - layer  13: 148.00
+    - layer  14: 150.00
+    - layer  15: 148.00
+    - layer  16: 150.00
+    - layer  17: 148.00
+    - layer  18: 150.00
+    - layer  19: 148.00
+    - layer  20: 150.00
+    - layer  21: 148.00
+    - layer  22: 150.00
+    - layer  23: 148.00
+    - layer  24: 150.00
+    - layer  25: 148.00
+    - layer  26: 150.00
+    - layer  27: 148.00
+    - layer  28: 150.00
+    - layer  29: 148.00
+    - layer  30: 150.00
+    - layer  31: 144.00
+    - layer  32: 130.00
+    - layer  33: 106.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=4928.00 MiB
+    - -ngl   1: GPU=876.00 MiB | CPU=5018.00 MiB
+    - -ngl   2: GPU=828.00 MiB | CPU=4943.00 MiB
+    - -ngl   3: GPU=1176.00 MiB | CPU=5024.00 MiB
+    - -ngl   4: GPU=1094.00 MiB | CPU=4916.00 MiB
+    - -ngl   5: GPU=1472.00 MiB | CPU=4898.00 MiB
+    - -ngl   6: GPU=1622.00 MiB | CPU=4860.00 MiB
+    - -ngl   7: GPU=1492.00 MiB | CPU=4820.00 MiB
+    - -ngl   8: GPU=1920.00 MiB | CPU=4791.00 MiB
+    - -ngl   9: GPU=2100.00 MiB | CPU=4838.00 MiB
+    - -ngl  10: GPU=2250.00 MiB | CPU=4816.00 MiB
+    - -ngl  11: GPU=2398.00 MiB | CPU=4780.00 MiB
+    - -ngl  12: GPU=2548.00 MiB | CPU=4760.00 MiB
+    - -ngl  13: GPU=2696.00 MiB | CPU=4731.00 MiB
+    - -ngl  14: GPU=2846.00 MiB | CPU=4697.00 MiB
+    - -ngl  15: GPU=2994.00 MiB | CPU=4667.00 MiB
+    - -ngl  16: GPU=3144.00 MiB | CPU=4647.00 MiB
+    - -ngl  17: GPU=3292.00 MiB | CPU=4608.00 MiB
+    - -ngl  18: GPU=3442.00 MiB | CPU=4585.00 MiB
+    - -ngl  19: GPU=3590.00 MiB | CPU=4550.00 MiB
+    - -ngl  20: GPU=3740.00 MiB | CPU=4507.00 MiB
+    - -ngl  21: GPU=3888.00 MiB | CPU=4480.00 MiB
+    - -ngl  22: GPU=4038.00 MiB | CPU=4450.00 MiB
+    - -ngl  23: GPU=4186.00 MiB | CPU=4410.00 MiB
+    - -ngl  24: GPU=4336.00 MiB | CPU=4397.00 MiB
+    - -ngl  25: GPU=4484.00 MiB | CPU=4355.00 MiB
+    - -ngl  26: GPU=4634.00 MiB | CPU=4324.00 MiB
+    - -ngl  27: GPU=4782.00 MiB | CPU=4294.00 MiB
+    - -ngl  28: GPU=4932.00 MiB | CPU=4254.00 MiB
+    - -ngl  29: GPU=5080.00 MiB | CPU=4229.00 MiB
+    - -ngl  30: GPU=5230.00 MiB | CPU=4202.00 MiB
+    - -ngl  31: GPU=5374.00 MiB | CPU=4170.00 MiB
+    - -ngl  32: GPU=5504.00 MiB | CPU=4132.00 MiB
+    - -ngl  33: GPU=5610.00 MiB | CPU=4129.00 MiB
+--------------------------------------------------------------------------------

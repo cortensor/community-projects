@@ -1,0 +1,1128 @@
+================================================================================
+LLM Memory Mapping for: DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile
+Path           : /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile
+Started        : 2025-08-30T19:30:22
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose
+Context Size   : 4096
+NGL range      : 0..49
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 3149
+  parsed.n_layer    : 48
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 8566.04 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 368.01 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1366
+  peak_cpu_mib      : 1847
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 8399.62 MiB
+  parsed.gpu_weights: 166.41 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1580
+  peak_cpu_mib      : 1984
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 8233.21 MiB
+  parsed.gpu_weights: 332.83 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2542
+  peak_cpu_mib      : 4707
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 8066.80 MiB
+  parsed.gpu_weights: 499.24 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2740
+  peak_cpu_mib      : 5845
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7900.38 MiB
+  parsed.gpu_weights: 665.66 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2940
+  peak_cpu_mib      : 6726
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7733.97 MiB
+  parsed.gpu_weights: 832.07 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3138
+  peak_cpu_mib      : 2516
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7567.55 MiB
+  parsed.gpu_weights: 998.48 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 672.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3336
+  peak_cpu_mib      : 3498
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7401.14 MiB
+  parsed.gpu_weights: 1164.90 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3516
+  peak_cpu_mib      : 4690
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7253.42 MiB
+  parsed.gpu_weights: 1312.62 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3696
+  peak_cpu_mib      : 8088
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 7105.70 MiB
+  parsed.gpu_weights: 1460.34 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2970
+  peak_cpu_mib      : 3017
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6939.28 MiB
+  parsed.gpu_weights: 1626.76 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 608.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3134
+  peak_cpu_mib      : 3090
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6791.56 MiB
+  parsed.gpu_weights: 1774.48 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4254
+  peak_cpu_mib      : 3720
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6643.84 MiB
+  parsed.gpu_weights: 1922.20 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4484
+  peak_cpu_mib      : 9140
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6477.42 MiB
+  parsed.gpu_weights: 2088.62 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4664
+  peak_cpu_mib      : 9479
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6329.70 MiB
+  parsed.gpu_weights: 2236.34 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4844
+  peak_cpu_mib      : 9429
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6181.98 MiB
+  parsed.gpu_weights: 2384.06 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5042
+  peak_cpu_mib      : 9428
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6015.56 MiB
+  parsed.gpu_weights: 2550.48 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5222
+  peak_cpu_mib      : 9379
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5867.84 MiB
+  parsed.gpu_weights: 2698.20 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5400
+  peak_cpu_mib      : 9342
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5720.12 MiB
+  parsed.gpu_weights: 2845.92 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5600
+  peak_cpu_mib      : 8673
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5553.70 MiB
+  parsed.gpu_weights: 3012.34 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5780
+  peak_cpu_mib      : 9299
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5405.98 MiB
+  parsed.gpu_weights: 3160.06 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5958
+  peak_cpu_mib      : 9271
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5258.26 MiB
+  parsed.gpu_weights: 3307.78 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6158
+  peak_cpu_mib      : 9220
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5091.84 MiB
+  parsed.gpu_weights: 3474.20 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6336
+  peak_cpu_mib      : 9200
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4944.12 MiB
+  parsed.gpu_weights: 3621.92 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6516
+  peak_cpu_mib      : 9178
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4796.40 MiB
+  parsed.gpu_weights: 3769.64 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6716
+  peak_cpu_mib      : 9127
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4629.98 MiB
+  parsed.gpu_weights: 3936.05 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6894
+  peak_cpu_mib      : 9094
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4482.26 MiB
+  parsed.gpu_weights: 4083.78 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7074
+  peak_cpu_mib      : 9069
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4334.54 MiB
+  parsed.gpu_weights: 4231.50 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7272
+  peak_cpu_mib      : 9040
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4168.12 MiB
+  parsed.gpu_weights: 4397.91 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7452
+  peak_cpu_mib      : 8992
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4020.40 MiB
+  parsed.gpu_weights: 4545.64 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7632
+  peak_cpu_mib      : 8969
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3872.68 MiB
+  parsed.gpu_weights: 4693.36 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7830
+  peak_cpu_mib      : 8935
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3706.27 MiB
+  parsed.gpu_weights: 4859.77 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8010
+  peak_cpu_mib      : 8920
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3558.54 MiB
+  parsed.gpu_weights: 5007.50 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8190
+  peak_cpu_mib      : 8864
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3410.82 MiB
+  parsed.gpu_weights: 5155.22 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 528.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 34]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 34
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8388
+  peak_cpu_mib      : 8845
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3244.41 MiB
+  parsed.gpu_weights: 5321.63 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 544.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 35]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 35
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8568
+  peak_cpu_mib      : 8823
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3096.68 MiB
+  parsed.gpu_weights: 5469.36 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 560.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 36]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 36
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8748
+  peak_cpu_mib      : 8781
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2948.96 MiB
+  parsed.gpu_weights: 5617.08 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 37]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 37
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8946
+  peak_cpu_mib      : 8753
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2782.55 MiB
+  parsed.gpu_weights: 5783.49 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 592.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 38]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 38
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9126
+  peak_cpu_mib      : 8729
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2634.82 MiB
+  parsed.gpu_weights: 5931.21 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 608.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 39]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 39
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9306
+  peak_cpu_mib      : 8702
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2487.10 MiB
+  parsed.gpu_weights: 6078.94 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 624.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 40]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 40
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9504
+  peak_cpu_mib      : 8658
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2320.69 MiB
+  parsed.gpu_weights: 6245.35 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 41]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 41
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9684
+  peak_cpu_mib      : 8635
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2172.96 MiB
+  parsed.gpu_weights: 6393.07 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 656.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 42]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 42
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9864
+  peak_cpu_mib      : 8607
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2025.24 MiB
+  parsed.gpu_weights: 6540.80 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 672.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 43]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 43
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10062
+  peak_cpu_mib      : 8564
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1858.83 MiB
+  parsed.gpu_weights: 6707.21 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 688.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 44]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 44
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10260
+  peak_cpu_mib      : 8534
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1692.41 MiB
+  parsed.gpu_weights: 6873.62 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 704.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 45]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 45
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10460
+  peak_cpu_mib      : 8511
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1526.00 MiB
+  parsed.gpu_weights: 7040.04 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 720.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 46]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 46
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10658
+  peak_cpu_mib      : 8477
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1359.59 MiB
+  parsed.gpu_weights: 7206.45 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 736.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 47]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 47
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10856
+  peak_cpu_mib      : 8435
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1193.17 MiB
+  parsed.gpu_weights: 7372.87 MiB
+  parsed.gpu_compute: 926.08 MiB
+  parsed.gpu_kv     : 752.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 48]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 48
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11044
+  peak_cpu_mib      : 8413
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1026.76 MiB
+  parsed.gpu_weights: 7539.28 MiB
+  parsed.gpu_compute: 916.08 MiB
+  parsed.gpu_kv     : 768.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+[Run -ngl 49]
+  cmd               : sh /mnt/chia_temp/llm/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 49
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10528
+  peak_cpu_mib      : 8423
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 417.66 MiB
+  parsed.gpu_weights: 8148.38 MiB
+  parsed.gpu_compute: 368.00 MiB
+  parsed.gpu_kv     : 768.00 MiB
+  parsed.cpu_kv     : 768.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 8570.88 MiB
+  parsed.params(B)  : 14.77
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:33:08
+  Mode               : server
+  Binary             : DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile
+  n_layer (detected) : 49
+  NGL swept          : 0..49
+  Baseline VRAM      : 368.01 MiB (-ngl 0)
+  Max VRAM           : 10528.00 MiB (-ngl 49)
+  Est. weights-on-GPU: 10159.99 MiB (Max - Baseline)
+  Avg per-layer VRAM : 207.35 MiB (from successive deltas)
+  Per-layer (early)  : 997.99 MiB (ngl 0->1)
+  Overhead (heuristic): 368.01 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 997.99
+    - layer   2: 214.00
+    - layer   3: 962.00
+    - layer   4: 198.00
+    - layer   5: 200.00
+    - layer   6: 198.00
+    - layer   7: 198.00
+    - layer   8: 180.00
+    - layer   9: 180.00
+    - layer  10: -726.00
+    - layer  11: 164.00
+    - layer  12: 1120.00
+    - layer  13: 230.00
+    - layer  14: 180.00
+    - layer  15: 180.00
+    - layer  16: 198.00
+    - layer  17: 180.00
+    - layer  18: 178.00
+    - layer  19: 200.00
+    - layer  20: 180.00
+    - layer  21: 178.00
+    - layer  22: 200.00
+    - layer  23: 178.00
+    - layer  24: 180.00
+    - layer  25: 200.00
+    - layer  26: 178.00
+    - layer  27: 180.00
+    - layer  28: 198.00
+    - layer  29: 180.00
+    - layer  30: 180.00
+    - layer  31: 198.00
+    - layer  32: 180.00
+    - layer  33: 180.00
+    - layer  34: 198.00
+    - layer  35: 180.00
+    - layer  36: 180.00
+    - layer  37: 198.00
+    - layer  38: 180.00
+    - layer  39: 180.00
+    - layer  40: 198.00
+    - layer  41: 180.00
+    - layer  42: 180.00
+    - layer  43: 198.00
+    - layer  44: 198.00
+    - layer  45: 200.00
+    - layer  46: 198.00
+    - layer  47: 198.00
+    - layer  48: 188.00
+    - layer  49: -516.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=3149.00 MiB
+    - -ngl   1: GPU=1366.00 MiB | CPU=1847.00 MiB
+    - -ngl   2: GPU=1580.00 MiB | CPU=1984.00 MiB
+    - -ngl   3: GPU=2542.00 MiB | CPU=4707.00 MiB
+    - -ngl   4: GPU=2740.00 MiB | CPU=5845.00 MiB
+    - -ngl   5: GPU=2940.00 MiB | CPU=6726.00 MiB
+    - -ngl   6: GPU=3138.00 MiB | CPU=2516.00 MiB
+    - -ngl   7: GPU=3336.00 MiB | CPU=3498.00 MiB
+    - -ngl   8: GPU=3516.00 MiB | CPU=4690.00 MiB
+    - -ngl   9: GPU=3696.00 MiB | CPU=8088.00 MiB
+    - -ngl  10: GPU=2970.00 MiB | CPU=3017.00 MiB
+    - -ngl  11: GPU=3134.00 MiB | CPU=3090.00 MiB
+    - -ngl  12: GPU=4254.00 MiB | CPU=3720.00 MiB
+    - -ngl  13: GPU=4484.00 MiB | CPU=9140.00 MiB
+    - -ngl  14: GPU=4664.00 MiB | CPU=9479.00 MiB
+    - -ngl  15: GPU=4844.00 MiB | CPU=9429.00 MiB
+    - -ngl  16: GPU=5042.00 MiB | CPU=9428.00 MiB
+    - -ngl  17: GPU=5222.00 MiB | CPU=9379.00 MiB
+    - -ngl  18: GPU=5400.00 MiB | CPU=9342.00 MiB
+    - -ngl  19: GPU=5600.00 MiB | CPU=8673.00 MiB
+    - -ngl  20: GPU=5780.00 MiB | CPU=9299.00 MiB
+    - -ngl  21: GPU=5958.00 MiB | CPU=9271.00 MiB
+    - -ngl  22: GPU=6158.00 MiB | CPU=9220.00 MiB
+    - -ngl  23: GPU=6336.00 MiB | CPU=9200.00 MiB
+    - -ngl  24: GPU=6516.00 MiB | CPU=9178.00 MiB
+    - -ngl  25: GPU=6716.00 MiB | CPU=9127.00 MiB
+    - -ngl  26: GPU=6894.00 MiB | CPU=9094.00 MiB
+    - -ngl  27: GPU=7074.00 MiB | CPU=9069.00 MiB
+    - -ngl  28: GPU=7272.00 MiB | CPU=9040.00 MiB
+    - -ngl  29: GPU=7452.00 MiB | CPU=8992.00 MiB
+    - -ngl  30: GPU=7632.00 MiB | CPU=8969.00 MiB
+    - -ngl  31: GPU=7830.00 MiB | CPU=8935.00 MiB
+    - -ngl  32: GPU=8010.00 MiB | CPU=8920.00 MiB
+    - -ngl  33: GPU=8190.00 MiB | CPU=8864.00 MiB
+    - -ngl  34: GPU=8388.00 MiB | CPU=8845.00 MiB
+    - -ngl  35: GPU=8568.00 MiB | CPU=8823.00 MiB
+    - -ngl  36: GPU=8748.00 MiB | CPU=8781.00 MiB
+    - -ngl  37: GPU=8946.00 MiB | CPU=8753.00 MiB
+    - -ngl  38: GPU=9126.00 MiB | CPU=8729.00 MiB
+    - -ngl  39: GPU=9306.00 MiB | CPU=8702.00 MiB
+    - -ngl  40: GPU=9504.00 MiB | CPU=8658.00 MiB
+    - -ngl  41: GPU=9684.00 MiB | CPU=8635.00 MiB
+    - -ngl  42: GPU=9864.00 MiB | CPU=8607.00 MiB
+    - -ngl  43: GPU=10062.00 MiB | CPU=8564.00 MiB
+    - -ngl  44: GPU=10260.00 MiB | CPU=8534.00 MiB
+    - -ngl  45: GPU=10460.00 MiB | CPU=8511.00 MiB
+    - -ngl  46: GPU=10658.00 MiB | CPU=8477.00 MiB
+    - -ngl  47: GPU=10856.00 MiB | CPU=8435.00 MiB
+    - -ngl  48: GPU=11044.00 MiB | CPU=8413.00 MiB
+    - -ngl  49: GPU=10528.00 MiB | CPU=8423.00 MiB
+--------------------------------------------------------------------------------
