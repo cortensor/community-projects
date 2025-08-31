@@ -1,3 +1,4 @@
+# TODO: Name NOTIFY_STATUS and no CANCEL?
 from enum import Enum
 from datetime import datetime
 
@@ -27,7 +28,8 @@ class NodeData:
         metrics = [],
         rank_score = 0,
         rank: int = None,
-        too_many_pings = False
+        too_many_pings = False,
+        level = 0
     ):
         self.address = address.lower()
         self.status = status
@@ -45,3 +47,4 @@ class NodeData:
         self.rank_score = rank_score
         self.rank = rank
         self.too_many_pings = too_many_pings
+        self.level = level
