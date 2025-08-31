@@ -32,7 +32,7 @@ class BotConfig:
     
     @property
     def COR_LEADERBOARD_URL(self) -> str:
-        return env.str("COR_LEADERBOARD_URL", "https://lb-be-6.cortensor.network/leaderboard-by-address")
+        return env.str("COR_LEADERBOARD_URL", "https://db-be-6.cortensor.network/leaderboard-by-address")
     
     @property
     def COR_SESSION_URL(self) -> str:
