@@ -7,6 +7,7 @@ import { logger } from './utils/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { analysisRouter } from './routes/analysis';
 import { healthRouter } from './routes/health';
+import { authRouter } from './routes/auth';
 
 // Load environment variables
 dotenv.config();
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/health', healthRouter);
 app.use('/api/analysis', analysisRouter);
+app.use('/api/auth', authRouter);
 
 // 404 handler
 app.use('*', (req, res) => {

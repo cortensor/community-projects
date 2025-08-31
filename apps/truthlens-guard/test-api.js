@@ -5,7 +5,7 @@
  * Demonstrates Cortensor decentralized AI inference integration
  */
 
-const axios = require('axios');
+import axios from 'axios';
 
 const API_BASE = 'http://localhost:3001/api';
 
@@ -77,7 +77,7 @@ async function testTruthLensAPI() {
 
     console.log('\n🎉 TruthLens API Test Complete!');
     console.log('\n📍 Next Steps:');
-    console.log('  • Open http://localhost:8080 to use the web interface');
+    console.log('  • Open http://localhost:5173 to use the web interface');
     console.log('  • Try different claims to see Cortensor consensus in action');
     console.log('  • Check the History page to see detailed miner responses');
     console.log('  • Configure real Cortensor API key for production use');

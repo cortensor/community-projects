@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { CortensorService } from '../services/cortensorService';
 import { AggregationEngine } from '../services/aggregationEngine';
+import { DatabaseService } from '../services/database';
 import { logger } from '../utils/logger';
 
 const router = Router();
@@ -95,15 +96,11 @@ router.post('/analyze', async (req: Request, res: Response, next: NextFunction) 
   }
 });
 
-// GET /api/analysis/status
-router.get('/status', (req: Request, res: Response) => {
+// GET /api/analysis/analytics
+router.get('/analytics', (req: Request, res: Response) => {
   res.json({
     success: true,
-    data: {
-      cortensorConnected: cortensorService.isConnected(),
-      availableMiners: cortensorService.getAvailableMiners(),
-      lastHealthCheck: cortensorService.getLastHealthCheck()
-    }
+    data: DatabaseService.getAnalytics()
   });
 });
 

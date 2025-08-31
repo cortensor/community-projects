@@ -186,41 +186,36 @@ POST /api/analysis/analyze
 
 Analyzes a claim using the decentralized AI network.
 
-**Request Body:**
-```json
-{
-  "claim": "Your claim text here",
-  "type": "text" | "url",
-  "options": {
-    "minMiners": 3,
-    "timeout": 30000
-  }
-}
+### **Analysis Status**
+```http
+GET /api/analysis/status
 ```
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "claim": "Claim text",
-    "type": "text",
-    "analysis": {
-      "credibilityScore": 0.87,
-      "confidence": 0.92,
-      "isCredible": true,
-      "consensus": "Consensus summary...",
-      "supportingSources": [...],
-      "minerResponses": [...]
-    },
-    "metadata": {
-      "processedAt": "2025-08-31T12:00:00.000Z",
-      "minerCount": 7,
-      "processingTimeMs": 3420
-    }
-  }
-}
+Returns Cortensor network connection status and available miners.
+
+### **Analytics**
+```http
+GET /api/analysis/analytics
 ```
+
+Returns usage analytics and system metrics.
+
+### **User Authentication**
+```http
+POST /api/auth/register
+POST /api/auth/login
+GET /api/auth/me
+```
+
+User registration, login, and profile management.
+
+### **User Data**
+```http
+GET /api/auth/user/fact-checks
+POST /api/auth/user/fact-checks
+```
+
+User-specific fact-check history and data management.
 
 ---
 
@@ -321,7 +316,32 @@ cd ..
 npm run build
 ```
 
----
+### **Docker Deployment**
+
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Or build and run manually
+docker build -t truthlens .
+docker run -p 3001:3001 -p 5173:5173 truthlens
+```
+
+### **Vercel + Render Deployment**
+
+For detailed deployment instructions, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+**Quick Deploy:**
+```bash
+# Linux/Mac
+./deploy.sh
+
+# Windows
+deploy.bat
+```
+
+**Automated Deploy:**
+Push to main branch with GitHub Actions configured.
 
 ## 📊 Roadmap
 
@@ -335,24 +355,32 @@ npm run build
 - [x] Real-time status monitoring
 - [x] Responsive UI with modern design
 - [x] API testing script
+- [x] User authentication system
+- [x] Data persistence layer
+- [x] Analytics and metrics
 
 ### **Phase 2: Enhanced Features** 🚧
 - [ ] Browser extension for real-time fact-checking
 - [ ] Batch processing for multiple claims
 - [ ] Advanced bias detection algorithms
 - [ ] Social media integration
-- [ ] User authentication and profiles
-- [ ] Claim history and favorites
+- [ ] User profiles and history
+- [ ] Claim favorites and bookmarks
 - [ ] Export analysis reports
+- [ ] Real-time notifications
 
-### **Phase 3: Scalability & Production** 📋
-- [ ] Production deployment configuration
-- [ ] Database integration for persistence
-- [ ] API rate limiting and monetization
-- [ ] Mobile application (React Native)
-- [ ] Caching layer optimization
-- [ ] Advanced analytics and metrics
-- [ ] Multi-language support
+### **Phase 3: Production & Scale** 📋
+- [x] Docker containerization
+- [x] Production deployment configuration
+- [x] Nginx reverse proxy setup
+- [x] Comprehensive testing framework
+- [x] Database integration (JSON file-based)
+- [x] API rate limiting and security
+- [x] Health monitoring and logging
+- [ ] Database migration to PostgreSQL/MySQL
+- [ ] Redis caching layer
+- [ ] Horizontal scaling configuration
+- [ ] Advanced monitoring and alerting
 
 ---
 
