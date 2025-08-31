@@ -89,23 +89,14 @@ cd ..
 echo "VITE_API_URL=http://localhost:3001/api" > .env
 ```
 
-### 3. Start Development Servers
+### 3. Test the API (Optional)
 
 ```bash
-# Terminal 1: Start backend
-cd backend
-npm run dev
-
-# Terminal 2: Start frontend  
-cd ..
-npm run dev
+# Run the API test script to verify everything is working
+node test-api.js
 ```
 
-### 4. Open Application
-
-- **Web App**: http://localhost:5173
-- **API Health**: http://localhost:3001/api/health
-- **Backend Status**: http://localhost:3001/api/analysis/status
+This will test the health endpoint, backend status, and run sample fact-check analyses to demonstrate the Cortensor integration.
 
 ---
 
@@ -170,39 +161,60 @@ curl -X POST http://localhost:3001/api/analysis/analyze \
   }'
 ```
 
-### **Response Format**
+---
 
+## 🔌 API Endpoints
+
+### **Health Check**
+```http
+GET /api/health
+```
+
+Returns server health status and version information.
+
+### **Analysis Status**
+```http
+GET /api/analysis/status
+```
+
+Returns Cortensor network connection status and available miners.
+
+### **Claim Analysis**
+```http
+POST /api/analysis/analyze
+```
+
+Analyzes a claim using the decentralized AI network.
+
+**Request Body:**
+```json
+{
+  "claim": "Your claim text here",
+  "type": "text" | "url",
+  "options": {
+    "minMiners": 3,
+    "timeout": 30000
+  }
+}
+```
+
+**Response:**
 ```json
 {
   "success": true,
   "data": {
-    "claim": "Climate change is primarily caused by human activities",
+    "claim": "Claim text",
     "type": "text",
     "analysis": {
       "credibilityScore": 0.87,
       "confidence": 0.92,
       "isCredible": true,
-      "consensus": "Based on analysis from 7 independent AI miners, this claim shows strong credibility with scientific consensus...",
-      "supportingSources": [
-        {
-          "url": "nature.com",
-          "title": "Nature Scientific Papers",
-          "credibility": 0.95,
-          "excerpt": "Peer-reviewed climate research confirms...",
-          "domain": "nature.com"
-        }
-      ],
-      "minerResponses": [
-        {
-          "minerId": "cortensor_fact-checker_001",
-          "score": 0.89,
-          "reasoning": "Strong verification found through cross-referencing authoritative databases...",
-          "sources": ["nature.com", "ipcc.ch"]
-        }
-      ]
+      "consensus": "Consensus summary...",
+      "supportingSources": [...],
+      "minerResponses": [...]
     },
     "metadata": {
-      "processedAt": "2025-08-30T10:45:00.000Z",
+      "processedAt": "2025-08-31T12:00:00.000Z",
       "minerCount": 7,
       "processingTimeMs": 3420
     }
@@ -229,14 +241,59 @@ curl -X POST http://localhost:3001/api/analysis/analyze \
 - **Winston** - Structured logging
 - **Helmet** - Security middleware
 - **Rate limiting** - API protection
+- **Zod** - Schema validation
 
 ### **Cortensor Integration**
 - **Decentralized AI Inference** - Distributed processing
 - **Multiple miner consensus** - Robust verification
 - **Task routing** - Intelligent workload distribution
 - **Result validation** - Quality assurance
+- **Demo mode simulation** - Development testing
+
+### **UI/UX**
+- **Shadcn/ui** - Modern component library
+- **Tailwind CSS** - Utility-first styling
+- **Framer Motion** - Smooth animations
+- **Lucide React** - Beautiful icons
+- **Responsive design** - Mobile-first approach
 
 ---
+
+## 📁 Project Structure
+
+```
+truthlens-guard/
+├── backend/                          # Node.js/Express API server
+│   ├── src/
+│   │   ├── index.ts                  # Main server entry point
+│   │   ├── routes/
+│   │   │   ├── analysis.ts           # Fact-checking endpoints
+│   │   │   └── health.ts             # Health check endpoint
+│   │   ├── services/
+│   │   │   ├── cortensorService.ts   # Cortensor API integration
+│   │   │   └── aggregationEngine.ts  # Result aggregation logic
+│   │   ├── middleware/
+│   │   │   └── errorHandler.ts       # Error handling middleware
+│   │   └── utils/
+│   │       └── logger.ts             # Winston logging setup
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env                          # Environment configuration
+├── src/                              # React frontend
+│   ├── components/
+│   │   ├── ui/                       # Reusable UI components
+│   │   ├── layout/                   # Layout components
+│   │   └── dashboard/                # Dashboard-specific components
+│   ├── pages/                        # Page components
+│   ├── services/                     # API service layer
+│   ├── store/                        # Zustand state management
+│   ├── hooks/                        # Custom React hooks
+│   └── lib/                          # Utility functions
+├── test-api.js                       # API testing script
+├── package.json
+├── vite.config.ts
+└── tailwind.config.ts
+```
 
 ## 🧪 Development
 
@@ -274,18 +331,28 @@ npm run build
 - [x] REST API for claim verification
 - [x] Multi-miner consensus aggregation
 - [x] Explainable AI results
+- [x] Demo mode simulation for development
+- [x] Real-time status monitoring
+- [x] Responsive UI with modern design
+- [x] API testing script
 
 ### **Phase 2: Enhanced Features** 🚧
 - [ ] Browser extension for real-time fact-checking
 - [ ] Batch processing for multiple claims
 - [ ] Advanced bias detection algorithms
 - [ ] Social media integration
+- [ ] User authentication and profiles
+- [ ] Claim history and favorites
+- [ ] Export analysis reports
 
-### **Phase 3: Scalability** 📋
-- [ ] User authentication and personalization
+### **Phase 3: Scalability & Production** 📋
+- [ ] Production deployment configuration
+- [ ] Database integration for persistence
 - [ ] API rate limiting and monetization
-- [ ] Mobile application
+- [ ] Mobile application (React Native)
 - [ ] Caching layer optimization
+- [ ] Advanced analytics and metrics
+- [ ] Multi-language support
 
 ---
 
