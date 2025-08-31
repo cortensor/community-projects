@@ -159,7 +159,7 @@ export class CortensorService {
     }
   }
 
-  private async pollForResults(taskId: string, timeout: number): Promise<any> {
+  private async pollForResults(taskId: string, timeout: number): Promise<Record<string, unknown>> {
     const startTime = Date.now();
     const pollInterval = 2000; // Poll every 2 seconds
     
@@ -190,7 +190,7 @@ export class CortensorService {
     throw new Error('Cortensor task timeout - distributed inference taking too long');
   }
 
-  private parseCortensorResponses(data: any): MinerResponse[] {
+  private parseCortensorResponses(data: Record<string, unknown>): MinerResponse[] {
     if (!data.responses || !Array.isArray(data.responses)) {
       throw new Error('Invalid response format from Cortensor decentralized network');
     }
@@ -199,7 +199,7 @@ export class CortensorService {
       responseCount: data.responses.length 
     });
 
-    return data.responses.map((response: any, index: number) => {
+    return data.responses.map((response: Record<string, unknown>, index: number) => {
       try {
         // Parse the JSON output from each miner
         const minerOutput = typeof response.output === 'string' 
@@ -207,13 +207,13 @@ export class CortensorService {
           : response.output;
 
         return {
-          minerId: response.miner_id || response.node_id || `cortensor_miner_${index}`,
+          minerId: String(response.miner_id || response.node_id || `cortensor_miner_${index}`),
           score: this.validateScore(minerOutput.score),
-          reasoning: minerOutput.reasoning || 'No reasoning provided by miner',
-          sources: Array.isArray(minerOutput.sources) ? minerOutput.sources : [],
+          reasoning: String(minerOutput.reasoning || 'No reasoning provided by miner'),
+          sources: Array.isArray(minerOutput.sources) ? minerOutput.sources.map(String) : [],
           confidence: this.validateScore(minerOutput.confidence),
-          processingTime: response.processing_time_ms || response.latency || 0
-        };
+          processingTime: Number(response.processing_time_ms || response.latency || 0)
+        } as MinerResponse;
       } catch (error) {
         logger.warn('Failed to parse miner response from Cortensor', { 
           minerId: response.miner_id || response.node_id,
@@ -222,19 +222,19 @@ export class CortensorService {
         
         // Return a fallback response for invalid miner outputs
         return {
-          minerId: response.miner_id || response.node_id || `cortensor_miner_${index}`,
+          minerId: String(response.miner_id || response.node_id || `cortensor_miner_${index}`),
           score: 0.5,
           reasoning: 'Failed to parse miner response from decentralized network',
           sources: [],
           confidence: 0.1,
-          processingTime: response.processing_time_ms || 0
-        };
+          processingTime: Number(response.processing_time_ms || 0)
+        } as MinerResponse;
       }
     }).filter((response: MinerResponse) => response.score >= 0 && response.score <= 1); // Filter out invalid responses
   }
 
-  private validateScore(score: any): number {
-    const numScore = typeof score === 'number' ? score : parseFloat(score);
+  private validateScore(score: unknown): number {
+    const numScore = typeof score === 'number' ? score : typeof score === 'string' ? parseFloat(score) : 0.5;
     return isNaN(numScore) ? 0.5 : Math.max(0, Math.min(1, numScore));
   }
 

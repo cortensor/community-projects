@@ -2,8 +2,9 @@ services:
   - type: web
     name: truthlens-backend
     runtime: node
-    buildCommand: "cd backend && npm install"
-    startCommand: "cd backend && npm start"
+    rootDir: backend
+    buildCommand: "npm install"
+    startCommand: "npm start"
     envVars:
       - key: NODE_ENV
         value: production

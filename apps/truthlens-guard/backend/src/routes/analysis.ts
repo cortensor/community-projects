@@ -104,4 +104,16 @@ router.get('/analytics', (req: Request, res: Response) => {
   });
 });
 
+// GET /api/analysis/status
+router.get('/status', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      cortensorConnected: cortensorService.isConnected(),
+      availableMiners: cortensorService.getAvailableMiners(),
+      lastHealthCheck: cortensorService.getLastHealthCheck()?.toISOString() || null
+    }
+  });
+});
+
 export { router as analysisRouter };

@@ -2,6 +2,30 @@ import fs from 'fs';
 import path from 'path';
 import { logger } from '../utils/logger';
 
+interface User {
+  id: string;
+  email: string;
+  [key: string]: unknown;
+}
+
+interface FactCheck {
+  userId: string;
+  credibilityScore?: number;
+  type: 'text' | 'url';
+  [key: string]: unknown;
+}
+
+interface Analytics {
+  totalFactChecks: number;
+  totalUsers: number;
+  averageCredibilityScore: number;
+  factChecksByType: {
+    text: number;
+    url: number;
+  };
+  recentActivity: FactCheck[];
+}
+
 const DATA_DIR = path.join(process.cwd(), 'data');
 const FACT_CHECKS_FILE = path.join(DATA_DIR, 'fact-checks.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
@@ -22,7 +46,7 @@ if (!fs.existsSync(USERS_FILE)) {
 
 export class DatabaseService {
   // Fact Checks
-  static getFactChecks(): any[] {
+  static getFactChecks(): FactCheck[] {
     try {
       const data = fs.readFileSync(FACT_CHECKS_FILE, 'utf8');
       return JSON.parse(data);
@@ -32,7 +56,7 @@ export class DatabaseService {
     }
   }
 
-  static saveFactCheck(factCheck: any): void {
+  static saveFactCheck(factCheck: FactCheck): void {
     try {
       const factChecks = this.getFactChecks();
       factChecks.push(factCheck);
@@ -42,13 +66,13 @@ export class DatabaseService {
     }
   }
 
-  static getFactChecksByUser(userId: string): any[] {
+  static getFactChecksByUser(userId: string): FactCheck[] {
     const factChecks = this.getFactChecks();
     return factChecks.filter(fc => fc.userId === userId);
   }
 
   // Users
-  static getUsers(): any[] {
+  static getUsers(): User[] {
     try {
       const data = fs.readFileSync(USERS_FILE, 'utf8');
       return JSON.parse(data);
@@ -58,7 +82,7 @@ export class DatabaseService {
     }
   }
 
-  static saveUser(user: any): void {
+  static saveUser(user: User): void {
     try {
       const users = this.getUsers();
       users.push(user);
@@ -68,18 +92,18 @@ export class DatabaseService {
     }
   }
 
-  static getUserByEmail(email: string): any {
+  static getUserByEmail(email: string): User | undefined {
     const users = this.getUsers();
     return users.find(u => u.email === email);
   }
 
-  static getUserById(id: string): any {
+  static getUserById(id: string): User | undefined {
     const users = this.getUsers();
     return users.find(u => u.id === id);
   }
 
   // Analytics
-  static getAnalytics(): any {
+  static getAnalytics(): Analytics {
     const factChecks = this.getFactChecks();
     const users = this.getUsers();
 
