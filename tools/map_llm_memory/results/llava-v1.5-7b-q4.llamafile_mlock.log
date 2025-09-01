@@ -1,0 +1,777 @@
+
+================================================================================
+LLM Memory Mapping for: llava-v1.5-7b-q4.llamafile
+Path           : /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile
+Started        : 2025-08-30T18:23:41
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --nobrowser --mlock
+Context Size   : 4096
+NGL range      : 0..33
+Server probe   : host=127.0.0.1, port=8900, sample=2.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 812
+  peak_cpu_mib      : 6046
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 1]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1004
+  peak_cpu_mib      : 6002
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 123.80 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 1984.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 2]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1192
+  peak_cpu_mib      : 5938
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 247.61 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 1920.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 3]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1380
+  peak_cpu_mib      : 5880
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 371.41 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 1856.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 4]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1568
+  peak_cpu_mib      : 5812
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 495.22 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 1792.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 5]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1756
+  peak_cpu_mib      : 5746
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 619.02 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 1728.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 6]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1928
+  peak_cpu_mib      : 5679
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 727.62 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 1664.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 7]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2102
+  peak_cpu_mib      : 5623
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 836.21 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 1600.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 8]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2290
+  peak_cpu_mib      : 5566
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 960.02 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 9]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2462
+  peak_cpu_mib      : 5500
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1068.61 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 1472.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 10]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2634
+  peak_cpu_mib      : 5436
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1177.21 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 1408.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 11]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2822
+  peak_cpu_mib      : 5363
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1301.01 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 704.00 MiB
+  parsed.cpu_kv     : 1344.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 12]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2994
+  peak_cpu_mib      : 5292
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1409.60 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 768.00 MiB
+  parsed.cpu_kv     : 1280.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 13]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3168
+  peak_cpu_mib      : 5244
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1518.20 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 832.00 MiB
+  parsed.cpu_kv     : 1216.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 14]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3356
+  peak_cpu_mib      : 5169
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1642.00 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 896.00 MiB
+  parsed.cpu_kv     : 1152.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 15]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3528
+  peak_cpu_mib      : 5114
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1750.60 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 960.00 MiB
+  parsed.cpu_kv     : 1088.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 16]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3700
+  peak_cpu_mib      : 5051
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1859.19 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1024.00 MiB
+  parsed.cpu_kv     : 1024.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 17]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3888
+  peak_cpu_mib      : 4984
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 1983.00 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1088.00 MiB
+  parsed.cpu_kv     : 960.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 18]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4060
+  peak_cpu_mib      : 4910
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2091.59 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1152.00 MiB
+  parsed.cpu_kv     : 896.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 19]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4234
+  peak_cpu_mib      : 4857
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2200.18 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1216.00 MiB
+  parsed.cpu_kv     : 832.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 20]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4420
+  peak_cpu_mib      : 4794
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2323.99 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1280.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 21]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4594
+  peak_cpu_mib      : 4732
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2432.58 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1344.00 MiB
+  parsed.cpu_kv     : 704.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 22]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4766
+  peak_cpu_mib      : 4664
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2541.18 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1408.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 23]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4954
+  peak_cpu_mib      : 4610
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2664.98 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1472.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 24]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5126
+  peak_cpu_mib      : 4550
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2773.58 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1536.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 25]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5300
+  peak_cpu_mib      : 4482
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 2882.17 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1600.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 26]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5486
+  peak_cpu_mib      : 4422
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3005.98 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1664.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 27]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5660
+  peak_cpu_mib      : 4347
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3114.57 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1728.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 28]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5832
+  peak_cpu_mib      : 4285
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3223.16 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1792.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 29]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6020
+  peak_cpu_mib      : 4232
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3346.97 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1856.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 30]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6208
+  peak_cpu_mib      : 4164
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3470.77 MiB
+  parsed.gpu_compute: 353.00 MiB
+  parsed.gpu_kv     : 1920.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 31]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6388
+  peak_cpu_mib      : 4096
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3594.58 MiB
+  parsed.gpu_compute: 345.00 MiB
+  parsed.gpu_kv     : 1984.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 32]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6528
+  peak_cpu_mib      : 4034
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 3891.24 MiB
+  parsed.gpu_weights: 3718.38 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 2048.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+[Run -ngl 33]
+  cmd               : sh /home/x9/map_llm_memory/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8900 --nobrowser --mlock --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6630
+  peak_cpu_mib      : 4042
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 70.31 MiB
+  parsed.gpu_weights: 3820.94 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 2048.00 MiB
+  parsed.cpu_kv     : 2048.00 MiB
+  parsed.clip_params: 161.34 MiB
+  parsed.clip_compute: 31.37 MiB
+  parsed.model_size : 3891.20 MiB
+  parsed.params(B)  : 6.74
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T18:27:01
+  Mode               : server
+  Binary             : llava-v1.5-7b-q4.llamafile
+  n_layer (detected) : 33
+  NGL swept          : 0..33
+  Baseline VRAM      : 812.00 MiB (-ngl 0)
+  Max VRAM           : 6630.00 MiB (-ngl 33)
+  Est. weights-on-GPU: 5818.00 MiB (Max - Baseline)
+  Avg per-layer VRAM : 176.30 MiB (from successive deltas)
+  Per-layer (early)  : 192.00 MiB (ngl 0->1)
+  Overhead (heuristic): 812.00 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 192.00
+    - layer   2: 188.00
+    - layer   3: 188.00
+    - layer   4: 188.00
+    - layer   5: 188.00
+    - layer   6: 172.00
+    - layer   7: 174.00
+    - layer   8: 188.00
+    - layer   9: 172.00
+    - layer  10: 172.00
+    - layer  11: 188.00
+    - layer  12: 172.00
+    - layer  13: 174.00
+    - layer  14: 188.00
+    - layer  15: 172.00
+    - layer  16: 172.00
+    - layer  17: 188.00
+    - layer  18: 172.00
+    - layer  19: 174.00
+    - layer  20: 186.00
+    - layer  21: 174.00
+    - layer  22: 172.00
+    - layer  23: 188.00
+    - layer  24: 172.00
+    - layer  25: 174.00
+    - layer  26: 186.00
+    - layer  27: 174.00
+    - layer  28: 172.00
+    - layer  29: 188.00
+    - layer  30: 188.00
+    - layer  31: 180.00
+    - layer  32: 140.00
+    - layer  33: 102.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=812.00 MiB | CPU=6046.00 MiB
+    - -ngl   1: GPU=1004.00 MiB | CPU=6002.00 MiB
+    - -ngl   2: GPU=1192.00 MiB | CPU=5938.00 MiB
+    - -ngl   3: GPU=1380.00 MiB | CPU=5880.00 MiB
+    - -ngl   4: GPU=1568.00 MiB | CPU=5812.00 MiB
+    - -ngl   5: GPU=1756.00 MiB | CPU=5746.00 MiB
+    - -ngl   6: GPU=1928.00 MiB | CPU=5679.00 MiB
+    - -ngl   7: GPU=2102.00 MiB | CPU=5623.00 MiB
+    - -ngl   8: GPU=2290.00 MiB | CPU=5566.00 MiB
+    - -ngl   9: GPU=2462.00 MiB | CPU=5500.00 MiB
+    - -ngl  10: GPU=2634.00 MiB | CPU=5436.00 MiB
+    - -ngl  11: GPU=2822.00 MiB | CPU=5363.00 MiB
+    - -ngl  12: GPU=2994.00 MiB | CPU=5292.00 MiB
+    - -ngl  13: GPU=3168.00 MiB | CPU=5244.00 MiB
+    - -ngl  14: GPU=3356.00 MiB | CPU=5169.00 MiB
+    - -ngl  15: GPU=3528.00 MiB | CPU=5114.00 MiB
+    - -ngl  16: GPU=3700.00 MiB | CPU=5051.00 MiB
+    - -ngl  17: GPU=3888.00 MiB | CPU=4984.00 MiB
+    - -ngl  18: GPU=4060.00 MiB | CPU=4910.00 MiB
+    - -ngl  19: GPU=4234.00 MiB | CPU=4857.00 MiB
+    - -ngl  20: GPU=4420.00 MiB | CPU=4794.00 MiB
+    - -ngl  21: GPU=4594.00 MiB | CPU=4732.00 MiB
+    - -ngl  22: GPU=4766.00 MiB | CPU=4664.00 MiB
+    - -ngl  23: GPU=4954.00 MiB | CPU=4610.00 MiB
+    - -ngl  24: GPU=5126.00 MiB | CPU=4550.00 MiB
+    - -ngl  25: GPU=5300.00 MiB | CPU=4482.00 MiB
+    - -ngl  26: GPU=5486.00 MiB | CPU=4422.00 MiB
+    - -ngl  27: GPU=5660.00 MiB | CPU=4347.00 MiB
+    - -ngl  28: GPU=5832.00 MiB | CPU=4285.00 MiB
+    - -ngl  29: GPU=6020.00 MiB | CPU=4232.00 MiB
+    - -ngl  30: GPU=6208.00 MiB | CPU=4164.00 MiB
+    - -ngl  31: GPU=6388.00 MiB | CPU=4096.00 MiB
+    - -ngl  32: GPU=6528.00 MiB | CPU=4034.00 MiB
+    - -ngl  33: GPU=6630.00 MiB | CPU=4042.00 MiB
+--------------------------------------------------------------------------------

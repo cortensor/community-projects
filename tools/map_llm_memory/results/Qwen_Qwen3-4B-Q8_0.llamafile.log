@@ -1,0 +1,864 @@
+================================================================================
+LLM Memory Mapping for: Qwen_Qwen3-4B-Q8_0.llamafile
+Path           : /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile
+Started        : 2025-08-31T03:09:02
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose
+Context Size   : 4096
+NGL range      : 0..37
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 5255
+  parsed.n_layer    : 36
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 4076.43 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 301.75 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1672
+  peak_cpu_mib      : 3997
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3974.15 MiB
+  parsed.gpu_weights: 102.29 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1806
+  peak_cpu_mib      : 4277
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3871.86 MiB
+  parsed.gpu_weights: 204.57 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1940
+  peak_cpu_mib      : 4290
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3769.57 MiB
+  parsed.gpu_weights: 306.86 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2072
+  peak_cpu_mib      : 4301
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3667.29 MiB
+  parsed.gpu_weights: 409.14 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2208
+  peak_cpu_mib      : 4804
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3565.00 MiB
+  parsed.gpu_weights: 511.43 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2340
+  peak_cpu_mib      : 4781
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3462.71 MiB
+  parsed.gpu_weights: 613.72 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2478
+  peak_cpu_mib      : 5251
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3360.43 MiB
+  parsed.gpu_weights: 716.00 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2610
+  peak_cpu_mib      : 5207
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3258.14 MiB
+  parsed.gpu_weights: 818.29 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2746
+  peak_cpu_mib      : 5181
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3155.86 MiB
+  parsed.gpu_weights: 920.58 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2878
+  peak_cpu_mib      : 5144
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 3053.57 MiB
+  parsed.gpu_weights: 1022.86 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3014
+  peak_cpu_mib      : 5121
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2951.28 MiB
+  parsed.gpu_weights: 1125.15 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3146
+  peak_cpu_mib      : 5083
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2849.00 MiB
+  parsed.gpu_weights: 1227.43 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3282
+  peak_cpu_mib      : 5056
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2746.71 MiB
+  parsed.gpu_weights: 1329.72 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3416
+  peak_cpu_mib      : 5032
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2644.43 MiB
+  parsed.gpu_weights: 1432.01 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3552
+  peak_cpu_mib      : 4995
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2542.14 MiB
+  parsed.gpu_weights: 1534.29 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3684
+  peak_cpu_mib      : 4963
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2439.85 MiB
+  parsed.gpu_weights: 1636.58 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3820
+  peak_cpu_mib      : 4931
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2337.57 MiB
+  parsed.gpu_weights: 1738.86 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3952
+  peak_cpu_mib      : 4902
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2235.28 MiB
+  parsed.gpu_weights: 1841.15 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4088
+  peak_cpu_mib      : 4872
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2133.00 MiB
+  parsed.gpu_weights: 1943.44 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4220
+  peak_cpu_mib      : 4835
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 2030.71 MiB
+  parsed.gpu_weights: 2045.72 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4358
+  peak_cpu_mib      : 4804
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1928.42 MiB
+  parsed.gpu_weights: 2148.01 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4490
+  peak_cpu_mib      : 4777
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1826.14 MiB
+  parsed.gpu_weights: 2250.29 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4626
+  peak_cpu_mib      : 4748
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1723.85 MiB
+  parsed.gpu_weights: 2352.58 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4758
+  peak_cpu_mib      : 4715
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1621.56 MiB
+  parsed.gpu_weights: 2454.87 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4894
+  peak_cpu_mib      : 4669
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1519.28 MiB
+  parsed.gpu_weights: 2557.15 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5026
+  peak_cpu_mib      : 4643
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1416.99 MiB
+  parsed.gpu_weights: 2659.44 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5162
+  peak_cpu_mib      : 4616
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1314.71 MiB
+  parsed.gpu_weights: 2761.73 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5296
+  peak_cpu_mib      : 4572
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1212.42 MiB
+  parsed.gpu_weights: 2864.01 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5432
+  peak_cpu_mib      : 4554
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1110.13 MiB
+  parsed.gpu_weights: 2966.30 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5564
+  peak_cpu_mib      : 4522
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 1007.85 MiB
+  parsed.gpu_weights: 3068.58 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5700
+  peak_cpu_mib      : 4483
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 905.56 MiB
+  parsed.gpu_weights: 3170.87 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5832
+  peak_cpu_mib      : 4455
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 803.28 MiB
+  parsed.gpu_weights: 3273.16 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5968
+  peak_cpu_mib      : 4424
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 700.99 MiB
+  parsed.gpu_weights: 3375.44 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 528.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 34]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 34
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6100
+  peak_cpu_mib      : 4388
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 598.70 MiB
+  parsed.gpu_weights: 3477.73 MiB
+  parsed.gpu_compute: 700.87 MiB
+  parsed.gpu_kv     : 544.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 35]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 35
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6232
+  peak_cpu_mib      : 4357
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 496.42 MiB
+  parsed.gpu_weights: 3580.01 MiB
+  parsed.gpu_compute: 695.87 MiB
+  parsed.gpu_kv     : 560.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 36]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 36
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6364
+  peak_cpu_mib      : 4332
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 394.13 MiB
+  parsed.gpu_weights: 3682.30 MiB
+  parsed.gpu_compute: 695.87 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+[Run -ngl 37]
+  cmd               : sh /mnt/chia_temp/llm/Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8900 --verbose --ctx-size 4096 -ngl 37
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5970
+  peak_cpu_mib      : 4345
+  parsed.n_layer    : 37
+  parsed.off_total  : 37
+  parsed.cpu_buffer : 394.12 MiB
+  parsed.gpu_weights: 4076.43 MiB
+  parsed.gpu_compute: 301.75 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4075.52 MiB
+  parsed.params(B)  : 4.02
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-31T03:10:36
+  Mode               : server
+  Binary             : Qwen_Qwen3-4B-Q8_0.llamafile
+  n_layer (detected) : 37
+  NGL swept          : 0..37
+  Baseline VRAM      : 301.75 MiB (-ngl 0)
+  Max VRAM           : 5970.00 MiB (-ngl 37)
+  Est. weights-on-GPU: 5668.25 MiB (Max - Baseline)
+  Avg per-layer VRAM : 153.20 MiB (from successive deltas)
+  Per-layer (early)  : 1370.25 MiB (ngl 0->1)
+  Overhead (heuristic): 301.75 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 1370.25
+    - layer   2: 134.00
+    - layer   3: 134.00
+    - layer   4: 132.00
+    - layer   5: 136.00
+    - layer   6: 132.00
+    - layer   7: 138.00
+    - layer   8: 132.00
+    - layer   9: 136.00
+    - layer  10: 132.00
+    - layer  11: 136.00
+    - layer  12: 132.00
+    - layer  13: 136.00
+    - layer  14: 134.00
+    - layer  15: 136.00
+    - layer  16: 132.00
+    - layer  17: 136.00
+    - layer  18: 132.00
+    - layer  19: 136.00
+    - layer  20: 132.00
+    - layer  21: 138.00
+    - layer  22: 132.00
+    - layer  23: 136.00
+    - layer  24: 132.00
+    - layer  25: 136.00
+    - layer  26: 132.00
+    - layer  27: 136.00
+    - layer  28: 134.00
+    - layer  29: 136.00
+    - layer  30: 132.00
+    - layer  31: 136.00
+    - layer  32: 132.00
+    - layer  33: 136.00
+    - layer  34: 132.00
+    - layer  35: 132.00
+    - layer  36: 132.00
+    - layer  37: -394.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=5255.00 MiB
+    - -ngl   1: GPU=1672.00 MiB | CPU=3997.00 MiB
+    - -ngl   2: GPU=1806.00 MiB | CPU=4277.00 MiB
+    - -ngl   3: GPU=1940.00 MiB | CPU=4290.00 MiB
+    - -ngl   4: GPU=2072.00 MiB | CPU=4301.00 MiB
+    - -ngl   5: GPU=2208.00 MiB | CPU=4804.00 MiB
+    - -ngl   6: GPU=2340.00 MiB | CPU=4781.00 MiB
+    - -ngl   7: GPU=2478.00 MiB | CPU=5251.00 MiB
+    - -ngl   8: GPU=2610.00 MiB | CPU=5207.00 MiB
+    - -ngl   9: GPU=2746.00 MiB | CPU=5181.00 MiB
+    - -ngl  10: GPU=2878.00 MiB | CPU=5144.00 MiB
+    - -ngl  11: GPU=3014.00 MiB | CPU=5121.00 MiB
+    - -ngl  12: GPU=3146.00 MiB | CPU=5083.00 MiB
+    - -ngl  13: GPU=3282.00 MiB | CPU=5056.00 MiB
+    - -ngl  14: GPU=3416.00 MiB | CPU=5032.00 MiB
+    - -ngl  15: GPU=3552.00 MiB | CPU=4995.00 MiB
+    - -ngl  16: GPU=3684.00 MiB | CPU=4963.00 MiB
+    - -ngl  17: GPU=3820.00 MiB | CPU=4931.00 MiB
+    - -ngl  18: GPU=3952.00 MiB | CPU=4902.00 MiB
+    - -ngl  19: GPU=4088.00 MiB | CPU=4872.00 MiB
+    - -ngl  20: GPU=4220.00 MiB | CPU=4835.00 MiB
+    - -ngl  21: GPU=4358.00 MiB | CPU=4804.00 MiB
+    - -ngl  22: GPU=4490.00 MiB | CPU=4777.00 MiB
+    - -ngl  23: GPU=4626.00 MiB | CPU=4748.00 MiB
+    - -ngl  24: GPU=4758.00 MiB | CPU=4715.00 MiB
+    - -ngl  25: GPU=4894.00 MiB | CPU=4669.00 MiB
+    - -ngl  26: GPU=5026.00 MiB | CPU=4643.00 MiB
+    - -ngl  27: GPU=5162.00 MiB | CPU=4616.00 MiB
+    - -ngl  28: GPU=5296.00 MiB | CPU=4572.00 MiB
+    - -ngl  29: GPU=5432.00 MiB | CPU=4554.00 MiB
+    - -ngl  30: GPU=5564.00 MiB | CPU=4522.00 MiB
+    - -ngl  31: GPU=5700.00 MiB | CPU=4483.00 MiB
+    - -ngl  32: GPU=5832.00 MiB | CPU=4455.00 MiB
+    - -ngl  33: GPU=5968.00 MiB | CPU=4424.00 MiB
+    - -ngl  34: GPU=6100.00 MiB | CPU=4388.00 MiB
+    - -ngl  35: GPU=6232.00 MiB | CPU=4357.00 MiB
+    - -ngl  36: GPU=6364.00 MiB | CPU=4332.00 MiB
+    - -ngl  37: GPU=5970.00 MiB | CPU=4345.00 MiB
+--------------------------------------------------------------------------------

@@ -1,0 +1,1128 @@
+================================================================================
+LLM Memory Mapping for: google_gemma-3-12b-it-Q4_K_M.llamafile
+Path           : /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile
+Started        : 2025-08-30T19:16:57
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose --mlock
+Context Size   : 4096
+NGL range      : 0..49
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 9932
+  parsed.n_layer    : 48
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 6956.12 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 527.00 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1732
+  peak_cpu_mib      : 9819
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6819.39 MiB
+  parsed.gpu_weights: 136.73 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1900
+  peak_cpu_mib      : 9675
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6682.66 MiB
+  parsed.gpu_weights: 273.46 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 1472.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2070
+  peak_cpu_mib      : 9229
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6545.93 MiB
+  parsed.gpu_weights: 410.20 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 1440.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2238
+  peak_cpu_mib      : 8610
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6409.20 MiB
+  parsed.gpu_weights: 546.93 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 1408.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2406
+  peak_cpu_mib      : 9160
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6272.47 MiB
+  parsed.gpu_weights: 683.66 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 1376.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2576
+  peak_cpu_mib      : 9165
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 6135.74 MiB
+  parsed.gpu_weights: 820.39 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 1344.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2744
+  peak_cpu_mib      : 9285
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5999.01 MiB
+  parsed.gpu_weights: 957.12 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2896
+  peak_cpu_mib      : 9034
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5878.72 MiB
+  parsed.gpu_weights: 1077.42 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3048
+  peak_cpu_mib      : 9128
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5758.42 MiB
+  parsed.gpu_weights: 1197.71 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3218
+  peak_cpu_mib      : 9558
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5621.69 MiB
+  parsed.gpu_weights: 1334.45 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3370
+  peak_cpu_mib      : 9080
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5501.40 MiB
+  parsed.gpu_weights: 1454.74 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3522
+  peak_cpu_mib      : 8936
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5381.10 MiB
+  parsed.gpu_weights: 1575.04 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5154
+  peak_cpu_mib      : 9393
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5244.37 MiB
+  parsed.gpu_weights: 1711.77 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5340
+  peak_cpu_mib      : 9327
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5124.08 MiB
+  parsed.gpu_weights: 1832.07 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3996
+  peak_cpu_mib      : 9126
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 5003.78 MiB
+  parsed.gpu_weights: 1952.36 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4164
+  peak_cpu_mib      : 9051
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4867.05 MiB
+  parsed.gpu_weights: 2089.09 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5908
+  peak_cpu_mib      : 9130
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4746.75 MiB
+  parsed.gpu_weights: 2209.39 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 544.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4468
+  peak_cpu_mib      : 8797
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4626.46 MiB
+  parsed.gpu_weights: 2329.69 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4638
+  peak_cpu_mib      : 8970
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4489.73 MiB
+  parsed.gpu_weights: 2466.42 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 608.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4790
+  peak_cpu_mib      : 8854
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4369.43 MiB
+  parsed.gpu_weights: 2586.71 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6694
+  peak_cpu_mib      : 8960
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4249.14 MiB
+  parsed.gpu_weights: 2707.01 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 672.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6862
+  peak_cpu_mib      : 8797
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 4112.41 MiB
+  parsed.gpu_weights: 2843.74 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 704.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7082
+  peak_cpu_mib      : 8824
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3992.11 MiB
+  parsed.gpu_weights: 2964.04 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 736.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7266
+  peak_cpu_mib      : 8769
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3871.82 MiB
+  parsed.gpu_weights: 3084.33 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 768.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7466
+  peak_cpu_mib      : 8690
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3735.09 MiB
+  parsed.gpu_weights: 3221.07 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 800.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7650
+  peak_cpu_mib      : 8625
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3614.79 MiB
+  parsed.gpu_weights: 3341.36 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 832.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 7834
+  peak_cpu_mib      : 8576
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3494.50 MiB
+  parsed.gpu_weights: 3461.66 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 864.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8036
+  peak_cpu_mib      : 8508
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3357.77 MiB
+  parsed.gpu_weights: 3598.39 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 896.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8220
+  peak_cpu_mib      : 8436
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3237.47 MiB
+  parsed.gpu_weights: 3718.69 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 928.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8404
+  peak_cpu_mib      : 8381
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 3117.18 MiB
+  parsed.gpu_weights: 3838.98 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 960.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8604
+  peak_cpu_mib      : 8308
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2980.45 MiB
+  parsed.gpu_weights: 3975.71 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 992.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8790
+  peak_cpu_mib      : 8263
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2860.15 MiB
+  parsed.gpu_weights: 4096.01 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1024.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 8974
+  peak_cpu_mib      : 8164
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2739.86 MiB
+  parsed.gpu_weights: 4216.31 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1056.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 34]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 34
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9174
+  peak_cpu_mib      : 8099
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2603.13 MiB
+  parsed.gpu_weights: 4353.04 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1088.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 35]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 35
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9358
+  peak_cpu_mib      : 8052
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2482.83 MiB
+  parsed.gpu_weights: 4473.33 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1120.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 36]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 36
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9542
+  peak_cpu_mib      : 8009
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2362.54 MiB
+  parsed.gpu_weights: 4593.63 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1152.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 37]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 37
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9744
+  peak_cpu_mib      : 7937
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2225.81 MiB
+  parsed.gpu_weights: 4730.36 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1184.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 38]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 38
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 9928
+  peak_cpu_mib      : 7867
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 2105.51 MiB
+  parsed.gpu_weights: 4850.66 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1216.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 39]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 39
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10112
+  peak_cpu_mib      : 7811
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1985.22 MiB
+  parsed.gpu_weights: 4970.95 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1248.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 40]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 40
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10312
+  peak_cpu_mib      : 7742
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1848.49 MiB
+  parsed.gpu_weights: 5107.69 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1280.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 41]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 41
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10496
+  peak_cpu_mib      : 7670
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1728.19 MiB
+  parsed.gpu_weights: 5227.98 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1312.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 42]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 42
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10682
+  peak_cpu_mib      : 7601
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1607.90 MiB
+  parsed.gpu_weights: 5348.28 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1344.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 43]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 43
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 10890
+  peak_cpu_mib      : 7541
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1471.17 MiB
+  parsed.gpu_weights: 5485.01 MiB
+  parsed.gpu_compute: 1314.50 MiB
+  parsed.gpu_kv     : 1376.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 44]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 44
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11082
+  peak_cpu_mib      : 7503
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1334.44 MiB
+  parsed.gpu_weights: 5621.74 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1408.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 45]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 45
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11292
+  peak_cpu_mib      : 7403
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1197.71 MiB
+  parsed.gpu_weights: 5758.47 MiB
+  parsed.gpu_compute: 1314.50 MiB
+  parsed.gpu_kv     : 1440.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 46]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 46
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11484
+  peak_cpu_mib      : 7364
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 1060.98 MiB
+  parsed.gpu_weights: 5895.20 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1472.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 47]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 47
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11692
+  peak_cpu_mib      : 7299
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 924.25 MiB
+  parsed.gpu_weights: 6031.94 MiB
+  parsed.gpu_compute: 1314.50 MiB
+  parsed.gpu_kv     : 1504.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 48]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 48
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11886
+  peak_cpu_mib      : 7231
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 787.51 MiB
+  parsed.gpu_weights: 6168.67 MiB
+  parsed.gpu_compute: 1307.00 MiB
+  parsed.gpu_kv     : 1536.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+[Run -ngl 49]
+  cmd               : sh /mnt/chia_temp/llm/google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 49
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 11098
+  peak_cpu_mib      : 7222
+  parsed.n_layer    : 49
+  parsed.off_total  : 49
+  parsed.cpu_buffer : 787.50 MiB
+  parsed.gpu_weights: 6956.18 MiB
+  parsed.gpu_compute: 519.50 MiB
+  parsed.gpu_kv     : 1536.00 MiB
+  parsed.cpu_kv     : 1536.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 6952.96 MiB
+  parsed.params(B)  : 11.77
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:21:07
+  Mode               : server
+  Binary             : google_gemma-3-12b-it-Q4_K_M.llamafile
+  n_layer (detected) : 49
+  NGL swept          : 0..49
+  Baseline VRAM      : 527.00 MiB (-ngl 0)
+  Max VRAM           : 11098.00 MiB (-ngl 49)
+  Est. weights-on-GPU: 10571.00 MiB (Max - Baseline)
+  Avg per-layer VRAM : 215.73 MiB (from successive deltas)
+  Per-layer (early)  : 1205.00 MiB (ngl 0->1)
+  Overhead (heuristic): 527.00 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 1205.00
+    - layer   2: 168.00
+    - layer   3: 170.00
+    - layer   4: 168.00
+    - layer   5: 168.00
+    - layer   6: 170.00
+    - layer   7: 168.00
+    - layer   8: 152.00
+    - layer   9: 152.00
+    - layer  10: 170.00
+    - layer  11: 152.00
+    - layer  12: 152.00
+    - layer  13: 1632.00
+    - layer  14: 186.00
+    - layer  15: -1344.00
+    - layer  16: 168.00
+    - layer  17: 1744.00
+    - layer  18: -1440.00
+    - layer  19: 170.00
+    - layer  20: 152.00
+    - layer  21: 1904.00
+    - layer  22: 168.00
+    - layer  23: 220.00
+    - layer  24: 184.00
+    - layer  25: 200.00
+    - layer  26: 184.00
+    - layer  27: 184.00
+    - layer  28: 202.00
+    - layer  29: 184.00
+    - layer  30: 184.00
+    - layer  31: 200.00
+    - layer  32: 186.00
+    - layer  33: 184.00
+    - layer  34: 200.00
+    - layer  35: 184.00
+    - layer  36: 184.00
+    - layer  37: 202.00
+    - layer  38: 184.00
+    - layer  39: 184.00
+    - layer  40: 200.00
+    - layer  41: 184.00
+    - layer  42: 186.00
+    - layer  43: 208.00
+    - layer  44: 192.00
+    - layer  45: 210.00
+    - layer  46: 192.00
+    - layer  47: 208.00
+    - layer  48: 194.00
+    - layer  49: -788.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=9932.00 MiB
+    - -ngl   1: GPU=1732.00 MiB | CPU=9819.00 MiB
+    - -ngl   2: GPU=1900.00 MiB | CPU=9675.00 MiB
+    - -ngl   3: GPU=2070.00 MiB | CPU=9229.00 MiB
+    - -ngl   4: GPU=2238.00 MiB | CPU=8610.00 MiB
+    - -ngl   5: GPU=2406.00 MiB | CPU=9160.00 MiB
+    - -ngl   6: GPU=2576.00 MiB | CPU=9165.00 MiB
+    - -ngl   7: GPU=2744.00 MiB | CPU=9285.00 MiB
+    - -ngl   8: GPU=2896.00 MiB | CPU=9034.00 MiB
+    - -ngl   9: GPU=3048.00 MiB | CPU=9128.00 MiB
+    - -ngl  10: GPU=3218.00 MiB | CPU=9558.00 MiB
+    - -ngl  11: GPU=3370.00 MiB | CPU=9080.00 MiB
+    - -ngl  12: GPU=3522.00 MiB | CPU=8936.00 MiB
+    - -ngl  13: GPU=5154.00 MiB | CPU=9393.00 MiB
+    - -ngl  14: GPU=5340.00 MiB | CPU=9327.00 MiB
+    - -ngl  15: GPU=3996.00 MiB | CPU=9126.00 MiB
+    - -ngl  16: GPU=4164.00 MiB | CPU=9051.00 MiB
+    - -ngl  17: GPU=5908.00 MiB | CPU=9130.00 MiB
+    - -ngl  18: GPU=4468.00 MiB | CPU=8797.00 MiB
+    - -ngl  19: GPU=4638.00 MiB | CPU=8970.00 MiB
+    - -ngl  20: GPU=4790.00 MiB | CPU=8854.00 MiB
+    - -ngl  21: GPU=6694.00 MiB | CPU=8960.00 MiB
+    - -ngl  22: GPU=6862.00 MiB | CPU=8797.00 MiB
+    - -ngl  23: GPU=7082.00 MiB | CPU=8824.00 MiB
+    - -ngl  24: GPU=7266.00 MiB | CPU=8769.00 MiB
+    - -ngl  25: GPU=7466.00 MiB | CPU=8690.00 MiB
+    - -ngl  26: GPU=7650.00 MiB | CPU=8625.00 MiB
+    - -ngl  27: GPU=7834.00 MiB | CPU=8576.00 MiB
+    - -ngl  28: GPU=8036.00 MiB | CPU=8508.00 MiB
+    - -ngl  29: GPU=8220.00 MiB | CPU=8436.00 MiB
+    - -ngl  30: GPU=8404.00 MiB | CPU=8381.00 MiB
+    - -ngl  31: GPU=8604.00 MiB | CPU=8308.00 MiB
+    - -ngl  32: GPU=8790.00 MiB | CPU=8263.00 MiB
+    - -ngl  33: GPU=8974.00 MiB | CPU=8164.00 MiB
+    - -ngl  34: GPU=9174.00 MiB | CPU=8099.00 MiB
+    - -ngl  35: GPU=9358.00 MiB | CPU=8052.00 MiB
+    - -ngl  36: GPU=9542.00 MiB | CPU=8009.00 MiB
+    - -ngl  37: GPU=9744.00 MiB | CPU=7937.00 MiB
+    - -ngl  38: GPU=9928.00 MiB | CPU=7867.00 MiB
+    - -ngl  39: GPU=10112.00 MiB | CPU=7811.00 MiB
+    - -ngl  40: GPU=10312.00 MiB | CPU=7742.00 MiB
+    - -ngl  41: GPU=10496.00 MiB | CPU=7670.00 MiB
+    - -ngl  42: GPU=10682.00 MiB | CPU=7601.00 MiB
+    - -ngl  43: GPU=10890.00 MiB | CPU=7541.00 MiB
+    - -ngl  44: GPU=11082.00 MiB | CPU=7503.00 MiB
+    - -ngl  45: GPU=11292.00 MiB | CPU=7403.00 MiB
+    - -ngl  46: GPU=11484.00 MiB | CPU=7364.00 MiB
+    - -ngl  47: GPU=11692.00 MiB | CPU=7299.00 MiB
+    - -ngl  48: GPU=11886.00 MiB | CPU=7231.00 MiB
+    - -ngl  49: GPU=11098.00 MiB | CPU=7222.00 MiB
+--------------------------------------------------------------------------------

@@ -1,0 +1,826 @@
+================================================================================
+LLM Memory Mapping for: granite-3.2-8b-instruct-Q4_K_M.llamafile
+Path           : /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile
+Started        : 2025-08-30T19:39:31
+Mode           : cli  (auto_server_detected=False)
+Extra args     : (none)
+Context Size   : 4096
+NGL range      : 0..41
+CLI probe      : prompt='probe', n_predict=1
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 0 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 5350
+  parsed.n_layer    : 40
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 4712.21 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 296.01 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 1 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 730
+  peak_cpu_mib      : 5519
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4591.38 MiB
+  parsed.gpu_weights: 120.83 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 2 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 866
+  peak_cpu_mib      : 5508
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4470.56 MiB
+  parsed.gpu_weights: 241.66 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 3 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1004
+  peak_cpu_mib      : 5488
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4349.73 MiB
+  parsed.gpu_weights: 362.48 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 4 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1140
+  peak_cpu_mib      : 5468
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4228.90 MiB
+  parsed.gpu_weights: 483.31 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 5 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1278
+  peak_cpu_mib      : 5451
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4108.07 MiB
+  parsed.gpu_weights: 604.14 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 6 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1414
+  peak_cpu_mib      : 5446
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3987.24 MiB
+  parsed.gpu_weights: 724.97 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 7 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1536
+  peak_cpu_mib      : 5429
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3880.34 MiB
+  parsed.gpu_weights: 831.88 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 8 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1660
+  peak_cpu_mib      : 5402
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3773.43 MiB
+  parsed.gpu_weights: 938.78 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 9 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1796
+  peak_cpu_mib      : 5398
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3652.60 MiB
+  parsed.gpu_weights: 1059.61 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 10 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 1920
+  peak_cpu_mib      : 5373
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3545.70 MiB
+  parsed.gpu_weights: 1166.52 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 11 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2042
+  peak_cpu_mib      : 5366
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3438.79 MiB
+  parsed.gpu_weights: 1273.42 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 12 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2180
+  peak_cpu_mib      : 5346
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3317.96 MiB
+  parsed.gpu_weights: 1394.25 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 13 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2302
+  peak_cpu_mib      : 5335
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3211.06 MiB
+  parsed.gpu_weights: 1501.16 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 14 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2426
+  peak_cpu_mib      : 5324
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3104.15 MiB
+  parsed.gpu_weights: 1608.06 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 15 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2562
+  peak_cpu_mib      : 5301
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2983.32 MiB
+  parsed.gpu_weights: 1728.89 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 16 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2684
+  peak_cpu_mib      : 5286
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2876.42 MiB
+  parsed.gpu_weights: 1835.80 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 17 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2808
+  peak_cpu_mib      : 5269
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2769.51 MiB
+  parsed.gpu_weights: 1942.70 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 18 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 2944
+  peak_cpu_mib      : 5258
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2648.68 MiB
+  parsed.gpu_weights: 2063.53 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 19 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3068
+  peak_cpu_mib      : 5240
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2541.78 MiB
+  parsed.gpu_weights: 2170.44 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 20 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3190
+  peak_cpu_mib      : 5223
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2434.87 MiB
+  parsed.gpu_weights: 2277.34 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 21 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3328
+  peak_cpu_mib      : 5202
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2314.04 MiB
+  parsed.gpu_weights: 2398.17 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 22 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3450
+  peak_cpu_mib      : 5202
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2207.13 MiB
+  parsed.gpu_weights: 2505.08 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 23 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3572
+  peak_cpu_mib      : 5169
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2100.23 MiB
+  parsed.gpu_weights: 2611.98 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 24 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3710
+  peak_cpu_mib      : 5150
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1979.40 MiB
+  parsed.gpu_weights: 2732.81 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 25 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3832
+  peak_cpu_mib      : 5137
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1872.49 MiB
+  parsed.gpu_weights: 2839.72 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 26 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 3956
+  peak_cpu_mib      : 5127
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1765.59 MiB
+  parsed.gpu_weights: 2946.62 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 27 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4092
+  peak_cpu_mib      : 5114
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1644.76 MiB
+  parsed.gpu_weights: 3067.45 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 28 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4216
+  peak_cpu_mib      : 5089
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1537.85 MiB
+  parsed.gpu_weights: 3174.36 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 29 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4338
+  peak_cpu_mib      : 5074
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1430.95 MiB
+  parsed.gpu_weights: 3281.27 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 30 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4476
+  peak_cpu_mib      : 5056
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1310.12 MiB
+  parsed.gpu_weights: 3402.09 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 31 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4598
+  peak_cpu_mib      : 5047
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1203.21 MiB
+  parsed.gpu_weights: 3509.00 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 32 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4720
+  peak_cpu_mib      : 5047
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1096.31 MiB
+  parsed.gpu_weights: 3615.91 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 33 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4858
+  peak_cpu_mib      : 5025
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 975.48 MiB
+  parsed.gpu_weights: 3736.73 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 528.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 34]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 34 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 4980
+  peak_cpu_mib      : 5011
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 868.57 MiB
+  parsed.gpu_weights: 3843.64 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 544.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 35]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 35 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5104
+  peak_cpu_mib      : 5002
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 761.67 MiB
+  parsed.gpu_weights: 3950.55 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 560.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 36]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 36 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5240
+  peak_cpu_mib      : 4973
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 640.84 MiB
+  parsed.gpu_weights: 4071.38 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 37]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 37 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5378
+  peak_cpu_mib      : 4951
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 520.01 MiB
+  parsed.gpu_weights: 4192.20 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 592.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 38]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 38 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5514
+  peak_cpu_mib      : 4936
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 399.18 MiB
+  parsed.gpu_weights: 4313.03 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 608.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 39]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 39 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5650
+  peak_cpu_mib      : 4923
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 278.35 MiB
+  parsed.gpu_weights: 4433.86 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 624.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 40]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 40 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5780
+  peak_cpu_mib      : 4902
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 157.53 MiB
+  parsed.gpu_weights: 4554.69 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 41]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile -ngl 41 -c 4096 -p probe -n 1
+  return_code       : 0
+  peak_gpu_mib      : 5938
+  peak_cpu_mib      : 4922
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 157.51 MiB
+  parsed.gpu_weights: 4712.21 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:40:41
+  Mode               : cli
+  Binary             : granite-3.2-8b-instruct-Q4_K_M.llamafile
+  n_layer (detected) : 41
+  NGL swept          : 0..41
+  Baseline VRAM      : 296.01 MiB (-ngl 0)
+  Max VRAM           : 5938.00 MiB (-ngl 41)
+  Est. weights-on-GPU: 5641.99 MiB (Max - Baseline)
+  Avg per-layer VRAM : 137.61 MiB (from successive deltas)
+  Per-layer (early)  : 433.99 MiB (ngl 0->1)
+  Overhead (heuristic): 296.01 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 433.99
+    - layer   2: 136.00
+    - layer   3: 138.00
+    - layer   4: 136.00
+    - layer   5: 138.00
+    - layer   6: 136.00
+    - layer   7: 122.00
+    - layer   8: 124.00
+    - layer   9: 136.00
+    - layer  10: 124.00
+    - layer  11: 122.00
+    - layer  12: 138.00
+    - layer  13: 122.00
+    - layer  14: 124.00
+    - layer  15: 136.00
+    - layer  16: 122.00
+    - layer  17: 124.00
+    - layer  18: 136.00
+    - layer  19: 124.00
+    - layer  20: 122.00
+    - layer  21: 138.00
+    - layer  22: 122.00
+    - layer  23: 122.00
+    - layer  24: 138.00
+    - layer  25: 122.00
+    - layer  26: 124.00
+    - layer  27: 136.00
+    - layer  28: 124.00
+    - layer  29: 122.00
+    - layer  30: 138.00
+    - layer  31: 122.00
+    - layer  32: 122.00
+    - layer  33: 138.00
+    - layer  34: 122.00
+    - layer  35: 124.00
+    - layer  36: 136.00
+    - layer  37: 138.00
+    - layer  38: 136.00
+    - layer  39: 136.00
+    - layer  40: 130.00
+    - layer  41: 158.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=5350.00 MiB
+    - -ngl   1: GPU=730.00 MiB | CPU=5519.00 MiB
+    - -ngl   2: GPU=866.00 MiB | CPU=5508.00 MiB
+    - -ngl   3: GPU=1004.00 MiB | CPU=5488.00 MiB
+    - -ngl   4: GPU=1140.00 MiB | CPU=5468.00 MiB
+    - -ngl   5: GPU=1278.00 MiB | CPU=5451.00 MiB
+    - -ngl   6: GPU=1414.00 MiB | CPU=5446.00 MiB
+    - -ngl   7: GPU=1536.00 MiB | CPU=5429.00 MiB
+    - -ngl   8: GPU=1660.00 MiB | CPU=5402.00 MiB
+    - -ngl   9: GPU=1796.00 MiB | CPU=5398.00 MiB
+    - -ngl  10: GPU=1920.00 MiB | CPU=5373.00 MiB
+    - -ngl  11: GPU=2042.00 MiB | CPU=5366.00 MiB
+    - -ngl  12: GPU=2180.00 MiB | CPU=5346.00 MiB
+    - -ngl  13: GPU=2302.00 MiB | CPU=5335.00 MiB
+    - -ngl  14: GPU=2426.00 MiB | CPU=5324.00 MiB
+    - -ngl  15: GPU=2562.00 MiB | CPU=5301.00 MiB
+    - -ngl  16: GPU=2684.00 MiB | CPU=5286.00 MiB
+    - -ngl  17: GPU=2808.00 MiB | CPU=5269.00 MiB
+    - -ngl  18: GPU=2944.00 MiB | CPU=5258.00 MiB
+    - -ngl  19: GPU=3068.00 MiB | CPU=5240.00 MiB
+    - -ngl  20: GPU=3190.00 MiB | CPU=5223.00 MiB
+    - -ngl  21: GPU=3328.00 MiB | CPU=5202.00 MiB
+    - -ngl  22: GPU=3450.00 MiB | CPU=5202.00 MiB
+    - -ngl  23: GPU=3572.00 MiB | CPU=5169.00 MiB
+    - -ngl  24: GPU=3710.00 MiB | CPU=5150.00 MiB
+    - -ngl  25: GPU=3832.00 MiB | CPU=5137.00 MiB
+    - -ngl  26: GPU=3956.00 MiB | CPU=5127.00 MiB
+    - -ngl  27: GPU=4092.00 MiB | CPU=5114.00 MiB
+    - -ngl  28: GPU=4216.00 MiB | CPU=5089.00 MiB
+    - -ngl  29: GPU=4338.00 MiB | CPU=5074.00 MiB
+    - -ngl  30: GPU=4476.00 MiB | CPU=5056.00 MiB
+    - -ngl  31: GPU=4598.00 MiB | CPU=5047.00 MiB
+    - -ngl  32: GPU=4720.00 MiB | CPU=5047.00 MiB
+    - -ngl  33: GPU=4858.00 MiB | CPU=5025.00 MiB
+    - -ngl  34: GPU=4980.00 MiB | CPU=5011.00 MiB
+    - -ngl  35: GPU=5104.00 MiB | CPU=5002.00 MiB
+    - -ngl  36: GPU=5240.00 MiB | CPU=4973.00 MiB
+    - -ngl  37: GPU=5378.00 MiB | CPU=4951.00 MiB
+    - -ngl  38: GPU=5514.00 MiB | CPU=4936.00 MiB
+    - -ngl  39: GPU=5650.00 MiB | CPU=4923.00 MiB
+    - -ngl  40: GPU=5780.00 MiB | CPU=4902.00 MiB
+    - -ngl  41: GPU=5938.00 MiB | CPU=4922.00 MiB
+--------------------------------------------------------------------------------

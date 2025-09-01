@@ -1,0 +1,139 @@
+Model: granite-3.2-8b-instruct-Q4_K_M
+Request ID: 55
+Timestamp: 2025-08-28T11-49-08
+
+Question:
+Design a JSON Schema for invoices (vendor, invoice_date ISO-8601, line_items[], total_amount); include validation rules.
+
+Answer:
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "pattern": "^[a-zA-Z0-9 ]+$"
+    },
+    "invoice_date": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:?\\d{2})?$"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["description", "quantity", "price"]
+      }
+    },
+    "total_amount": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": ["vendor", "invoice_date", "line_items", "total_amount"]
+}
+```
+
+```python
+import json
+from jsonschema import validate, ValidationError
+
+# JSON schema for invoice
+schema = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "pattern": "^[a-zA-Z0-9 ]+$"
+    },
+    "invoice_date": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:?\\d{2})?$"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["description", "quantity", "price"]
+      }
+    },
+    "total_amount": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": ["vendor", "invoice_date", "line_items", "total_amount"]
+}
+
+# Sample invoice data
+invoice_data = {
+  "vendor": "Vendor Inc.",
+  "invoice_date": "2022-01-01T00:00:00Z",
+  "line_items": [
+    {
+      "description": "Widget A",
+      "quantity": 5,
+      "price": 10.99
+    },
+    {
+      "description": "Widget B",
+      "quantity": 3,
+      "price": 19.99
+    }
+  ],
+  "total_amount": 100.97
+}
+
+def validate_invoice(invoice):
+    try:
+        validate(instance=invoice, schema=schema)
+        return True
+    except ValidationError as e:
+        print(f"Invalid invoice: {e.message}")
+        return False
+
+# Validate the invoice data
+print(validate_invoice(invoice_data))
+```
+
+This code defines a JSON schema for invoices and a Python function to validate the invoice data against the schema. The schema includes rules for the vendor name, invoice date, line items (with description, quantity, and price), and total amount. The `validate_invoice()` function takes an invoice dictionary and raises an error if the data doesn't conform to the schema.
+
+You can test this code by modifying the `invoice_data` dictionary to include invalid values (e.g., non-numeric quantity or price, missing fields, or incorrect date formats) to see the error messages.<|end_of_text|>

@@ -1,0 +1,62 @@
+Model: granite-3.2-8b-instruct-Q4_K_M
+Request ID: 57
+Timestamp: 2025-08-28T11-34-56
+
+Question:
+Specify a procedure and Markdown template to extract action items with owners and due dates from meeting notes.
+
+Answer:
+To extract action items with owners and due dates from meeting notes, you can follow this procedure and use a Markdown template.
+
+### Procedure
+
+1. **Read the meeting notes**: Go through the meeting notes and identify action items.
+2. **Identify owners and due dates**: For each action item, identify the person responsible (owner) and the deadline (due date).
+3. **Create a structured list**: Organize the extracted information in a structured list format.
+
+### Markdown Template
+
+Here is a Markdown template to create a structured list of action items with owners and due dates:
+
+```markdown
+## Meeting Action Items
+
+| Task Description | Owner | Due Date |
+|---|---|---|
+| **Action Item 1** |  |  |
+| **Action Item 2** |  |  |
+| **Action Item 3** |  |  |
+
+---
+
+**Additional Notes:**
+
+- [Any relevant notes or context related to the action items]
+```
+
+### Steps to Fill the Template
+
+1. **Replace placeholders**: Replace the placeholders in the table (e.g., `**Action Item 1**`, `Owner`, `Due Date`) with the actual information extracted from the meeting notes.
+2. **Add more rows**: If there are more action items, add more rows in the table following the same format.
+3. **Update additional notes**: If there are any additional notes or context related to the action items, include them in the `Additional Notes` section.
+
+### Example
+
+```markdown
+## Meeting Action Items
+
+| Task Description | Owner | Due Date |
+|---|---|---|
+| Prepare the presentation | John Doe | 2023-04-15 |
+| Review the report | Jane Smith | 2023-04-10 |
+| Send out the meeting summary | Bob Johnson | 2023-04-12 |
+
+---
+
+**Additional Notes:**
+
+- The presentation should include the latest financial data.
+- Make sure to proofread the report for any errors.
+```
+
+This template allows you to create a clear and organized list of action items, owners, and due dates for easy reference and follow-up.<|end_of_text|>

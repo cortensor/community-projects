@@ -1,0 +1,9 @@
+Model: google_gemma-3-4b-it-Q6_K
+Request ID: 44
+Timestamp: 2025-08-28T11-35-17
+
+Question:
+Write a one-sentence explanation of the difference between VRAM and system RAM for non-technical readers.
+
+Answer:
+Think of system RAM as your computer’s short-term memory for general tasks, while VRAM is a special, super-fast memory card just for your graphics card to handle images and videos smoothly.<end_of_turn>
