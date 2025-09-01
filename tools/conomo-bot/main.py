@@ -48,7 +48,8 @@ from contract_reader import ContractReader
 
 BOT_CONFIG = BotConfig()
 
-CONTRACT_READER = ContractReader(BOT_CONFIG.RPC_ARB_SEPOLIA, BOT_CONFIG.CONTRACT_COR_COGNETIVE)
+CONTRACT_READER_COGNETIVE = ContractReader(BOT_CONFIG.RPC_ARB_SEPOLIA, BOT_CONFIG.CONTRACT_COR_COGNETIVE, "abis/cor_cognetive.json")
+CONTRACT_READER_COGNETIVE_LEVEL = ContractReader(BOT_CONFIG.RPC_ARB_SEPOLIA, BOT_CONFIG.CONTRACT_COR_COGNETIVE_LEVEL, "abis/cor_cognetive_level.json")
 
 BOT_DB_CONNECTION: sqlite3.Connection = None
 BOT_DB_CURSOR = sqlite3.Cursor = None  # = DB_CONNECTION.cursor()
@@ -396,7 +397,7 @@ async def update_new_eth_balances(node_addresses: list[str]):
     #         logger.exception(f"Error retrieving eth balalances for {batch}")
 
     for address in node_addresses:
-        NEW_ETH_BALANCES[address] = CONTRACT_READER.get_eth_balance(address)
+        NEW_ETH_BALANCES[address] = CONTRACT_READER_COGNETIVE.get_eth_balance(address)
 
 
 
@@ -1617,10 +1618,10 @@ async def check_session_data(chat_ids: list):
 
     try:
         def parse_ts(ts):
-            return f"({CONTRACT_READER.parse_timestamp(ts)})" if ts else ""
+            return f"({CONTRACT_READER_COGNETIVE.parse_timestamp(ts)})" if ts else ""
         
 
-        session_data = CONTRACT_READER.get_latest_cor_session_data()
+        session_data = CONTRACT_READER_COGNETIVE.get_latest_cor_session_data()
 
         if not session_data:
             return
@@ -1668,6 +1669,17 @@ async def check_session_data(chat_ids: list):
         logger.exception("Failed to check session data")
 
 
+def update_node_level():
+    try:
+        raw_levels = CONTRACT_READER_COGNETIVE_LEVEL.get_node_levels(list(NODES.keys()))
+
+        for index, (address, node_data) in enumerate(NODES.items()):
+            node_data.level = raw_levels[index]
+
+    except Exception:
+        logger.exception("Failed to update node levels")
+
+
 async def update_node_datas(all_distinct_node_addresses: list[str]):
     await update_new_eth_balances(all_distinct_node_addresses)
 
@@ -1678,6 +1690,8 @@ async def update_node_datas(all_distinct_node_addresses: list[str]):
         node_data.metrics = metrics_per_node.get(node_address, [])
         NODES[node_address] = node_data
         await asyncio.sleep(0.33)
+
+    update_node_level()
 
     all_nodes_metrics = list(metrics_per_node.values())
     rank_score_calculator.update_global_stats(all_nodes_metrics)
@@ -1960,6 +1974,19 @@ async def send_overview_message(
             rank_msg = f"Rank: {node_data.rank}\n"
             rank_score_msg = f"Rank score: {node_data.rank_score * 100}% ({rank_status["status"]})\n"
 
+
+            level_msg = f"Level: {node_data.level} "
+            if node_data.level >= 8:
+                level_msg += "🟩"
+            elif node_data.level >= 5:
+                level_msg += "🟦"
+            elif node_data.level >= 2:
+                level_msg += "🟧" #🟨
+            else:
+                level_msg += "🟪"
+            level_msg += "\n"
+
+
             # reward_msg = "Reward: "
             # if node_data.rank_score >= 0.9:
             #     reward_msg += "🔵 Top"
@@ -1976,6 +2003,7 @@ async def send_overview_message(
                 f"<b><u>{label}</u></b>\n"
                 + f"Status: {node_status}\n"
                 + f"Balance: {round(node_data.balance, 6)} ETH {'⚠️' if balance_warning else ''}\n"
+                + level_msg
                 + rank_msg
                 + rank_score_msg
                 + msg_node_stall
