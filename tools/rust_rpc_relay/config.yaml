@@ -1,0 +1,59 @@
+# Which network this config targets (free-form label)
+network: "Arbitrum_Sepolia"
+
+server:
+  bind_addr: "0.0.0.0"
+  port: 5000
+  request_timeout_ms: 3000
+
+relay:
+  latency_threshold_ms: 50
+  max_provider_tries: 3
+  upstream_timeout_ms: 3000
+  broadcast_methods: ["eth_sendRawTransaction"]
+  broadcast_redundancy: 2
+  ban_error_threshold: 15
+  ban_seconds: 5
+
+# Per-method TTL in milliseconds (cache duration)
+cache_ttl:
+  eth_getLogs:     50
+  eth_call:        50
+  eth_blockNumber: 50
+  eth_gasPrice:    1000
+  net_version:     5000
+  eth_chainId:     60000
+
+health_monitor:
+  max_blocks_behind: 6
+  monitor_interval_s: 5
+
+rpc_endpoints:
+  primary:
+    - url: "https://arbitrum-sepolia-rpc.publicnode.com"
+      max_tps: 20
+      weight: 1
+    - url: "https://sepolia-arb-rpc.agnc.my.id"
+      max_tps: 100
+      weight: 1
+    - url: "https://arb-sepolia.cryptonode.id"
+      max_tps: 100
+      weight: 1
+    - url: "https://arb-sep.scerb.uk"
+      max_tps: 100
+      weight: 1
+    - url : "https://sepolia-rollup.arbitrum.io/rpc"
+      max_tps: 30
+      weight: 1
+    - url : "https://arbitrum-sepolia.rpc.thirdweb.com"
+      max_tps: 5
+      weight: 1
+    - url : "https://arbitrums.lava.build/"
+      max_tps: 3
+      weight: 1
+    - url : "https://arbitrum-sepolia.gateway.tenderly.co"
+      max_tps: 3
+      weight: 1
+    - url : "https://testnet-rpc.etherspot.io/v1/421614"
+      max_tps: 3
+      weight: 1
