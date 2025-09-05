@@ -1,0 +1,413 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CortiGPT Dark Futuristic Design System
+All colors MUST be HSL for Web3 premium aesthetic.
+*/
+
+@layer base {
+  :root {
+    /* Pure Space Dark Colors */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+
+    /* Glass Card Colors */
+    --card: 0 0% 2%;
+    --card-foreground: 0 0% 96%;
+    --card-glow: 0 0% 4%;
+
+    /* Interactive Elements */
+    --popover: 0 0% 2%;
+    --popover-foreground: 0 0% 96%;
+
+    /* Neon Green Primary */
+    --primary: 120 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 120 100% 70%;
+
+    /* Electric Blue Secondary */
+    --secondary: 195 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-glow: 195 100% 70%;
+
+    /* Neon Cyan Accent */
+    --accent: 180 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --accent-glow: 180 100% 70%;
+
+    /* Muted Elements */
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 64%;
+
+    /* Destructive */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Borders and Inputs */
+    --border: 0 0% 10%;
+    --input: 0 0% 8%;
+    --ring: 195 100% 50%;
+
+    /* Neural Network Colors */
+    --neural-primary: 120 100% 50%;
+    --neural-secondary: 195 100% 50%;
+    --neural-tertiary: 180 100% 50%;
+
+    /* Space Neon Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(120 100% 50%) 0%, hsl(195 100% 50%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(195 100% 50%) 0%, hsl(180 100% 50%) 100%);
+    --gradient-neural: linear-gradient(135deg, hsl(120 100% 20%) 0%, hsl(195 100% 20%) 50%, hsl(180 100% 20%) 100%);
+
+    /* Neon Glows */
+    --glow-primary: 0 0 30px hsl(120 100% 50% / 0.6);
+    --glow-secondary: 0 0 30px hsl(195 100% 50% / 0.6);
+    --glow-accent: 0 0 30px hsl(180 100% 50% / 0.6);
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.8);
+
+    /* Animation Timings */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Dark mode is the only mode for CortiGPT */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    overflow-x: hidden;
+  }
+
+  /* Glassmorphism Base */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-secondary {
+    box-shadow: var(--glow-secondary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  /* Clean Modern Background */
+  .neural-bg {
+    background: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 2%) 100%);
+  }
+
+  /* Subtle Animated Grid */
+  .grid-bg {
+    position: relative;
+    background: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 2%) 100%);
+  }
+
+  .grid-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      linear-gradient(rgba(0, 255, 127, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 127, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: grid-shift 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes grid-shift {
+
+    0%,
+    100% {
+      background-image:
+        linear-gradient(rgba(0, 255, 127, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 127, 0.08) 1px, transparent 1px);
+      opacity: 1;
+    }
+
+    25% {
+      background-image:
+        linear-gradient(rgba(0, 191, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 255, 0.07) 1px, transparent 1px);
+      opacity: 0.8;
+    }
+
+    50% {
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+      opacity: 0.9;
+    }
+
+    75% {
+      background-image:
+        linear-gradient(rgba(127, 0, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(127, 0, 255, 0.07) 1px, transparent 1px);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes flow {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(calc(100vw + 100px));
+      opacity: 0;
+    }
+  }
+
+  .animate-flow {
+    animation: flow 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Animated Gradient Text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shift {
+
+    0%,
+    100% {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    50% {
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }
+
+  /* Particle Animation */
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: hsl(120 100% 50%);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 0 10px hsl(120 100% 50% / 0.8);
+  }
+
+
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(-100vh) translateX(50px);
+      opacity: 0;
+    }
+  }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+  /* Animation utilities */
+  .animate-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .fade-in-50 {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Extension-specific optimizations for small screens */
+  * {
+    @apply text-sm;
+  }
+
+  body {
+    @apply font-tech text-xs leading-tight;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', 'Inter', system-ui, sans-serif;
+    @apply font-semibold leading-tight;
+  }
+
+  h1 { @apply text-lg; }
+  h2 { @apply text-base; }
+  h3 { @apply text-sm; }
+  h4 { @apply text-xs; }
+  h5 { @apply text-xs; }
+  h6 { @apply text-xs; }
+
+  /* Responsive text scaling for extension sidebar */
+  @media (max-width: 400px) {
+    * { @apply text-xs; }
+    h1 { @apply text-base; }
+    h2 { @apply text-sm; }
+    h3 { @apply text-xs; }
+  }
+
+  @media (min-width: 401px) and (max-width: 600px) {
+    * { @apply text-sm; }
+    h1 { @apply text-lg; }
+    h2 { @apply text-base; }
+  }
+
+  @media (min-width: 601px) {
+    * { @apply text-base; }
+    h1 { @apply text-xl; }
+    h2 { @apply text-lg; }
+  }
+
+  /* Splash screen specific responsive adjustments */
+  @media (max-height: 600px) {
+    .min-h-screen {
+      min-height: 100vh;
+    }
+    
+    .mb-12 {
+      margin-bottom: 2rem;
+    }
+    
+    .mb-6 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .text-3xl {
+      font-size: 1.5rem;
+    }
+    
+    .text-lg {
+      font-size: 0.875rem;
+    }
+    
+    .p-6 {
+      padding: 1rem;
+    }
+  }
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

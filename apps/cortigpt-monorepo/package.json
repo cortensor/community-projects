@@ -1,0 +1,38 @@
+{
+  "name": "cortigpt-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "oxlint",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "start": "turbo start --filter=server",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev",
+    "mastra:dev": "mastra dev -F @repo/ai",
+    "mastra:build": "mastra build -F @repo/ai",
+    "dev:server": "turbo -F server dev",
+    "build:server": "turbo build --filter=server",
+    "start:server": "turbo start --filter=server",
+    "deploy:server": "pnpm build:server && pnpm start:server",
+    "sync:community": "node sync-to-community-projects.js",
+    "sync:dry-run": "node sync-to-community-projects.js --dry-run",
+    "sync:verbose": "node sync-to-community-projects.js --verbose"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "turbo": "^2.5.4",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "boxen": "^5.1.2",
+    "gradient-string": "^2.0.2",
+    "figlet": "^1.7.0",
+    "fs-extra": "^11.2.0",
+    "oxlint": "^1.8.0"
+  },
+  "packageManager": "pnpm@10.12.3"
+}
