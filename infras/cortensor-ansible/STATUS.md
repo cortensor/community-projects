@@ -1,7 +1,7 @@
 # Project Status – Cortensor Ansible
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.2.1
+**Current Version:** v0.2.3
 **Status:** Active
 
 ---
