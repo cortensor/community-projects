@@ -1,0 +1,19 @@
+[Unit]
+Description=Cortensor Node Watcher
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/deploy/watcher
+ExecStart=/usr/bin/python3 /home/deploy/watcher/watcher.py
+Restart=always
+RestartSec=10
+User=deploy
+Group=deploy
+# Optional: set a lower CPU/IO priority so it doesn’t starve the miner
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=multi-user.target

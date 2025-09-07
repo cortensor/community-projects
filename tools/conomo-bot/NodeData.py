@@ -26,7 +26,8 @@ class NodeData:
         consecutive_pings: int = 0,
         metrics = [],
         rank_score = 0,
-        rank: int = None
+        rank: int = None,
+        too_many_pings = False
     ):
         self.address = address.lower()
         self.status = status
@@ -43,3 +44,4 @@ class NodeData:
         self.metrics = metrics
         self.rank_score = rank_score
         self.rank = rank
+        self.too_many_pings = too_many_pings

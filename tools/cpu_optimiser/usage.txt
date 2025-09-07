@@ -1,0 +1,104 @@
+How to run (concurrent)
+Auto plan (default ladder ±2, CPU‑only):
+
+
+python3 cpu_pack_bench.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh
+
+
+With explicit instance counts and SMT allowed:
+
+
+python3 cpu_pack_bench.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --exec-via sh \
+  --instances 1,2,3,4,5,6,7 \
+  --threads-max 32 \
+  --ladder-span 2
+
+*********************
+
+
+Interpreting results
+Primary score: tokps_sum (total tokens/s across the pack).
+
+Capacity check: ok_count equals instances → all runs finished.
+
+Latency: wall_s_max (lower is better).
+
+Resource fit: total_mem_mib_est ≤ mem_cap_mib (stayed within headroom).
+
+
+Output files
+Written under --outdir (default cpu_pack_runs):
+
+results.csv — one row per (instances, threads/instance) combo:
+
+timestamp, mode, binary, instances, threads_per_instance, tokps_sum, tokps_median, tokps_min, tokps_max, wall_s_max, ok_count, prompt_len, n_predict, per_instance_mem_mib_est, total_mem_mib_est, mem_cap_mib, stdout_paths, stderr_paths
+
+best_by_instances.csv — best thread setting per instances value:
+
+instances, best_threads_per_instance, tokps_sum, tokps_median, tokps_min, tokps_max, wall_s_max, per_instance_mem_mib_est, total_mem_mib_est
+
+results.json — same content as CSV in JSON form.
+
+Per‑run logs: m{M}_t{TPI}_..._p{K}.stdout.txt / .stderr.txt (timings may be on stderr, per your logs).
+
+
+*************************
+
+Command reference (all options)
+Required
+--binary PATH
+Path to the llamafile or llama.cpp runner.
+
+Model / exec
+--model PATH
+Path to .gguf (only for plain llama.cpp binaries; ignored by llamafile).
+
+--exec-via {auto|direct|sh|bash} (default: auto)
+How to run the binary. Many llamafiles need --exec-via sh.
+
+Workload
+--prompt "TEXT" (default: "CPU pack benchmark. Write one short sentence.")
+
+-n, --n-predict INT (default: 160) – tokens to generate.
+
+--seed INT (default: 42)
+
+--ctx-size INT (default: 4096)
+
+--temp FLOAT (default: 0.7)
+
+--top-p FLOAT (optional)
+
+--top-k INT (optional)
+
+--extra-args "..." (optional; passed through to the binary, e.g., --ubatch 1024 if supported)
+
+Instance & thread planning
+--instances {auto|LIST|RANGE} (default: auto)
+
+auto: uses a small set around physical_cores/6 plus {3,4,6,7} (deduped).
+
+LIST: e.g., 3,4,5,6,7
+
+RANGE: e.g., 3-8 or 2:1:10 (start:step:end)
+
+--threads-min INT (default: 2)
+
+--threads-max INT (default: physical cores)
+
+--ladder-span INT (default: 2) – for each instances value, test base ±1..±span threads/instance.
+
+--reserve-cores INT (default: 2) – leave cores for OS/IO.
+
+System / runtime
+--outdir DIR (default: cpu_pack_runs)
+
+--timeout SECONDS (default: 1800) – per run.
+
+--mem-headroom FLOAT (default: 0.90) – don’t exceed this fraction of MemAvailable.
+
+--no-preflight – skip the initial -h test, etc.

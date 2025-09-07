@@ -1,0 +1,14 @@
+# Save the unit file
+sudo nano /etc/systemd/system/cortensor-watcher.service
+
+# Reload systemd after adding/modifying unit
+sudo systemctl daemon-reload
+
+# Enable at boot
+sudo systemctl enable cortensor-watcher
+
+# Start now
+sudo systemctl start cortensor-watcher
+
+# Monitor logs
+journalctl -u cortensor-watcher -f

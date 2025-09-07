@@ -655,6 +655,8 @@ async def get_latest_node_data(node_address) -> NodeData:
         # cor_txs = txs  # TODO: check if needed: filter_cor_txs(txs)
         await update_node_status(node_data, node_data.last_block_ts, txs)
 
+        node_data.too_many_pings = check_too_many_pings(txs)
+
         # collect all timestamps for later visualization
         node_data.timestamps[:0] = [int(tx["timeStamp"]) for tx in txs]
         # await collect_node_timestamps(node_address, cor_txs)
@@ -1623,7 +1625,6 @@ async def check_session_data(chat_ids: list):
         if not session_data:
             return
         
-        
         if LAST_SESSION_DATA and LAST_SESSION_DATA.id != session_data.id:
             CHAT_ID_SESSION_MESSAGE_ID.clear()
             return
@@ -1633,6 +1634,7 @@ async def check_session_data(chat_ids: list):
         current_dt = datetime.now(tz=timezone.utc)
         current_ts = current_dt.timestamp()
         
+        msg = ""
         # check prepare step. Max 1h
         if session_data.created and not session_data.started and (session_data.created + 60 * 60) < current_ts:
             msg = f"🚨 Session <b>{session_data.id}</b> stuck in prepare state 🚨"
@@ -1831,6 +1833,18 @@ def create_rank_overview(chat_node_datas: list[NodeData], new_node_count, role_c
     return msg
 
 
+def check_too_many_pings(txs: list):
+    threshold = (5 * 60)  # 5min
+
+    ping_timestamps = [int(tx["timeStamp"]) for tx in txs if tx["functionName"] == "ping()" ]
+
+    for i in range(len(ping_timestamps) - 1):
+        if ping_timestamps[i] - ping_timestamps[i + 1] < threshold:
+            return True
+    return False      
+
+
+
 async def send_overview_message(
     chat_node_datas: list[NodeData], chat_config: ChatConfig, address_chat_id_to_label: dict[str, str],
 ):
@@ -1922,11 +1936,20 @@ async def send_overview_message(
                 else ""
             )
 
+
+            # too many ping/node configuration
+            msg_too_many_pings = (
+                "Node misconfiguration: Too many pings detected ⚠️\n"
+                if node_data.too_many_pings
+                else ""
+            )
+
+
             if node_data.status == NODE_STATUS.OFFLINE:
                 node_status = "🔴"
             elif node_data.status == NODE_STATUS.STALL or (
                 node_data.status == NODE_STATUS.ONLINE
-                and (warning_metrics or negative_metrics or balance_warning)
+                and (warning_metrics or negative_metrics or balance_warning or node_data.too_many_pings)
             ):
                 node_status = "🟡"
             else:
@@ -1956,6 +1979,7 @@ async def send_overview_message(
                 + rank_msg
                 + rank_score_msg
                 + msg_node_stall
+                + msg_too_many_pings
                 + "Metrics: "
                 + metric_msg
                 + f"Last seen: {naturaltime(latest_updated_at.timestamp() - node_data.last_block_ts)}\n"
