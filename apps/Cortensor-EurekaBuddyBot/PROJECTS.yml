@@ -1,0 +1,9 @@
+- name: eureka-buddy
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-08-29
+  version: v1.0.0
+  tags: [telegram, python, bot, cortensor, kids, safety, education, chatbot]
