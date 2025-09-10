@@ -23,3 +23,6 @@
 ## v0.2.3 – 2025-09-08
 - fix polkit issue
 - ensure can set 0 for thread
+
+## v0.2.4 – 2025-09-10
+- support multiple cortensor instances in same server with different variables
