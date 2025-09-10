@@ -1,6 +1,7 @@
 ---
 - import_tasks: install.yml
   tags: [install]
+  when: ipfs_primary | default(false)
 
 - import_tasks: deploy.yml
   tags: [deploy]

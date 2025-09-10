@@ -4,6 +4,18 @@
     key_indices: "{{ hostvars[inventory_hostname]['key_pair_index'] | string | replace(' ', '') | split(',') }}"
   when: hostvars[inventory_hostname]['key_pair_index'] is defined
 
+- name: Create dir if not exist
+  file:
+    path: "{{ temp_dir }}/installer/dist"
+    state: directory
+    mode: '0700'
+
+- name: Download environment file from repo
+  get_url:
+    url: https://raw.githubusercontent.com/cortensor/installer/refs/heads/main/dist/.env-example
+    dest: "{{ temp_dir }}/installer/dist/.env-example"
+    mode: '0600'
+
 - name: Copy environment file for each instance
   copy:
     src: "{{ temp_dir }}/installer/dist/.env-example"
@@ -21,6 +33,7 @@
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^HOST=.*'
     line: "HOST={{ rpc_url }}"
+    create: yes
   when: rpc_url != ""
   loop: "{{ key_indices }}"
 
@@ -29,16 +42,27 @@
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^HOST_MAINNET=.*'
     line: "HOST_MAINNET={{ eth_rpc_url }}"
+    create: yes
   when: eth_rpc_url != ""
   loop: "{{ key_indices }}"
 
-- name: Enable IPFS only for the first instance
+- name: Configure contract runtime in environment files
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
-    regexp: '^ENABLE_IPFS_SERVER=.*'
-    line: "ENABLE_IPFS_SERVER={{ '1' if item == key_indices[0] else '0' }}"
+    regexp: '^CONTRACT_ADDRESS_RUNTIME=.*'
+    line: 'CONTRACT_ADDRESS_RUNTIME="{{ contract_address_runtime }}"'
+    create: yes
+  when: contract_address_runtime != ""
+  loop: "{{ key_indices }}"
+
+- name: Enable IPFS only for specific instance
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^ENABLE_IPFS_SERVER='
+    line: "ENABLE_IPFS_SERVER={{ '1' if (ipfs_primary | default(false) | bool) and (item == (key_indices[0] | string)) else '0' }}"
     create: yes
   loop: "{{ key_indices }}"
+  when: key_indices is defined and (key_indices | length) > 0
 
 - name: Enable GPU for LLM GPU if gpu_enabled is 1
   block:
@@ -108,18 +132,67 @@
     create: yes
   loop: "{{ key_indices }}"
 
-- name: Set base thread
+- name: Build list of IP
   set_fact:
-    base_threads: "{{ llm_threads | default((ansible_processor_vcpus | int) - 2) | int }}"
-  when: key_indices is defined and (key_indices | length) > 0
+    ip_peers: >-
+      {{
+        groups['all']
+        | map('extract', hostvars)
+        | selectattr('ansible_host', 'equalto', ansible_host)
+        | map(attribute='inventory_hostname')
+        | list
+      }}
 
-- name: Calculate threads per instance
+- name: Collect all server based on IP
+  set_fact:
+    peer_vars: "{{ ip_peers | map('extract', hostvars) | list }}"
+
+- name: Set Primary
+  set_fact:
+    machine_primary: >-
+      {{
+        (
+          peer_vars
+          | selectattr('ipfs_primary','defined')
+          | selectattr('ipfs_primary','equalto', true)
+          | map(attribute='inventory_hostname')
+          | list
+        ) | first | default((ip_peers | sort | first))
+      }}
+
+- name: Compute total cortensor instances
+  set_fact:
+    total_instances_on_machine: >-
+      {{
+        peer_vars
+        | map(attribute='key_pair_index')
+        | map('default','')
+        | map('string')
+        | map('regex_replace','\\s+','')
+        | map('regex_findall','[^,]+')
+        | map('length')
+        | sum
+      }}
+
+- name: Compute machine-wide base thread
+  set_fact:
+    machine_base_threads: >-
+      {{
+        (
+          hostvars[machine_primary].llm_threads
+          | default((ansible_processor_vcpus | int) - 2)
+          | int
+        )
+      }}
+
+- name: Derive per-instance threads from machine vcpu
   set_fact:
     threads_per_instance: >-
       {{
-        0 if base_threads == 0
-        else (base_threads // (key_indices | length))
+        0 if (machine_base_threads | int) == 0
+        else ((machine_base_threads | int) // (total_instances_on_machine | int))
       }}
+  when: (total_instances_on_machine | int) > 0
 
 - name: Configure LLM_OPTION_CPU_THREADS in environment files
   lineinfile:
@@ -145,6 +218,24 @@
     create: yes
   loop: "{{ key_indices }}"
 
+- name: Set IS_L3=1 in environment files if is_l3 is true
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^IS_L3=.*'
+    line: "IS_L3=1"
+    create: yes
+  loop: "{{ key_indices }}"
+  when: is_l3 | default(false) | bool
+
+- name: Set IS_L3=1 in environment files if is_l3 is true
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^CHAINID=.*'
+    line: "CHAINID=12515"
+    create: yes
+  loop: "{{ key_indices }}"
+  when: is_l3 | default(false) | bool
+
 - name: Create cortensor service for each key index
   template:
     src: cortensor-instance.service.j2
@@ -154,10 +245,17 @@
   when: key_indices is defined
   notify: reload systemd
 
+- name: Ensure polkit rules dir exists
+  file:
+    path: /etc/polkit-1/rules.d
+    state: directory
+    mode: '0755'
+
 - name: Allow '{{ cortensor_user }}' to manage cortensor-* via polkit
   copy:
     dest: /etc/polkit-1/rules.d/10-cortensor-manage-units.rules
     mode: '0644'
+    force: yes
     content: |
       polkit.addRule(function(action, subject) {
         if (subject.user == "{{ cortensor_user }}" || subject.isInGroup("{{ cortensor_user }}")) {
@@ -175,9 +273,6 @@
           }
         }
       });
-  create: yes
-  directory_mode: '0755'
-  force: yes
 
 - name: Enable each cortensor instance
   systemd:
@@ -191,3 +286,4 @@
   file:
     path: "{{ temp_dir }}"
     state: absent
+  ignore_errors: yes
