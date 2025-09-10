@@ -19,3 +19,7 @@
 ## v0.2.1 – 2025-08-25
 - add watcher installation by @scerb
 - configuration support for cortensor 0.0.1-5d023d9
+
+## v0.2.3 – 2025-09-08
+- fix polkit issue
+- ensure can set 0 for thread

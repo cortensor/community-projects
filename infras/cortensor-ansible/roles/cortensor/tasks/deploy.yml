@@ -108,13 +108,17 @@
     create: yes
   loop: "{{ key_indices }}"
 
+- name: Set base thread
+  set_fact:
+    base_threads: "{{ llm_threads | default((ansible_processor_vcpus | int) - 2) | int }}"
+  when: key_indices is defined and (key_indices | length) > 0
+
 - name: Calculate threads per instance
   set_fact:
     threads_per_instance: >-
       {{
-        llm_threads
-        | default(((ansible_processor_vcpus | int) - 2) // (key_indices | length))
-        | int
+        0 if base_threads == 0
+        else (base_threads // (key_indices | length))
       }}
 
 - name: Configure LLM_OPTION_CPU_THREADS in environment files
@@ -171,6 +175,9 @@
           }
         }
       });
+  create: yes
+  directory_mode: '0755'
+  force: yes
 
 - name: Enable each cortensor instance
   systemd:
