@@ -1,0 +1,9 @@
+Model: llava-v1.5-7b-q4
+Request ID: 4
+Timestamp: 2025-08-28T11-31-54
+
+Question:
+Summarize why batching by model reduces swaps.
+
+Answer:
+Batching by model reduces swaps because it involves grouping all the data samples belonging to the same model into a single batch. When the data is partitioned by model, the GPU can process multiple batches simultaneously, reducing the number of GPU-CPU transfers (also known as "cache misses") required to load the data into the GPU memory. As a result, this can lead to a more efficient and faster training process. Additionally, this approach can also help to reduce the memory usage on the GPU, as it minimizes the number of different models that need to be loaded into memory at the same time.</s>

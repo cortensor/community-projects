@@ -28,15 +28,15 @@ class BotConfig:
     
     @property
     def COR_DASHBOARD_URL_PREFIX(self) -> str:
-        return env.str("COR_DASHBOARD_URL_PREFIX", "https://dashboard-devnet5.cortensor.network/stats/node/")
+        return env.str("COR_DASHBOARD_URL_PREFIX", "https://dashboard-devnet6.cortensor.network/stats/node/")
     
     @property
     def COR_LEADERBOARD_URL(self) -> str:
-        return env.str("COR_LEADERBOARD_URL", "https://lb-be-5.cortensor.network/leaderboard-by-address")
+        return env.str("COR_LEADERBOARD_URL", "https://db-be-6.cortensor.network/leaderboard-by-address")
     
     @property
     def COR_SESSION_URL(self) -> str:
-        return env.str("COR_SESSION_URL", "https://dashboard-devnet5.cortensor.network/cognitive")
+        return env.str("COR_SESSION_URL", "https://dashboard-devnet6.cortensor.network/cognitive")
 
     @property
     def RPC_ARB_SEPOLIA(self) -> str:
@@ -45,6 +45,10 @@ class BotConfig:
     @property
     def CONTRACT_COR_COGNETIVE(self) -> str:
         return env.str("CONTRACT_COR_COGNETIVE", "0x073C1f568d372F7E79A599Dcc624aDf718dd10f3")
+    
+    @property
+    def CONTRACT_COR_COGNETIVE_LEVEL(self) -> str:
+        return env.str("CONTRACT_COR_COGNETIVE_LEVEL", "0x092Ca611Fa495da2AE20d9bD5467F0190ef8C27B")
 
     @property
     def BALANCE_WARNING_THRESHOLD(self) -> float:

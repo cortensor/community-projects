@@ -1,0 +1,209 @@
+# 1) System packages (compiler, linker, git, curl, certs)
+sudo apt-get update
+sudo apt-get install -y build-essential pkg-config curl git ca-certificates
+
+# 2) Install Rust toolchain via rustup (stable)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source $HOME/.cargo/env   # add cargo to PATH in current shell
+
+# 3) Get the source
+git clone https://github.com/scerb/rust_rpc_relay.git
+cd /rust_rpc_relay/
+
+# 4) Build (optimized)
+cargo build --release
+
+# 5) Run
+cargo run --release
+
+
+RPC Relay – Configuration Guide
+
+This guide explains every option in config.yaml, how they interact, recommended values, and common pitfalls. It assumes the relay you’re running has:
+
+Broadcast for eth_sendRawTransaction (or any method you list),
+Failover and latency-aware provider selection,
+Per‑provider rate limits (token bucket),
+Circuit breaker (auto‑ban noisy/failed nodes),
+TTL caching by method,
+Health monitor (block lag, etc.),
+Status endpoint and TUI with sticky last_err (“rpc_error”, “timeout”, “bad_json”, “http_error”).
+
+Hot reload: Editing the config file is picked up at runtime (no restart). New settings apply to new requests; existing cached entries keep the TTL they were inserted with.
+
+
+1) network (string)
+
+What it is: A free‑form label that appears in logs or UIs.
+Effect: Cosmetic only; doesn’t change behavior.
+
+2) server (HTTP listener)
+
+bind_addr (string, default "0.0.0.0")
+Address the relay binds to. Use "127.0.0.1" to accept local traffic only; "0.0.0.0" to accept from the network.
+
+port (integer, default 5000)
+HTTP port. Exposes / (health) and /status (metrics).
+
+request_timeout_ms (integer, optional)
+If supported in your build, caps inbound HTTP request handling time. Safe default: 2000–5000.
+
+Note: This is independent of relay.upstream_timeout_ms (which caps outbound RPC calls to providers).
+
+
+3) relay (routing, retries, breaker)
+
+latency_threshold_ms (integer or null)
+If set (e.g., 50), the relay prefers providers under this latency. If none qualify, it falls back to the fastest measured providers.
+Tip: If set too low and one node is consistently slower, it may rarely be used (especially for broadcast).
+
+max_provider_tries (integer ≥ 1, default 3)
+For non‑broadcast methods, how many different providers to try on error (failover). Each error increments the provider’s error counter and advances its breaker.
+
+upstream_timeout_ms (integer ≥ 1000, default 3000)
+Per‑attempt timeout for outbound HTTP calls to providers. If exceeded, that attempt is treated as a timeout error and we try the next provider (or fail if out of tries).
+
+broadcast_methods (string array)
+Exact JSON‑RPC method names to send concurrently to multiple providers (e.g., ["eth_sendRawTransaction"]).
+
+broadcast_redundancy (integer ≥ 1, default 1)
+How many providers receive a broadcasted call. We pick the fastest N (by current latency) that have rate‑limit tokens available.
+Note: With N=2 and 3 providers, the “slowest” one may not get TX traffic (but will handle reads).
+
+ban_error_threshold (integer ≥ 1, default 15)
+Circuit breaker threshold. After this many consecutive errors on a provider, the provider is banned.
+
+ban_seconds (integer ≥ 1, default 5)
+How long a provider stays banned before being considered again. The breaker resets the failure streak on ban.
+
+How broadcast vs. non‑broadcast behave
+
+Broadcast (e.g., eth_sendRawTransaction): send to up to broadcast_redundancy providers simultaneously. Return on the first success; if all fail, return one error. No second wave of retries.
+
+Non‑broadcast: try providers one by one (up to max_provider_tries) until success or out of attempts.
+
+
+4) cache_ttl (per-method response caching)
+
+Format: map of method -> milliseconds, e.g.:
+
+cache_ttl:
+  eth_blockNumber: 100
+  net_version: 5000
+
+
+Behavior: Responses for matching (method, params) are cached for the specified TTL. 0 or missing → no caching for that method.
+
+Memory model: TTL defines the maximum time a cached entry stays in memory. When TTL expires, the entry is removed; new responses create fresh entries.
+Caution: Methods with huge parameter variety (e.g., eth_getLogs with many distinct ranges) can still hold many entries concurrently—keep their TTLs modest.
+
+Special handling: The relay normalizes eth_getTransactionCount to use "pending" when callers omit the second parameter; this affects the cache key (ensures consistent results).
+
+
+5) health_monitor (background health probe)
+
+max_blocks_behind (integer ≥ 0)
+If a provider’s head is more than this many blocks behind the cluster max, it’s marked unhealthy and removed from selection (until it catches up).
+
+monitor_interval_s (integer ≥ 1)
+How frequently to query providers for health (block number, latency, etc.).
+
+
+6) rpc_endpoints (provider lists)
+
+You can define two tiers:
+
+primary (array of providers)
+Preferred set. Used whenever at least one is healthy.
+
+secondary (array of providers, optional)
+Fallback set. Used only when no primaries are healthy (good for slow or backup nodes).
+
+Each provider entry:
+
+url (string) — Full JSON‑RPC URL (HTTP/HTTPS).
+
+max_tps (integer ≥ 1) — Rate limit for that provider (token bucket).
+Meaning: approximate requests per second allowed for that provider (all methods combined). If no token is available at selection time, that provider is skipped. If all are out of tokens, the relay returns rate limited.
+
+weight (integer ≥ 1) — Selection weight for non‑broadcast randomization and load bias. Higher weight → more likely to be chosen among equally healthy/fast candidates.
+
+How selection works, in brief
+
+Take tier: primaries if any healthy; else secondaries.
+
+Filter by breaker (exclude banned).
+
+Optionally filter by latency threshold.
+
+For non‑broadcast, use weights and (often) round‑robin rotation to pick a candidate that has tokens.
+For broadcast, sort by latency and take up to broadcast_redundancy with tokens.
+
+
+
+7)  /status endpoint fields (for dashboards/monitoring)
+
+A GET /status returns an object like:
+
+{
+  "rpcs": [
+    {
+      "url": "https://rpc-1.example.com",
+      "healthy": true,
+      "latest_block": 123456,
+      "behind": 0,
+      "latency_ms": 22,
+      "call_count": 10234,
+      "errors": 5,
+      "banned_until": 0,
+      "last_error": "rpc_error"
+    }
+  ]
+}
+
+
+healthy — Current health assessment (block lag, recent success, not banned).
+
+behind — Blocks behind the best head among probed nodes.
+
+latency_ms — Current measured latency used for selection.
+
+call_count — Total outbound calls sent to this provider since process start.
+
+errors — Count of failed calls (JSON‑RPC error, HTTP error, bad JSON, timeout).
+
+banned_until — Time until circuit‑breaker ban lifts (format depends on your build).
+
+last_error — Sticky classification of the provider’s last failure:
+
+rpc_error → provider returned a JSON‑RPC {"error": ...} (e.g., “nonce too low”, “already known”, “execution reverted”).
+
+timeout → exceeded upstream_timeout_ms.
+
+http_error→ network/TLS/HTTP error (e.g., 5xx, connect refused).
+
+bad_json → response body wasn’t valid JSON.
+
+- → none recorded yet.
+
+
+
+Practical recommendations
+
+Broadcast redundancy:
+Most setups do well with 2. If you need all providers to receive every TX, set it to 3 (with three providers). Remember: we pick the fastest N with tokens—slower nodes may never see TX if N is smaller than your pool.
+
+Latency threshold:
+Start at 50 ms. If one provider is consistently >50 ms and you still want it used, raise the threshold or set it to null to disable filtering.
+
+Upstream timeout:
+3000 ms is a reasonable default. Raise a bit if your providers are far away or known to be slower. Too high → sluggish failover; too low → false timeouts.
+
+Circuit breaker:
+ban_error_threshold: 3, ban_seconds: 30 is a good starting point. If a provider intermittently fails, increase the threshold.
+
+Caching:
+Keep TTLs for high-cardinality methods (like eth_getLogs across wide ranges) short (100–300 ms) or disabled to limit memory. Safe to set longer TTLs for static/slow-changing methods like eth_chainId.
+
+Rate limits:
+Set max_tps realistically per provider. If it’s too high and the node can’t handle it, you’ll see rising error counters / breaker bans. If too low, you may get more rate limited responses from the relay when bursts happen.

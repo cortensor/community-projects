@@ -1,0 +1,78 @@
+Model: Qwen2.5-Coder-14B-Instruct-Q4_K_M
+Request ID: 17
+Timestamp: 2025-08-28T02-20-05
+
+Question:
+In Python, implement a token-bucket rate limiter decorator with burst/refill parameters; include pytest tests.
+
+Answer:
+The implementation of token bucket rate limiter in Python is as follows:
+
+```python
+import time
+from functools import wraps
+
+class TokenBucket:
+    def __init__(self, capacity, refill_rate):
+        self.capacity = capacity
+        self.tokens = capacity
+        self.refill_rate = refill_rate
+        self.last_refill = time.time()
+
+    def refill(self):
+        now = time.time()
+        time_since_last_refill = now - self.last_refill
+        self.tokens += time_since_last_refill * self.refill_rate
+        if self.tokens > self.capacity:
+            self.tokens = self.capacity
+        self.last_refill = now
+
+    def consume(self, tokens):
+        self.refill()
+        if self.tokens >= tokens:
+            self.tokens -= tokens
+            return True
+        return False
+
+def rate_limited(max_tokens, tokens_per_second):
+    def decorator(func):
+        bucket = TokenBucket(max_tokens, tokens_per_second)
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if not bucket.consume(1):
+                raise Exception("Rate limit exceeded")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+```
+
+This code defines a `TokenBucket` class which represents the token bucket used by the rate limiter. The class has methods to refill the bucket and consume tokens. The `rate_limited` decorator takes the maximum number of tokens and the refill rate per second, creates a `TokenBucket` instance, and wraps the target function in a wrapper function that consumes a token from the bucket before calling the target function.
+
+Here are some pytest tests for the rate limiter:
+
+```python
+import pytest
+
+@rate_limited(3, 1)
+def test_function():
+    return "Hello, world!"
+
+def test_rate_limiter():
+    with pytest.raises(Exception) as exc_info:
+        test_function()
+        test_function()
+        test_function()
+        test_function()
+    assert str(exc_info.value) == "Rate limit exceeded"
+
+def test_rate_limiter_with_sleep():
+    test_function()
+    time.sleep(1)
+    test_function()
+    with pytest.raises(Exception) as exc_info:
+        test_function()
+    assert str(exc_info.value) == "Rate limit exceeded"
+```
+
+The first test `test_rate_limiter` tests that calling the rate-limited function more than three times in a row raises a "Rate limit exceeded" exception. The second test `test_rate_limiter_with_sleep` tests that after sleeping for a second, the rate limiter allows another call to the function.

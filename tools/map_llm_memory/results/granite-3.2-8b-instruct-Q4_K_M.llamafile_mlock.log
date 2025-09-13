@@ -1,0 +1,952 @@
+================================================================================
+LLM Memory Mapping for: granite-3.2-8b-instruct-Q4_K_M.llamafile
+Path           : /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile
+Started        : 2025-08-30T19:36:49
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose --mlock
+Context Size   : 4096
+NGL range      : 0..41
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 5997
+  parsed.n_layer    : 40
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 4712.21 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 296.01 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 698
+  peak_cpu_mib      : 6083
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4591.38 MiB
+  parsed.gpu_weights: 120.83 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 624.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 834
+  peak_cpu_mib      : 6043
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4470.56 MiB
+  parsed.gpu_weights: 241.66 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 608.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 972
+  peak_cpu_mib      : 6005
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4349.73 MiB
+  parsed.gpu_weights: 362.48 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 592.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1108
+  peak_cpu_mib      : 5991
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4228.90 MiB
+  parsed.gpu_weights: 483.31 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 576.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1246
+  peak_cpu_mib      : 5957
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 4108.07 MiB
+  parsed.gpu_weights: 604.14 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 560.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1382
+  peak_cpu_mib      : 5901
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3987.24 MiB
+  parsed.gpu_weights: 724.97 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 544.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1860
+  peak_cpu_mib      : 5974
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3880.34 MiB
+  parsed.gpu_weights: 831.88 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2000
+  peak_cpu_mib      : 5954
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3773.43 MiB
+  parsed.gpu_weights: 938.78 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2152
+  peak_cpu_mib      : 5931
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3652.60 MiB
+  parsed.gpu_weights: 1059.61 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2292
+  peak_cpu_mib      : 5889
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3545.70 MiB
+  parsed.gpu_weights: 1166.52 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2430
+  peak_cpu_mib      : 5837
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3438.79 MiB
+  parsed.gpu_weights: 1273.42 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2584
+  peak_cpu_mib      : 5826
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3317.96 MiB
+  parsed.gpu_weights: 1394.25 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2722
+  peak_cpu_mib      : 5793
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3211.06 MiB
+  parsed.gpu_weights: 1501.16 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2862
+  peak_cpu_mib      : 5764
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 3104.15 MiB
+  parsed.gpu_weights: 1608.06 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3014
+  peak_cpu_mib      : 5731
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2983.32 MiB
+  parsed.gpu_weights: 1728.89 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3152
+  peak_cpu_mib      : 5688
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2876.42 MiB
+  parsed.gpu_weights: 1835.80 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3292
+  peak_cpu_mib      : 5661
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2769.51 MiB
+  parsed.gpu_weights: 1942.70 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3444
+  peak_cpu_mib      : 5633
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2648.68 MiB
+  parsed.gpu_weights: 2063.53 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3584
+  peak_cpu_mib      : 5606
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2541.78 MiB
+  parsed.gpu_weights: 2170.44 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3722
+  peak_cpu_mib      : 5567
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2434.87 MiB
+  parsed.gpu_weights: 2277.34 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3876
+  peak_cpu_mib      : 5526
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2314.04 MiB
+  parsed.gpu_weights: 2398.17 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4014
+  peak_cpu_mib      : 5502
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2207.13 MiB
+  parsed.gpu_weights: 2505.08 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4152
+  peak_cpu_mib      : 5476
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 2100.23 MiB
+  parsed.gpu_weights: 2611.98 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4306
+  peak_cpu_mib      : 5449
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1979.40 MiB
+  parsed.gpu_weights: 2732.81 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4444
+  peak_cpu_mib      : 5418
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1872.49 MiB
+  parsed.gpu_weights: 2839.72 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4584
+  peak_cpu_mib      : 5385
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1765.59 MiB
+  parsed.gpu_weights: 2946.62 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4736
+  peak_cpu_mib      : 5340
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1644.76 MiB
+  parsed.gpu_weights: 3067.45 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4876
+  peak_cpu_mib      : 5307
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1537.85 MiB
+  parsed.gpu_weights: 3174.36 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5014
+  peak_cpu_mib      : 5281
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1430.95 MiB
+  parsed.gpu_weights: 3281.27 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5168
+  peak_cpu_mib      : 5264
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1310.12 MiB
+  parsed.gpu_weights: 3402.09 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5306
+  peak_cpu_mib      : 5227
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1203.21 MiB
+  parsed.gpu_weights: 3509.00 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5444
+  peak_cpu_mib      : 5196
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 1096.31 MiB
+  parsed.gpu_weights: 3615.91 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5598
+  peak_cpu_mib      : 5163
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 975.48 MiB
+  parsed.gpu_weights: 3736.73 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 528.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 34]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 34
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5736
+  peak_cpu_mib      : 5124
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 868.57 MiB
+  parsed.gpu_weights: 3843.64 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 544.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 35]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 35
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5876
+  peak_cpu_mib      : 5099
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 761.67 MiB
+  parsed.gpu_weights: 3950.55 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 560.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 36]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 36
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6028
+  peak_cpu_mib      : 5077
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 640.84 MiB
+  parsed.gpu_weights: 4071.38 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 576.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 37]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 37
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6182
+  peak_cpu_mib      : 5037
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 520.01 MiB
+  parsed.gpu_weights: 4192.20 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 592.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 38]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 38
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6334
+  peak_cpu_mib      : 4999
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 399.18 MiB
+  parsed.gpu_weights: 4313.03 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 608.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 39]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 39
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6490
+  peak_cpu_mib      : 4968
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 278.35 MiB
+  parsed.gpu_weights: 4433.86 MiB
+  parsed.gpu_compute: 305.00 MiB
+  parsed.gpu_kv     : 624.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 40]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 40
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6632
+  peak_cpu_mib      : 4939
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 157.53 MiB
+  parsed.gpu_weights: 4554.69 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+[Run -ngl 41]
+  cmd               : sh /mnt/chia_temp/llm/granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 41
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6730
+  peak_cpu_mib      : 4931
+  parsed.n_layer    : 41
+  parsed.off_total  : 41
+  parsed.cpu_buffer : 157.51 MiB
+  parsed.gpu_weights: 4712.21 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 640.00 MiB
+  parsed.cpu_kv     : 640.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4710.40 MiB
+  parsed.params(B)  : 8.17
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:39:10
+  Mode               : server
+  Binary             : granite-3.2-8b-instruct-Q4_K_M.llamafile
+  n_layer (detected) : 41
+  NGL swept          : 0..41
+  Baseline VRAM      : 296.01 MiB (-ngl 0)
+  Max VRAM           : 6730.00 MiB (-ngl 41)
+  Est. weights-on-GPU: 6433.99 MiB (Max - Baseline)
+  Avg per-layer VRAM : 156.93 MiB (from successive deltas)
+  Per-layer (early)  : 401.99 MiB (ngl 0->1)
+  Overhead (heuristic): 296.01 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 401.99
+    - layer   2: 136.00
+    - layer   3: 138.00
+    - layer   4: 136.00
+    - layer   5: 138.00
+    - layer   6: 136.00
+    - layer   7: 478.00
+    - layer   8: 140.00
+    - layer   9: 152.00
+    - layer  10: 140.00
+    - layer  11: 138.00
+    - layer  12: 154.00
+    - layer  13: 138.00
+    - layer  14: 140.00
+    - layer  15: 152.00
+    - layer  16: 138.00
+    - layer  17: 140.00
+    - layer  18: 152.00
+    - layer  19: 140.00
+    - layer  20: 138.00
+    - layer  21: 154.00
+    - layer  22: 138.00
+    - layer  23: 138.00
+    - layer  24: 154.00
+    - layer  25: 138.00
+    - layer  26: 140.00
+    - layer  27: 152.00
+    - layer  28: 140.00
+    - layer  29: 138.00
+    - layer  30: 154.00
+    - layer  31: 138.00
+    - layer  32: 138.00
+    - layer  33: 154.00
+    - layer  34: 138.00
+    - layer  35: 140.00
+    - layer  36: 152.00
+    - layer  37: 154.00
+    - layer  38: 152.00
+    - layer  39: 156.00
+    - layer  40: 142.00
+    - layer  41: 98.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=5997.00 MiB
+    - -ngl   1: GPU=698.00 MiB | CPU=6083.00 MiB
+    - -ngl   2: GPU=834.00 MiB | CPU=6043.00 MiB
+    - -ngl   3: GPU=972.00 MiB | CPU=6005.00 MiB
+    - -ngl   4: GPU=1108.00 MiB | CPU=5991.00 MiB
+    - -ngl   5: GPU=1246.00 MiB | CPU=5957.00 MiB
+    - -ngl   6: GPU=1382.00 MiB | CPU=5901.00 MiB
+    - -ngl   7: GPU=1860.00 MiB | CPU=5974.00 MiB
+    - -ngl   8: GPU=2000.00 MiB | CPU=5954.00 MiB
+    - -ngl   9: GPU=2152.00 MiB | CPU=5931.00 MiB
+    - -ngl  10: GPU=2292.00 MiB | CPU=5889.00 MiB
+    - -ngl  11: GPU=2430.00 MiB | CPU=5837.00 MiB
+    - -ngl  12: GPU=2584.00 MiB | CPU=5826.00 MiB
+    - -ngl  13: GPU=2722.00 MiB | CPU=5793.00 MiB
+    - -ngl  14: GPU=2862.00 MiB | CPU=5764.00 MiB
+    - -ngl  15: GPU=3014.00 MiB | CPU=5731.00 MiB
+    - -ngl  16: GPU=3152.00 MiB | CPU=5688.00 MiB
+    - -ngl  17: GPU=3292.00 MiB | CPU=5661.00 MiB
+    - -ngl  18: GPU=3444.00 MiB | CPU=5633.00 MiB
+    - -ngl  19: GPU=3584.00 MiB | CPU=5606.00 MiB
+    - -ngl  20: GPU=3722.00 MiB | CPU=5567.00 MiB
+    - -ngl  21: GPU=3876.00 MiB | CPU=5526.00 MiB
+    - -ngl  22: GPU=4014.00 MiB | CPU=5502.00 MiB
+    - -ngl  23: GPU=4152.00 MiB | CPU=5476.00 MiB
+    - -ngl  24: GPU=4306.00 MiB | CPU=5449.00 MiB
+    - -ngl  25: GPU=4444.00 MiB | CPU=5418.00 MiB
+    - -ngl  26: GPU=4584.00 MiB | CPU=5385.00 MiB
+    - -ngl  27: GPU=4736.00 MiB | CPU=5340.00 MiB
+    - -ngl  28: GPU=4876.00 MiB | CPU=5307.00 MiB
+    - -ngl  29: GPU=5014.00 MiB | CPU=5281.00 MiB
+    - -ngl  30: GPU=5168.00 MiB | CPU=5264.00 MiB
+    - -ngl  31: GPU=5306.00 MiB | CPU=5227.00 MiB
+    - -ngl  32: GPU=5444.00 MiB | CPU=5196.00 MiB
+    - -ngl  33: GPU=5598.00 MiB | CPU=5163.00 MiB
+    - -ngl  34: GPU=5736.00 MiB | CPU=5124.00 MiB
+    - -ngl  35: GPU=5876.00 MiB | CPU=5099.00 MiB
+    - -ngl  36: GPU=6028.00 MiB | CPU=5077.00 MiB
+    - -ngl  37: GPU=6182.00 MiB | CPU=5037.00 MiB
+    - -ngl  38: GPU=6334.00 MiB | CPU=4999.00 MiB
+    - -ngl  39: GPU=6490.00 MiB | CPU=4968.00 MiB
+    - -ngl  40: GPU=6632.00 MiB | CPU=4939.00 MiB
+    - -ngl  41: GPU=6730.00 MiB | CPU=4931.00 MiB
+--------------------------------------------------------------------------------

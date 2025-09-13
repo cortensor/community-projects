@@ -1,0 +1,230 @@
+python3 map_llm_memory.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --nobrowser --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+
+If you prefer CLI probes (fast, no ports): (Do not include --nobrowser/--host/--port here.)
+
+bash
+Copy code
+python3 map_llm_memory.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --mode cli \
+  --extra-args "--mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33
+    
+  ./llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 33  
+  ./DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 49  
+  ./Qwen2.5-Coder-14B-Instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 49
+  ./DeepSeek-R1-Distill-Llama-8B-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 33
+  ./google_gemma-3-4b-it-Q6_K.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 35
+  ./google_gemma-3-12b-it-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 49
+  ./granite-3.2-8b-instruct-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 41
+  ./Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 33
+  ./Mistral-7B-Instruct-v0.3.Q4_0.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 33
+  ./Qwen2.5-7B-Instruct-1M-Q4_K_M.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 25
+  ./Qwen_Qwen3-4B-Q8_0.llamafile --host 0.0.0.0 --port 8092 --mlock --verbose -ngl 37
+
+  
+  
+  
+  python3 map_llm_memory.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --nobrowser --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+  python3 map_llm_memory.py \
+  --binary ./llava-v1.5-7b-q4.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --nobrowser" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+  
+  
+  python3 map_llm_memory.py \
+  --binary ./DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+    python3 map_llm_memory.py \
+  --binary ./DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+  
+    python3 map_llm_memory.py \
+  --binary ./Qwen2.5-Coder-14B-Instruct-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+      python3 map_llm_memory.py \
+  --binary ./Qwen2.5-Coder-14B-Instruct-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./DeepSeek-R1-Distill-Llama-8B-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./DeepSeek-R1-Distill-Llama-8B-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./google_gemma-3-4b-it-Q6_K.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 35 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./google_gemma-3-4b-it-Q6_K.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 35 \
+  --server-sample-seconds 1.0
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./google_gemma-3-12b-it-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./google_gemma-3-12b-it-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 49 \
+  --server-sample-seconds 1.0
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./granite-3.2-8b-instruct-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 41 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./granite-3.2-8b-instruct-Q4_K_M.llamafile \
+  --mode auto \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 41 \
+  --server-sample-seconds 1.0
+  
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./Mistral-7B-Instruct-v0.3.Q4_0.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./Mistral-7B-Instruct-v0.3.Q4_0.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 33 \
+  --server-sample-seconds 1.0
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./Qwen2.5-7B-Instruct-1M-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 29 \
+  --server-sample-seconds 1.0
+    
+        python3 map_llm_memory.py \
+  --binary ./Qwen2.5-7B-Instruct-1M-Q4_K_M.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 29 \
+  --server-sample-seconds 1.0
+  
+  
+  
+  
+  
+      python3 map_llm_memory.py \
+  --binary ./Qwen_Qwen3-4B-Q8_0.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose --mlock" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 37 \
+  --server-sample-seconds 1.0
+  
+        python3 map_llm_memory.py \
+  --binary ./Qwen_Qwen3-4B-Q8_0.llamafile \
+  --mode auto \
+  --extra-args "--host 0.0.0.0 --port 8900 --verbose" \
+  --ctx-size 4096 \
+  --min-ngl 0 --max-ngl 37 \
+  --server-sample-seconds 1.0

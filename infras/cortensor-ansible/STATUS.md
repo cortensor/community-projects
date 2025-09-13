@@ -1,7 +1,7 @@
 # Project Status – Cortensor Ansible
 
 **Maintainer:** @0xRedd
-**Current Version:** v0.2.1
+**Current Version:** v0.2.4
 **Status:** Active
 
 ---
@@ -15,6 +15,7 @@
 - Log separation for each instance
 - Added monitoring installation
 - Added watcher installation by @scerb
+- Supports multiple cortensor instances in same server with different variables
 
 ## 🔧 Next Steps
 

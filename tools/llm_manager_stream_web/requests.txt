@@ -1,0 +1,38 @@
+llava-v1.5-7b-q4|Design a 10-step checklist to audit server rack photos for airflow and cabling issues; list the visual cues you would inspect.
+granite-3.2-8b-instruct-Q4_K_M|Define a labeling guide to classify support tickets into {P1,P2,P3} with decision thresholds and short examples.
+google_gemma-3-4b-it-Q6_K|Write a 120-word upbeat product update announcing improved API latency, a new dashboard, and early-access webhooks.
+Meta-Llama-3.1-8B-Instruct.Q4_K_M|What is “sharding” in blockchains? Give a concise, practical explanation.
+Qwen2.5-Coder-14B-Instruct-Q4_K_M|In Rust, build a CLI that streams JSONL from stdin, tallies counts per key user_id, computes top-100, and writes Parquet; show Cargo.toml and main.rs.
+Mistral-7B-Instruct-v0.3.Q4_0|Write a Conventional Commits message for adding request retries with exponential backoff to an HTTP client.
+Qwen2.5-7B-Instruct-1M-Q4_K_M|Define steps to construct a knowledge graph (triples) from technical documents and export as JSON-LD; include entity resolution rules.
+llava-v1.5-7b-q4|Explain how you would estimate crowd size from a single overhead photograph; include assumptions and common pitfalls.
+Qwen_Qwen3-4B-Q8_0|Expand the acronyms GPU, TDP, and PCIe in one line each.
+google_gemma-3-12b-it-Q4_K_M|Compare FastAPI vs Flask for high-throughput APIs and recommend one with reasoning.
+Meta-Llama-3.1-8B-Instruct.Q4_K_M|Write a regex to extract IPv4:port from logs and explain edge cases briefly.
+DeepSeek-R1-Distill-Llama-8B-Q4_K_M|Convert 12 GiB/s to Gbit/s and MB/s; show the conversions.
+google_gemma-3-4b-it-Q6_K|Write a one-sentence explanation of the difference between VRAM and system RAM for non-technical readers.
+Qwen_Qwen3-4B-Q8_0|List clear rules to classify a sentence as positive, neutral, or negative; then give one example for each class.
+DeepSeek-R1-Distill-Llama-8B-Q4_K_M|A worker can process 45 tasks in 3 hours. How many workers are needed to finish 1,800 tasks in 5 hours? Provide the final number only.
+Meta-Llama-3.1-8B-Instruct.Q4_K_M|Write a regex to extract IPv4:port from logs and explain edge cases briefly.
+google_gemma-3-4b-it-Q6_K|Translate “Our servers will undergo maintenance tonight from 22:00 to 02:00” into simple, non-technical English.
+llava-v1.5-7b-q4|Describe a method to count and group products by brand from a retail-shelf photo; define the output fields.
+Mistral-7B-Instruct-v0.3.Q4_0|Produce a minimal Nginx reverse-proxy config for an upstream on 127.0.0.1:8080 with gzip enabled.
+DeepSeek-R1-Distill-Qwen-14B-Q4_K_M|Compare beam search vs nucleus sampling for code generation—when does each fail? Give a concise decision rule.
+llava-v1.5-7b-q4|List techniques for spotting trend changes and anomalies in chart or dashboard screenshots; include threshold examples.
+Qwen2.5-Coder-14B-Instruct-Q4_K_M|In Python, implement a token-bucket rate limiter decorator with burst/refill parameters; include pytest tests.
+llava-v1.5-7b-q4|Explain how you would reconstruct a network topology from a whiteboard diagram photo; outline node and edge extraction steps.
+google_gemma-3-4b-it-Q6_K|Brainstorm five catchy taglines for a GPU monitoring app.
+Qwen2.5-Coder-14B-Instruct-Q4_K_M|Refactor a Python HTTP downloader to asyncio + aiohttp with retries (exponential backoff), bounded concurrency, and SHA256 verification; include a main() demo.
+DeepSeek-R1-Distill-Qwen-14B-Q4_K_M|A fair coin is flipped until two heads appear. What is the expected number of flips? Give the final answer with a brief justification.
+DeepSeek-R1-Distill-Qwen-14B-Q4_K_M|Four people—A, B, C, D—each own one pet (cat, dog, fish, bird). Given clues X/Y/Z, who owns which pet? State the final mapping.
+Mistral-7B-Instruct-v0.3.Q4_0|Convert “add cache layer; fix bug #123; bump version to 1.2.0” into concise release notes (≤80 words).
+DeepSeek-R1-Distill-Qwen-14B-Q4_K_M|You have tasks {T1, T2, T3} with durations {2h, 3h, 1h} and constraints T1→T3, T2 parallelizable. Propose the minimal-time schedule and total duration.
+google_gemma-3-12b-it-Q4_K_M|Create a brief PRD outline for an “LLM job router” (problem, users, goals, metrics, risks).
+DeepSeek-R1-Distill-Llama-8B-Q4_K_M|Convert 12 GiB/s to Gbit/s and MB/s; show the conversions.
+Qwen_Qwen3-4B-Q8_0|Which of these numbers are prime: 119, 131, 133, 137? Provide just the primes.
+Qwen2.5-7B-Instruct-1M-Q4_K_M|Describe a procedure to compare two lengthy contracts and produce a clause-level diff table; include column definitions.
+Qwen2.5-Coder-14B-Instruct-Q4_K_M|Write a minimal Rust example that triggers a borrow checker error, then fix it and explain the change.
+Qwen2.5-Coder-14B-Instruct-Q4_K_M|For PostgreSQL table users(id, email, last_login_at), write SQL to dedupe by email keeping the most recent login and compute rolling 7-day active users.
+DeepSeek-R1-Distill-Llama-8B-Q4_K_M|Explain why gradient checkpointing saves memory and what trade-off it introduces.
+DeepSeek-R1-Distill-Llama-8B-Q4_K_M|Given symptoms X/Y/Z in a distributed system, list the most probable root cause and two quick diagnostic checks.
+Qwen2.5-7B-Instruct-1M-Q4_K_M|Outline a framework to audit a 200-page codebase and output a structured report of modules, ownership, and TODOs.

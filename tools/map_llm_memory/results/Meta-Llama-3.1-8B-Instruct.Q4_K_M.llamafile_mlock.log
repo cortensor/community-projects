@@ -1,0 +1,776 @@
+================================================================================
+LLM Memory Mapping for: Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile
+Path           : /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile
+Started        : 2025-08-30T19:41:15
+Mode           : server  (auto_server_detected=True)
+Extra args     : --host 0.0.0.0 --port 8900 --verbose --mlock
+Context Size   : 4096
+NGL range      : 0..33
+Server probe   : host=127.0.0.1, port=8900, sample=1.0s
+Exec Via       : auto
+================================================================================
+
+[Run -ngl 0]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 0
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : N/A
+  peak_cpu_mib      : 5786
+  parsed.n_layer    : 32
+  parsed.off_total  : N/A
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: N/A MiB
+  parsed.gpu_compute: 296.01 MiB
+  parsed.gpu_kv     : N/A MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 1]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 1
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1662
+  peak_cpu_mib      : 5944
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 132.50 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 16.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 2]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 2
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1826
+  peak_cpu_mib      : 5912
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 265.00 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 32.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 3]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 3
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 1990
+  peak_cpu_mib      : 5884
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 397.50 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 48.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 4]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 4
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2160
+  peak_cpu_mib      : 5857
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 530.00 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 64.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 5]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 5
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2324
+  peak_cpu_mib      : 5827
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 662.50 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 80.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 6]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 6
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2472
+  peak_cpu_mib      : 5808
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 779.53 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 96.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 7]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 7
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2622
+  peak_cpu_mib      : 5762
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 896.56 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 112.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 8]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 8
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2786
+  peak_cpu_mib      : 5726
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1029.06 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 128.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 9]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 9
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 2936
+  peak_cpu_mib      : 5690
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1146.10 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 144.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 10]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 10
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3084
+  peak_cpu_mib      : 5669
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1263.13 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 160.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 11]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 11
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3248
+  peak_cpu_mib      : 5635
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1395.63 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 176.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 12]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 12
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3398
+  peak_cpu_mib      : 5590
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1512.66 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 192.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 13]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 13
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3562
+  peak_cpu_mib      : 5572
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1645.16 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 208.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 14]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 14
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3712
+  peak_cpu_mib      : 5538
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1762.19 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 224.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 15]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 15
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 3860
+  peak_cpu_mib      : 5498
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 1879.22 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 240.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 16]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 16
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4024
+  peak_cpu_mib      : 5464
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2011.72 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 256.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 17]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 17
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4174
+  peak_cpu_mib      : 5436
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2128.75 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 272.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 18]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 18
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4322
+  peak_cpu_mib      : 5412
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2245.79 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 288.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 19]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 19
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4488
+  peak_cpu_mib      : 5375
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2378.29 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 304.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 20]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 20
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4636
+  peak_cpu_mib      : 5340
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2495.32 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 320.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 21]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 21
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4786
+  peak_cpu_mib      : 5308
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2612.35 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 336.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 22]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 22
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 4950
+  peak_cpu_mib      : 5276
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2744.85 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 352.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 23]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 23
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5098
+  peak_cpu_mib      : 5272
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2861.88 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 368.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 24]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 24
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5248
+  peak_cpu_mib      : 5222
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 2978.91 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 384.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 25]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 25
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5396
+  peak_cpu_mib      : 5184
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3095.94 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 400.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 26]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 26
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5562
+  peak_cpu_mib      : 5156
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3228.44 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 416.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 27]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 27
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5710
+  peak_cpu_mib      : 5103
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3345.48 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 432.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 28]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 28
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 5860
+  peak_cpu_mib      : 5089
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3462.51 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 448.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 29]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 29
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6024
+  peak_cpu_mib      : 5060
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3595.01 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 464.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 30]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 30
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6188
+  peak_cpu_mib      : 5036
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3727.51 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 480.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 31]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 31
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6354
+  peak_cpu_mib      : 5013
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3860.01 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 496.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 32]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 32
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6518
+  peak_cpu_mib      : 4966
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 4685.30 MiB
+  parsed.gpu_weights: 3992.51 MiB
+  parsed.gpu_compute: 669.48 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+[Run -ngl 33]
+  cmd               : sh /mnt/chia_temp/llm/Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile --host 0.0.0.0 --port 8900 --verbose --mlock --ctx-size 4096 -ngl 33
+  return_code       : -15
+  server_ready      : True
+  effective_host    : 127.0.0.1
+  effective_port    : 8900
+  peak_gpu_mib      : 6164
+  peak_cpu_mib      : 4952
+  parsed.n_layer    : 33
+  parsed.off_total  : 33
+  parsed.cpu_buffer : 281.81 MiB
+  parsed.gpu_weights: 4403.50 MiB
+  parsed.gpu_compute: 296.00 MiB
+  parsed.gpu_kv     : 512.00 MiB
+  parsed.cpu_kv     : 512.00 MiB
+  parsed.clip_params: N/A MiB
+  parsed.clip_compute: N/A MiB
+  parsed.model_size : 4689.92 MiB
+  parsed.params(B)  : 8.03
+
+--------------------------------------------------------------------------------
+Summary @ 2025-08-30T19:43:26
+  Mode               : server
+  Binary             : Meta-Llama-3.1-8B-Instruct.Q4_K_M.llamafile
+  n_layer (detected) : 33
+  NGL swept          : 0..33
+  Baseline VRAM      : 296.01 MiB (-ngl 0)
+  Max VRAM           : 6164.00 MiB (-ngl 33)
+  Est. weights-on-GPU: 5867.99 MiB (Max - Baseline)
+  Avg per-layer VRAM : 177.82 MiB (from successive deltas)
+  Per-layer (early)  : 1365.99 MiB (ngl 0->1)
+  Overhead (heuristic): 296.01 MiB (VRAM(1) - per_layer)
+
+  Per-layer VRAM deltas (MiB):
+    - layer   1: 1365.99
+    - layer   2: 164.00
+    - layer   3: 164.00
+    - layer   4: 170.00
+    - layer   5: 164.00
+    - layer   6: 148.00
+    - layer   7: 150.00
+    - layer   8: 164.00
+    - layer   9: 150.00
+    - layer  10: 148.00
+    - layer  11: 164.00
+    - layer  12: 150.00
+    - layer  13: 164.00
+    - layer  14: 150.00
+    - layer  15: 148.00
+    - layer  16: 164.00
+    - layer  17: 150.00
+    - layer  18: 148.00
+    - layer  19: 166.00
+    - layer  20: 148.00
+    - layer  21: 150.00
+    - layer  22: 164.00
+    - layer  23: 148.00
+    - layer  24: 150.00
+    - layer  25: 148.00
+    - layer  26: 166.00
+    - layer  27: 148.00
+    - layer  28: 150.00
+    - layer  29: 164.00
+    - layer  30: 164.00
+    - layer  31: 166.00
+    - layer  32: 164.00
+    - layer  33: -354.00
+
+  Per-run peaks:
+    - -ngl   0: GPU=N/A MiB | CPU=5786.00 MiB
+    - -ngl   1: GPU=1662.00 MiB | CPU=5944.00 MiB
+    - -ngl   2: GPU=1826.00 MiB | CPU=5912.00 MiB
+    - -ngl   3: GPU=1990.00 MiB | CPU=5884.00 MiB
+    - -ngl   4: GPU=2160.00 MiB | CPU=5857.00 MiB
+    - -ngl   5: GPU=2324.00 MiB | CPU=5827.00 MiB
+    - -ngl   6: GPU=2472.00 MiB | CPU=5808.00 MiB
+    - -ngl   7: GPU=2622.00 MiB | CPU=5762.00 MiB
+    - -ngl   8: GPU=2786.00 MiB | CPU=5726.00 MiB
+    - -ngl   9: GPU=2936.00 MiB | CPU=5690.00 MiB
+    - -ngl  10: GPU=3084.00 MiB | CPU=5669.00 MiB
+    - -ngl  11: GPU=3248.00 MiB | CPU=5635.00 MiB
+    - -ngl  12: GPU=3398.00 MiB | CPU=5590.00 MiB
+    - -ngl  13: GPU=3562.00 MiB | CPU=5572.00 MiB
+    - -ngl  14: GPU=3712.00 MiB | CPU=5538.00 MiB
+    - -ngl  15: GPU=3860.00 MiB | CPU=5498.00 MiB
+    - -ngl  16: GPU=4024.00 MiB | CPU=5464.00 MiB
+    - -ngl  17: GPU=4174.00 MiB | CPU=5436.00 MiB
+    - -ngl  18: GPU=4322.00 MiB | CPU=5412.00 MiB
+    - -ngl  19: GPU=4488.00 MiB | CPU=5375.00 MiB
+    - -ngl  20: GPU=4636.00 MiB | CPU=5340.00 MiB
+    - -ngl  21: GPU=4786.00 MiB | CPU=5308.00 MiB
+    - -ngl  22: GPU=4950.00 MiB | CPU=5276.00 MiB
+    - -ngl  23: GPU=5098.00 MiB | CPU=5272.00 MiB
+    - -ngl  24: GPU=5248.00 MiB | CPU=5222.00 MiB
+    - -ngl  25: GPU=5396.00 MiB | CPU=5184.00 MiB
+    - -ngl  26: GPU=5562.00 MiB | CPU=5156.00 MiB
+    - -ngl  27: GPU=5710.00 MiB | CPU=5103.00 MiB
+    - -ngl  28: GPU=5860.00 MiB | CPU=5089.00 MiB
+    - -ngl  29: GPU=6024.00 MiB | CPU=5060.00 MiB
+    - -ngl  30: GPU=6188.00 MiB | CPU=5036.00 MiB
+    - -ngl  31: GPU=6354.00 MiB | CPU=5013.00 MiB
+    - -ngl  32: GPU=6518.00 MiB | CPU=4966.00 MiB
+    - -ngl  33: GPU=6164.00 MiB | CPU=4952.00 MiB
+--------------------------------------------------------------------------------
