@@ -1,0 +1,60 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "ui": "tui",
+    "envMode": "loose",
+  
+    "globalPassThroughEnv": [
+        "CORTENSOR_API_KEY",
+        "CORTENSOR_BASE_URL",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN",
+        "TAVILY_API_KEY",
+        "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
+        "NEXT_PUBLIC_ARBITRUM_SEPOLIA_RPC_URL"
+    ],
+    "tasks": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                ".env*"
+            ],
+            "outputs": [
+                "dist/**",
+                ".next/**"
+            ],
+            "env": [
+                "CORTENSOR_API_KEY",
+                "CORTENSOR_BASE_URL",
+                "UPSTASH_REDIS_REST_URL",
+                "UPSTASH_REDIS_REST_TOKEN",
+                "TAVILY_API_KEY",
+                "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
+                "NEXT_PUBLIC_ARBITRUM_SEPOLIA_RPC_URL",
+                "NODE_ENV"
+            ]
+        },
+        "lint": {
+            "dependsOn": [
+                "^lint"
+            ]
+        },
+        "check-types": {
+            "dependsOn": [
+                "^check-types"
+            ]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "start": {
+            "dependsOn": [
+                "^build"
+            ],
+            "cache": false
+        }
+    }
+}
