@@ -174,25 +174,26 @@
         | sum
       }}
 
-- name: Compute machine-wide base thread
-  set_fact:
-    machine_base_threads: >-
-      {{
-        (
-          hostvars[machine_primary].llm_threads
-          | default((ansible_processor_vcpus | int) - 2)
-          | int
-        )
-      }}
-
-- name: Derive per-instance threads from machine vcpu
+- name: Compute per-instance threads for this host
   set_fact:
     threads_per_instance: >-
       {{
-        0 if (machine_base_threads | int) == 0
-        else ((machine_base_threads | int) // (total_instances_on_machine | int))
+        (
+          0
+            if (llm_threads is defined and (llm_threads | int) == 0)
+          else
+            (
+              (llm_threads | int)
+                if (llm_threads is defined and (llm_threads | int) != 0)
+              else
+                (
+                  ((ansible_processor_vcpus | int) - 2) // (total_instances_on_machine | int)
+                    if (total_instances_on_machine | int) > 0
+                  else 0
+                )
+            )
+        )
       }}
-  when: (total_instances_on_machine | int) > 0
 
 - name: Configure LLM_OPTION_CPU_THREADS in environment files
   lineinfile:
@@ -222,7 +223,7 @@
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^IS_L3=.*'
-    line: "IS_L3=1"
+    line: "IS_L3={{ is_l3 | default(false) | ternary(1, 0, false) }}"
     create: yes
   loop: "{{ key_indices }}"
   when: is_l3 | default(false) | bool
