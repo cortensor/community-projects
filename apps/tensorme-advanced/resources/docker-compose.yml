@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  cortensor-web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - cortensor-network
+
+networks:
+  cortensor-network:
+    driver: bridge
