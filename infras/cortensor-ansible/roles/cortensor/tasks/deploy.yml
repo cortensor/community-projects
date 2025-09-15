@@ -50,7 +50,7 @@
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^CONTRACT_ADDRESS_RUNTIME=.*'
-    line: 'CONTRACT_ADDRESS_RUNTIME="{{ contract_address_runtime }}"'
+    line: 'CONTRACT_ADDRESS_RUNTIME={{ contract_address_runtime | quote }}'
     create: yes
   when: contract_address_runtime != ""
   loop: "{{ key_indices }}"
@@ -129,6 +129,22 @@
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^LLM_WORKER_CONTAINER_NAME_PREFIX=.*'
     line: "LLM_WORKER_CONTAINER_NAME_PREFIX={{ node_prefix }}-{{ item }}-"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD=.*'
+    line: 'LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD={{ llm_memory_index_dynamic_loading_threshold | default(100) }}'
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES=.*'
+    line: 'LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES={{ llm_memory_index_dynamic_loading_exclude_model_indexes | default("") | quote }}'
     create: yes
   loop: "{{ key_indices }}"
 
@@ -219,7 +235,7 @@
     create: yes
   loop: "{{ key_indices }}"
 
-- name: Set IS_L3=1 in environment files if is_l3 is true
+- name: Set IS_L3=1 if is_l3 is true
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^IS_L3=.*'
@@ -228,7 +244,7 @@
   loop: "{{ key_indices }}"
   when: is_l3 | default(false) | bool
 
-- name: Set IS_L3=1 in environment files if is_l3 is true
+- name: Set CHAINID if is_l3 is true
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^CHAINID=.*'

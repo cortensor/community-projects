@@ -19,7 +19,7 @@
     state: directory
     mode: '0755'
 
-- name: Add Grafana GPG key (modern way)
+- name: Add Grafana GPG key
   ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg.key
     dest: /etc/apt/keyrings/grafana.asc
@@ -91,7 +91,6 @@
       - build-essential
       - unzip
       - net-tools
-      - fail2ban
     state: present
 
 - name: Upgrade all packages
