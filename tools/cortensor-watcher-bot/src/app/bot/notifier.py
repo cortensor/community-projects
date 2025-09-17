@@ -11,8 +11,8 @@ from app.constants import (
     MSG_CMD_RESPONSE,
     MSG_CMD_UNKNOWN,
     MSG_RESTART,
-    MSG_RESTART_FAILED,
     MSG_STAGNATION_ALERT,
+    MSG_DEVIATION_ALERT,
     MSG_WATCHER_ERROR,
     MSG_WATCHER_STARTED,
     MSG_WATCHER_STOPPED,
@@ -30,8 +30,10 @@ class TelegramNotifier:
             self.chat_id = chat_id
             self.update_offset = 0
             self.stop_event = threading.Event()
+            self._max_len = 4096  # Telegram sendMessage text limit
 
-    def _send_request(self, message: str) -> None:
+    def _post_message(self, message: str) -> None:
+        """Send a single message to Telegram (no splitting)."""
         if not self.enabled:
             return
         url = f"{self.base_url}/sendMessage"
@@ -42,6 +44,75 @@ class TelegramNotifier:
             logging.debug("Successfully sent Telegram notification.")
         except requests.RequestException as e:
             logging.error(f"Could not send Telegram notification: {e}")
+
+    def _send_request(self, message: str) -> None:
+        """Send message; split into chunks if it exceeds Telegram size limits."""
+        if not self.enabled:
+            return
+
+        # Fast path if within limits
+        if len(message) <= self._max_len:
+            self._post_message(message)
+            return
+
+        # Attempt to split around <pre> blocks (logs or models) to preserve formatting
+        try:
+            pre_start = message.find("<pre>")
+            pre_end = message.rfind("</pre>")
+            if pre_start != -1 and pre_end != -1 and pre_end > pre_start:
+                header = message[:pre_start]
+                content = message[pre_start + len("<pre>"):pre_end]
+                footer = message[pre_end + len("</pre>"):]
+
+                # Send header if present
+                if header.strip():
+                    if len(header) > self._max_len:
+                        self._post_message(header[: self._max_len - 10] + "…")
+                    else:
+                        self._post_message(header)
+
+                # Split content by newline into safe chunks wrapped with <pre>
+                safe_limit = self._max_len - 20  # leave room for <pre></pre>
+                buf = []
+                current_len = 0
+                for line in content.splitlines(True):  # keepends=True
+                    if current_len + len(line) > safe_limit and buf:
+                        self._post_message("<pre>" + "".join(buf) + "</pre>")
+                        buf = []
+                        current_len = 0
+                    # If a single line exceeds safe_limit, hard-split it
+                    while len(line) > safe_limit:
+                        self._post_message("<pre>" + line[:safe_limit] + "</pre>")
+                        line = line[safe_limit:]
+                    buf.append(line)
+                    current_len += len(line)
+                if buf:
+                    self._post_message("<pre>" + "".join(buf) + "</pre>")
+
+                # Send footer if present
+                if footer.strip():
+                    if len(footer) > self._max_len:
+                        self._post_message(footer[: self._max_len - 10] + "…")
+                    else:
+                        self._post_message(footer)
+                return
+        except Exception as e:
+            logging.warning(f"Falling back to generic split due to error while splitting <pre> block: {e}")
+
+        # Generic split by length at newline boundaries
+        safe_limit = self._max_len - 10
+        text = message
+        while text:
+            if len(text) <= safe_limit:
+                self._post_message(text)
+                break
+            # find last newline within limit
+            cut = text.rfind("\n", 0, safe_limit)
+            if cut == -1:
+                cut = safe_limit
+            chunk = text[:cut]
+            self._post_message(chunk)
+            text = text[cut:]
 
     def _poll_for_updates(self, command_callback: Callable[[Dict], None]) -> None:
         logging.info("Telegram command listener started.")
@@ -83,6 +154,10 @@ class TelegramNotifier:
 
     def send_stale_node_alert(self, cid: str, duration: int) -> None:
         message = MSG_STALE_NODE_ALERT.format(cid=cid, duration=duration)
+        self._send_request(message)
+
+    def send_deviation_alert(self, cid: str, node_state: str, majority_state: str, minutes: int) -> None:
+        message = MSG_DEVIATION_ALERT.format(cid=cid, node_state=node_state, majority_state=majority_state, minutes=minutes)
         self._send_request(message)
 
     def send_command_response(self, response_text: str) -> None:

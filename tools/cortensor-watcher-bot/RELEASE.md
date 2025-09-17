@@ -21,12 +21,12 @@ All users are strongly encouraged to update to this version for a much more stab
 
 ### ✨ Core Features (Now More Stable)
 
-All existing features, including **Remote Management**, the intelligent **Reputation Health Check**, and **Majority/Stagnation Monitoring**, remain fully functional and are now significantly more reliable.
+All existing features, including **Remote Management** and **Majority/Stagnation Monitoring**, remain fully functional and are now significantly more reliable.
 
 
 ## [v1.1.1] - 2025-06-20
 
-This is a critical stability release that resolves a potential restart loop in the **Reputation Health Check** feature. A more intelligent, persistent state-tracking mechanism has been implemented to ensure the bot only restarts nodes for new, legitimate performance issues.
+ 
 
 ---
 
@@ -52,8 +52,7 @@ This is the first major feature release for the Cortensor Watcher Bot, transform
     * Added `/start`, `/stop`, and `/restart` commands to control container lifecycle directly from Telegram.
     * Added `/logs` command to fetch the most recent logs for any monitored node.
 
-* **Reputation Health Check**
-    * The bot now periodically queries the session reputation API for each node and automatically restarts any node that exceeds a configurable failure threshold.
+ 
 
 * **Enhanced Bot Commands**
     * Stagnation alerts can now be configured on the fly with `/stagnation on|off` and `/stagnation_timer`.
@@ -61,7 +60,7 @@ This is the first major feature release for the Cortensor Watcher Bot, transform
 
 ### 🐛 Bug Fixes & Improvements
 
-* **Fixed Critical Reputation API Bug:** Resolved a `500 Internal Server Error` by ensuring the bot sends the correct EIP-55 checksummed address.
+ 
 * **Resolved Startup Crashes:** Fixed a series of fatal errors (`AttributeError`, `NameError`, `IndentationError`, `ImportError`).
 * **Hardened Startup Process:** Added validation for the Telegram Bot Token and node address formats.
 * **Refined Restart Logic:** The core monitoring logic now correctly differentiates between `State Deviation` and `Session ID Lag`.
