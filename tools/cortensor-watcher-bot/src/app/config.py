@@ -41,18 +41,36 @@ def load_and_validate_config(path: Path) -> Dict[str, Any]:
         "telegram_bot_token": os.getenv("TELEGRAM_BOT_TOKEN"),
         "telegram_chat_id": os.getenv("TELEGRAM_CHAT_ID"),
         "rpc_url": os.getenv("RPC_URL"),
+        # Optional: sudo password to execute privileged commands (writing to /var/log and /var/run)
+        "sudo_password": os.getenv("SUDO_PASSWORD"),
+        # Optional: Etherscan/Arbiscan API key
+        "etherscan_api_key": os.getenv("ETHERSCAN_API_KEY"),
+        # Optional: Etherscan/Arbiscan API base override
+        "etherscan_api_base": os.getenv("ETHERSCAN_API_BASE"),
+        # Optional: Etherscan v2 chain id (e.g., 421614 for Arbitrum Sepolia, 11155111 for Ethereum Sepolia)
+        "etherscan_chain_id": os.getenv("ETHERSCAN_CHAIN_ID"),
+        # Also accept Arbiscan-specific envs for convenience
+        "arbiscan_api_key": os.getenv("ARBISCAN_API_KEY"),
+        "arbiscan_api_base": os.getenv("ARBISCAN_API_BASE"),
     }
 
-    missing_secrets = [key for key, value in secrets.items() if not value]
-    if missing_secrets:
+    # Normalize to a single key/base in config
+    if not secrets.get("etherscan_api_key") and secrets.get("arbiscan_api_key"):
+        secrets["etherscan_api_key"] = secrets["arbiscan_api_key"]
+    if not secrets.get("etherscan_api_base") and secrets.get("arbiscan_api_base"):
+        secrets["etherscan_api_base"] = secrets["arbiscan_api_base"]
+
+    missing_required = [key for key in ["telegram_bot_token", "telegram_chat_id", "rpc_url"] if not secrets.get(key)]
+    if missing_required:
         logging.critical(
             f"Missing required environment variables: "
-            f"{', '.join(key.upper() for key in missing_secrets)}. "
+            f"{', '.join(key.upper() for key in missing_required)}. "
             "Please define them in your .env file."
         )
         sys.exit(1)
 
     config.update(secrets)
+    # Note: SUDO_PASSWORD is optional; the bot does not perform start/stop operations.
     
     logging.info("Configuration loaded and validated successfully.")
     return config

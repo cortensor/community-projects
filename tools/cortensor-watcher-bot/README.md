@@ -3,7 +3,7 @@
   <img src="https://avatars.githubusercontent.com/u/174224856?s=200&v=4" alt="Project Banner" width="150">
   <h1>Cortensor Watcher Bot</h1>
 
-  An enhanced and feature-rich automated monitoring tool for Cortensor nodes. This tool is designed to ensure the health, performance, and uptime of a fleet of nodes running in Docker. It includes features like remote control via Telegram and intelligent health checks based on network state and node reputation.
+  An enhanced and feature-rich automated monitoring tool for Cortensor nodes. This tool ensures health, performance, and uptime of a fleet of nodes; it works without Docker by tailing node log files and provides insights via Telegram. The bot sends warnings when issues are detected and does not perform automatic restarts or manual start/stop.
 
   <p>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
@@ -16,19 +16,18 @@
 
 ## Key Features
 
-- **Majority Logic Monitoring**: Automatically restarts nodes that lag behind the network majority state.
+- **Majority Logic Monitoring**: Warns when nodes lag behind the network majority state.
 - **Advanced Lag Detection**: Differentiates between minor state deviations and major session ID lags.
-- **Proactive Error Detection**: Instantly restarts nodes upon detecting critical errors like Python `Traceback`s.
+- **Proactive Error Detection**: Alerts on critical errors like Python `Traceback`s.
 - **Network Stagnation Alerts**: Notifies you if the entire network appears to be stuck.
-- **Remote Control via Telegram**: Manage the bot with commands like `/status`, `/restart`, and `/logs`.
+- **Remote Insights via Telegram**: Use commands like `/start`, `/status`, `/logs`, `/models`, `/resources`, and `/history`.
 - **Secure Configuration**: Uses a `.env` file for sensitive data like API tokens.
-- **Automated Logging**: Saves node logs before every restart for easy diagnostics.
+- **Log Access**: Fetch node logs on demand for diagnostics.
 
 ## Prerequisites
 
 - [Git](https://git-scm.com/downloads)
 - [Python](https://www.python.org/downloads/) (Version 3.8 or newer)
-- [Docker](https://www.docker.com/products/docker-desktop/) and Docker Compose
 - A Telegram account and a bot token from [@BotFather](https://t.me/BotFather).
 - Your personal Chat ID from a bot like [@userinfobot](https://t.me/userinfobot).
 
@@ -40,7 +39,7 @@ This project is located within the `cortensor/community-projects` monorepo. Foll
 First clone the Repository to your local machine.
 
 ```bash
-git clone [https://github.com/cortensor/community-projects.git](https://github.com/cortensor/community-projects.git)
+git clone https://github.com/cortensor/community-projects.git
 cd community-projects
 ````
 
@@ -82,11 +81,27 @@ Create a `.env` file in this directory and fill it with your credentials.
 TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN_HERE"
 TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID_HERE"
 RPC_URL="YOUR_RPC_PROVIDER_URL_HERE"
+# Optional: Etherscan v2 unified API key
+ETHERSCAN_API_KEY="QHSQFXGHEMZ8RVI5PAX6SDSVWAQEA5T7PH"
+
+# Optional: Unified API base and chain id (pick the chain id matching your address network)
+# Unified base: https://api.etherscan.io/v2/api
+# Common chain ids:
+# - Ethereum Mainnet: 1
+# - Ethereum Sepolia: 11155111
+# - Arbitrum One: 42161
+# - Arbitrum Nova: 42170
+# - Arbitrum Sepolia: 421614
+ETHERSCAN_API_BASE="https://api.etherscan.io/v2/api"
+ETHERSCAN_CHAIN_ID="421614"
+
+# Optional: password used for privileged operations via sudo -S (not used for start/stop)
+SUDO_PASSWORD=""
 ```
 
 ### B. Operational Configuration (`config.json` file)
 
-Edit the `config.json` file to list the Docker containers you want to monitor.
+Edit the `config.json` file to list the nodes you want to monitor and the absolute paths to their log files (e.g., `/var/log/cortensord-1.log`).
 
 > **Important:** JSON files do not support comments. Please remove any lines starting with `//` from your final configuration.
 
@@ -94,72 +109,57 @@ Edit the `config.json` file to list the Docker containers you want to monitor.
 
 ```json
 {
-  "containers": [
-    "cortensor-1",
-    "cortensor-2",
-    "cortensor-3"
-  ],
+  "nodes": ["cortensor-1", "cortensor-2", "cortensor-3"],
+  "log_files": {
+    "cortensor-1": "/var/log/cortensord-1.log",
+    "cortensor-2": "/var/log/cortensord-2.log",
+    "cortensor-3": "/var/log/cortensord-3.log"
+  },
+  "node_configs": {
+    "cortensor-1": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-1", "index": 1 },
+    "cortensor-2": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-2", "index": 2 },
+    "cortensor-3": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-3", "index": 3 }
+  },
   "node_addresses": {
     "cortensor-1": "0xYOUR_NODE_ADDRESS_1",
     "cortensor-2": "0xYOUR_NODE_ADDRESS_2",
     "cortensor-3": "0xYOUR_NODE_ADDRESS_3"
   },
   "tail_lines": 500,
-  "check_interval_seconds": 2.5,
-  "grace_period_seconds": 30,
-  "stats_api_url": "[https://db-be-6.cortensor.network/network-stats-tasks](https://db-be-6.cortensor.network/network-stats-tasks)",
-  "watch_tx_for_containers": [
-    "cortensor-1",
-    "cortensor-2",
-    "cortensor-3"
-  ],
+  "check_interval_seconds": 900,
+  "grace_period_seconds": 930,
+  "stats_api_url": "https://db-be-7.cortensor.network/network-stats-tasks",
+  "watch_tx_for_containers": ["cortensor-1", "cortensor-2", "cortensor-3"],
   "tx_timeout_seconds": 45,
   "stagnation_alert_enabled": true,
   "stagnation_threshold_minutes": 30,
-  "reputation_check_enabled": true,
-  "reputation_api_base_url": "[https://db-be-6.cortensor.network/session-reputation/](https://db-be-6.cortensor.network/session-reputation/)",
-  "reputation_check_window": 20,
-  "reputation_failure_threshold": 5,
-  "reputation_restart_cooldown_minutes": 30
+  
 }
 ```
 
+Notes:
+- Each node's log file path should be accessible to the bot for reading, typically `/var/log/cortensord-<index>.log`.
+
 ## Usage
-
-You can run the bot either with Docker (recommended for production) or directly with Python (for development).
-
-### Running with Docker (Recommended)
-
-All `docker-compose` commands should be run from the `tools/cortensor-watcher-bot` directory, where its `docker-compose.yml` resides.
-
-1.  **Build and Start:**
-    ```bash
-    docker-compose up --build -d
-    ```
-2.  **View Logs:**
-    ```bash
-    docker-compose logs -f
-    ```
-3.  **Stop:**
-    ```bash
-    docker-compose down
-    ```
 
 ### Running Locally with Python
 
 Ensure you are in the `tools/cortensor-watcher-bot` directory and your virtual environment is activated.
 
 ```bash
-# Run from within tools/cortensor-watcher-bot/
-python3 main.py
+# Run from within project root
+python3 src/main.py
 ```
 
 ### Telegram Commands
 
   - <b>/help</b>: Displays all available commands.
-  - <b>/status</b>: Shows the current operational status.
-  - <b>/restart <container_name></b>: Restarts a specific node.
-  - <b>/logs <container_name></b>: Fetches recent logs from a node.
+  - <b>/status</b>: Shows the current operational status for each node and the majority state.
+  - <b>/logs [node_name]</b>: Fetch recent logs from node log files; without argument, shows a summary for all nodes.
+  - <b>/models [node_name]</b>: Shows Docker containers grouped per node using strict display-name prefixes.
+  - <b>/resources [node_name]</b>: Shows resource usage for the node's cortensord process and related containers.
+  - <b>/history [node_name]</b>: Shows the latest 25 transactions (including PING) for the node's address via Etherscan/Arbiscan.
+  
 
 ## 👤 Maintainer
 
