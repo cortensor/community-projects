@@ -203,6 +203,26 @@ install_watchdog() {
     fi
 }
 
+install_tweak() {
+    echo "=== Optimization Setup ==="
+    
+    get_target_hosts
+    
+    local extra_vars="target_hosts=$TARGET_HOSTS"
+    
+    echo ""
+    echo "Optimization Configuration:"
+    echo "  Targets: $TARGET_HOSTS"
+    echo ""
+    
+    read -p "Proceed with CPU optimization and Disable IPv6? (y/N): " confirm
+    if [[ $confirm =~ ^[Yy]$ ]]; then
+        run_playbook "playbooks/tweak.yml" "$extra_vars" "Optimization Setup"
+    else
+        print_color $RED "Optimization Setup cancelled"
+    fi
+}
+
 update_cortensor() {
     echo "=== Cortensor Update ==="
     
@@ -307,13 +327,14 @@ show_menu() {
     echo "════════════════════════════════════════"
     echo "  1) Deploy Cortensor nodes             "
     echo "  2) Update Cortensor binary            "
-    echo "  3) Install log monitoring             "
-    echo "  4) Install watchdog service           "
-    echo "  5) Start services                     "
-    echo "  6) Stop services                      "
-    echo "  7) Restart services                   "
-    echo "  8) Check status                       "
-    echo "  9) Register/Verify nodes              "
+    echo "  3) Optimize CPU and Disable IPv6      "
+    echo "  4) Install log monitoring             "
+    echo "  5) Install watchdog service           "
+    echo "  6) Start services                     "
+    echo "  7) Stop services                      "
+    echo "  8) Restart services                   "
+    echo "  9) Check status                       "
+    echo "  10) Register/Verify nodes             "
     echo "  0) System information                 "
     echo "  q) Quit                               "
     echo "════════════════════════════════════════"
@@ -325,7 +346,7 @@ main() {
     
     while true; do
         show_menu
-        read -p "Select an option (1-9, q): " choice
+        read -p "Select an option (0-10, q): " choice
         echo ""
         
         case $choice in
@@ -336,24 +357,27 @@ main() {
                 update_cortensor
                 ;;
             3)
-                install_monitoring
+                install_tweak
                 ;;
             4)
-                install_watchdog
+                install_monitoring
                 ;;
             5)
-                manage_service "start" "Start services"
+                install_watchdog
                 ;;
             6)
-                manage_service "stop" "Stop services"
+                manage_service "start" "Start services"
                 ;;
             7)
-                manage_service "restart" "Restart services"
+                manage_service "stop" "Stop services"
                 ;;
             8)
-                check_status
+                manage_service "restart" "Restart services"
                 ;;
             9)
+                check_status
+                ;;
+            10)
                 register_nodes
                 ;;
             0)

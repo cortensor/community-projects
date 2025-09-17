@@ -1,0 +1,33 @@
+---
+- name: Install dependencies
+  apt:
+    name:
+      - curl
+      - libxml2-utils
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Compute threads and RAM
+  set_fact:
+    _threads: "{{ ansible_processor_vcpus | int }}"
+    _ram_gib: "{{ ((ansible_memtotal_mb) + 1023) // 1024 | int }}"
+
+- name: Fetch tuned sysctl YAML
+  shell: |
+    curl -s -X POST 'https://www.enginyring.com/tools/sysctl.php' \
+      -H 'Content-Type: application/x-www-form-urlencoded' \
+      --data "use_case=compute&os=deb&cores=1&threads={{ _threads }}&ram={{ _ram_gib }}&nic=1000&disk_type=nvme&disable_ipv6=1" \
+    | xmllint --html --xpath 'string(//pre[@id="sysctlYAML"])' - 2>/dev/null
+  args:
+    executable: /bin/bash
+  register: sysctl_yaml
+  changed_when: false
+
+- name: Write /etc/sysctl.d/99-cortensor-tweak.conf
+  copy:
+    dest: /etc/sysctl.d/99-cortensor-tweak.conf
+    content: "{{ sysctl_yaml.stdout | trim }}\n"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload sysctl
