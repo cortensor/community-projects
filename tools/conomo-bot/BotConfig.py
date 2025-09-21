@@ -28,15 +28,15 @@ class BotConfig:
     
     @property
     def COR_DASHBOARD_URL_PREFIX(self) -> str:
-        return env.str("COR_DASHBOARD_URL_PREFIX", "https://dashboard-devnet6.cortensor.network/stats/node/")
+        return env.str("COR_DASHBOARD_URL_PREFIX", "https://dashboard-devnet7.cortensor.network/stats/node/")
     
     @property
     def COR_LEADERBOARD_URL(self) -> str:
-        return env.str("COR_LEADERBOARD_URL", "https://db-be-6.cortensor.network/leaderboard-by-address")
+        return env.str("COR_LEADERBOARD_URL", "https://db-be-7.cortensor.network/leaderboard-by-address")
     
     @property
     def COR_SESSION_URL(self) -> str:
-        return env.str("COR_SESSION_URL", "https://dashboard-devnet6.cortensor.network/cognitive")
+        return env.str("COR_SESSION_URL", "https://dashboard-devnet7.cortensor.network/cognitive")
 
     @property
     def RPC_ARB_SEPOLIA(self) -> str:
