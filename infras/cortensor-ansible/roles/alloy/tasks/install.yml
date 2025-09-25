@@ -5,28 +5,22 @@
     state: present
   when: ansible_os_family == "Debian"
 
-- file:
+- name: Create apt keyrings directory
+  ansible.builtin.file:
     path: /etc/apt/keyrings
     state: directory
     mode: '0755'
 
-- name: Download Grafana ASCII key
-  get_url:
+- name: Add Grafana GPG key
+  ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg.key
     dest: /etc/apt/keyrings/grafana.asc
     mode: '0644'
 
-- name: Convert key to dearmored keyring
-  command: >
-    gpg --dearmor -o /etc/apt/keyrings/grafana.gpg /etc/apt/keyrings/grafana.asc
-  args:
-    creates: /etc/apt/keyrings/grafana.gpg
-
-- name: Add Grafana apt repository
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
-    filename: grafana
-    state: present
+- name: Add Grafana repository
+  ansible.builtin.shell: |
+    echo "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main" | tee /etc/apt/sources.list.d/grafana.list > /dev/null
+  become: yes
 
 - name: Update apt cache
   apt:
