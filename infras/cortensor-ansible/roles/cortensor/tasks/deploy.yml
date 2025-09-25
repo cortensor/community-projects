@@ -115,6 +115,22 @@
     line: "LLM_WORKER_BASE_PORT=20001"
     create: yes
   loop: "{{ key_indices }}"
+  
+- name: Configure ENABLE_LLM_GATEWAY in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^ENABLE_LLM_GATEWAY=.*'
+    line: "ENABLE_LLM_GATEWAY=1"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_GATEWAY_WORKER_BASE_PORT in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_GATEWAY_WORKER_BASE_PORT=.*'
+    line: "LLM_GATEWAY_WORKER_BASE_PORT={{ 10001 + (100 * (item | int)) }}"
+    create: yes
+  loop: "{{ key_indices }}"
 
 - name: Configure LLM_WORKER_PORT_PREFIX in environment files
   lineinfile:
