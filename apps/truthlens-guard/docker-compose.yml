@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  truthlens:
+    build: .
+    ports:
+      - "3001:3001"  # Backend API
+      - "5173:5173"  # Frontend
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - CORTENSOR_API_KEY=${CORTENSOR_API_KEY}
+      - CORTENSOR_SUBNET_UID=${CORTENSOR_SUBNET_UID:-1}
+    volumes:
+      - ./backend/src/data:/app/backend/src/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a reverse proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - truthlens
+    restart: unless-stopped
+    profiles:
+      - production

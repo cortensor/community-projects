@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: truthlens-backend
+    runtime: node
+    rootDir: apps/truthlens-guard/backend
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CORTENSOR_API_KEY
+        sync: false
+      - key: CORTENSOR_SUBNET_UID
+        value: 1
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: truthlens-frontend
+          property: host
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 1000
+      - key: LOG_LEVEL
+        value: info
+
+  - type: web
+    name: truthlens-frontend
+    runtime: node
+    rootDir: apps/truthlens-guard
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run preview"
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: truthlens-backend
+          property: host
+    buildFilter:
+      paths:
+        - "apps/truthlens-guard/src/**"
+        - "apps/truthlens-guard/public/**"
+        - "apps/truthlens-guard/package.json"
+        - "apps/truthlens-guard/vite.config.ts"
+        - "apps/truthlens-guard/index.html"
