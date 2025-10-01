@@ -38,6 +38,11 @@
         - systemctl_action in ['start','stop','restart']
         - unit_list is defined
 
+    - name: Stop and remove containers when action is stop
+      shell: |
+        docker rm -f $(docker ps -aq --filter "name=llm") 2>/dev/null || true
+      when: action == 'stop'
+
     - name: Gather all service facts
       service_facts:
       when: systemctl_action in ['start','stop','restart'] or action == 'status'
