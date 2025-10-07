@@ -1,0 +1,104 @@
+# ---- Python Bytecode & Caches ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- C Extensions ----
+*.so
+
+# ---- Virtual Environments ----
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ---- Packaging / Build Artifacts ----
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# ---- Installer Logs ----
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---- Testing & Coverage ----
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ---- Type Checking / Static Analysis ----
+.mypy_cache/
+.pytype/
+.pyre/
+.dmypy.json
+dmypy.json
+
+# ---- Linting Reports ----
+ruff_cache/
+
+# ---- Notebooks ----
+.ipynb_checkpoints/
+
+# ---- Logs & Runtime Artifacts ----
+logs/
+*.log
+
+# ---- Local Data (SQLite / DB files) ----
+# NOTE: tweetxgen.db is currently tracked; adding this ignore will prevent new DBs or changes from being staged unless force-added.
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# ---- Environment & Secrets ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secret.*
+secrets.*
+
+# ---- Temporary / Scratch ----
+/tmp/
+tmp/
+*.tmp
+*.temp
+
+# ---- Editors & IDEs ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ---- OS Files ----
+.DS_Store
+Thumbs.db
+
+# ---- Caches / Tools ----
+__pypackages__/
+.pdm-python
+
+# ---- Wheels ----
+wheelhouse/
+
+# ---- Misc ----
+*.bak
+*.orig

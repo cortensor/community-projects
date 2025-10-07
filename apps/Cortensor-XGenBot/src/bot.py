@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ForceReply, ReplyKeyboardMarkup, ReplyKeyboardRemove, ChatAction
 from telegram.ext import CallbackContext
 
-from .thread_gen import generate_thread, generate_tweet, generate_reply
+from .thread_gen import generate_thread, generate_tweet, generate_reply, format_thread_preview
 from .db.storage import (
     load_user_defaults,
     save_user_defaults,
@@ -64,7 +64,12 @@ def _sess(uid: str) -> dict:
     return _SESS[uid]
 
 
-def _build_preview(sess: dict, max_len: int = 3500) -> str:
+from . import config as _cfg
+
+
+def _build_preview(sess: dict, max_len: int | None = None) -> str:
+    if max_len is None:
+        max_len = getattr(_cfg, 'PREVIEW_CHAR_LIMIT', 3900)
     mode = sess.get("mode", "thread")
     tone = sess.get("tone", os.getenv("DEFAULT_TONE", "concise"))
     if mode == "tweet":
@@ -92,9 +97,59 @@ def _build_preview(sess: dict, max_len: int = 3500) -> str:
             f"Posts: {sess.get('n',6)}\n"
             f"Tags: {sess.get('hashtags') or '-'}\n\n"
         )
-    body = "\n\n".join(p for p in sess.get("posts", []))
+    if mode == 'thread':
+        enumerated = format_thread_preview(sess.get('posts', []))
+        body = "\n\n".join(enumerated)
+    else:
+        body = "\n\n".join(p for p in sess.get("posts", []))
     txt = header + body
     return txt if len(txt) <= max_len else txt[: max_len - 20] + "\n\n…(truncated)"
+
+
+def _send_thread_preview(context: CallbackContext, chat_id: int, sess: dict):
+    """Send thread preview as multiple messages if THREAD_SPLIT_SEND is enabled.
+
+    Header is sent first (without posts), then each formatted line, then a controls message with inline keyboard.
+    """
+    try:
+        header = _build_preview({**sess, 'posts': []})
+        context.bot.send_message(chat_id=chat_id, text=header)
+    except Exception:
+        pass
+    try:
+        lines = format_thread_preview(sess.get('posts', []))
+    except Exception:
+        lines = sess.get('posts', []) or []
+    for ln in lines:
+        if not ln:
+            continue
+        try:
+            context.bot.send_message(chat_id=chat_id, text=ln)
+        except Exception:
+            break
+    try:
+        context.bot.send_message(chat_id=chat_id, text='Controls:', reply_markup=_kb(sess))
+    except Exception:
+        pass
+
+
+_CHAR_LIMIT_PRESETS = [280, 400, 600, 800, 1000]
+
+
+def _next_char_limit(current: int) -> int:
+    try:
+        arr = _CHAR_LIMIT_PRESETS
+        if current not in arr:
+            # find closest
+            arr_sorted = sorted(arr)
+            for v in arr_sorted:
+                if current < v:
+                    return v
+            return arr_sorted[0]
+        idx = arr.index(current)
+        return arr[(idx + 1) % len(arr)]
+    except Exception:
+        return current
 
 
 def _kb(sess: dict) -> InlineKeyboardMarkup:
@@ -112,7 +167,8 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
         m = re.search(r"/status/(\d+)", ctx)
         reply_sid = m.group(1) if m else None
     if posts:
-        txt_q = quote_plus((posts[0] or "")[:280])
+        limit = getattr(_cfg, 'TWEET_CHAR_LIMIT', 280)
+        txt_q = quote_plus((posts[0] or "")[:limit])
         if mode == "reply" and reply_sid:
             first_url = f"{first_url}?in_reply_to={reply_sid}&text={txt_q}"
         else:
@@ -134,6 +190,7 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
         ])
         rows.append([
             InlineKeyboardButton(f"Length: {sess.get('length','medium')}", callback_data="thr|length|next"),
+            InlineKeyboardButton(f"Max: {getattr(_cfg,'TWEET_CHAR_LIMIT',280)}", callback_data="thr|climit|next"),
         ])
         rows.append([
             InlineKeyboardButton(f"CTA: {'ON' if sess.get('style_cta') else 'OFF'}", callback_data="thr|style|cta"),
@@ -154,11 +211,13 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
             InlineKeyboardButton("✏️ Edit", callback_data="thr|edit|start"),
             InlineKeyboardButton("↻ Line", callback_data="thr|rline|start"),
             InlineKeyboardButton("🏷 Suggest tags", callback_data="thr|tags|suggest"),
+            InlineKeyboardButton("➕ Continue", callback_data="thr|cont|next"),
         ])
     else:
         rows.append([
             InlineKeyboardButton(f"Tone: {tone}", callback_data="thr|tone|next"),
             InlineKeyboardButton(f"Length: {sess.get('length','medium')}", callback_data="thr|length|next"),
+            InlineKeyboardButton(f"Max: {getattr(_cfg,'TWEET_CHAR_LIMIT',280)}", callback_data="thr|climit|next"),
         ])
         rows.append([
             InlineKeyboardButton(f"CTA: {'ON' if sess.get('style_cta') else 'OFF'}", callback_data="thr|style|cta"),
@@ -186,23 +245,23 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
 def _reply_kb(sess: dict | None = None) -> ReplyKeyboardMarkup:
     step = (sess or {}).get("wizard_step")
     rows: list[list[str]]
+    mode = (sess or {}).get("mode", "thread")
     if step == "topic":
-        mode = (sess or {}).get("mode", "thread")
         switch_label = "Switch: Tweet" if mode == "thread" else "Switch: Thread"
-        rows = [["Cancel"], [switch_label, "Switch: Reply"], ["Length: short", "Length: medium", "Length: long", "Length: auto"]]
+        rows = [["/start"], [switch_label, "Switch: Reply"], ["Length: short", "Length: medium", "Length: long", "Length: auto"]]
     elif step == "context":
-        rows = [["Skip", "Cancel"]]
+        rows = [["Skip", "/start"]]
     elif step == "n":
-        rows = [["5", "6", "8", "10"], ["Skip", "Cancel"]]
+        rows = [["5", "6", "8", "10"], ["Skip", "/start"]]
     elif step == "tone":
         mid = (len(_TONES) + 1) // 2
-        rows = [_TONES[:mid], _TONES[mid:], ["Skip", "Cancel"]]
+        rows = [_TONES[:mid], _TONES[mid:], ["Skip", "/start"]]
     elif step == "tags":
-        rows = [["Use default", "No tags"], ["Skip", "Cancel"], ["Generate now", "Back"]]
+        rows = [["Use default", "No tags"], ["Skip", "/start"], ["Generate now", "Back"]]
     elif step == "reply_ctx":
-        rows = [["Cancel"], ["Length: short", "Length: medium", "Length: long", "Length: auto"]]
+        rows = [["/start"], ["Length: short", "Length: medium", "Length: long", "Length: auto"]]
     elif step == "length_pick":
-        rows = [["Length: short", "Length: medium", "Length: long", "Length: auto"], ["Generate now", "Back"], ["Cancel"]]
+        rows = [["Length: short", "Length: medium", "Length: long", "Length: auto"], ["Generate now", "Back"], ["/start"]]
     else:
         rows = [["🧵 New Thread", "📝 New Tweet"], ["🗨️ Reply"], ["❓ Help"], ["⬇️ Hide keyboard"]]
     return ReplyKeyboardMarkup(rows, resize_keyboard=True, one_time_keyboard=False)
@@ -256,7 +315,10 @@ def thread_command(update: Update, context: CallbackContext):
         "hashtags": hashtags,
         "posts": posts,
     })
-    update.message.reply_text(_build_preview(sess), reply_markup=_kb(sess))
+    if getattr(_cfg, 'THREAD_SPLIT_SEND', False):
+        _send_thread_preview(context, update.effective_chat.id, sess)
+    else:
+        update.message.reply_text(_build_preview(sess), reply_markup=_kb(sess))
 
 
 def _thread_callback(update: Update, context: CallbackContext):
@@ -328,6 +390,19 @@ def _thread_callback(update: Update, context: CallbackContext):
                 except Exception:
                     context.bot.send_message(chat_id=q.message.chat_id, text=_build_preview(sess), reply_markup=_kb(sess))
                 return
+    elif act == "climit":
+        # Cycle character limit for generation & editing; does not retro-trim existing posts
+        cur = getattr(_cfg, 'TWEET_CHAR_LIMIT', 280)
+        new_val = _next_char_limit(cur)
+        # Mutate module attribute so subsequent functions pick it up
+        try:
+            _cfg.TWEET_CHAR_LIMIT = new_val
+        except Exception:
+            pass
+        try:
+            q.answer(f"Max chars set: {new_val}")
+        except Exception:
+            pass
     elif act == "style":
         which = data[2] if len(data) > 2 else ""
         key_map = {
@@ -420,14 +495,12 @@ def _thread_callback(update: Update, context: CallbackContext):
             loading_msg = context.bot.send_message(chat_id=q.message.chat.id, text="Regenerating… ⏳")
             mode = sess.get("mode", "thread")
             _audit(uid, "regen_submit", mode=mode)
-            # Build extra instructions based on style toggles and voice
             instr = (sess.get("instructions", "") or "").strip()
             hints = []
             if sess.get("style_cta"): hints.append("Include a clear call-to-action.")
             if sess.get("style_noemoji"): hints.append("Avoid emojis.")
             if sess.get("style_bullets"): hints.append("Use concise bullet points when possible.")
             if sess.get("style_stats"): hints.append("Include a specific stat or number if relevant.")
-            # Voice prompt lookup
             vprompt = None
             try:
                 if sess.get("voice"):
@@ -439,7 +512,6 @@ def _thread_callback(update: Update, context: CallbackContext):
                 vprompt = None
             extra = "\n".join(hints + ([f"Voice profile: {vprompt}"] if vprompt else []))
             final_instructions = (instr + ("\n" + extra if extra else "")).strip()
-
             if mode == "tweet":
                 out = generate_tweet(
                     topic=(sess.get("topic", "") + (f"\nGuidance: {final_instructions}" if final_instructions else "")),
@@ -464,8 +536,50 @@ def _thread_callback(update: Update, context: CallbackContext):
                     hashtags=sess.get("hashtags", ""),
                     instructions=final_instructions,
                     length=sess.get("length", "medium"),
+                    offset=0,
                 )
             _audit(uid, "regen_done", ok=bool(sess.get("posts")), count=len(sess.get("posts", [])))
+            # If split send is enabled for threads, push a fresh preview instead of editing original message
+            if mode == 'thread' and getattr(_cfg, 'THREAD_SPLIT_SEND', False):
+                _send_thread_preview(context, q.message.chat.id, sess)
+                return
+        except Exception as e:
+            try:
+                if loading_msg:
+                    context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
+            except Exception:
+                pass
+            q.answer(f"Failed: {e}", show_alert=True)
+            return
+        finally:
+            try:
+                if loading_msg:
+                    context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
+            except Exception:
+                pass
+    elif act == "cont":
+        # Continue thread: generate next batch using offset = current length
+        try:
+            existing = sess.get("posts", []) or []
+            batch = int(getattr(_cfg, 'THREAD_CONTINUE_BATCH', 3))
+            instr = (sess.get("instructions", "") or "").strip()
+            new_posts = generate_thread(
+                topic=sess.get("topic", ""),
+                n_posts=batch,
+                tone=sess.get("tone"),
+                hashtags="",  # hashtags only at the end of final manual regen
+                instructions=instr,
+                length=sess.get("length", "medium"),
+                offset=len(existing),
+            )
+            sess["posts"] = existing + new_posts
+            q.answer(f"Added {len(new_posts)} posts")
+            if getattr(_cfg, 'THREAD_SPLIT_SEND', False):
+                _send_thread_preview(context, q.message.chat.id, sess)
+                return
+        except Exception as e:
+            q.answer(f"Fail: {e}", show_alert=True)
+            return
         except Exception as e:
             try:
                 if loading_msg:
@@ -509,9 +623,14 @@ def _thread_callback(update: Update, context: CallbackContext):
         pass
 
     try:
-        q.edit_message_text(_build_preview(sess), reply_markup=_kb(sess))
+        if getattr(_cfg, 'THREAD_SPLIT_SEND', False) and sess.get('mode') == 'thread':
+            # Already sent via split preview paths
+            pass
+        else:
+            q.edit_message_text(_build_preview(sess), reply_markup=_kb(sess))
     except Exception:
-        context.bot.send_message(chat_id=q.message.chat_id, text=_build_preview(sess), reply_markup=_kb(sess))
+        if not (getattr(_cfg, 'THREAD_SPLIT_SEND', False) and sess.get('mode') == 'thread'):
+            context.bot.send_message(chat_id=q.message.chat_id, text=_build_preview(sess), reply_markup=_kb(sess))
     # Answer again (safe-guarded); ignore if already answered or expired
     try:
         q.answer()
@@ -846,6 +965,12 @@ def handle_text_input(update: Update, context: CallbackContext):
                 update.message.reply_text("No content returned. Try again or 'cancel'.", reply_markup=_reply_kb(sess))
                 return
 
+    # Global cancel (highest priority when wizard active)
+    if (text.lower() == "cancel" or text == "/start") and sess.get("wizard_step"):
+        sess.clear()
+        update.message.reply_text("Session reset.", reply_markup=_reply_kb(sess))
+        return
+
     if text in ("❓ Help", "Help"):
         update.message.reply_text(_build_help_text(), reply_markup=_reply_kb(sess))
         return
@@ -957,10 +1082,7 @@ def handle_text_input(update: Update, context: CallbackContext):
         )
         return
 
-    if text.lower() == "cancel" and sess.get("wizard_step"):
-        sess.clear()
-        update.message.reply_text("Canceled.", reply_markup=_reply_kb(sess))
-        return
+    # (Legacy cancel block removed; handled at top)
 
     if sess.get("edit_mode"):
         lower = text.lower()
@@ -986,9 +1108,10 @@ def handle_text_input(update: Update, context: CallbackContext):
         # Sanitize manual edits: strip any hidden think blocks and enforce 280
         from .thread_gen import _strip_think  # local import to avoid cycles at module load
         cleaned = _strip_think(new_text)
-        trimmed = cleaned[:280]
-        note = " (trimmed to 280 chars)" if len(cleaned) > 280 else ""
-        posts[idx-1] = trimmed
+        limit = getattr(_cfg, 'TWEET_CHAR_LIMIT', 280)
+        trimmed = cleaned[:limit]
+        note = f" (trimmed to {limit} chars)" if len(cleaned) > limit else ""
+        posts[idx - 1] = trimmed
         sess["posts"] = posts
         update.message.reply_text(f"Updated line {idx}{note}.", reply_markup=_reply_kb(sess))
         update.message.reply_text(_build_preview(sess), reply_markup=_kb(sess))

@@ -76,6 +76,11 @@ def request_completion(prompt: str, provider: str | None = None, model: str | No
         'Content-Type': 'application/json',
     }
     # Choose payload schema by endpoint type
+    # If RAW prompt mode enabled, prepend once here (centralized) so all callers benefit
+    if getattr(config, 'PROMPT_TYPE', 0) == 1 and getattr(config, 'RAW_PROMPT', ''):
+        base = config.RAW_PROMPT.rstrip() + "\n\n"
+        prompt = base + prompt.lstrip()
+
     if url.endswith('/api/v1/completions'):
         # Cortensor Web2 REST
         try:
@@ -88,6 +93,8 @@ def request_completion(prompt: str, provider: str | None = None, model: str | No
             'stream': False,
             'timeout': config.CORTENSOR_TIMEOUT,
         }
+        if getattr(config, 'PROMPT_TYPE', 0) == 1:
+            payload['prompt_type'] = 1
     else:
         # Fallback OpenAI-like chat completions
         payload = {
@@ -96,6 +103,8 @@ def request_completion(prompt: str, provider: str | None = None, model: str | No
             'input': prompt,
             'stream': False,
         }
+        if getattr(config, 'PROMPT_TYPE', 0) == 1:
+            payload['prompt_type'] = 1
     verify = not config.CORTENSOR_TLS_INSECURE
     def _post(u, p):
         return requests.post(u, headers=headers, data=json.dumps(p), timeout=config.CORTENSOR_TIMEOUT, verify=verify)
