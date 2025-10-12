@@ -52,32 +52,66 @@ AVAILABLE_TONES = {
     "Friendly": "warm and supportive - empathetic, compassionate, like a caring friend"
 }
 
-# Knowledge Base for RAG implementation - WITH CAPTAIN EXAMPLES
+# Knowledge Base for RAG implementation - EXPANDED FOR VARIETY
 KNOWLEDGE_BASE = {
     "motivation": [
         "The only way to do great work is to love what you do. - Steve Jobs",
         "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-        "Soldier, fall in! Your mission is not complete until you've given your all.",
-        "Attention! Your potential is your greatest weapon - don't holster it.",
-        "At ease, soldier. Even the strongest warriors need to recharge for the next battle."
+        "Your time is limited, don't waste it living someone else's life. - Steve Jobs",
+        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+        "It does not matter how slowly you go as long as you do not stop. - Confucius",
+        "Believe you can and you're halfway there. - Theodore Roosevelt",
+        "The only impossible journey is the one you never begin. - Tony Robbins",
+        "Don't watch the clock; do what it does. Keep going. - Sam Levenson"
     ],
     "sad": [
         "This feeling is temporary. Brighter days will come.",
         "It's okay not to feel okay. What matters is that you keep moving forward.",
-        "Soldier, stand up! The battlefield of life has casualties, but you're not one of them.",
-        "Tears don't make you weak, they make you human. Now wipe them and get back in formation."
+        "Every storm runs out of rain, just like every dark night turns into day.",
+        "You're allowed to feel messed up and inside out. It doesn't mean you're defective, it means you're human.",
+        "The sun will rise again, and so will you."
     ],
     "anxious": [
         "Take a breath. You are stronger than you think.",
         "You've already survived 100% of your worst days so far. You can get through this too.",
-        "Steady your breathing, soldier. Anxiety is just the enemy trying to infiltrate your mind.",
-        "Combat readiness includes mental preparedness. Face your fears head-on."
+        "Anxiety is like a rocking chair. It gives you something to do, but it doesn't get you anywhere.",
+        "This too shall pass. Everything is temporary.",
+        "Focus on what you can control, let go of what you can't."
     ],
     "happy": [
         "Happiness is not something ready-made. It comes from your own actions. - Dalai Lama",
         "The more you praise and celebrate your life, the more there is in life to celebrate. - Oprah Winfrey",
-        "Outstanding work, soldier! Celebrate this victory, but stay vigilant for the next mission.",
-        "Well done! Your positive attitude is contagious - keep spreading it through the ranks."
+        "Joy is not in things; it is in us. - Richard Wagner",
+        "Happiness is a direction, not a place. - Sydney J. Harris",
+        "The happiest people don't have the best of everything, they make the best of everything."
+    ],
+    "determined": [
+        "Perseverance is not a long race; it is many short races one after the other. - Walter Elliot",
+        "The difference between the impossible and the possible lies in a person's determination. - Tommy Lasorda",
+        "When you feel like quitting, remember why you started.",
+        "Determination today leads to success tomorrow.",
+        "Strength doesn't come from what you can do. It comes from overcoming the things you once thought you couldn't."
+    ],
+    "focused": [
+        "The successful warrior is the average man, with laser-like focus. - Bruce Lee",
+        "Focus on being productive instead of busy.",
+        "Concentrate all your thoughts upon the work at hand. The sun's rays do not burn until brought to a focus. - Alexander Graham Bell",
+        "Where focus goes, energy flows. - Tony Robbins",
+        "The ability to focus is the key to great work and great living."
+    ],
+    "grateful": [
+        "Gratitude turns what we have into enough. - Anonymous",
+        "The more grateful I am, the more beauty I see. - Mary Davis",
+        "Gratitude is the healthiest of all human emotions. - Zig Ziglar",
+        "Appreciate what you have before it becomes what you had.",
+        "Count your blessings, not your problems."
+    ],
+    "energetic": [
+        "Energy and persistence conquer all things. - Benjamin Franklin",
+        "Your energy introduces you before you even speak.",
+        "The only way to have energy is to create it.",
+        "Act enthusiastic and you will be enthusiastic. - Dale Carnegie",
+        "Positive energy attracts positive outcomes."
     ],
     "captain_style": [
         "Soldier, fall in! Your mission is not complete until you've given your all.",
@@ -85,7 +119,11 @@ KNOWLEDGE_BASE = {
         "At ease, soldier. Even the strongest warriors need to recharge for the next battle.",
         "Steady your breathing, soldier. Anxiety is just the enemy trying to infiltrate your mind.",
         "Combat readiness includes mental preparedness. Face your fears head-on.",
-        "Outstanding work, soldier! Celebrate this victory, but stay vigilant for the next mission."
+        "Outstanding work, soldier! Celebrate this victory, but stay vigilant for the next mission.",
+        "Soldier, your discipline today builds your freedom tomorrow.",
+        "Stand tall! Confidence is your armor against doubt.",
+        "Mission focus! Your goals are within reach - advance!",
+        "Soldier, resilience is forged in adversity. Embrace the challenge!"
     ]
 }
 
@@ -93,6 +131,96 @@ CACHE_FILE = "user_prompt_cache.json"
 USER_DATA_FILE = "user_data.json"
 KNOWLEDGE_FILE = "knowledge_base.json"
 FEEDBACK_FILE = "user_feedback.json"  # File untuk menyimpan feedback
+DAILY_CACHE_FILE = "daily_messages_cache.json"  # File untuk cache pesan harian
+
+# Daily Motivation Manager untuk variasi dan anti-duplikasi
+class DailyMotivationManager:
+    def __init__(self):
+        self.sent_messages_cache: Dict[int, List[str]] = {}  # user_id: list of sent messages
+        self.max_cache_size = 20  # Keep last 20 messages to avoid duplicates
+        
+    def get_varied_mood(self, user_id: int, previous_moods: List[str]) -> str:
+        """Get a varied mood for daily motivation, avoiding recent duplicates"""
+        all_moods = ["motivation", "happy", "determined", "focused", "inspired", 
+                    "productive", "confident", "grateful", "energetic", "optimistic"]
+        
+        # Remove moods that have been used recently
+        recent_moods = self.sent_messages_cache.get(user_id, [])
+        available_moods = [mood for mood in all_moods if mood not in recent_moods[-5:]]
+        
+        # If all moods exhausted, reset and use any
+        if not available_moods:
+            available_moods = all_moods
+            
+        return random.choice(available_moods)
+    
+    def get_varied_knowledge(self, mood: str, tone: str, count: int = 3) -> List[str]:
+        """Get varied knowledge items with rotation"""
+        relevant_items = []
+        
+        # Base knowledge for the mood
+        if mood in KNOWLEDGE_BASE:
+            mood_items = KNOWLEDGE_BASE[mood].copy()
+            random.shuffle(mood_items)
+            relevant_items.extend(mood_items[:2])
+        
+        # Add tone-specific knowledge with variety
+        if tone == "Captain" and "captain_style" in KNOWLEDGE_BASE:
+            captain_items = KNOWLEDGE_BASE["captain_style"].copy()
+            random.shuffle(captain_items)
+            relevant_items.extend(captain_items[:1])
+        elif tone == "SteveHarvey" and "motivation" in KNOWLEDGE_BASE:
+            steve_items = [item for item in KNOWLEDGE_BASE["motivation"] 
+                          if "Steve" in item or "Harvey" in item or "story" in item.lower()]
+            if steve_items:
+                relevant_items.extend(random.sample(steve_items, min(1, len(steve_items))))
+        
+        # Fill with general motivation if needed
+        if len(relevant_items) < count and "motivation" in KNOWLEDGE_BASE:
+            general_items = KNOWLEDGE_BASE["motivation"].copy()
+            random.shuffle(general_items)
+            needed = count - len(relevant_items)
+            relevant_items.extend(general_items[:needed])
+            
+        return relevant_items[:count]
+    
+    def track_sent_message(self, user_id: int, message: str):
+        """Track sent messages to avoid duplicates"""
+        if user_id not in self.sent_messages_cache:
+            self.sent_messages_cache[user_id] = []
+        
+        self.sent_messages_cache[user_id].append(message[:100])  # Store first 100 chars for comparison
+        
+        # Maintain cache size
+        if len(self.sent_messages_cache[user_id]) > self.max_cache_size:
+            self.sent_messages_cache[user_id] = self.sent_messages_cache[user_id][-self.max_cache_size:]
+    
+    def is_duplicate_message(self, user_id: int, new_message: str, similarity_threshold: int = 70) -> bool:
+        """Check if message is too similar to recently sent messages"""
+        if user_id not in self.sent_messages_cache:
+            return False
+            
+        new_msg_short = new_message[:100]
+        for sent_msg in self.sent_messages_cache[user_id][-5:]:  # Check last 5 messages
+            if self.calculate_similarity(sent_msg, new_msg_short) > similarity_threshold:
+                return True
+        return False
+    
+    def calculate_similarity(self, str1: str, str2: str) -> int:
+        """Calculate simple similarity between two strings"""
+        words1 = set(str1.lower().split())
+        words2 = set(str2.lower().split())
+        
+        if not words1 or not words2:
+            return 0
+            
+        intersection = words1.intersection(words2)
+        union = words1.union(words2)
+        
+        return int((len(intersection) / len(union)) * 100)
+
+# Global instance
+daily_mgr = DailyMotivationManager()
 
 # ------------------------
 # Load and Save Functions
@@ -134,7 +262,8 @@ def save_user_data():
                     "user_ids": list(user_ids),
                     "user_timezones": user_timezones,
                     "user_tones": user_tones,
-                    "user_names": user_names  # Simpan nama pengguna
+                    "user_names": user_names,
+                    "daily_messages_cache": daily_mgr.sent_messages_cache  # NEW: Save daily cache
                 }
                 json.dump(data, f, indent=2)
                 logger.info(f"💾 Saving user data: {len(user_ids)} users, {len(user_timezones)} timezones, {len(user_tones)} tones, {len(user_names)} names")
@@ -154,7 +283,9 @@ def load_user_data():
                 user_timezones = {int(k): int(v) for k, v in data.get("user_timezones", {}).items()}
                 user_tones = {int(k): v for k, v in data.get("user_tones", {}).items()}
                 user_names = {int(k): v for k, v in data.get("user_names", {}).items()}
-            logger.info(f"✅ User data loaded: {len(user_ids)} users, {len(user_timezones)} timezones, {len(user_tones)} tones, {len(user_names)} names")
+                # Load daily cache
+                daily_mgr.sent_messages_cache = {int(k): v for k, v in data.get("daily_messages_cache", {}).items()}
+            logger.info(f"✅ User data loaded: {len(user_ids)} users, {len(user_timezones)} timezones, {len(user_tones)} tones, {len(user_names)} names, {len(daily_mgr.sent_messages_cache)} daily caches")
         except Exception as e:
             logger.error("❌ Failed to load user data.", exc_info=True)
 
@@ -237,25 +368,37 @@ def load_feedback_data():
 # ------------------------
 
 def retrieve_relevant_knowledge(user_input: str, mood: Optional[str] = None, user_id: Optional[int] = None) -> List[str]:
-    """Retrieve relevant knowledge entries - WITH CAPTAIN SPECIALTY"""
+    """Retrieve relevant knowledge entries WITH VARIETY"""
+    user_tone = user_tones.get(user_id, "Motivational") if user_id else "Motivational"
+    
+    # Use the new varied knowledge system for daily motivation
+    if "daily motivation" in user_input.lower():
+        return daily_mgr.get_varied_knowledge(mood or "motivation", user_tone, 3)
+    
+    # Original logic for non-daily requests with variety improvement
     relevant_knowledge = []
     
-    # Prioritaskan berdasarkan mood
     if mood and mood in KNOWLEDGE_BASE:
-        for item in KNOWLEDGE_BASE[mood][:2]:
+        mood_items = KNOWLEDGE_BASE[mood].copy()
+        random.shuffle(mood_items)  # Shuffle for variety
+        for item in mood_items[:2]:
             if isinstance(item, str):
                 relevant_knowledge.append(item)
     
-    # Tambahkan pengetahuan khusus captain jika tone adalah Captain
+    # Add tone-specific knowledge with variety
     user_tone = user_tones.get(user_id, "Motivational") if user_id else "Motivational"
     if user_tone == "Captain" and "captain_style" in KNOWLEDGE_BASE and len(relevant_knowledge) < 3:
-        for item in KNOWLEDGE_BASE["captain_style"][:3-len(relevant_knowledge)]:
+        captain_items = KNOWLEDGE_BASE["captain_style"].copy()
+        random.shuffle(captain_items)
+        for item in captain_items[:3-len(relevant_knowledge)]:
             if isinstance(item, str):
                 relevant_knowledge.append(item)
     
-    # Tambahkan motivasi umum jika masih kurang dari 3 item
+    # Add general motivation with variety if still needed
     if len(relevant_knowledge) < 3 and "motivation" in KNOWLEDGE_BASE:
-        for item in KNOWLEDGE_BASE["motivation"][:3-len(relevant_knowledge)]:
+        general_items = KNOWLEDGE_BASE["motivation"].copy()
+        random.shuffle(general_items)
+        for item in general_items[:3-len(relevant_knowledge)]:
             if isinstance(item, str):
                 relevant_knowledge.append(item)
     
@@ -434,29 +577,50 @@ def ask_cortensor_motivation(prompt: str) -> str:
         return "Cortensor connection error"
 
 # ------------------------
-# Daily Motivation System
+# Daily Motivation System (IMPROVED)
 # ------------------------
 
 def send_daily_motivation(bot: Bot, chat_id: int):
     try:
+        # Get varied mood instead of just previous moods
         previous_moods = list(user_prompt_cache.get(chat_id, {}).keys())
-        current_mood = random.choice(previous_moods) if previous_moods else None
+        current_mood = daily_mgr.get_varied_mood(chat_id, previous_moods)
         
         user_tone = user_tones.get(chat_id, "Motivational")
         
-        prompt = generate_rag_prompt("daily motivation", current_mood, user_tone, chat_id)
+        # Generate prompt with varied context
+        prompt = generate_rag_prompt(f"daily motivation about {current_mood}", current_mood, user_tone, chat_id)
         
         result = ask_cortensor_motivation(prompt)
         cleaned_result = clean_motivation_output(result)
         cleaned_result = validate_and_clean_response(cleaned_result, user_tone)
         
-        # Tambahkan nama pengguna jika tersedia
+        # Check for duplicates before sending
+        if daily_mgr.is_duplicate_message(chat_id, cleaned_result):
+            logger.info(f"🔄 Duplicate detected for {chat_id}, generating alternative...")
+            # Generate alternative with different mood
+            alternative_mood = daily_mgr.get_varied_mood(chat_id, previous_moods + [current_mood])
+            prompt = generate_rag_prompt(f"daily motivation about {alternative_mood}", alternative_mood, user_tone, chat_id)
+            result = ask_cortensor_motivation(prompt)
+            cleaned_result = clean_motivation_output(result)
+            cleaned_result = validate_and_clean_response(cleaned_result, user_tone)
+        
+        # Track the sent message
+        daily_mgr.track_sent_message(chat_id, cleaned_result)
+        
+        # Personalize greeting
         greeting = ""
         if chat_id in user_names:
             greeting = f", {user_names[chat_id]}"
             
-        bot.send_message(chat_id=chat_id, text=f"🌅 Good Morning{greeting}! Here's your daily motivation ({user_tone} tone):\n\n{cleaned_result}")
-        logger.info(f"✉️ Motivation sent to {chat_id} with {user_tone} tone")
+        final_message = f"🌅 Good Morning{greeting}! Here's your daily motivation ({user_tone} tone):\n\n{cleaned_result}"
+        
+        # Send message and add feedback button
+        message = bot.send_message(chat_id=chat_id, text=final_message)
+        add_feedback_button(None, chat_id, message.message_id, cleaned_result)
+        
+        logger.info(f"✉️ Varied motivation sent to {chat_id} with {user_tone} tone - Mood: {current_mood}")
+        
     except Exception as e:
         logger.error(f"❌ Failed to send motivation to {chat_id}", exc_info=True)
 
@@ -497,23 +661,27 @@ def add_feedback_button(context: CallbackContext, chat_id: int, message_id: int,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    # Edit pesan untuk menambahkan tombol feedback
-    context.bot.edit_message_reply_markup(
-        chat_id=chat_id,
-        message_id=message_id,
-        reply_markup=reply_markup
-    )
-    
-    # Simpan pesan untuk referensi feedback
-    if chat_id not in user_feedback:
-        user_feedback[chat_id] = {}
-    
-    user_feedback[chat_id][message_id] = {
-        "text": message_text,
-        "timestamp": datetime.now().isoformat(),
-        "feedback": None
-    }
-    save_feedback_data()
+    try:
+        # Edit pesan untuk menambahkan tombol feedback
+        if context and context.bot:
+            context.bot.edit_message_reply_markup(
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=reply_markup
+            )
+        
+        # Simpan pesan untuk referensi feedback
+        if chat_id not in user_feedback:
+            user_feedback[chat_id] = {}
+        
+        user_feedback[chat_id][message_id] = {
+            "text": message_text,
+            "timestamp": datetime.now().isoformat(),
+            "feedback": None
+        }
+        save_feedback_data()
+    except Exception as e:
+        logger.error(f"❌ Failed to add feedback button: {e}")
 
 def handle_feedback(update: Update, context: CallbackContext):
     """Menangani feedback dari pengguna"""
