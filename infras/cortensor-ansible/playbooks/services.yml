@@ -29,14 +29,19 @@
           }}
 
     - name: Manage services . . . *might take a while*
-      command:
-        argv: "{{ ['systemctl', systemctl_action] + unit_list }}"
+      shell: |
+        systemctl {{ systemctl_action }} {{ unit_list | join(' ') }}
+        {% if systemctl_action in ['start','restart'] %}
+        sleep 10
+        {% endif %}
       register: svc_cmd
       changed_when: svc_cmd.rc == 0
-      ignore_errors: yes
       when:
         - systemctl_action in ['start','stop','restart']
         - unit_list is defined
+      ignore_errors: yes
+      become: yes
+      become_user: cortensor
 
     - name: Stop and remove containers when action is stop
       shell: |
