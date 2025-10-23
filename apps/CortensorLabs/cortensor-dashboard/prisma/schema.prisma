@@ -1,0 +1,22 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChatHistory {
+  id        Int      @id @default(autoincrement())
+  sessionId String   // <-- [DIUBAH] Hapus @index dari sini
+  agent     String?
+  role      String
+  message   String
+  createdAt DateTime @default(now())
+
+  // [DIUBAH] Tambahkan @@index di level model
+  @@index([sessionId])
+}
