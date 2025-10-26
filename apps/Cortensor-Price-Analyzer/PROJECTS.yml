@@ -1,0 +1,9 @@
+- name: Cortensor-Price-Analyzer
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-10-24
+  version: v1.0.0
+  tags: ["ai", "oracle", "nextjs", "typescript", "crypto"]
