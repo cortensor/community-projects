@@ -1,0 +1,74 @@
+#############################################
+# Cortensor Showcase .gitignore
+# Prevent committing secrets, generated data, caches, node deps
+#############################################
+
+# Environment & secrets
+.env
+.env.*
+env.local
+env.local.json
+*.local
+*.secret*
+
+# Node / dependencies
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+logs/
+*.log
+*.pid
+*.pid.lock
+
+# System / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Build / dist outputs (if later added)
+dist/
+build/
+.next/
+out/
+coverage/
+.cache/
+tmp/
+temp/
+.temp/
+
+# Generated RAG & database artifacts (rebuildable)
+database/index.json
+database/docs_meta.json
+database/docs_text.json
+database/images/
+
+# Local data stores (keep source elsewhere)
+assets/rag_store.json
+assets/data.json
+assets/uploads/
+
+# Draft / preview exports
+*.draft.json
+
+# Misc
+*.tgz
+*.zip
+*.tar
+*.tar.gz
+
+# Ignore any potential SQLite / local DB
+*.sqlite
+*.sqlite-journal
+
+# Security: NEVER commit key dumps
+*apikey*
+*token*
+*credential*

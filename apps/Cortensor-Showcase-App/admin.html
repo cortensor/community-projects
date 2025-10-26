@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — Cortensor Showcase</title>
+    <meta name="description" content="Admin panel to add, edit, and delete Cortensor showcase items. Exports data.json." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div id="preloader" aria-hidden="true">
+      <div class="spinner"></div>
+      <div class="preloader-text">Loading admin…</div>
+    </div>
+
+    <!-- Auth Overlay -->
+    <div id="authOverlay" class="auth-overlay" role="dialog" aria-modal="true" aria-labelledby="authTitle" aria-hidden="true">
+      <div class="auth-card">
+        <h2 id="authTitle">Admin Sign In</h2>
+        <p class="muted">Enter your administrator ID and PIN to continue.</p>
+        <form id="authForm" class="form" autocomplete="off">
+          <div class="field">
+            <label for="authId">Administrator ID</label>
+            <input id="authId" type="text" required />
+          </div>
+          <div class="field">
+            <label for="authPin">PIN</label>
+            <input id="authPin" type="password" inputmode="numeric" pattern="[0-9]*" required />
+          </div>
+          <div class="editor-actions">
+            <button class="btn primary" type="submit">Sign In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <header class="site-header container">
+      <div class="brand" role="banner">
+        <a href="index.html" class="brand-link">
+          <img src="assets/favicon.svg" alt="Cortensor logo" class="brand-logo" />
+        </a>
+        <div>
+          <h1>Admin</h1>
+          <p class="subtitle">Manage apps, bots, and resources. Export to data.json for deployment.</p>
+        </div>
+      </div>
+      <nav class="primary-actions" aria-label="primary">
+        <a class="btn ghost" href="index.html#discover">Home</a>
+        <button id="lockBtn" class="btn ghost" type="button">Unlock</button>
+        <button id="exportBtn" class="btn primary" type="button">Export JSON</button>
+  <button id="publishBtn" class="btn ghost" type="button" title="Write current draft to assets/data.json on server">Publish</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section container">
+        <!-- Actions -->
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h2>Actions</h2>
+            <p class="muted">Import an existing JSON, add a new item, or export your changes.</p>
+          </div>
+          <div class="admin-actions">
+            <label class="file-input">
+              <input id="importInput" type="file" accept="application/json" />
+              <span class="btn ghost">Import JSON</span>
+            </label>
+            <button id="addNewBtn" class="btn primary" type="button">Add New Item</button>
+            <button id="newAppBtn" class="btn ghost" type="button">New App</button>
+            <button id="newBotBtn" class="btn ghost" type="button">New Bot</button>
+            <button id="newPkgBtn" class="btn ghost" type="button">New Package</button>
+            <button id="newResBtn" class="btn ghost" type="button">New Resource</button>
+            <label class="btn ghost" style="margin-left:auto; display:inline-flex; align-items:center; gap:8px">
+              <input id="useDraftToggle" type="checkbox" /> Use draft data in this browser
+            </label>
+            <button id="clearDraftBtn" class="btn ghost" type="button">Clear Draft</button>
+            <span id="statusText" class="muted"></span>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h2>Items</h2>
+            <p class="muted">Search and filter the catalog.</p>
+          </div>
+          <div class="search-row">
+            <div class="search-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <input id="searchAdmin" type="search" placeholder="Search by name, id, tags" />
+            </div>
+            <div class="filters">
+              <select id="typeAdmin">
+                <option value="">All Types</option>
+                <option value="app">Web App</option>
+                <option value="bot">Telegram Bot</option>
+                <option value="package">Package</option>
+                <option value="resource">Resource</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="itemsTable" aria-live="polite">
+              <thead>
+                <tr><th>ID</th><th>Name</th><th>Type</th><th>Tags</th><th>Clicks</th><th>Created</th><th></th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Editor -->
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h2 id="editorTitle">Editor</h2>
+            <p class="muted">Edit fields and save to the working set; export when finished.</p>
+          </div>
+          <form id="editorForm" class="form" autocomplete="off">
+            <div class="grid-2">
+              <div class="field">
+                <label for="f_id">ID (slug)</label>
+                <input id="f_id" type="text" required />
+                <small class="muted">Unique identifier; auto-slugified from Name if left blank.</small>
+              </div>
+              <div class="field">
+                <label for="f_type">Type</label>
+                <select id="f_type" required>
+                  <option value="app">app</option>
+                  <option value="bot">bot</option>
+                  <option value="package">package</option>
+                  <option value="resource">resource</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field"><label for="f_name">Name</label><input id="f_name" type="text" required /></div>
+              <div class="field"><label for="f_clicks">Clicks (seed)</label><input id="f_clicks" type="number" min="0" step="1" /></div>
+            </div>
+            <div class="grid-2">
+              <div class="field"><label for="f_url">Primary URL</label><input id="f_url" type="url" required /></div>
+              <div class="field">
+                <label for="f_image">Image Path/URL</label>
+                <input id="f_image" type="text" placeholder="assets/placeholders/cover.svg" />
+                <div class="img-preview-wrap"><img id="f_image_preview" class="img-preview" alt="Image preview" src="assets/placeholders/cover.svg" /></div>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="f_image_file">Upload Image (local)</label>
+                <input id="f_image_file" type="file" accept="image/*" />
+                <label class="checkbox-inline"><input id="f_image_embed" type="checkbox" /> Embed as data URL in JSON</label>
+                <small class="muted">If not embedding, the image path will be set to <code>assets/uploads/&lt;filename&gt;</code>. Ensure you copy the file there before deploying.</small>
+              </div>
+              <div></div>
+            </div>
+            <div class="field">
+              <label>Gallery Images 2–4 (optional)</label>
+              <div id="galleryList" class="gallery-list"></div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px">
+                <button id="addGalleryBtn" type="button" class="btn ghost">Add Gallery Image</button>
+                <small class="muted" style="align-self:center">Max 3 additional images. Each can be URL, data URL, or uploaded.</small>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field"><label for="f_created">Created At</label><input id="f_created" type="date" /></div>
+              <div class="field"><label for="f_tags">Tags (comma separated)</label><input id="f_tags" type="text" placeholder="ai, webapp" /></div>
+            </div>
+            <div class="field"><label for="f_highlight">Highlight</label><input id="f_highlight" type="text" /></div>
+            <div class="field"><label for="f_desc">Description</label><textarea id="f_desc" rows="4" placeholder="Professional English description"></textarea></div>
+            <div class="field">
+              <label>External Links</label>
+              <div id="externalList" class="ext-list"></div>
+              <button id="addExternalBtn" type="button" class="btn ghost">Add External Link</button>
+            </div>
+            <div class="editor-actions">
+              <button id="saveBtn" class="btn primary" type="submit">Save</button>
+              <button id="resetBtn" class="btn ghost" type="button">Reset</button>
+              <button id="deleteBtn" class="btn ghost" type="button">Delete</button>
+              <button id="duplicateBtn" class="btn ghost" type="button">Duplicate</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>This admin edits data in memory. Use Export to download the updated data.json and replace it in assets/ before deploying.</p>
+    </footer>
+
+  <script src="assets/config.js" defer></script>
+  <script src="assets/chatbot.js" defer></script>
+  <script src="assets/admin.js" defer></script>
+  </body>
+  </html>
