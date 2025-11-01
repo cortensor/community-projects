@@ -161,7 +161,7 @@ This release improves inference speed and adds better containerization.
 • Improved monitoring diagnostics
 ```
        
-# Example Telegram Output
+# CORTENSOR WATCHER BOT
 
 ## Layout
 ```
