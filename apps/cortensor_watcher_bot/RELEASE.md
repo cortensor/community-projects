@@ -17,13 +17,13 @@ This marks the first public release of the Agentic Cortensor Watcher Bot by Cort
 * **Processes via Cortensor** – Uses the Discord API for data access, the Cortensor API for summarization, and the Telegram API for output delivery.
 * **Delivers Summaries Instantly** – Cortensor miners analyze, condense, and post short updates directly to Telegram.
 
-###⚡ Core Features
+### ⚡ Core Features
 
 * Automatic mirroring of developer logs from Discord.
 * AI-powered summarization of lengthy developer updates.
 * Real-time delivery to Telegram — keeping the community informed effortlessly.
 
-###💡 Why It Matters
+### 💡 Why It Matters
 
 Developer updates can sometimes be long and technical.
 Cortensor Watcher Bot makes it simple — turning complex logs into short, clear summaries that anyone can understand at a glance.
