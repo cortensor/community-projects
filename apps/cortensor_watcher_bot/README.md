@@ -76,8 +76,30 @@ This project is located within the `Cortensor Community Projects` monorepo. Foll
     Create a file named `config.py` inside the `apps/cortensor_watcher_bot` directory and populate it with your credentials.
     
 ```bash
-screen -S watcher
-python discord_watcher.py
+import os
+
+* Discord Configuration
+DISCORD_TOKEN = "Your Discord Bot Token"
+DISCORD_CHANNEL_ID = 123456789112345# Change it with your own discord private channel ID
+
+* Telegram Configuration
+TELEGRAM_BOT_TOKEN = "123456789:xxxxXXXxxxXXXXxxxXXXX"
+
+* Cortensor API Configuration
+CORTENSOR_API_URL = "http://Your-Router-IP:5010/api/v1//completions"
+CORTENSOR_API_KEY = "Your Own API KEY"
+CORTENSOR_SESSION_ID = "Input Your Session ID here"
+
+* File paths
+DATA_DIR = "data"
+LATEST_DEVLOG_FILE = f"{DATA_DIR}/latest_devlog.json"
+INSIGHTS_QUEUE_FILE = f"{DATA_DIR}/insights_queue.json"
+PROCESSED_MESSAGES_FILE = f"{DATA_DIR}/processed_messages.json"
+SUBSCRIBERS_FILE = f"{DATA_DIR}/subscribers.json"
+
+* Create data directory if not exists
+os.makedirs(DATA_DIR, exist_ok=True)
+
 ```
     ⚠️ Note:
 The data/ directory will be created automatically when the bot runs for the first time.
