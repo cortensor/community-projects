@@ -101,8 +101,7 @@ SUBSCRIBERS_FILE = f"{DATA_DIR}/subscribers.json"
 os.makedirs(DATA_DIR, exist_ok=True)
 
 ```
-    ⚠️ Note:
-The data/ directory will be created automatically when the bot runs for the first time.
+    ⚠️ Note: The data/ directory will be created automatically when the bot runs for the first time.
 
 ## 🪄 Running the Bot (via screen)
 
