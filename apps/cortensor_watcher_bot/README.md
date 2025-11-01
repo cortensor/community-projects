@@ -74,23 +74,11 @@ This project is located within the `Cortensor Community Projects` monorepo. Foll
 
 5.  **Configure Environment Variables**
     Create a file named `config.py` inside the `apps/cortensor_watcher_bot` directory and populate it with your credentials.
-    ```bash
-Discord Configuration
-DISCORD_TOKEN = "your_discord_bot_token"
-DISCORD_CHANNEL_ID = 123456789012345678
-
-Telegram Configuration
-TELEGRAM_BOT_TOKEN = "your_telegram_bot_token"
-
-Cortensor API Configuration
-CORTENSOR_API_URL = "https://api.cortensor.ai/v1/inference"
-CORTENSOR_API_KEY = "your_api_key_here"
-CORTENSOR_SESSION_ID = "session_abc123"
-
-File paths (auto-creates 'data/' directory)
-DATA_DIR = "data"
-os.makedirs(DATA_DIR, exist_ok=True)
-    ```
+    
+```bash
+screen -S watcher
+python discord_watcher.py
+```
     ⚠️ Note:
 The data/ directory will be created automatically when the bot runs for the first time.
 
