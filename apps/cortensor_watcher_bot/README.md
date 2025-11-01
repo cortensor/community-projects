@@ -2,7 +2,7 @@
 
   <img src="https://avatars.githubusercontent.com/u/174224856?s=200&v=4" alt="Project Logo" width="150">
 
-  # **CORTENSOR WATCHER BOT POWERED BY CORTENSOR NETWORK **
+  # **AGENTIC CORTENSOR WATCHER BOT POWERED BY CORTENSOR NETWORK **
 
   *Your Conversational Gateway to the Cortensor API*
 
