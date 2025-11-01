@@ -31,5 +31,4 @@ Below is an overview of planned features and improvements, organized by priority
 - **Multi-Language Output**: Support bilingual summaries (English + Indonesian) for wider accessibility.  
 - **API Rate Control**: Add adaptive rate limiting to handle higher message volumes safely.  
 - **Auto-Reconnect Layer**: Ensure Discord and Telegram bots automatically resume on connection drops.
-- 
 ---
