@@ -50,7 +50,7 @@
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^CONTRACT_ADDRESS_RUNTIME=.*'
-    line: 'CONTRACT_ADDRESS_RUNTIME="{{ contract_address_runtime }}"'
+    line: 'CONTRACT_ADDRESS_RUNTIME={{ contract_address_runtime | quote }}'
     create: yes
   when: contract_address_runtime != ""
   loop: "{{ key_indices }}"
@@ -115,6 +115,22 @@
     line: "LLM_WORKER_BASE_PORT=20001"
     create: yes
   loop: "{{ key_indices }}"
+  
+- name: Configure ENABLE_LLM_GATEWAY in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^ENABLE_LLM_GATEWAY=.*'
+    line: "ENABLE_LLM_GATEWAY=1"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_GATEWAY_WORKER_BASE_PORT in environment files
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_GATEWAY_WORKER_BASE_PORT=.*'
+    line: "LLM_GATEWAY_WORKER_BASE_PORT={{ 10001 + (100 * (item | int)) }}"
+    create: yes
+  loop: "{{ key_indices }}"
 
 - name: Configure LLM_WORKER_PORT_PREFIX in environment files
   lineinfile:
@@ -129,6 +145,22 @@
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^LLM_WORKER_CONTAINER_NAME_PREFIX=.*'
     line: "LLM_WORKER_CONTAINER_NAME_PREFIX={{ node_prefix }}-{{ item }}-"
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD=.*'
+    line: 'LLM_MEMORY_INDEX_DYNAMIC_LOADING_THRESHOLD={{ llm_memory_index_dynamic_loading_threshold | default(100) }}'
+    create: yes
+  loop: "{{ key_indices }}"
+
+- name: Configure LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES
+  lineinfile:
+    path: "{{ cortensor_home }}/.env-{{ item }}"
+    regexp: '^LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES=.*'
+    line: 'LLM_MEMORY_INDEX_DYNAMIC_LOADING_EXCLUDE_MODEL_INDEXES={{ llm_memory_index_dynamic_loading_exclude_model_indexes | default("") | quote }}'
     create: yes
   loop: "{{ key_indices }}"
 
@@ -174,25 +206,26 @@
         | sum
       }}
 
-- name: Compute machine-wide base thread
-  set_fact:
-    machine_base_threads: >-
-      {{
-        (
-          hostvars[machine_primary].llm_threads
-          | default((ansible_processor_vcpus | int) - 2)
-          | int
-        )
-      }}
-
-- name: Derive per-instance threads from machine vcpu
+- name: Compute per-instance threads for this host
   set_fact:
     threads_per_instance: >-
       {{
-        0 if (machine_base_threads | int) == 0
-        else ((machine_base_threads | int) // (total_instances_on_machine | int))
+        (
+          0
+            if (llm_threads is defined and (llm_threads | int) == 0)
+          else
+            (
+              (llm_threads | int)
+                if (llm_threads is defined and (llm_threads | int) != 0)
+              else
+                (
+                  ((ansible_processor_vcpus | int) - 2) // (total_instances_on_machine | int)
+                    if (total_instances_on_machine | int) > 0
+                  else 0
+                )
+            )
+        )
       }}
-  when: (total_instances_on_machine | int) > 0
 
 - name: Configure LLM_OPTION_CPU_THREADS in environment files
   lineinfile:
@@ -218,16 +251,16 @@
     create: yes
   loop: "{{ key_indices }}"
 
-- name: Set IS_L3=1 in environment files if is_l3 is true
+- name: Set IS_L3=1 if is_l3 is true
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^IS_L3=.*'
-    line: "IS_L3=1"
+    line: "IS_L3={{ is_l3 | default(false) | ternary(1, 0, false) }}"
     create: yes
   loop: "{{ key_indices }}"
   when: is_l3 | default(false) | bool
 
-- name: Set IS_L3=1 in environment files if is_l3 is true
+- name: Set CHAINID if is_l3 is true
   lineinfile:
     path: "{{ cortensor_home }}/.env-{{ item }}"
     regexp: '^CHAINID=.*'

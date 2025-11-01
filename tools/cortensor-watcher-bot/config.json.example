@@ -1,0 +1,57 @@
+{
+  "nodes": [
+    "cortensor-1",
+    "cortensor-2",
+    "cortensor-3",
+    "cortensor-4",
+    "cortensor-5"
+  ],
+  "node_configs": {
+    "cortensor-1": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-1", "index": 1 },
+    "cortensor-2": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-2", "index": 2 },
+    "cortensor-3": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-3", "index": 3 },
+    "cortensor-4": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-4", "index": 4 },
+    "cortensor-5": { "user": "deploy", "folder": ".cortensor", "env_file": ".env-5", "index": 5 }
+  },
+  "log_files": {
+    "cortensor-1": "/var/log/cortensord-1.log",
+    "cortensor-2": "/var/log/cortensord-2.log",
+    "cortensor-3": "/var/log/cortensord-3.log",
+    "cortensor-4": "/var/log/cortensord-4.log",
+    "cortensor-5": "/var/log/cortensord-5.log"
+  },
+  "display_names": {
+    "cortensor-1": "NODE-1",
+    "cortensor-2": "NODE-2",
+    "cortensor-3": "NODE-3",
+    "cortensor-4": "NODE-4",
+    "cortensor-5": "NODE-5"
+  },
+  "docker_filters": {
+    "cortensor-1": "cortensor|minerv4|1",
+    "cortensor-2": "cortensor|minerv4|2",
+    "cortensor-3": "cortensor|minerv4|3",
+    "cortensor-4": "cortensor|minerv4|4",
+    "cortensor-5": "cortensor|minerv4|5"
+  },
+  "tail_lines": 500,
+  "check_interval_seconds": 900,
+  "grace_period_seconds": 930,
+  "stats_api_url": "https://db-be-7.cortensor.network/network-stats-tasks",
+  
+  "tx_monitor": {
+    "enabled": true,
+    "network": "arbitrum-sepolia",
+    "etherscan_api_base": "https://api-sepolia.arbiscan.io/api",
+    "address_map": {
+      "cortensor-1": "0x0000000000000000000000000000000000000001",
+      "cortensor-2": "0x0000000000000000000000000000000000000002",
+      "cortensor-3": "0x0000000000000000000000000000000000000003",
+      "cortensor-4": "0x0000000000000000000000000000000000000004",
+      "cortensor-5": "0x0000000000000000000000000000000000000005"
+    },
+    "fail_window_minutes": 15,
+    "fail_threshold": 5
+  },
+  "resource_sample_seconds": 1.0
+}

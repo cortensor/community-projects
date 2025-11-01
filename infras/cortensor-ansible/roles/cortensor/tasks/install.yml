@@ -19,7 +19,7 @@
     state: directory
     mode: '0755'
 
-- name: Add Grafana GPG key (modern way)
+- name: Add Grafana GPG key
   ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg.key
     dest: /etc/apt/keyrings/grafana.asc
@@ -91,7 +91,7 @@
       - build-essential
       - unzip
       - net-tools
-      - fail2ban
+      - git-lfs
     state: present
 
 - name: Upgrade all packages
@@ -110,12 +110,28 @@
     state: directory
     mode: '0755'
 
+- name: Initialize git-lfs
+  command: git lfs install
+  become: yes
+
 - name: Clone Cortensor installer repository
   git:
     repo: "{{ installer_repo }}"
     dest: "{{ temp_dir }}/installer"
     version: "{{ cortensor_branch | default('main') }}"
     force: yes
+  environment:
+    GIT_LFS_SKIP_SMUDGE: 0
+
+- name: Fetch Git LFS files
+  command: git lfs fetch
+  args:
+    chdir: "{{ temp_dir }}/installer"
+
+- name: Pull Git LFS files
+  command: git lfs pull
+  args:
+    chdir: "{{ temp_dir }}/installer"
 
 - name: Download IPFS package
   get_url:

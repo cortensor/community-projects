@@ -26,7 +26,7 @@ This roadmap outlines potential future goals and features, organized by version 
 
 ### Future / v2.0: Major Capabilities
 *Hard*
-- [ ] **Data Visualization**: Integrate a plotting library (e.g., Matplotlib) to generate and send simple charts as images, such as reputation history or restart frequency, for easier analysis.
+- [ ] **Data Visualization**: Integrate a plotting library (e.g., Matplotlib) to generate and send simple charts as images for easier analysis.
 
 ---
 

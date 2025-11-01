@@ -51,6 +51,7 @@ This repository contains scripts and playbooks for deploying Cortensor infrastru
    sudo apt install software-properties-common
    sudo add-apt-repository --yes --update ppa:ansible/ansible
    sudo apt install ansible-core
+   sudo ansible-galaxy collection install community.general
    ```
 
 ## Setup

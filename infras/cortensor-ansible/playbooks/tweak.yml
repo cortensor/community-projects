@@ -1,0 +1,15 @@
+---
+- name: Tweak Cortensor Server
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+  gather_facts: yes
+  pre_tasks:
+    - name: Skip this host if not IPFS primary
+      ansible.builtin.meta: end_host
+      when: not (ipfs_primary | default(false) | bool)
+  tasks:
+    - name: Include cortensor tweak
+      include_role:
+        name: cortensor
+        tasks_from: tweak.yml
+      tags: [tweak]

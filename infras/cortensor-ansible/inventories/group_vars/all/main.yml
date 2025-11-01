@@ -10,12 +10,14 @@ ipfs_url: "https://github.com/ipfs/kubo/releases/download/{{ ipfs_version }}/{{ 
 # Installer repository (no need to change)
 installer_repo: "https://github.com/cortensor/installer"
 temp_dir: "/tmp/cortensor-install"
-# Your server configuration details
+# Your server/node configuration details
 ansible_user: ubuntu # Change to your Ansible user
 ansible_ssh_private_key_file: ~/.ssh/id_rsa # Change to your private key
 rpc_url: https://arb-sepolia.cryptonode.id # Contact me for whitelist
 eth_rpc_url: https://ethereum-rpc.publicnode.com
-contract_address_runtime: "0x2ACb5EE389B06250cC40593edbCc6eF3b9cEC8c7"
+contract_address_runtime: "0x8d67608D0F674F359DE0e420857739ECBDeb6B90" # DevNet#7
+llm_memory_index_dynamic_loading: 1
+ipfs_primary: true # Set to true if this node will run the IPFS server (only one node per IP should have this true)
 cortensor_branch: main
 node_prefix: "CNID" # Change to your desired node prefix
 # Monitoring and Log Shipping
