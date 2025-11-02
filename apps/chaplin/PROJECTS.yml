@@ -1,0 +1,10 @@
+- name: chaplin
+  category: apps
+  owner: "@rafared"
+  collaborators:
+    - "@rafared"
+    - "@lucianofbn"
+  status: active
+  created: 2025-10-31
+  version: v1.0.0
+  tags: [app, cortensor, react, tailwindcss, nodejs]
