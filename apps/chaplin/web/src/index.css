@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-inter: Inter, sans-serif;
+  --font-mali: Mali, cursive;
+}
+
+/* ===== 1. SCROLLBAR PADRÃO (#scrollbar) ===== */
+#scrollbar .simplebar-track.simplebar-vertical {
+  background-color: rgba(0, 0, 0, 1);
+  padding: 0;
+  border-radius: 0px;
+  width: 4px !important;
+  right: -13px !important;
+  top: 0 !important;
+  height: calc(100% - 32px) !important;
+}
+
+#scrollbar .simplebar-track.simplebar-vertical .simplebar-scrollbar::before {
+  top: 0 !important;
+  bottom: 0 !important;
+  border-radius: 0px;
+  left: 0px;
+  right: 0px;
+  width: 4px !important;
+  background-color: rgb(63, 63, 70) !important;
+}
+
+/* ===== 2. LOGIN PAGE SCROLLBAR ===== */
+.login-page-scrollbar .simplebar-track.simplebar-vertical {
+  right: 0px !important;
+  top: 0px !important;
+  height: 100% !important;
+  border-radius: 0px;
+  background-color: black;
+  width: 5px !important;
+}
+
+.login-page-scrollbar .simplebar-scrollbar.simplebar-vertical {
+  top: 0 !important;
+  bottom: 0 !important;
+}
+
+.login-page-scrollbar .simplebar-scrollbar::before,
+.login-page-scrollbar .simplebar-track:hover .simplebar-scrollbar::before,
+.login-page-scrollbar .simplebar-scrollbar.simplebar-dragging::before,
+.login-page-scrollbar .simplebar-scrollbar.simplebar-visible::before {
+  background-color: #3F3F46 !important;
+  transition: none !important;
+  opacity: 1;
+  border-radius: 0px;
+  width: 100% !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0;
+  right: 0;
+}
+
+/* ===== 3. CHAPLIN SIDEBAR SCROLLBAR ===== */
+.chaplin-sidebar-scrollbar .simplebar-track.simplebar-vertical {
+  background: transparent;
+  width: 8px;
+}
+
+.chaplin-sidebar-scrollbar .simplebar-scrollbar::before {
+  background-color: #4A4A4A;
+  border-radius: 4px;
+  width: 4px;
+  left: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.chaplin-sidebar-scrollbar:hover .simplebar-scrollbar::before,
+.chaplin-sidebar-scrollbar:focus-within .simplebar-scrollbar::before {
+  opacity: 0.8;
+}
+
+.chaplin-sidebar-scrollbar .simplebar-scrollbar.simplebar-dragging::before {
+  opacity: 1;
+}
+
+/* ===== 4. CATEGORY DROPDOWN SCROLLBAR (CORRIGIDA) ===== */
+
+/* Trilho invisível com largura para interação */
+.category-dropdown-scrollbar .simplebar-track.simplebar-vertical {
+  background: transparent !important;
+  width: 6px !important;
+
+}
+
+/* Contêiner da barra - posicionamento e largura */
+.category-dropdown-scrollbar .simplebar-scrollbar {
+  right: 2px !important;
+  width: 4px !important;
+}
+
+/* Barra visível - fina, arredondada e cinza */
+.category-dropdown-scrollbar .simplebar-scrollbar::before {
+  background-color: #3F3F46 !important;
+  opacity: 0.8 !important;
+  border-radius: 4px !important;
+  width: 4px !important;
+  left: 0 !important;
+  right: 0 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+/* Estados de hover e arraste */
+.category-dropdown-scrollbar:hover .simplebar-scrollbar::before {
+  opacity: 1 !important;
+}
+
+.category-dropdown-scrollbar .simplebar-scrollbar.simplebar-dragging::before {
+  opacity: 1 !important;
+  background-color: #52525B !important;
+}
+
+/* ===== 5. CREATE MODAL TEXTAREA ===== */
+.create-modal-textarea {
+  /* Layout e rolagem */
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+
+  /* Texto */
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  /* Visual */
+  border-radius: inherit;
+  -moz-outline-radius: 6px;
+
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #505050 transparent;
+}
+
+/* WebKit scrollbar para textarea */
+.create-modal-textarea::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.create-modal-textarea::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.create-modal-textarea::-webkit-scrollbar-thumb {
+  background-color: #505050;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.create-modal-textarea::-webkit-scrollbar-thumb:active {
+  background-color: #505050;
+}
+
+/* ===== 6. INSTRUCTIONS SCROLLBAR ===== */
+.instructions-scrollbar {
+  padding-right: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(90, 90, 90, 0.6) transparent;
+}
+
+/* WebKit - Largura */
+.instructions-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Remove TODAS as setas */
+.instructions-scrollbar::-webkit-scrollbar-button {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Trilho invisível */
+.instructions-scrollbar::-webkit-scrollbar-track,
+.instructions-scrollbar::-webkit-scrollbar-track-piece {
+  background: transparent;
+  margin: 0;
+  border: none;
+}
+
+/* Polegar */
+.instructions-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(90, 90, 90, 0.6);
+  border-radius: 2px;
+  border: none;
+  min-height: 30px;
+}
+
+.instructions-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(113, 113, 113, 0.8);
+}
+
+.instructions-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: rgba(113, 113, 113, 1);
+}
+
+.instructions-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+  display: none;
+}
+
+/* ===== Scroll FilterTag ===== */
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE e Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Safari e Chrome */
+}
+
+.touch-scroll-improvements {
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== BASE RESET ===== */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
