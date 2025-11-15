@@ -1,0 +1,67 @@
+# --- Python cache & artifacts ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- Environment & secrets ---
+.env
+*.env
+!.env.example
+
+# --- Logs & runtime files ---
+*.log
+logs/
+*.pid
+*.sqlite
+
+# --- Tooling / coverage ---
+.coverage*
+.pytest_cache/
+.mypy_cache/
+.pyre/
+pytest.debug.log
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.code-workspace
+
+# --- OS / misc ---
+.DS_Store
+Thumbs.db
+
+# --- Docker intermediate ---
+*.tar
+
+# --- Local data dumps ---
+*.dump
+*.bak
+
+# --- Jupyter (if later added) ---
+.ipynb_checkpoints/
+
+# --- Node / Frontend (future) ---
+node_modules/
+
+# --- Cache directories ---
+.cache/
+
+# --- Security: prevent accidental key commits ---
+# Add any other secret pattern here
+*credential*.*
+*secret*.*
+*key*.json

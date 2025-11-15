@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cortensor Showcase — Apps & Bots</title>
+    <meta name="description" content="Discover Cortensor-powered apps and bots. Search, filter, and try live demos." />
+  <meta property="og:title" content="Cortensor Showcase — Apps & Bots" />
+  <meta property="og:description" content="Discover Cortensor-powered apps and bots. Search, filter, and try live demos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/placeholders/cover.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cortensor Showcase — Apps & Bots" />
+  <meta name="twitter:description" content="Discover Cortensor-powered apps and bots. Search, filter, and try live demos." />
+  <meta name="twitter:image" content="assets/placeholders/cover.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader" aria-hidden="true">
+      <div class="spinner"></div>
+      <div class="preloader-text">Loading Cortensor Showcase…</div>
+    </div>
+
+    <header class="site-header container">
+      <div class="brand" role="banner">
+        <img src="assets/favicon.svg" alt="Cortensor logo" class="brand-logo" />
+        <div>
+          <h1>Cortensor Showcase</h1>
+          <p class="subtitle">Discover community-built apps, bots, and tools powered by Cortensor.</p>
+        </div>
+      </div>
+  <nav class="primary-actions" aria-label="primary"></nav>
+    </header>
+
+    <main>
+      <section id="discover" class="section container catalog-layout">
+        <aside id="catalogSidebar" class="panel panel-sidebar reveal" aria-label="Catalog categories">
+          <div class="panel-head">
+            <h2>Catalog</h2>
+            <p class="muted">Browse by category, tags, and collections.</p>
+          </div>
+          <div class="catalog-sidebar-body">
+            <p class="sidebar-note muted">Popular tags</p>
+            <div id="tagBar" class="tag-bar vertical" aria-label="Filter by tags"></div>
+          </div>
+        </aside>
+
+        <div class="catalog-main">
+          <div class="panel panel-search">
+            <div class="panel-head">
+              <h2>Explore Catalog</h2>
+              <p class="muted">Search the Cortensor ecosystem and refine with filters.</p>
+            </div>
+            <div class="search-row">
+              <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <input id="searchInput" type="search" placeholder="Search the catalog…" autocomplete="off" />
+              </div>
+              <div class="filters">
+                <select id="typeFilter" aria-label="Filter by type">
+                  <option value="">All Types</option>
+                  <option value="app">Web App</option>
+                  <option value="bot">Telegram Bot</option>
+                </select>
+                <select id="sortSelect" aria-label="Sort by">
+                  <option value="featured">Featured</option>
+                  <option value="popular">Most Popular</option>
+                  <option value="alpha">Alphabetical</option>
+                  <option value="newest">Newest</option>
+                  <option value="recent">Recently Updated</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <section id="featuredSection" class="panel panel-featured reveal hidden" aria-label="Featured catalog items">
+            <div class="panel-head">
+              <h2>Featured Collections</h2>
+              <p class="muted">Curated picks highlighted from across the catalog.</p>
+            </div>
+            <div id="featuredGrid" class="featured-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="panel panel-grid reveal">
+            <div class="panel-head">
+              <h2 id="catalogTitle">All Catalog Items</h2>
+              <p class="muted" id="catalogSubtitle">Showing the entire catalog. Use filters to refine.</p>
+            </div>
+            <div id="cardsGrid" class="cards-grid" aria-live="polite"></div>
+            <div id="emptyState" class="empty-state hidden">
+              <img alt="No results" src="assets/placeholders/empty-state.svg" />
+              <p>No results found. Try adjusting your search or filters.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>Made by the Cortensor community. This is an independent showcase. Data is community-maintained.</p>
+    </footer>
+
+  <script src="assets/config.js" defer></script>
+  <script src="assets/chatbot.js" defer></script>
+  <script src="assets/app.js" defer></script>
+  </body>
+  </html>

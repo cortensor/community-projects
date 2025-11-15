@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App Detail — Cortensor Showcase</title>
+    <meta name="description" content="Full description and live demo link for a Cortensor-powered app or bot." />
+  <meta property="og:title" content="App Detail — Cortensor Showcase" />
+  <meta property="og:description" content="Full description and live demo link for a Cortensor-powered app or bot." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/placeholders/cover.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div id="preloader" aria-hidden="true">
+      <div class="spinner"></div>
+      <div class="preloader-text">Loading details…</div>
+    </div>
+
+    <header class="site-header container">
+      <div class="brand" role="banner">
+  <a href="index.html" class="brand-link">
+          <img src="assets/favicon.svg" alt="Cortensor logo" class="brand-logo" />
+        </a>
+        <div>
+          <h1 id="title">App Detail</h1>
+          <p class="subtitle" id="subtitle">Powered by Cortensor</p>
+        </div>
+      </div>
+      <nav class="primary-actions" aria-label="primary">
+        <a class="btn ghost" href="index.html#discover">Back to Discover</a>
+  <a class="btn primary" id="tryBtn" href="#" target="_blank" rel="noopener">Try App / Demo</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section container">
+        <article class="detail">
+          <div class="detail-media reveal">
+            <img id="coverImage" src="assets/placeholders/cover.svg" alt="App preview" />
+            <div id="galleryStrip" class="gallery-strip"></div>
+            <div id="imageMeta" class="image-meta muted"></div>
+          </div>
+          <div class="detail-body reveal">
+            <div class="meta">
+              <span id="typeBadge" class="badge">App</span>
+              <div id="tags" class="tag-list"></div>
+            </div>
+            <h2 id="name">Loading…</h2>
+            <p id="highlight" class="highlight">—</p>
+            <div class="detail-actions">
+              <a class="btn primary" id="tryBtn2" href="#" target="_blank" rel="noopener">Try App / Demo</a>
+              <button class="btn ghost" id="copyLinkBtn" type="button">Copy Share Link</button>
+            </div>
+            <hr style="border-color: rgba(255,255,255,.08); margin:14px 0">
+            <p id="description" class="description">Description goes here. Replace this placeholder with a professional and complete description in English.</p>
+            <div id="externalLinks" class="ext-links" aria-label="External links"></div>
+            <div class="stats muted" id="stats"></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>Community showcase. Edit data via the local JSON file.</p>
+    </footer>
+
+  <script src="assets/config.js" defer></script>
+  <script src="assets/chatbot.js" defer></script>
+  <script src="assets/detail.js" defer></script>
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <div class="lightbox-backdrop" data-close></div>
+    <div class="lightbox-stage">
+      <button class="lb-btn prev" id="lbPrev" aria-label="Previous image" type="button">◀</button>
+        <img id="lbImage" src="" alt="Preview" />
+      <button class="lb-btn next" id="lbNext" aria-label="Next image" type="button">▶</button>
+      <div class="lb-caption">
+        <span id="lbCounter">1 / 1</span>
+          <button id="lbReset" class="btn ghost small" type="button" aria-label="Reset zoom">Reset</button>
+        <button id="lbClose" class="btn ghost small" type="button" aria-label="Close">Close ✕</button>
+      </div>
+        <div class="lb-hint" id="lbHint" aria-hidden="true">Pinch / scroll to zoom · Drag to pan · ←/→ nav · Esc close</div>
+    </div>
+  </div>
+  </body>
+  </html>
