@@ -5,7 +5,7 @@ This document outlines the current status and development priorities for **Decen
 ---
 
 ## 🟢 Current Status
-**Version**: 1.0.0  
+**Version**: 2.0.0  
 **Status**: Stable & Active  
 **Description**:  
 The bot’s core functionality is stable and fully operational. 
