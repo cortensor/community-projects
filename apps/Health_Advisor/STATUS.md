@@ -20,7 +20,7 @@ Below is an overview of planned features and improvements, organized by priority
 - Keeps a full record of your health history consultations, symptoms, progress, and even an auto health score 0 to 100.  
 
 ### **Daily Symptom Tracker**
-Lets you log daily symptoms, track mood, and see how things change over time.
+- Lets you log daily symptoms, track mood, and see how things change over time.
 
 ### **Automated Follow up**
 - Sends reminders a week after your consultation with personalized follow-up messages and better scheduling.
