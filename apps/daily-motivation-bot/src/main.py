@@ -34,15 +34,19 @@ CORTENSOR_API_KEY = os.getenv("CORTENSOR_API_KEY")
 CORTENSOR_SESSION_ID = os.getenv("CORTENSOR_SESSION_ID")
 
 # Conversation state
-ASK_TIMEZONE, ASK_TONE, ASK_FEELING = range(3)
+ASK_TIMEZONE, ASK_TONE, ASK_FEELING, MORNING_INTENTIONS, EVENING_REFLECTION, AWAITING_INTENTIONS, AWAITING_GRATITUDE, CHECKING_INTENTIONS = range(8)
 
 # Global user list and timezone map
 user_ids = set()
 user_timezones = {}
 user_prompt_cache = {}
 user_tones = {}
-user_names = {}  # Untuk menyimpan nama pengguna
-user_feedback = {}  # Untuk menyimpan feedback pengguna
+user_names = {}
+user_feedback = {}
+user_progress = {}
+user_intentions = {}
+user_reflections = {}
+user_achievements = {}
 
 # Daftar tone yang tersedia
 AVAILABLE_TONES = {
@@ -50,6 +54,15 @@ AVAILABLE_TONES = {
     "SteveHarvey": "motivational with humor - engaging stories, relatable, inspirational",
     "Motivational": "energetic and inspiring - uplifting, empowering, action-oriented",
     "Friendly": "warm and supportive - empathetic, compassionate, like a caring friend"
+}
+
+# Achievement system
+AVAILABLE_ACHIEVEMENTS = {
+    "early_bird": {"name": "🌅 Early Bird", "desc": "Complete 7 morning sessions"},
+    "streak_master": {"name": "🔥 Streak Master", "desc": "Maintain 14-day streak"},
+    "feedback_giver": {"name": "💬 Feedback Giver", "desc": "Give 10 feedbacks"},
+    "mood_tracker": {"name": "📊 Mood Tracker", "desc": "Log mood 10 times"},
+    "goal_crusher": {"name": "🎯 Goal Crusher", "desc": "Complete all daily intentions 5 times"}
 }
 
 # Knowledge Base for RAG implementation - EXPANDED FOR VARIETY
@@ -130,14 +143,15 @@ KNOWLEDGE_BASE = {
 CACHE_FILE = "user_prompt_cache.json"
 USER_DATA_FILE = "user_data.json"
 KNOWLEDGE_FILE = "knowledge_base.json"
-FEEDBACK_FILE = "user_feedback.json"  # File untuk menyimpan feedback
-DAILY_CACHE_FILE = "daily_messages_cache.json"  # File untuk cache pesan harian
+FEEDBACK_FILE = "user_feedback.json"
+DAILY_CACHE_FILE = "daily_messages_cache.json"
+PROGRESS_FILE = "user_progress.json"
+ACHIEVEMENTS_FILE = "user_achievements.json"
 
-# Daily Motivation Manager untuk variasi dan anti-duplikasi
 class DailyMotivationManager:
     def __init__(self):
         self.sent_messages_cache: Dict[int, List[str]] = {}  # user_id: list of sent messages
-        self.max_cache_size = 20  # Keep last 20 messages to avoid duplicates
+        self.max_cache_size = 20
         
     def get_varied_mood(self, user_id: int, previous_moods: List[str]) -> str:
         """Get a varied mood for daily motivation, avoiding recent duplicates"""
@@ -219,8 +233,134 @@ class DailyMotivationManager:
         
         return int((len(intersection) / len(union)) * 100)
 
-# Global instance
+# Progress Tracking System
+class ProgressTracker:
+    def __init__(self):
+        pass
+    
+    def initialize_user_progress(self, user_id: int):
+        """Initialize progress tracking untuk user baru"""
+        if user_id not in user_progress:
+            user_progress[user_id] = {
+                "current_streak": 0,
+                "longest_streak": 0,
+                "total_motivations": 0,
+                "total_feedbacks": 0,
+                "mood_entries": 0,
+                "completed_intentions": 0,
+                "last_active_date": None,
+                "created_date": datetime.now().isoformat()
+            }
+    
+    def update_streak(self, user_id: int):
+        """Update streak harian user"""
+        self.initialize_user_progress(user_id)
+        
+        today = datetime.now().date().isoformat()
+        last_active = user_progress[user_id].get("last_active_date")
+        
+        if last_active == today:
+            return  # Already updated today
+            
+        if last_active:
+            last_date = datetime.fromisoformat(last_active).date()
+            today_date = datetime.now().date()
+            days_diff = (today_date - last_date).days
+            
+            if days_diff == 1:
+                # Consecutive day
+                user_progress[user_id]["current_streak"] += 1
+            elif days_diff > 1:
+                # Broken streak
+                user_progress[user_id]["current_streak"] = 1
+            else:
+                # Same day or future
+                user_progress[user_id]["current_streak"] = max(1, user_progress[user_id]["current_streak"])
+        else:
+            # First time
+            user_progress[user_id]["current_streak"] = 1
+        
+        # Update longest streak
+        user_progress[user_id]["longest_streak"] = max(
+            user_progress[user_id]["longest_streak"],
+            user_progress[user_id]["current_streak"]
+        )
+        
+        user_progress[user_id]["last_active_date"] = today
+        save_progress_data()
+    
+    def record_motivation(self, user_id: int):
+        """Record ketika user menerima motivasi"""
+        self.initialize_user_progress(user_id)
+        user_progress[user_id]["total_motivations"] += 1
+        self.update_streak(user_id)
+        save_progress_data()
+    
+    def record_feedback(self, user_id: int):
+        """Record ketika user memberikan feedback"""
+        self.initialize_user_progress(user_id)
+        user_progress[user_id]["total_feedbacks"] += 1
+        self.check_achievements(user_id, "feedback_giver")
+        save_progress_data()
+    
+    def record_mood_entry(self, user_id: int):
+        """Record ketika user memasukkan mood"""
+        self.initialize_user_progress(user_id)
+        user_progress[user_id]["mood_entries"] += 1
+        self.check_achievements(user_id, "mood_tracker")
+        save_progress_data()
+    
+    def record_intention_completion(self, user_id: int, completed_count: int):
+        """Record penyelesaian intentions"""
+        self.initialize_user_progress(user_id)
+        user_progress[user_id]["completed_intentions"] += completed_count
+        if completed_count >= 3:  # Completed all intentions
+            self.check_achievements(user_id, "goal_crusher")
+        save_progress_data()
+    
+    def check_achievements(self, user_id: int, achievement_type: str):
+        """Check dan berikan achievements"""
+        if user_id not in user_achievements:
+            user_achievements[user_id] = {}
+        
+        progress = user_progress[user_id]
+        achievements = user_achievements[user_id]
+        
+        # Early Bird - 7 morning sessions
+        if achievement_type == "early_bird" and progress.get("completed_intentions", 0) >= 7:
+            if "early_bird" not in achievements:
+                achievements["early_bird"] = datetime.now().isoformat()
+                save_achievements_data()
+        
+        # Streak Master - 14-day streak
+        elif achievement_type == "streak_master" and progress.get("current_streak", 0) >= 14:
+            if "streak_master" not in achievements:
+                achievements["streak_master"] = datetime.now().isoformat()
+                save_achievements_data()
+        
+        # Feedback Giver - 10 feedbacks
+        elif achievement_type == "feedback_giver" and progress.get("total_feedbacks", 0) >= 10:
+            if "feedback_giver" not in achievements:
+                achievements["feedback_giver"] = datetime.now().isoformat()
+                save_achievements_data()
+        
+        # Mood Tracker - 10 mood entries
+        elif achievement_type == "mood_tracker" and progress.get("mood_entries", 0) >= 10:
+            if "mood_tracker" not in achievements:
+                achievements["mood_tracker"] = datetime.now().isoformat()
+                save_achievements_data()
+        
+        # Goal Crusher - 5x complete all intentions
+        elif achievement_type == "goal_crusher" and progress.get("completed_intentions", 0) >= 15:  # 5x3 intentions
+            if "goal_crusher" not in achievements:
+                achievements["goal_crusher"] = datetime.now().isoformat()
+                save_achievements_data()
+        
+        return achievements
+
+# Global instances
 daily_mgr = DailyMotivationManager()
+progress_tracker = ProgressTracker()
 
 # ------------------------
 # Load and Save Functions
@@ -263,7 +403,7 @@ def save_user_data():
                     "user_timezones": user_timezones,
                     "user_tones": user_tones,
                     "user_names": user_names,
-                    "daily_messages_cache": daily_mgr.sent_messages_cache  # NEW: Save daily cache
+                    "daily_messages_cache": daily_mgr.sent_messages_cache
                 }
                 json.dump(data, f, indent=2)
                 logger.info(f"💾 Saving user data: {len(user_ids)} users, {len(user_timezones)} timezones, {len(user_tones)} tones, {len(user_names)} names")
@@ -362,6 +502,63 @@ def load_feedback_data():
         except Exception as e:
             logger.error("❌ Failed to load feedback data.", exc_info=True)
             user_feedback = {}
+
+def save_progress_data():
+    """Menyimpan data progress pengguna"""
+    with data_lock:
+        try:
+            temp_file = PROGRESS_FILE + ".tmp"
+            with open(temp_file, "w") as f:
+                json.dump({
+                    "user_progress": user_progress,
+                    "user_intentions": user_intentions,
+                    "user_reflections": user_reflections
+                }, f, indent=2)
+            os.replace(temp_file, PROGRESS_FILE)
+            logger.info("✅ Progress data saved.")
+        except Exception as e:
+            logger.error("❌ Failed to save progress data.", exc_info=True)
+
+def load_progress_data():
+    """Memuat data progress pengguna"""
+    global user_progress, user_intentions, user_reflections
+    if os.path.exists(PROGRESS_FILE):
+        try:
+            with open(PROGRESS_FILE, "r") as f:
+                data = json.load(f)
+                user_progress = data.get("user_progress", {})
+                user_intentions = data.get("user_intentions", {})
+                user_reflections = data.get("user_reflections", {})
+            logger.info("✅ Progress data loaded.")
+        except Exception as e:
+            logger.error("❌ Failed to load progress data.", exc_info=True)
+            user_progress = {}
+            user_intentions = {}
+            user_reflections = {}
+
+def save_achievements_data():
+    """Menyimpan data achievements"""
+    with data_lock:
+        try:
+            temp_file = ACHIEVEMENTS_FILE + ".tmp"
+            with open(temp_file, "w") as f:
+                json.dump(user_achievements, f, indent=2)
+            os.replace(temp_file, ACHIEVEMENTS_FILE)
+            logger.info("✅ Achievements data saved.")
+        except Exception as e:
+            logger.error("❌ Failed to save achievements data.", exc_info=True)
+
+def load_achievements_data():
+    """Memuat data achievements"""
+    global user_achievements
+    if os.path.exists(ACHIEVEMENTS_FILE):
+        try:
+            with open(ACHIEVEMENTS_FILE, "r") as f:
+                user_achievements = json.load(f)
+            logger.info("✅ Achievements data loaded.")
+        except Exception as e:
+            logger.error("❌ Failed to load achievements data.", exc_info=True)
+            user_achievements = {}
 
 # ------------------------
 # RAG Core Functions (Improved)
@@ -520,10 +717,6 @@ def clean_motivation_output(text: str) -> str:
     return text.strip()
 
 def validate_and_clean_response(text: str, tone: str) -> str:
-    """
-    Validasi dan bersihkan respons untuk memastikan tidak mengandung elemen yang tidak diinginkan
-    """
-    # Daftar pola yang harus dihapus
     patterns_to_remove = [
         r'\(id:\s*\d+\)',
         r'<\|eot_id\|>',
@@ -608,6 +801,9 @@ def send_daily_motivation(bot: Bot, chat_id: int):
         # Track the sent message
         daily_mgr.track_sent_message(chat_id, cleaned_result)
         
+        # Track motivation in progress system
+        progress_tracker.record_motivation(chat_id)
+        
         # Personalize greeting
         greeting = ""
         if chat_id in user_names:
@@ -649,9 +845,279 @@ def schedule_daily_jobs(scheduler: BackgroundScheduler, bot: Bot):
     
     logger.info(f"⏰ Updated {len(needed_jobs)} daily motivation jobs")
 
-# ------------------------
-# Fitur Baru: Feedback System
-# ------------------------
+def progress_command(update: Update, context: CallbackContext):
+    """Menampilkan progress pengguna"""
+    user_id = update.message.chat_id
+    
+    progress_tracker.initialize_user_progress(user_id)
+    progress = user_progress.get(user_id, {})
+    achievements = user_achievements.get(user_id, {})
+    
+    response = "📊 *YOUR PROGRESS OVERVIEW*\n\n"
+    
+    if progress:
+        response += f"🔥 *Current Streak:* {progress.get('current_streak', 0)} days\n"
+        response += f"🏆 *Longest Streak:* {progress.get('longest_streak', 0)} days\n"
+        response += f"💫 *Motivations Received:* {progress.get('total_motivations', 0)}\n"
+        response += f"💬 *Feedbacks Given:* {progress.get('total_feedbacks', 0)}\n"
+        response += f"📝 *Mood Entries:* {progress.get('mood_entries', 0)}\n"
+        response += f"🎯 *Intentions Completed:* {progress.get('completed_intentions', 0)}\n"
+    
+    # Show achievements
+    if achievements:
+        response += "\n🏆 *YOUR ACHIEVEMENTS*\n"
+        for achievement_id, unlock_date in achievements.items():
+            if achievement_id in AVAILABLE_ACHIEVEMENTS:
+                achievement = AVAILABLE_ACHIEVEMENTS[achievement_id]
+                response += f"• {achievement['name']} - {achievement['desc']}\n"
+    else:
+        response += "\n🌟 *Keep going! Complete more activities to unlock achievements!*"
+    
+    # Show available achievements
+    response += "\n🔓 *AVAILABLE ACHIEVEMENTS*\n"
+    for achievement_id, achievement in list(AVAILABLE_ACHIEVEMENTS.items())[:3]:  # Show first 3
+        if achievement_id not in achievements:
+            response += f"• {achievement['name']} - {achievement['desc']}\n"
+    
+    update.message.reply_text(response, parse_mode='Markdown')
+
+def achievements_command(update: Update, context: CallbackContext):
+    """Menampilkan semua achievements yang tersedia"""
+    user_id = update.message.chat_id
+    user_achs = user_achievements.get(user_id, {})
+    
+    response = "🏆 *ACHIEVEMENTS COLLECTION*\n\n"
+    
+    for achievement_id, achievement in AVAILABLE_ACHIEVEMENTS.items():
+        status = "✅ UNLOCKED" if achievement_id in user_achs else "🔒 LOCKED"
+        response += f"{status} - *{achievement['name']}*\n{achievement['desc']}\n\n"
+    
+    progress = user_progress.get(user_id, {})
+    if progress:
+        unlocked = len(user_achs)
+        total = len(AVAILABLE_ACHIEVEMENTS)
+        response += f"📈 *Progress:* {unlocked}/{total} achievements unlocked ({unlocked/total*100:.1f}%)"
+    
+    update.message.reply_text(response, parse_mode='Markdown')
+
+def start_morning_intentions(update: Update, context: CallbackContext):
+    """Memulai sesi morning intentions"""
+    user_id = update.message.chat_id
+    
+    # Update streak
+    progress_tracker.update_streak(user_id)
+    
+    welcome_text = """
+🌅 *MORNING INTENTIONS SESSION* 🌅
+
+Let's set your focus for today! Please share **3 intentions** - what you want to accomplish or focus on today.
+
+Examples:
+• Complete project proposal
+• Exercise for 30 minutes  
+• Connect with a friend
+• Learn something new
+
+Please write your 3 intentions, one per line:
+"""
+    
+    update.message.reply_text(welcome_text, parse_mode='Markdown')
+    return AWAITING_INTENTIONS
+
+def handle_intentions_input(update: Update, context: CallbackContext):
+    """Memproses input intentions dari user"""
+    user_id = update.message.chat_id
+    text = update.message.text.strip()
+    
+    # Parse intentions (assume one per line)
+    intentions = [line.strip() for line in text.split('\n') if line.strip()]
+    
+    if len(intentions) < 1:
+        update.message.reply_text("Please provide at least 1 intention. Try again:")
+        return AWAITING_INTENTIONS
+    
+    # Save intentions
+    user_intentions[user_id] = {
+        "date": datetime.now().date().isoformat(),
+        "intentions": intentions[:3]  # Max 3 intentions
+    }
+    
+    progress_tracker.record_intention_completion(user_id, 0)  # Track intention setting
+    
+    # Generate motivation based on intentions
+    intentions_text = ", ".join(intentions[:3])
+    prompt = generate_rag_prompt(
+        f"morning motivation for today's intentions: {intentions_text}", 
+        "motivated", 
+        user_tones.get(user_id, "Motivational"), 
+        user_id
+    )
+    
+    try:
+        result = ask_cortensor_motivation(prompt)
+        
+        if "error" not in result.lower():
+            cleaned_result = clean_motivation_output(result)
+            cleaned_result = validate_and_clean_response(cleaned_result, user_tones.get(user_id, "Motivational"))
+            
+            response = f"✅ *Intentions Set!* \n\n"
+            for i, intention in enumerate(intentions[:3], 1):
+                response += f"{i}. {intention}\n"
+            
+            response += f"\n💫 *Your Morning Motivation:*\n\n{cleaned_result}"
+            
+            # Add progress info
+            progress = user_progress.get(user_id, {})
+            if progress:
+                streak = progress.get("current_streak", 0)
+                response += f"\n\n📊 *Progress Update:* {streak}-day streak!"
+            
+            message = update.message.reply_text(response, parse_mode='Markdown')
+            
+            # Add feedback button
+            add_feedback_button(context, user_id, message.message_id, cleaned_result)
+            
+        else:
+            # Fallback jika API error
+            response = f"✅ *Intentions Set!* \n\nYour focus for today:\n"
+            for i, intention in enumerate(intentions[:3], 1):
+                response += f"{i}. {intention}\n"
+            response += "\n💫 Have a productive day! You've got this! 💪"
+            update.message.reply_text(response, parse_mode='Markdown')
+        
+    except Exception as e:
+        logger.error(f"❌ Error generating morning motivation: {e}")
+        response = f"✅ *Intentions Set!* \n\nYour focus for today:\n"
+        for i, intention in enumerate(intentions[:3], 1):
+            response += f"{i}. {intention}\n"
+        response += "\n💫 Have a productive day! You've got this! 💪"
+        update.message.reply_text(response, parse_mode='Markdown')
+    
+    save_progress_data()
+    return ConversationHandler.END
+
+def start_evening_reflection(update: Update, context: CallbackContext):
+    """Memulai sesi evening reflection"""
+    user_id = update.message.chat_id
+    
+    # Check if user set morning intentions
+    today_intentions = user_intentions.get(user_id, {}).get("date") == datetime.now().date().isoformat()
+    
+    reflection_text = """
+🌙 *EVENING REFLECTION SESSION* 🌙
+
+Let's reflect on your day! Please share **3 things you're grateful for** today.
+
+Examples:
+• Support from colleagues/family
+• A small win at work/school  
+• Beautiful weather
+• Learning opportunity
+• Good health
+
+Please write your 3 gratitude items, one per line:
+"""
+    
+    update.message.reply_text(reflection_text, parse_mode='Markdown')
+    
+    # Store context untuk nanti check intentions completion
+    context.user_data['has_intentions'] = today_intentions
+    if today_intentions:
+        context.user_data['morning_intentions'] = user_intentions[user_id]["intentions"]
+    
+    return AWAITING_GRATITUDE
+
+def handle_gratitude_input(update: Update, context: CallbackContext):
+    """Memproses input gratitude dari user"""
+    user_id = update.message.chat_id
+    text = update.message.text.strip()
+    
+    # Parse gratitude items
+    gratitude_items = [line.strip() for line in text.split('\n') if line.strip()]
+    
+    if len(gratitude_items) < 1:
+        update.message.reply_text("Please share at least 1 thing you're grateful for. Try again:")
+        return AWAITING_GRATITUDE
+    
+    # Save reflection
+    user_reflections[user_id] = {
+        "date": datetime.now().date().isoformat(),
+        "gratitude": gratitude_items[:3],  # Max 3 items
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    # Progress tracking
+    progress_tracker.update_streak(user_id)
+    
+    response = "🙏 *Evening Reflection Complete!*\n\n"
+    response += "*Today I'm grateful for:*\n"
+    for i, item in enumerate(gratitude_items[:3], 1):
+        response += f"{i}. {item}\n"
+    
+    # Check morning intentions completion
+    if context.user_data.get('has_intentions'):
+        intentions = context.user_data.get('morning_intentions', [])
+        keyboard = []
+        for i, intention in enumerate(intentions):
+            keyboard.append([InlineKeyboardButton(f"{'✅' if i < 3 else '❌'} {intention}", 
+                                               callback_data=f"complete_intention_{i}")])
+        
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        response += "\n📋 *Now let's check your morning intentions:*\nTap to mark as complete:"
+        
+        update.message.reply_text(response, parse_mode='Markdown', reply_markup=reply_markup)
+        return CHECKING_INTENTIONS
+    else:
+        # No morning intentions, just show progress
+        progress = user_progress.get(user_id, {})
+        if progress:
+            streak = progress.get("current_streak", 0)
+            total_reflections = progress.get("completed_intentions", 0) + 1
+            response += f"\n📊 *Progress:* {streak}-day streak • {total_reflections} reflections"
+        
+        response += "\n\n🌙 Good night! Rest well for tomorrow's adventures!"
+        update.message.reply_text(response, parse_mode='Markdown')
+        return ConversationHandler.END
+
+def handle_intention_completion(update: Update, context: CallbackContext):
+    """Menangani completion intentions"""
+    query = update.callback_query
+    user_id = query.message.chat.id
+    intention_index = int(query.data.split('_')[-1])
+    
+    # Track completion
+    completed_count = min(3, intention_index + 1)  # Simulate completion
+    progress_tracker.record_intention_completion(user_id, completed_count)
+    
+    # Check achievements
+    achievements = progress_tracker.check_achievements(user_id, "goal_crusher")
+    
+    response = "🎉 *Great job today!*\n\n"
+    
+    progress = user_progress.get(user_id, {})
+    if progress:
+        streak = progress.get("current_streak", 0)
+        response += f"📊 *Today's Progress:*\n"
+        response += f"• {streak}-day streak\n"
+        response += f"• {progress.get('completed_intentions', 0)} intentions completed\n"
+        response += f"• {progress.get('total_motivations', 0)} motivations received\n"
+    
+    # Check for new achievements
+    new_achievements = []
+    if user_id in user_achievements:
+        for achievement_id, achievement_data in user_achievements[user_id].items():
+            if achievement_id in AVAILABLE_ACHIEVEMENTS:
+                new_achievements.append(AVAILABLE_ACHIEVEMENTS[achievement_id]["name"])
+    
+    if new_achievements:
+        response += f"\n🏆 *Achievements:* {', '.join(new_achievements)}"
+    
+    response += "\n\n🌙 Good night! Amazing work today! 💫"
+    
+    query.edit_message_text(response, parse_mode='Markdown')
+    query.answer()
+    
+    return ConversationHandler.END
 
 def add_feedback_button(context: CallbackContext, chat_id: int, message_id: int, message_text: str):
     """Menambahkan tombol feedback ke pesan motivasi"""
@@ -700,6 +1166,9 @@ def handle_feedback(update: Update, context: CallbackContext):
     else:
         return
     
+    # Track feedback in progress system
+    progress_tracker.record_feedback(user_id)
+    
     # Simpan feedback
     if user_id in user_feedback and message_id in user_feedback[user_id]:
         user_feedback[user_id][message_id]["feedback"] = feedback_type
@@ -709,10 +1178,6 @@ def handle_feedback(update: Update, context: CallbackContext):
     query.answer()
     query.edit_message_reply_markup(reply_markup=None)
     context.bot.send_message(chat_id=user_id, text=response_text)
-
-# ------------------------
-# Fitur Baru: Personalization dengan Nama
-# ------------------------
 
 def set_name(update: Update, context: CallbackContext):
     """Mengatur nama pengguna"""
@@ -728,27 +1193,27 @@ def set_name(update: Update, context: CallbackContext):
     
     update.message.reply_text(f"✅ Your name has been set to: {name}. I'll use this to personalize your experience!")
 
-# ------------------------
-# Fitur Baru: Bantuan dan Informasi
-# ------------------------
-
 def help_command(update: Update, context: CallbackContext):
-    """Menampilkan pesan bantuan"""
+    """Menampilkan pesan bantuan yang diperbarui"""
     help_text = """
 🤖 *Daily Motivation Bot Help* 🤖
 
 *Available Commands:*
 /start - Start the bot and set your preferences
+/morning - Set your daily intentions + morning motivation
+/evening - Evening reflection & gratitude session
+/progress - View your progress and streaks
+/achievements - View available achievements
 /settimezone - Set your timezone again
 /settone - Change your communication style
 /setname [name] - Set your name for personalization
 /help - Show this help message
 /about - Learn more about this bot
 
-*How to use:*
-- The bot will send you daily motivation at 8 AM your local time
-- You can request motivation anytime by sending a message about how you feel
-- Use the feedback buttons to rate motivational messages
+*Daily Workflow:*
+🌅 Morning: /morning → Set intentions → Get motivation
+🏃 Day: Receive automatic motivation at 8 AM
+🌃 Evening: /evening → Gratitude reflection → Progress review
 
 *Communication Styles:*
 - *Captain*: Strict and authoritative, like a military captain
@@ -756,7 +1221,7 @@ def help_command(update: Update, context: CallbackContext):
 - *Motivational*: Energetic and inspiring
 - *Friendly*: Warm and supportive
 
-Feel free to chat with me anytime you need motivation or support! 💪
+*Track your progress with streaks, achievements, and goals!* 🏆
 """
     update.message.reply_text(help_text, parse_mode='Markdown')
 
@@ -772,6 +1237,8 @@ This bot is designed to provide daily motivational messages tailored to your pre
 - Multiple communication styles to choose from
 - Context-aware responses based on your mood
 - Feedback system to improve quality
+- Progress tracking with streaks and achievements
+- Complete daily workflow (morning intentions + evening reflections)
 
 *Technology:*
 Powered by Cortensor AI for generating authentic and impactful motivational messages.
@@ -794,7 +1261,11 @@ def start(update: Update, context: CallbackContext):
     if user_id not in user_tones:
         user_tones[user_id] = "Motivational"
     
+    # Initialize progress tracking
+    progress_tracker.initialize_user_progress(user_id)
+    
     save_user_data()
+    save_progress_data()
     
     keyboard = [[str(i)] for i in range(0, 24)]
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
@@ -853,6 +1324,9 @@ def handle_feeling(update: Update, context: CallbackContext):
     user_id = update.message.chat_id
     mood = update.message.text.lower()
     user_tone = user_tones.get(user_id, "Motivational")
+    
+    # Track mood entry
+    progress_tracker.record_mood_entry(user_id)
     
     if user_id not in user_prompt_cache:
         user_prompt_cache[user_id] = {}
@@ -997,10 +1471,13 @@ def handle_motivation_request(update: Update, context: CallbackContext):
 # ------------------------
 
 def main():
+    # Load semua data
     load_prompt_cache()
     load_user_data()
     load_knowledge_base()
     load_feedback_data()
+    load_progress_data()
+    load_achievements_data()
     
     if not all([TELEGRAM_BOT_TOKEN, CORTENSOR_API_URL, CORTENSOR_API_KEY, CORTENSOR_SESSION_ID]):
         logger.critical("❌ .env configuration incomplete. Bot cannot start.")
@@ -1015,6 +1492,7 @@ def main():
         dispatcher.bot_data['scheduler'] = scheduler
         schedule_daily_jobs(scheduler, updater.bot)
         
+        # Conversation handlers
         onboarding_conversation = ConversationHandler(
             entry_points=[CommandHandler("start", start)],
             states={
@@ -1042,26 +1520,54 @@ def main():
             fallbacks=[]
         )
         
+        # New conversation handlers for morning/evening
+        morning_intentions_handler = ConversationHandler(
+            entry_points=[CommandHandler("morning", start_morning_intentions)],
+            states={
+                AWAITING_INTENTIONS: [MessageHandler(Filters.text & ~Filters.command, handle_intentions_input)]
+            },
+            fallbacks=[],
+            conversation_timeout=300
+        )
+        
+        evening_reflection_handler = ConversationHandler(
+            entry_points=[CommandHandler("evening", start_evening_reflection)],
+            states={
+                AWAITING_GRATITUDE: [MessageHandler(Filters.text & ~Filters.command, handle_gratitude_input)],
+                CHECKING_INTENTIONS: [CallbackQueryHandler(handle_intention_completion, pattern=r"^complete_intention_")]
+            },
+            fallbacks=[],
+            conversation_timeout=300
+        )
+        
+        # Register semua handlers
         dispatcher.add_handler(onboarding_conversation)
         dispatcher.add_handler(set_timezone_handler)
         dispatcher.add_handler(set_tone_handler)
+        dispatcher.add_handler(morning_intentions_handler)
+        dispatcher.add_handler(evening_reflection_handler)
         dispatcher.add_handler(CommandHandler("setname", set_name))
+        dispatcher.add_handler(CommandHandler("progress", progress_command))
+        dispatcher.add_handler(CommandHandler("achievements", achievements_command))
         dispatcher.add_handler(CommandHandler("help", help_command))
         dispatcher.add_handler(CommandHandler("about", about_command))
         dispatcher.add_handler(CallbackQueryHandler(handle_feedback, pattern=r"^fb_"))
         dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_motivation_request))
         
         updater.start_polling()
-        logger.info("🤖 Daily Motivation Bot is running...")
+        logger.info("🤖 Daily Motivation Bot is running with new features...")
         updater.idle()
         
     except Exception as e:
         logger.critical("❌ Failed to start the bot", exc_info=True)
     finally:
+        # Save semua data sebelum shutdown
         save_user_data()
         save_prompt_cache()
         save_knowledge_base()
         save_feedback_data()
+        save_progress_data()
+        save_achievements_data()
         logger.info("🛑 Bot stopped. All data saved.")
 
 if __name__ == '__main__':
