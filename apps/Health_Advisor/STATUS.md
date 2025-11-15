@@ -14,8 +14,6 @@ Version 2.0.0 introduces a major upgrade to the user experience with deeper heal
 
 ## 🚀 What's New in 2.0.0
 
-Below is an overview of planned features and improvements, organized by priority.
-
 ### **Health Journey Tracking**
 - Keeps a full record of your health history consultations, symptoms, progress, and even an auto health score 0 to 100.  
 
