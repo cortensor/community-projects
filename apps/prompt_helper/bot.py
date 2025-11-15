@@ -613,7 +613,7 @@ async def safe_send_message(chat_id: int, text: str, parse_mode: str = None, **k
 @dp.message_handler(commands=["start", "help"])
 async def cmd_start(message: types.Message):
     welcome_text = """
-🤖 Welcome to Advanced AI Collaboration Bot By Cortensor Network 
+🤖 Welcome to Decentralized Prompt Helper Bot By Cortensor Network 
 
 🌟 <b>Unique Features:</b>
 
