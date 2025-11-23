@@ -1,0 +1,44 @@
+{
+  "name": "@repo/ai",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./server": {
+      "types": "./src/server.ts",
+      "import": "./src/server.ts",
+      "require": "./src/server.ts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "mastra:dev": "mastra dev",
+    "mastra:build": "mastra build"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^0.0.66",
+    "@ai-sdk/openai-compatible": "0.2.16",
+    "@mastra/core": "0.13.2",
+    "@mastra/loggers": "0.10.6",
+    "ai": "^4.0.38",
+    "cortensor-openai-provider": "0.4.0",
+    "openai": "^4.73.1",
+    "viem": "^2.21.54",
+    "wagmi": "^2.14.5",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "mastra": "^0.10.21",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0"
+  }
+}
