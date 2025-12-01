@@ -2,6 +2,7 @@ import logging
 import os
 import re
 import json
+import requests
 from urllib.parse import quote_plus
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ForceReply, ReplyKeyboardMarkup, ReplyKeyboardRemove, ChatAction
 from telegram.ext import CallbackContext
@@ -23,6 +24,24 @@ logger = logging.getLogger(__name__)
 
 _TONES = ["concise", "informative", "persuasive", "technical", "conversational", "authoritative"]
 _SESS: dict[str, dict] = {}
+
+_IP_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}")
+_HOST_FIELD_RE = re.compile(r"host='[^']+'", re.I)
+
+
+def _friendly_error(err: Exception) -> str:
+    if isinstance(err, requests.exceptions.Timeout):
+        return "Request to the generation service timed out. Please try again."
+    if isinstance(err, requests.exceptions.ConnectionError):
+        return "Cannot reach the generation service right now. Please retry shortly."
+    if isinstance(err, requests.exceptions.RequestException):
+        return "Generation service returned an error. Please retry."
+    msg = (str(err) or '').strip()
+    if not msg:
+        msg = err.__class__.__name__
+    msg = _IP_RE.sub('<redacted-ip>', msg)
+    msg = _HOST_FIELD_RE.sub("host='<hidden>'", msg)
+    return msg
 
 def _audit(uid: str, event: str, **fields):
     try:
@@ -296,7 +315,7 @@ def thread_command(update: Update, context: CallbackContext):
                 context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
         except Exception:
             pass
-        update.message.reply_text(f"Failed to generate: {e}")
+        update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
         return
     finally:
         try:
@@ -549,7 +568,7 @@ def _thread_callback(update: Update, context: CallbackContext):
                     context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
             except Exception:
                 pass
-            q.answer(f"Failed: {e}", show_alert=True)
+            q.answer(f"Failed: {_friendly_error(e)}", show_alert=True)
             return
         finally:
             try:
@@ -578,7 +597,7 @@ def _thread_callback(update: Update, context: CallbackContext):
                 _send_thread_preview(context, q.message.chat.id, sess)
                 return
         except Exception as e:
-            q.answer(f"Fail: {e}", show_alert=True)
+            q.answer(f"Fail: {_friendly_error(e)}", show_alert=True)
             return
         except Exception as e:
             try:
@@ -586,7 +605,7 @@ def _thread_callback(update: Update, context: CallbackContext):
                     context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
             except Exception:
                 pass
-            q.answer(f"Failed: {e}", show_alert=True)
+            q.answer(f"Failed: {_friendly_error(e)}", show_alert=True)
             return
         finally:
             try:
@@ -952,7 +971,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                 new_line = generate_tweet(topic=f"{topic}\n{guide}", tone=tone, length=length, hashtags="")
             except Exception as e:
                 sess.pop("regen_line_mode", None)
-                update.message.reply_text(f"Failed to regenerate: {e}", reply_markup=_reply_kb(sess))
+                update.message.reply_text(f"Failed to regenerate: {_friendly_error(e)}", reply_markup=_reply_kb(sess))
                 return
             if new_line:
                 posts[idx-1] = new_line
@@ -1231,7 +1250,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                         context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
                 except Exception:
                     pass
-                update.message.reply_text(f"Failed to generate: {e}")
+                update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
                 return
             finally:
                 try:
@@ -1292,7 +1311,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                         context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
                 except Exception:
                     pass
-                update.message.reply_text(f"Failed to generate: {e}")
+                update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
                 return
             finally:
                 try:
@@ -1349,7 +1368,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                         context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
                 except Exception:
                     pass
-                update.message.reply_text(f"Failed to generate: {e}")
+                update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
                 return
             finally:
                 try:
@@ -1401,7 +1420,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                     context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
             except Exception:
                 pass
-            update.message.reply_text(f"Failed to generate: {e}")
+            update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
             return
         finally:
             try:
@@ -1486,7 +1505,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                         context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
                 except Exception:
                     pass
-                update.message.reply_text(f"Failed to generate: {e}")
+                update.message.reply_text(f"Failed to generate: {_friendly_error(e)}")
                 return
             finally:
                 try:
