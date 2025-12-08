@@ -30,6 +30,7 @@ Cortensor Price Analyzer is a Next.js application that delivers AI-assisted mark
 
 - **Multi-Asset Coverage:** Analyze equities, ETFs, crypto pairs, forex pairs, and major commodities from a single form.
 - **Resilient Data Fallbacks:** Cascade through Alpha Vantage, Stooq, TwelveData, and CoinGecko to avoid gaps in prices or historical candles.
+- **Macro Commodities Feed:** Alpha Vantage daily endpoints now headline gold, silver, WTI, Brent, and natural gas quotes, with the TwelveData commodity key plus MarketStack, Massive, and Stooq as global fallbacks to keep macro context live.
 - **AI Narrative & Insights:** Produce Cortensor-powered narratives, key takeaways, opportunities, risks, and horizon guidance.
 - **Technical & Fundamental Highlights:** Surface RSI, MACD, SMA stack, volatility, valuation ratios, dividend yield, margins, and more.
 - **Headline Summaries:** Attach recent news with sentiment tags to connect narrative flow to price action.
@@ -56,14 +57,25 @@ Create a `.env.local` file (or copy from `.env.example`) and populate the necess
 
 ```ini
 ALPHAVANTAGE_API_KEY=your_alpha_vantage_key
+ALPHA_VANTAGE_FOREX_API_KEY=optional_dedicated_fx_key
 TWELVEDATA_API_KEY=your_twelvedata_key
+TWELVEDATA_COMMODITY_API_KEY=optional_secondary_key_for_macro_quotes
 COINGECKO_API_KEY=your_coingecko_key
 FMP_API_KEY=your_financial_modeling_prep_key
 CORTENSOR_API_KEY=your_cortensor_key
 CORTENSOR_BASE_URL=http://<routerip>:5010
+MARKETSTACK_API_KEY=your_marketstack_key # legacy fallback
+MASSIVE_API_KEY=your_massive_market_data_key
+MARKET_SNAPSHOT_DB_PATH=.data/market-snapshots.db # optional override for snapshot persistence
 ```
 
 Optional keys (`NEWS_API_KEY`, `TAVILY_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_SEARCH_ENGINE_ID`) further enrich news sourcing.
+
+### Snapshot Persistence
+
+- Market ticker snapshots for Equities (5m), Crypto (10m), Forex (1h), and Commodities (15m) are cached in a local SQLite database powered by `better-sqlite3`.
+- By default, the database lives in `.data/market-snapshots.db`. Override the location via `MARKET_SNAPSHOT_DB_PATH` if you prefer a custom path or remote volume.
+- The API automatically falls back to the newest stored snapshot whenever upstream providers are unavailable, so dashboards always render data.
 
 ## ▶️ Usage
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import type { AIAnalysis, CatalystHighlight, MarketAnalysisContext, MarketNewsItem } from './marketTypes';
 
 interface CortensorChoiceResponse {
@@ -19,6 +19,7 @@ export class CortensorService {
   private readonly temperature: number;
   private readonly maxTokens: number;
   private readonly timeoutMs: number;
+  private readonly retryTimeoutMs: number;
 
   constructor() {
     this.apiKey = process.env.CORTENSOR_API_KEY ?? '';
@@ -27,43 +28,88 @@ export class CortensorService {
     }
 
     const baseUrl = process.env.CORTENSOR_BASE_URL ?? 'http://69.164.253.134:5010';
-    this.apiUrl = `${baseUrl.replace(/\/$/, '')}/api/v1/completions`;
+    const explicitUrl = process.env.CORTENSOR_API_URL;
+    this.apiUrl = explicitUrl
+      ? explicitUrl.trim().replace(/\/$/, '')
+      : `${baseUrl.replace(/\/$/, '')}/api/v1/completions`;
 
-    this.sessionId = Number.parseInt(process.env.CORTENSOR_SESSION ?? '6', 10);
+    const sessionEnv =
+      process.env.CORTENSOR_SESSION_ID ?? process.env.CORTENSOR_SESSION ?? process.env.CORTENSOR_SESSIONID ?? '6';
+  const parsedSession = Number.parseInt(sessionEnv, 10);
+  this.sessionId = Number.isFinite(parsedSession) ? parsedSession : 6;
     this.temperature = Number.parseFloat(process.env.CORTENSOR_TEMPERATURE ?? '0.35');
     this.maxTokens = Number.parseInt(process.env.CORTENSOR_MAX_TOKENS ?? '2800', 10);
-    const timeoutSeconds = Number.parseInt(process.env.CORTENSOR_TIMEOUT ?? '300', 10);
-    this.timeoutMs = Number.isFinite(timeoutSeconds) ? timeoutSeconds * 1000 : 300_000;
+    const timeoutSeconds = Number.parseInt(process.env.CORTENSOR_TIMEOUT ?? '45', 10);
+    this.timeoutMs = Number.isFinite(timeoutSeconds) ? timeoutSeconds * 1000 : 45_000;
+    const retrySeconds = Number.parseInt(process.env.CORTENSOR_RETRY_TIMEOUT ?? '20', 10);
+    this.retryTimeoutMs = Number.isFinite(retrySeconds) ? retrySeconds * 1000 : 20_000;
   }
 
   async generatePriceAnalysis(context: MarketAnalysisContext): Promise<AIAnalysis> {
     const prompt = this.buildPrompt(context);
 
     try {
-      const response = await axios.post<CortensorApiResponse>(
-        this.apiUrl,
-        {
-          session_id: this.sessionId,
-          prompt,
-          stream: false,
-          temperature: this.temperature,
-          max_tokens: this.maxTokens,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${this.apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          timeout: this.timeoutMs,
-        },
-      );
-
-      const raw = response.data?.choices?.[0]?.text ?? response.data?.text ?? '';
+      const raw = await this.requestWithRetry(prompt);
       return this.parseResponse(raw, context);
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const descriptor = this.describeAxiosError(error);
+        console.warn(`Cortensor price analysis degraded: ${descriptor}`);
+        const fallbackNarrative = `${this.composeFallbackNarrative(context)} (AI narrative unavailable — ${descriptor}).`;
+        return this.fallbackAnalysis(context, fallbackNarrative);
+      }
+
       console.error('Cortensor price analysis error:', error);
-      return this.fallbackAnalysis(context, 'AI analysis unavailable — displaying raw market context.');
+      return this.fallbackAnalysis(context, this.composeFallbackNarrative(context));
     }
+  }
+
+  private async requestWithRetry(prompt: string): Promise<string> {
+    const attempts = [
+      { maxTokens: this.maxTokens, timeout: this.timeoutMs },
+      { maxTokens: Math.max(512, Math.round(this.maxTokens * 0.6)), timeout: this.retryTimeoutMs },
+    ];
+
+    let lastError: unknown;
+    for (let index = 0; index < attempts.length; index += 1) {
+      const attempt = attempts[index];
+      try {
+        const response = await axios.post<CortensorApiResponse>(
+          this.apiUrl,
+          {
+            session_id: this.sessionId,
+            prompt,
+            stream: false,
+            temperature: this.temperature,
+            max_tokens: attempt.maxTokens,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            timeout: attempt.timeout,
+          },
+        );
+
+        const raw = response.data?.choices?.[0]?.text ?? response.data?.text ?? '';
+        if (raw.trim().length === 0) {
+          throw new Error('Empty Cortensor response');
+        }
+        return raw;
+      } catch (error) {
+        lastError = error;
+        if (!axios.isAxiosError(error) || !this.isRetriableError(error) || index === attempts.length - 1) {
+          throw error;
+        }
+
+        const descriptor = this.describeAxiosError(error);
+        console.warn(`Cortensor request attempt ${index + 1} failed (${descriptor}); retrying with lighter payload.`);
+        await this.delay(1_000 * (index + 1));
+      }
+    }
+
+    throw lastError;
   }
 
   private buildPrompt(context: MarketAnalysisContext): string {
@@ -319,5 +365,38 @@ GUIDELINES
     if (Math.abs(value) >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
     if (Math.abs(value) >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
     return value.toFixed(0);
+  }
+
+  private describeAxiosError(error: unknown): string {
+    if (!axios.isAxiosError(error)) {
+      return 'unknown error';
+    }
+
+    const status = error.response?.status;
+    const message = (error.response?.data as { error?: string } | undefined)?.error ?? error.message;
+    if (status) {
+      return `${status} ${message}`;
+    }
+    if (error.code) {
+      return `${error.code} ${message}`;
+    }
+    return message;
+  }
+
+  private isRetriableError(error: AxiosError): boolean {
+    if (!error) {
+      return false;
+    }
+    const retriableStatuses = new Set([408, 429, 502, 503, 504]);
+    if (error.response?.status && retriableStatuses.has(error.response.status)) {
+      return true;
+    }
+    return error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT';
+  }
+
+  private delay(durationMs: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(resolve, durationMs);
+    });
   }
 }

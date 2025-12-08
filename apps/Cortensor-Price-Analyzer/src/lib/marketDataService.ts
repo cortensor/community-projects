@@ -9,6 +9,7 @@ import {
   MarketSnapshot,
   TechnicalSummary,
 } from './marketTypes';
+import { FMP_BASE_URL } from './fmp';
 
 interface BuildContextParams {
   ticker: string;
@@ -613,8 +614,8 @@ export class MarketDataService {
   private async fetchFMPProfile(ticker: string): Promise<Partial<MarketSnapshot>> {
     if (!this.fmpKey) return {};
     try {
-      const response = await axios.get(`https://financialmodelingprep.com/api/v3/profile/${ticker}`, {
-        params: { apikey: this.fmpKey },
+      const response = await axios.get(`${FMP_BASE_URL}/profile`, {
+        params: { apikey: this.fmpKey, symbol: ticker },
       });
       const data = Array.isArray(response.data) ? response.data[0] : undefined;
       if (!data) return {};
@@ -637,8 +638,8 @@ export class MarketDataService {
   private async fetchFMPQuote(ticker: string): Promise<{ marketCap?: number; pe?: number; dividendYield?: number; eps?: number }> {
     if (!this.fmpKey) return {};
     try {
-      const response = await axios.get(`https://financialmodelingprep.com/api/v3/quote/${ticker}`, {
-        params: { apikey: this.fmpKey },
+      const response = await axios.get(`${FMP_BASE_URL}/quote`, {
+        params: { apikey: this.fmpKey, symbol: ticker },
       });
       const data = Array.isArray(response.data) ? response.data[0] : undefined;
       if (!data) return {};
@@ -786,8 +787,8 @@ export class MarketDataService {
   } | null> {
     if (!this.fmpKey) return null;
     try {
-      const response = await axios.get(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${ticker}`, {
-        params: { apikey: this.fmpKey },
+      const response = await axios.get(`${FMP_BASE_URL}/key-metrics-ttm`, {
+        params: { apikey: this.fmpKey, symbol: ticker },
       });
       const data = Array.isArray(response.data) ? response.data[0] : undefined;
       if (!data) return null;
@@ -1170,11 +1171,30 @@ export class MarketDataService {
         },
       });
 
-      const data = response.data as { status?: string; values?: Array<Record<string, string>>; message?: string } | undefined;
+      const data = response.data as {
+        status?: string;
+        values?: Array<Record<string, string>>;
+        message?: string;
+        code?: string;
+      } | undefined;
+
       if (!data || data.status !== 'ok' || !Array.isArray(data.values)) {
-        if (data?.status && data.status !== 'ok') {
-          const message = data.message ?? 'Unknown TwelveData error';
-          console.warn(`TwelveData history error (${ticker}): ${data.status} ${message}`);
+        const status = data?.status ?? 'error';
+        const message = data?.message ?? 'Unknown TwelveData error';
+        const code = data?.code;
+        console.warn(`TwelveData history error (${ticker}): ${status} ${message}`);
+
+        const normalizedMessage = message.toLowerCase();
+        const looksInvalidSymbol =
+          normalizedMessage.includes('symbol') ||
+          normalizedMessage.includes('figi') ||
+          status === 'error' && (code === 'symbol_not_found' || code === '400');
+
+        if (looksInvalidSymbol) {
+          throw new MarketDataError(`TwelveData rejected symbol "${ticker}": ${message}`, {
+            status: 400,
+            code: 'INVALID_SYMBOL',
+          });
         }
         return [];
       }
@@ -1286,4 +1306,17 @@ export class MarketDataService {
   }
 }
 
+class MarketDataError extends Error {
+  status: number;
+  code?: string;
+
+  constructor(message: string, options?: { status?: number; code?: string }) {
+    super(message);
+    this.status = options?.status ?? 500;
+    this.code = options?.code;
+    this.name = 'MarketDataError';
+  }
+}
+
+export { MarketDataError };
 export type { BuildContextParams };

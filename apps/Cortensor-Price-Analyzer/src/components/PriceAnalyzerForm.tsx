@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { HistoryPanel } from '@/components/HistoryPanel';
+import { MarketTickerSidebar } from '@/components/MarketTickerSidebar';
 import PriceHistoryChart, { CandleWithClose } from '@/components/PriceHistoryChart';
 import { cn } from '@/lib/utils';
 import { HistoryService, HistoryItem } from '@/lib/historyService';
@@ -528,18 +529,8 @@ export default function PriceAnalyzerForm() {
           </div>
         </div>
 
-        <div
-          className={cn(
-            'grid gap-6 transition-all duration-300',
-            showHistory ? 'grid-cols-1 lg:grid-cols-3' : 'grid-cols-1',
-          )}
-        >
-          <div
-            className={cn(
-              'space-y-6',
-              showHistory ? 'lg:col-span-2' : 'max-w-4xl mx-auto w-full',
-            )}
-          >
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className={cn('space-y-6', 'lg:col-span-2', 'max-w-4xl mx-auto w-full lg:max-w-none')}>
             <Card className="border-2 shadow-sm">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center space-x-2">
@@ -1066,13 +1057,18 @@ export default function PriceAnalyzerForm() {
             )}
           </div>
 
-          {showHistory && (
-            <div className="lg:col-span-1">
-              <div className="sticky top-6">
-                <HistoryPanel onLoadHistoryItem={handleLoadHistory} onHistoryChange={() => setHistoryCount(HistoryService.getHistory().length)} className="shadow-lg" />
-              </div>
+          <div className="lg:col-span-1">
+            <div className="space-y-4 lg:sticky lg:top-6">
+              <MarketTickerSidebar />
+              {showHistory && (
+                <HistoryPanel
+                  onLoadHistoryItem={handleLoadHistory}
+                  onHistoryChange={() => setHistoryCount(HistoryService.getHistory().length)}
+                  className="shadow-lg"
+                />
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

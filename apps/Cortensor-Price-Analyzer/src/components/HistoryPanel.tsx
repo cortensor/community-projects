@@ -34,6 +34,11 @@ export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: 
   const [query, setQuery] = useState('');
   const [stats, setStats] = useState<HistoryStats>({ total: 0, oldestDate: null });
 
+  const refreshHistory = () => {
+    const items = HistoryService.getHistory();
+    setHistory(items);
+  };
+
   useEffect(() => {
     refreshHistory();
   }, []);
@@ -46,11 +51,6 @@ export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: 
     if (!query.trim()) return history;
     return HistoryService.searchHistory(query.trim());
   }, [query, history]);
-
-  const refreshHistory = () => {
-    const items = HistoryService.getHistory();
-    setHistory(items);
-  };
 
   const handleLoad = (item: HistoryItem) => {
     onLoadHistoryItem(item);

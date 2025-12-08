@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MarketDataService } from '@/lib/marketDataService';
+import { MarketDataService, MarketDataError } from '@/lib/marketDataService';
 import { NewsService } from '@/lib/newsService';
 import { CortensorService } from '@/lib/cortensorService';
 import type { AnalysisHorizon, AnalyzerResponse, AssetType, MarketAnalysisContext } from '@/lib/marketTypes';
@@ -64,6 +64,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, data: response });
   } catch (error) {
+    if (error instanceof MarketDataError) {
+      console.warn('Market data request rejected:', error.message);
+      return NextResponse.json({ error: error.message, code: error.code ?? 'MARKET_DATA_ERROR' }, { status: error.status });
+    }
+
     console.error('Price analyzer error:', error);
     return NextResponse.json({ error: 'Failed to process analysis request' }, { status: 500 });
   }

@@ -22,7 +22,6 @@
 
 # misc
 .DS_Store
-*.pem
 
 # debug
 npm-debug.log*
@@ -31,8 +30,19 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-.env*.local
 .env
+.env.*
+!.env.example
+.envrc
+.envrc.*
+
+# secrets / certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.pfx
+*.p12
 
 # vercel
 .vercel
@@ -41,9 +51,38 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# IDE
-.vscode/
+# local databases & caches
+.data/
+/data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.realm
+
+# framework caches
+.next/cache
+.turbo/
+.cache/
+.swc/
+dist/
+
+# misc generated assets
+logs/
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.tgz
+*.orig
+
+# local tooling
+solrc/
 .idea/
+.vscode/
+*.code-workspace
 
 # Test files
 test-*.js
