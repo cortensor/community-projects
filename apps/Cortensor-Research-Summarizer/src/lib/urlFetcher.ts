@@ -9,12 +9,14 @@ export interface ArticleContent {
 }
 
 export class URLFetcher {
+  private static pdfParseLoader?: Promise<((data: Uint8Array | ArrayBuffer | Buffer | string | URL | number[]) => Promise<{ text: string; info?: { Title?: string; Author?: string } | undefined }>) | null>;
+
   async fetchArticle(url: string): Promise<ArticleContent> {
     try {
       // Validate URL
-      new URL(url);
+      const parsedUrl = new URL(url);
       const requestTimeout = parseInt(process.env.ARTICLE_FETCH_TIMEOUT || '60000', 10);
-      
+
       const response = await axios.get(url, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -25,11 +27,40 @@ export class URLFetcher {
           'Connection': 'keep-alive',
           'Upgrade-Insecure-Requests': '1'
         },
+        responseType: 'arraybuffer',
         timeout: Number.isFinite(requestTimeout) ? requestTimeout : 60000
       });
 
-      const html = response.data;
-      
+      const buffer = Buffer.isBuffer(response.data)
+        ? response.data
+        : Buffer.from(response.data);
+
+      const rawContentType = typeof response.headers['content-type'] === 'string'
+        ? response.headers['content-type']
+        : Array.isArray(response.headers['content-type'])
+          ? response.headers['content-type'][0]
+          : '';
+      const contentType = rawContentType.toLowerCase();
+      const pathLower = parsedUrl.pathname.toLowerCase();
+      const looksLikePdf = contentType.includes('application/pdf') || pathLower.endsWith('.pdf');
+
+      if (looksLikePdf) {
+        const pdfArticle = await this.extractPdfArticle(buffer, url);
+        if (pdfArticle) {
+          return pdfArticle;
+        }
+
+        return {
+          title: 'PDF Document',
+          content: 'Unable to extract readable text from this PDF using built-in parsers. The document may be scanned or contain unsupported encoding.',
+          url,
+          author: undefined,
+          publishDate: undefined
+        };
+      }
+
+      const html = this.decodeBufferToString(buffer, contentType);
+
       // Extract title using regex
       const title = this.extractTitle(html);
       
@@ -58,6 +89,168 @@ export class URLFetcher {
       }
       throw new Error('Failed to fetch article: Unknown error');
     }
+  }
+
+  private decodeBufferToString(buffer: Buffer, contentType: string): string {
+    try {
+      if (contentType.includes('charset=')) {
+        const charset = contentType.split('charset=')[1]?.split(';')[0]?.trim().toLowerCase();
+        if (charset && charset !== 'utf-8' && charset !== 'utf8') {
+          return buffer.toString(charset as BufferEncoding);
+        }
+      }
+    } catch (error) {
+      console.warn('Character set decoding failed, falling back to UTF-8:', error);
+    }
+    return buffer.toString('utf-8');
+  }
+
+  private async extractPdfArticle(buffer: Buffer, url: string): Promise<ArticleContent | null> {
+    try {
+      const pdfData = await this.parsePdf(buffer);
+      if (!pdfData) {
+        return null;
+      }
+
+      const sanitizedText = this.cleanText(pdfData.text);
+      if (!sanitizedText) {
+        return null;
+      }
+
+      const titleFromMetadata = pdfData.info?.Title?.trim();
+      const derivedTitle = titleFromMetadata || this.deriveTitleFromPdfText(sanitizedText);
+      const authorFromMetadata = pdfData.info?.Author?.trim();
+
+      return {
+        title: derivedTitle || 'PDF Document',
+        content: sanitizedText,
+        url,
+        author: authorFromMetadata,
+        publishDate: undefined
+      };
+    } catch (error) {
+      console.warn('PDF extraction failed:', error);
+      return null;
+    }
+  }
+
+  private async parsePdf(buffer: Buffer): Promise<{ text: string; info?: { Title?: string; Author?: string } } | null> {
+    try {
+      await this.ensurePdfDomPolyfills();
+
+      const pdfParse = await this.loadPdfParse();
+      if (!pdfParse) {
+        return null;
+      }
+
+      const pdfResult = await pdfParse(buffer);
+      if (!pdfResult?.text) {
+        return null;
+      }
+
+      const normalizedText = pdfResult.text
+        .replace(/\u0000/g, ' ')
+        .replace(/\r\n/g, '\n')
+        .replace(/\r/g, '\n')
+        .replace(/\f/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
+      if (!normalizedText) {
+        return null;
+      }
+
+      return {
+        text: normalizedText,
+        info: pdfResult.info
+      };
+    } catch (error) {
+      console.warn('pdf-parse module failed:', error);
+      return null;
+    }
+  }
+
+  private async loadPdfParse(): Promise<((data: Uint8Array | ArrayBuffer | Buffer | string | URL | number[]) => Promise<{ text: string; info?: { Title?: string; Author?: string } | undefined }>) | null> {
+    if (!URLFetcher.pdfParseLoader) {
+      URLFetcher.pdfParseLoader = (async () => {
+        try {
+          const pdfModule = await import('pdf-parse');
+          const candidates: unknown[] = [
+            (pdfModule as { default?: unknown }).default,
+            (pdfModule as { pdf?: unknown }).pdf,
+            pdfModule
+          ];
+
+          for (const candidate of candidates) {
+            if (typeof candidate === 'function') {
+              return candidate as (data: Uint8Array | ArrayBuffer | Buffer | string | URL | number[]) => Promise<{ text: string; info?: { Title?: string; Author?: string } | undefined }>;
+            }
+          }
+
+          console.warn('pdf-parse import did not expose a callable parser.');
+        } catch (error) {
+          console.warn('pdf-parse import failed:', error);
+        }
+
+        return null;
+      })();
+    }
+
+    return URLFetcher.pdfParseLoader;
+  }
+
+  private async ensurePdfDomPolyfills(): Promise<void> {
+    const globalAny = globalThis as Record<string, unknown>;
+
+    if (typeof globalAny.DOMMatrix === 'undefined') {
+      try {
+        const domMatrixModule = await import('dommatrix');
+        const DomMatrixCtor = (domMatrixModule as { default?: unknown }).default;
+        if (DomMatrixCtor && typeof DomMatrixCtor === 'function') {
+          globalAny.DOMMatrix = DomMatrixCtor;
+        }
+      } catch (error) {
+        console.warn('DOMMatrix polyfill unavailable:', error);
+      }
+    }
+
+    if (typeof globalAny.Path2D === 'undefined') {
+      class Path2DShim {
+        constructor(_path?: string | Path2D) {
+          // Path arguments ignored in server environment
+          void _path;
+        }
+        addPath(): void {
+          // No drawing support needed on server
+          void 0;
+        }
+      }
+      globalAny.Path2D = Path2DShim;
+    }
+
+    if (typeof globalAny.ImageData === 'undefined') {
+      class ImageDataShim {
+        data: Uint8ClampedArray;
+        width: number;
+        height: number;
+        constructor(data: Uint8ClampedArray, width: number, height: number) {
+          this.data = data;
+          this.width = width;
+          this.height = height;
+        }
+      }
+      globalAny.ImageData = ImageDataShim;
+    }
+  }
+
+  private deriveTitleFromPdfText(text: string): string {
+    const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
+    for (const line of lines) {
+      if (line.length >= 8 && line.length <= 180) {
+        return line.replace(/\s+/g, ' ');
+      }
+    }
+    return 'PDF Document';
   }
 
   private extractTitle(html: string): string {

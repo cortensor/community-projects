@@ -6,6 +6,11 @@ export interface SummaryResult {
   keyPoints: string[];
   wordCount: number;
   needsEnrichment: boolean;
+  wasEnriched?: boolean;
+  sourceTruncated?: boolean;
+  originalContentLength?: number;
+  submittedContentLength?: number;
+  compressionMethod?: 'pass-through' | 'extractive-summary' | 'truncate';
 }
 
 export interface EnrichmentSource {
@@ -28,6 +33,12 @@ export class CortensorService {
   private presencePenalty: number;
   private frequencyPenalty: number;
   private stream: boolean;
+  private maxContextTokens?: number;
+  private sessionLimitsLoaded: boolean;
+  private readonly fallbackMaxContextTokens: number;
+  private readonly promptTokenReserve: number;
+  private readonly averageCharsPerToken: number;
+  private readonly maxContentCharactersCap: number | null;
 
   constructor() {
     this.apiKey = process.env.CORTENSOR_API_KEY || '';
@@ -48,25 +59,37 @@ export class CortensorService {
     this.presencePenalty = parseFloat(process.env.CORTENSOR_PRESENCE_PENALTY || '0');
     this.frequencyPenalty = parseFloat(process.env.CORTENSOR_FREQUENCY_PENALTY || '0');
     this.stream = process.env.CORTENSOR_STREAM === 'true';
+  this.sessionLimitsLoaded = false;
+  this.fallbackMaxContextTokens = parseInt(process.env.CORTENSOR_FALLBACK_MAX_CONTEXT_TOKENS || '5000', 10);
+  this.promptTokenReserve = parseInt(process.env.CORTENSOR_PROMPT_TOKEN_RESERVE || '1200', 10);
+  this.averageCharsPerToken = parseFloat(process.env.CORTENSOR_AVG_CHARS_PER_TOKEN || '3');
+  const configuredMaxChars = parseInt(process.env.CORTENSOR_MAX_CONTENT_CHARS || '9500', 10);
+  this.maxContentCharactersCap = Number.isFinite(configuredMaxChars) && configuredMaxChars > 0 ? configuredMaxChars : null;
     
     if (!this.apiKey) {
       throw new Error('CORTENSOR_API_KEY is required');
     }
   }
 
-  async generateSummary(article: ArticleContent): Promise<SummaryResult> {
+  async generateSummary(article: ArticleContent, clientReference?: string): Promise<SummaryResult> {
     try {
-      const prompt = this.createSummaryPrompt(article);
-      const clientReference = `summarize-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      await this.ensureSessionLimits();
+
+      const truncation = this.truncateArticleContent(article.content);
+      const promptArticle: ArticleContent = { ...article, content: truncation.text };
+      const prompt = this.createSummaryPrompt(promptArticle, truncation.truncated);
+      const effectiveClientReference = clientReference ?? this.generateFallbackClientReference('summary');
+      const requestPayload = {
+        session_id: this.sessionId, // Use session_id from environment variable
+        prompt,
+        stream: this.stream,
+        timeout: this.timeout,
+        client_reference: effectiveClientReference
+      };
       
       const response = await axios.post(
         this.apiUrl,
-        {
-          session_id: this.sessionId, // Use session_id from environment variable
-          prompt: prompt,
-          stream: this.stream,
-          timeout: this.timeout
-        },
+        requestPayload,
         {
           headers: {
             'Authorization': `Bearer ${this.apiKey}`,
@@ -82,6 +105,11 @@ export class CortensorService {
       
       // Check if summary needs enrichment
       result.needsEnrichment = this.shouldEnrich(result);
+      result.wasEnriched = false;
+      result.sourceTruncated = truncation.truncated;
+      result.originalContentLength = truncation.originalLength;
+      result.submittedContentLength = truncation.submittedLength;
+  result.compressionMethod = truncation.method;
       
       return result;
       
@@ -93,20 +121,23 @@ export class CortensorService {
 
   async enrichSummary(
     originalSummary: SummaryResult,
-    additionalSources: EnrichmentSource[]
+    additionalSources: EnrichmentSource[],
+    clientReference?: string
   ): Promise<SummaryResult> {
     try {
       const prompt = this.createEnrichmentPrompt(originalSummary, additionalSources);
-      const clientReference = `enrich-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      const effectiveClientReference = clientReference ?? this.generateFallbackClientReference('enrich');
+      const requestPayload = {
+        session_id: this.sessionId, // Use session_id from environment variable
+        prompt,
+        stream: this.stream,
+        timeout: this.timeout,
+        client_reference: effectiveClientReference
+      };
       
       const response = await axios.post(
         this.apiUrl,
-        {
-          session_id: this.sessionId, // Use session_id from environment variable
-          prompt: prompt,
-          stream: this.stream,
-          timeout: this.timeout
-        },
+        requestPayload,
         {
           headers: {
             'Authorization': `Bearer ${this.apiKey}`,
@@ -118,7 +149,12 @@ export class CortensorService {
       const enrichedText = response.data.choices?.[0]?.text || response.data.text || '';
       const result = this.parseSummaryResponse(enrichedText);
       result.needsEnrichment = false; // Already enriched
-      
+      result.wasEnriched = true;
+      result.sourceTruncated = originalSummary.sourceTruncated;
+      result.originalContentLength = originalSummary.originalContentLength;
+      result.submittedContentLength = originalSummary.submittedContentLength;
+  result.compressionMethod = originalSummary.compressionMethod;
+
       return result;
       
     } catch (error) {
@@ -128,12 +164,22 @@ export class CortensorService {
     }
   }
 
-  private createSummaryPrompt(article: ArticleContent): string {
+  private generateFallbackClientReference(label: string): string {
+    const timestampSegment = Date.now().toString(36);
+    const randomSegment = Math.random().toString(36).slice(2, 8);
+    return `user-summarizer-${label}-${timestampSegment}${randomSegment}`;
+  }
+
+  private createSummaryPrompt(article: ArticleContent, wasTruncated = false): string {
+    const truncationNotice = wasTruncated
+      ? '\n\nNOTE: Source content was truncated to fit the model\'s context window. Summarize using only the provided content.'
+      : '';
+
     return `You are a professional research analyst. Analyze the following article and provide a clean, well-structured summary.
 
 Title: ${article.title}
 Source: ${article.url}
-Content: ${article.content}
+Content: ${article.content}${truncationNotice}
 
 CRITICAL FORMATTING REQUIREMENTS:
 - Write in clean, professional language
@@ -170,6 +216,293 @@ IMPORTANT: Write naturally without any special formatting, tokens, or artifacts.
 • [Detailed key insight 6]
 
 Begin your professional analysis now:`;
+  }
+
+  private async ensureSessionLimits(): Promise<void> {
+    if (this.sessionLimitsLoaded) {
+      return;
+    }
+
+    this.sessionLimitsLoaded = true;
+
+    try {
+      const discoveredLimit = await this.fetchContextLimit();
+      if (typeof discoveredLimit === 'number') {
+        this.maxContextTokens = discoveredLimit;
+        console.log('Cortensor session max context (tokens):', discoveredLimit);
+        return;
+      }
+      console.warn('Cortensor session response did not include a max context value. Falling back to 5K-token defaults.');
+    } catch (error) {
+      console.warn('Unable to fetch Cortensor session limits via HTTP. Using fallback 5K-token configuration.');
+      if (error instanceof Error) {
+        console.warn(error.message);
+      }
+    }
+  }
+
+  private async fetchContextLimit(): Promise<number | null> {
+    const timeoutMs = Number.isFinite(this.timeout) ? this.timeout * 1000 : 300000;
+    const endpoints: string[] = [];
+
+    const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+    endpoints.push(`${baseUrl}/${this.sessionId}`);
+
+    const sessionsUrl = baseUrl.replace(/\/completions$/, '/sessions');
+    if (sessionsUrl !== baseUrl) {
+      endpoints.push(`${sessionsUrl}/${this.sessionId}`);
+    }
+
+    const routerUrl = baseUrl.replace(/\/completions$/, '/router');
+    if (routerUrl !== baseUrl) {
+      endpoints.push(routerUrl);
+    }
+
+    for (const url of endpoints) {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${this.apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: timeoutMs,
+          validateStatus: (status) => status >= 200 && status < 400
+        });
+
+        const limitFromResponse = this.extractMaxContextTokens(response.data, response.headers as Record<string, unknown>);
+        if (typeof limitFromResponse === 'number') {
+          return limitFromResponse;
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const status = error.response?.status;
+          if (status && [401, 403].includes(status)) {
+            throw new Error(`Authorization failed while fetching context limits (status ${status}).`);
+          }
+          if (status && [400, 404, 405, 500].includes(status)) {
+            // Expected for unsupported endpoints; try next option silently
+            continue;
+          }
+        }
+        throw error;
+      }
+    }
+
+    return null;
+  }
+
+  private extractMaxContextTokens(data: unknown, headers: Record<string, unknown>): number | null {
+    type ContextSource = Record<string, unknown>;
+    const sourceRecord: ContextSource = (data && typeof data === 'object') ? (data as ContextSource) : {};
+
+    const candidatePaths: Array<(source: ContextSource) => unknown> = [
+      (source) => source?.max_context_tokens,
+      (source) => source?.max_context_length,
+      (source) => source?.max_context,
+      (source) => source?.context_window,
+      (source) => (source.session as ContextSource | undefined)?.max_context_tokens,
+      (source) => (source.router as ContextSource | undefined)?.max_context_tokens,
+      () => headers['x-cortensor-max-context'],
+      () => headers['x-max-context-tokens'],
+      () => headers['x-context-window']
+    ];
+
+    for (const getValue of candidatePaths) {
+      const value = getValue(sourceRecord);
+      const parsed = this.parseNumeric(value);
+      if (parsed !== null) {
+        return parsed;
+      }
+    }
+
+    return null;
+  }
+
+  private parseNumeric(value: unknown): number | null {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return value;
+    }
+    if (typeof value === 'string') {
+      const parsed = Number.parseInt(value, 10);
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+    return null;
+  }
+
+  private getMaxContextTokens(): number {
+    const limit = typeof this.maxContextTokens === 'number' && this.maxContextTokens > 0
+      ? this.maxContextTokens
+      : this.fallbackMaxContextTokens;
+    return Math.max(limit, 2048);
+  }
+
+  private getMaxContentCharacters(): number {
+    const tokenLimit = this.getMaxContextTokens();
+    const availableTokens = Math.max(tokenLimit - this.promptTokenReserve, Math.floor(tokenLimit * 0.5));
+    const approxChars = Math.floor(availableTokens * this.averageCharsPerToken);
+    const minBudget = Math.max(approxChars, 3500);
+    if (this.maxContentCharactersCap) {
+      return Math.min(minBudget, this.maxContentCharactersCap);
+    }
+    return minBudget;
+  }
+
+  private truncateArticleContent(content: string): {
+    text: string;
+    truncated: boolean;
+    originalLength: number;
+    submittedLength: number;
+    method: 'pass-through' | 'extractive-summary' | 'truncate';
+  } {
+    const originalLength = content.length;
+    const maxChars = this.getMaxContentCharacters();
+
+    if (originalLength <= maxChars) {
+      return {
+        text: content,
+        truncated: false,
+        originalLength,
+        submittedLength: originalLength,
+        method: 'pass-through'
+      };
+    }
+
+  const summary = this.buildExtractiveSummary(content, maxChars);
+    if (summary) {
+  const annotatedSummary = `${summary}\n\n[Content compressed from ${originalLength} to ${summary.length} characters to comply with model context limits.]`;
+      console.warn(`Article content compressed from ${originalLength} to ${summary.length} characters using extractive summary.`);
+      return {
+        text: annotatedSummary,
+        truncated: true,
+        originalLength,
+        submittedLength: annotatedSummary.length,
+        method: 'extractive-summary'
+      };
+    }
+
+    const excerpt = this.buildLeadingExcerpt(content, maxChars);
+  const annotatedExcerpt = `${excerpt}\n\n[Content truncated after ${excerpt.length} of ${originalLength} characters to comply with model context limits.]`;
+    console.warn(`Article content truncated from ${originalLength} to ${excerpt.length} characters as a fallback to fit context window.`);
+
+    return {
+      text: annotatedExcerpt,
+      truncated: true,
+      originalLength,
+      submittedLength: annotatedExcerpt.length,
+      method: 'truncate'
+    };
+  }
+
+  private buildExtractiveSummary(content: string, maxChars: number): string | null {
+    const normalized = content.replace(/\s+/g, ' ').trim();
+    if (normalized.length === 0) {
+      return null;
+    }
+
+    const sentenceSplitRegex = /(?<=[.!?。！？])\s+(?=[A-Z0-9])/g;
+    const sentences = normalized.split(sentenceSplitRegex).map(sentence => sentence.trim()).filter(Boolean);
+
+    if (sentences.length < 4) {
+      return null;
+    }
+
+    const stopWords = new Set([
+      'the','is','in','at','of','a','an','and','to','for','with','on','by','from','as','that','this','it','be','are','was','were','or','but','if','then','so','than','too','very','into','about','over','after','before','between','through','during','while','because','what','which','who','whom','whose','can','could','should','would'
+    ]);
+
+    const frequencies = new Map<string, number>();
+
+    const sentenceTokens = sentences.map(sentence => {
+      const tokens = sentence.toLowerCase().match(/[a-z0-9']+/g) || [];
+      return tokens.filter(token => !stopWords.has(token));
+    });
+
+    for (const tokens of sentenceTokens) {
+      for (const token of tokens) {
+        frequencies.set(token, (frequencies.get(token) || 0) + 1);
+      }
+    }
+
+    if (frequencies.size === 0) {
+      return null;
+    }
+
+    const scoredSentences = sentences.map((sentence, index) => {
+      const tokens = sentenceTokens[index];
+      const score = tokens.reduce((acc, token) => acc + (frequencies.get(token) || 0), 0);
+      const normalizedScore = tokens.length > 0 ? score / tokens.length : 0;
+      return { sentence, index, score: normalizedScore };
+    });
+
+    const sortedByScore = scoredSentences
+      .filter(item => item.sentence.length > 40)
+      .sort((a, b) => b.score - a.score);
+
+    if (sortedByScore.length === 0) {
+      return null;
+    }
+
+    const selected: typeof sortedByScore = [];
+    let currentLength = 0;
+  const targetLength = Math.max(Math.floor(maxChars * 0.75), maxChars - 2000);
+
+    for (const candidate of sortedByScore) {
+      const newLength = currentLength === 0
+        ? candidate.sentence.length
+        : currentLength + 1 + candidate.sentence.length;
+
+      if (newLength > targetLength) {
+        continue;
+      }
+
+      selected.push(candidate);
+      currentLength = newLength;
+
+      if (currentLength >= targetLength) {
+        break;
+      }
+    }
+
+    if (selected.length < 3) {
+      return null;
+    }
+
+    const ordered = selected.sort((a, b) => a.index - b.index).map(item => item.sentence);
+    const summary = ordered.join(' ');
+    return summary.length <= maxChars ? summary : summary.slice(0, maxChars);
+  }
+
+  private buildLeadingExcerpt(content: string, maxChars: number): string {
+    const sentences = content.split(/(?<=[.!?。！？])\s+/);
+    let collected = '';
+
+    for (const sentence of sentences) {
+      if (!sentence) continue;
+      const trimmedSentence = sentence.trim();
+      if (!trimmedSentence) continue;
+      const nextLength = collected.length === 0 ? trimmedSentence.length : collected.length + 1 + trimmedSentence.length;
+      if (nextLength > maxChars) {
+        break;
+      }
+      collected = collected.length === 0 ? trimmedSentence : `${collected} ${trimmedSentence}`;
+    }
+
+    if (collected.length < Math.ceil(maxChars * 0.5)) {
+      collected = content.slice(0, maxChars);
+      const lastSentenceBoundary = Math.max(
+        collected.lastIndexOf('. '),
+        collected.lastIndexOf('! '),
+        collected.lastIndexOf('? '),
+        collected.lastIndexOf('\n\n')
+      );
+      if (lastSentenceBoundary > maxChars * 0.2) {
+        collected = collected.slice(0, lastSentenceBoundary + 1);
+      }
+    }
+
+    return collected.trim();
   }
 
   private createEnrichmentPrompt(

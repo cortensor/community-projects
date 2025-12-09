@@ -111,15 +111,27 @@ function processSummaryResponse(summaryData: { summary?: string; keyPoints?: str
   return { summary, keyPoints, wordCount, wasEnriched };
 }
 
+function buildClientReference(rawUserId: unknown): string {
+  const raw = typeof rawUserId === 'string' ? rawUserId.trim() : '';
+  const cleaned = raw.replace(/[^a-zA-Z0-9_-]/g, '');
+  const baseId = cleaned.length > 0
+    ? cleaned
+    : `session-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+  return baseId.startsWith('user-summarizer-') ? baseId : `user-summarizer-${baseId}`;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { url } = await request.json();
+    const { url, userId } = await request.json();
 
     if (!url) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }
 
     console.log('Processing URL:', url);
+
+    const clientReference = buildClientReference(userId);
+    console.log('Using client reference:', clientReference);
 
     const urlFetcher = new URLFetcher();
     const article = await urlFetcher.fetchArticle(url);
@@ -145,10 +157,14 @@ export async function POST(request: NextRequest) {
     
     let summaryResult;
     try {
-      summaryResult = await cortensorService.generateSummary(article);
+      summaryResult = await cortensorService.generateSummary(article, clientReference);
 
       if (summaryResult.needsEnrichment && searchResults.length > 0) {
-        summaryResult = await cortensorService.enrichSummary(summaryResult, searchResults);
+        summaryResult = await cortensorService.enrichSummary(
+          summaryResult,
+          searchResults,
+          `${clientReference}-enrich`
+        );
       }
 
     } catch (error) {
@@ -170,7 +186,12 @@ export async function POST(request: NextRequest) {
         summary: processedSummary.summary,
         keyPoints: processedSummary.keyPoints,
         wordCount: processedSummary.wordCount,
-        wasEnriched: processedSummary.wasEnriched
+        wasEnriched: processedSummary.wasEnriched,
+        needsEnrichment: summaryResult.needsEnrichment,
+        contentTruncated: summaryResult.sourceTruncated ?? false,
+        originalContentLength: summaryResult.originalContentLength ?? article.content.length,
+        submittedContentLength: summaryResult.submittedContentLength ?? article.content.length,
+        compressionMethod: summaryResult.compressionMethod ?? 'pass-through'
       }
     });
 
