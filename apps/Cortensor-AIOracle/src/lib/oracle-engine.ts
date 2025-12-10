@@ -1,7 +1,7 @@
 import { CORTENSOR_CONFIG, ORACLE_CONFIG } from './config'
 import { sanitizeModelAnswer } from './utils'
 import { AVAILABLE_MODELS, getModelConfig, generatePromptForModel, ModelConfig } from './models'
-import { ExternalDataService, getRelevantArticles } from './external-apis'
+import { TavilyDataService as ExternalDataService, getRelevantArticles } from './external-apis-tavily'
 
 // Debug logger controlled via env ORACLE_DEBUG_LOGS = '1' | 'true'
 const ORACLE_DEBUG = process.env.ORACLE_DEBUG_LOGS === '1' || process.env.ORACLE_DEBUG_LOGS === 'true'
@@ -19,6 +19,7 @@ export interface OracleEngineOptions {
   timeoutMs?: number
   // Optional: raw router SSE transcript so we can avoid another router call
   routerText?: string
+  clientReference?: string
 }
 
 export interface OracleEngineResult {
@@ -31,6 +32,7 @@ export interface OracleEngineResult {
   consensus?: { totalMiners: number; respondedMiners: number; agreements: number; disagreements: number; confidenceScore: number }
   modelName?: string
   timestamp?: number
+  clientReference?: string
   // New fields for TaaS / fact-check pipelines
   claim?: string
   verdict?: 'True' | 'False' | 'Uncertain'
@@ -315,6 +317,9 @@ export class OracleEngine {
   const timeoutSec = Math.ceil(timeoutMs / 1000)
   const apiTimeoutSec = Number.isFinite(CORTENSOR_CONFIG.TIMEOUT) && CORTENSOR_CONFIG.TIMEOUT > 0 ? CORTENSOR_CONFIG.TIMEOUT : timeoutSec
   const maxTokens = Number.isFinite(CORTENSOR_CONFIG.MAX_TOKENS) && CORTENSOR_CONFIG.MAX_TOKENS > 0 ? CORTENSOR_CONFIG.MAX_TOKENS : (model.maxTokens || 1024)
+    const clientReference = options?.clientReference && options.clientReference.trim()
+      ? options.clientReference.trim()
+      : `oracle-${Date.now()}`
 
     // 1) Enrich with real-time external data
   // Always enrich with external context
@@ -326,7 +331,7 @@ export class OracleEngine {
     const body = {
       prompt,
       prompt_type: 1,
-      client_reference: `oracle-${Date.now()}`,
+      client_reference: clientReference,
       stream: false,
       timeout: apiTimeoutSec,
       max_tokens: maxTokens,
@@ -813,6 +818,7 @@ export class OracleEngine {
       consensus: { totalMiners: Number(routerTotalMiners) || miners, respondedMiners, agreements, disagreements, confidenceScore: finalConfidence },
       modelName: model.displayName || model.name,
       timestamp: Date.now(),
+    clientReference,
       claim: query,
       verdict,
       label,
@@ -838,6 +844,7 @@ export class OracleEngine {
   taskId: (apiData && (apiData.task_id || apiData.taskId)) || undefined,
   model: (apiData && apiData.model) || undefined,
         minerAddresses,
+    clientReference,
   minersMeta: (apiData as any)?.debugMinersMeta,
         confidenceBreakdown: {
           baseConfidence,

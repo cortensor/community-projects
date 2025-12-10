@@ -3,7 +3,7 @@ import { OracleEngine } from '../../../lib/oracle-engine'
 
 export async function POST(request: NextRequest) {
   try {
-  const { query, sessionId, modelName, temperature, topK, topP, routerText } = await request.json()
+  const { query, sessionId, modelName, temperature, topK, topP, routerText, clientReference } = await request.json()
 
     if (!query || typeof query !== 'string') {
       return NextResponse.json(
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
   topK,
   topP,
   routerText,
+      clientReference,
     })
 
     if (process.env.ORACLE_DEBUG_LOGS === '1' || process.env.ORACLE_DEBUG_LOGS === 'true') {
@@ -47,7 +48,9 @@ export async function POST(request: NextRequest) {
   confidenceExplanation: result.confidenceExplanation,
   provenance: result.provenance,
   machineReadable: result.machineReadable,
+      clientReference: result.clientReference,
       debug: result.debug,
+      taskId: result.provenance?.taskId || result.debug?.taskId,
     })
 
   } catch (error) {
