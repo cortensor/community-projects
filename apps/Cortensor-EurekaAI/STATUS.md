@@ -1,59 +1,28 @@
 # Project Status
 
-This document outlines the current status and development priorities for **Cortensor EUREKA AI**.
+This document outlines the current status and development priorities for the **Cortensor AI Chat** application.
 
 ## 🟢 Current Status
 
-* **Version:** `1.2.0`
-* **Status:** `Production Ready`
-* **Last Updated:** `August 8, 2025`
-* **Description:** Professional dark-mode AI chat interface with advanced mobile optimization and DeepSeek R1 integration. The application is stable, fully functional, and ready for production deployment.
+* **Version:** `1.1.0`
+* **Status:** `Stable & Active`
+* **Description:** The application's core architecture is stable and fully functional. It successfully utilizes a static session ID and local-first chat histories with frontend-managed context isolation. Development is now focused on enhancements and new features.
 
 ---
 
-## ✅ Recently Completed Features
+## 🗺️ Development Priorities
 
-### **Mobile Optimization (v1.2.0)**
-- ✅ **Stable Keyboard Handling**: Fixed positioning without layout jumps
-- ✅ **iOS Safari Compatibility**: Proper dynamic viewport height handling
-- ✅ **Android Support**: Optimized for various mobile keyboards
-- ✅ **Touch Interface**: 48px minimum touch targets and gesture support
+Here is a high-level overview of our planned features and improvements, organized by priority.
 
-### **UI/UX Improvements (v1.1.8)**
-- ✅ **Dark Mode Only**: Removed light mode, professional dark theme
-- ✅ **Chat History Truncation**: Limited titles to prevent sidebar overflow
-- ✅ **Glass Morphism**: Modern backdrop blur effects
-- ✅ **Theme Toggle Removal**: Simplified interface without theme switching
+### **Immediate Priorities (Up Next)**
+* **UI/UX Polish**: Refine the chat history panel to ensure all UI elements, including the delete button, are consistently visible and functional regardless of title length.
+* **Smarter Error Messaging**: Implement more specific user-facing error messages to clearly distinguish between a network timeout and a situation where all miners genuinely provided no response.
 
-### **AI Integration (v1.1.5)**
-- ✅ **DeepSeek R1 Support**: Advanced reasoning mode with thinking process
-- ✅ **Multi-Model Support**: Llava 1.5, Llama 3.1, DeepSeek R1
-- ✅ **Memory Mode Toggle**: Conversation context control
-- ✅ **Real-Time Streaming**: Live response streaming with thinking visualization
+### **Next Steps (Coming Soon)**
+* **Simplified API Endpoint**: Explore a non-streaming endpoint for chat completions as an alternative to increase reliability in different network conditions.
+* **Model Configuration**: Add UI options for users to select different AI models or adjust LLM parameters (e.g., temperature, max tokens).
+* **Code Refactoring**: Clean up the frontend state management for better maintainability and long-term scalability.
 
----
-
-## 🗺️ Development Roadmap
-
-### **Current Sprint (v1.2.x)**
-- 🔄 **Performance Optimization**: Reduce bundle size and improve loading times
-- 🔄 **Error Handling**: Enhanced user-facing error messages and recovery
-- 🔄 **Accessibility**: WCAG 2.1 compliance improvements
-- 📋 **Testing Suite**: Comprehensive unit and integration tests
-
-### **Next Release (v1.3.0)**
-- 📋 **Chat Export**: JSON/Markdown export functionality
-- 📋 **Session Persistence**: Cloud backup integration
-- 📋 **Advanced Settings**: Model parameter customization
-
-### **Future Releases (v2.x)**
-- 📋 **Web3 Integration**: Wallet connectivity and blockchain sessions
-- 📋 **Multi-Language**: i18n support for global audience
-- 📋 **Plugin System**: Extensible functionality framework
-
----
-
-## 🐛 Known Issues
-
-### **Minor Issues**
-- None currently reported
+### **Future Goals (Long-Term)**
+* **Full Web3 Integration**: Introduce wallet connectivity to allow users to create and manage sessions directly on the blockchain.
+* **Multi-User Support**: Explore user authentication for distinct user profiles and private chat histories.

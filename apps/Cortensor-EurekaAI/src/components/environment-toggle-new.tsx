@@ -31,7 +31,7 @@ export function EnvironmentToggle() {
           variant={environment === 'testnet' ? 'default' : 'outline'}
           className="text-xs"
         >
-          {environment === 'testnet' ? 'L3 Testnet' : 'Devnet6'}
+          {environment === 'testnet' ? 'Testnet0' : 'Devnet-7'}
         </Badge>
         <span className="text-xs text-muted-foreground">
           {environment === 'testnet' 

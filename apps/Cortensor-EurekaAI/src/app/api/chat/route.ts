@@ -18,14 +18,19 @@ const modelFilters = {
       /<\/?thinking>/gi,
       /Final Response:|final response:/gi,
       /<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi,
+      /<\|USER\|>/gi,
+      /<\|ASSISTANT\|>/gi,
+      /<\/s>/gi,
       /USER[\s\S]*?ASSISTANT/gi,
+      /^\s*user\s*:/gi,
+      /^\s*assistant\s*:/gi,
     ],
     preserveCodeBlocks: true
   },
   'deepseek-r1': {
     name: 'Deepseek R1', 
     removeThinkingBlocks: true, // Remove thinking blocks
-    removeVerbosePatterns: false,
+    removeVerbosePatterns: true,
     cleanupPatterns: [
       /<thinking>[\s\S]*?<\/thinking>/gi,
       /<\/?thinking>/gi,
@@ -33,6 +38,34 @@ const modelFilters = {
       /<\/think>/gi, // Remove stray </think> tags
       /<think>/gi,   // Remove stray <think> tags
       /\s*<\/think>\s*/gi, // Remove </think> with surrounding whitespace
+      // LLaMA-style special tokens that may appear in distill outputs
+      /<\|begin_of_text\|>/gi,
+      /<\|end_of_text\|>/gi,
+      /<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi,
+      /<\|eot_id\|>/gi,
+      /<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi,
+      /<\|USER\|>/gi,
+      /<\|ASSISTANT\|>/gi,
+      /^\s*assistant\s*:/gi,
+      /^\s*user\s*:/gi,
+    ],
+    preserveCodeBlocks: true
+  },
+  'llama-3.1-8b-q4': {
+    name: 'Llama 3.1 8B Q4',
+    removeThinkingBlocks: true,
+    removeVerbosePatterns: true,
+    cleanupPatterns: [
+      /<\|begin_of_text\|>/gi,
+      /<\|end_of_text\|>/gi,
+      /<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi,
+      /<\|eot_id\|>/gi,
+      /<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi,
+      /<\|USER\|>/gi,
+      /<\|ASSISTANT\|>/gi,
+      /<\/s>/gi,
+      /^\s*assistant\s*:/gi,
+      /^\s*user\s*:/gi,
     ],
     preserveCodeBlocks: true
   }
@@ -46,17 +79,58 @@ function applyModelFilters(text: string, modelId: string, isDeepThinking: boolea
   
   // For DeepSeek R1 - extract thinking process from start to </think>
   if (modelId === 'deepseek-r1') {
+  // First, remove any leaked LLaMA special tokens and headers
+    filteredText = filteredText.replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '');
+    filteredText = filteredText.replace(/<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi, '');
+  filteredText = filteredText.replace(/<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi, '');
+  filteredText = filteredText.replace(/<\|USER\|>/gi, '');
+  filteredText = filteredText.replace(/<\|ASSISTANT\|>/gi, '');
+  filteredText = filteredText.replace(/^\s*assistant\s*:/gi, '');
+  filteredText = filteredText.replace(/^\s*user\s*:/gi, '');
+
+    // If output contains multiple turns, keep ONLY the last assistant/user segment
+    const findLastIndex = (text: string, patterns: RegExp[]): { idx: number; len: number } => {
+      let last = -1; let len = 0;
+      for (const p of patterns) {
+        let m: RegExpExecArray | null;
+        const r = new RegExp(p.source, p.flags.includes('g') ? p.flags : p.flags + 'g');
+        while ((m = r.exec(text)) !== null) {
+          last = m.index; len = m[0].length;
+        }
+      }
+      return { idx: last, len };
+    };
+    const lastAssistant = findLastIndex(filteredText, [/<\|ASSISTANT\|>/i, /\n\s*Assistant\s*:/i]);
+    const lastUser = findLastIndex(filteredText, [/<\|USER\|>/i, /\n\s*User\s*:/i]);
+    let startFrom = 0;
+    if (lastAssistant.idx >= 0) startFrom = lastAssistant.idx + lastAssistant.len;
+    else if (lastUser.idx >= 0) startFrom = lastUser.idx + lastUser.len;
+    if (startFrom > 0) {
+      filteredText = filteredText.slice(startFrom).trimStart();
+    }
+
+    // Prefer post-</think> when present; otherwise keep pre-<think> content as the answer
+    const thinkStartIndex = filteredText.indexOf('<think>');
     const thinkEndIndex = filteredText.indexOf('</think>');
     
     if (thinkEndIndex !== -1) {
-      // Extract thinking process (from start to </think>)
-      const thinkingContent = filteredText.substring(0, thinkEndIndex).trim();
-      // Extract main response (after </think>)
-      const mainResponse = filteredText.substring(thinkEndIndex + 8).trim(); // 8 = length of '</think>'
+  // Extract thinking process (from start to </think>)
+  let thinkingContent = filteredText.substring(0, thinkEndIndex).trim();
+      // Clean stray markers inside thinking
+      thinkingContent = thinkingContent
+        .replace(/^<think>\s*/i, '')
+        .replace(/<\|USER\|>|<\|ASSISTANT\|>/gi, '')
+        .replace(/^\s*(user|assistant)\s*:\s*/gi, '')
+        .replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '')
+        .replace(/<｜end▁of▁sentence｜>/g, '')
+        .replace(/<\|end_of_sentence\|>/g, '')
+        .trim();
+    // Extract main response (after </think>)
+    const mainResponse = filteredText.substring(thinkEndIndex + 8).trim(); // 8 = length of '</think>'
       
       if (showThinkingProcess && thinkingContent && thinkingContent.length > 0) {
-        // Show thinking process as built-in feature for DeepSeek
-        return `🧠 **Thinking Process:**\n\n${thinkingContent}\n\n---\n\n**Response:**\n\n${mainResponse}`;
+        // Show thinking process with cleaner section headers
+        return `🧠 Thinking Process\n\n${thinkingContent}\n\n---\n\nResponse\n\n${mainResponse}`;
       } else {
         // Only show main response, hide thinking process
         return mainResponse && mainResponse.length > 0 ? mainResponse : filteredText;
@@ -65,7 +139,7 @@ function applyModelFilters(text: string, modelId: string, isDeepThinking: boolea
     
     // Fallback: if no </think> found, return as-is if showing thinking, or clean if not
     if (!showThinkingProcess) {
-      filteredText = filteredText.replace(/<\/?think>/gi, '');
+      filteredText = filteredText.replace(/<\/??think>/gi, '');
     }
     
     return filteredText.trim();
@@ -75,6 +149,11 @@ function applyModelFilters(text: string, modelId: string, isDeepThinking: boolea
   for (const pattern of modelConfig.cleanupPatterns) {
     filteredText = filteredText.replace(pattern, '');
   }
+  // Remove end-of-sentence marker variants globally
+  filteredText = filteredText.replace(/<｜end▁of▁sentence｜>/g, '');
+  filteredText = filteredText.replace(/<\|end_of_sentence\|>/g, '');
+  // Remove generic EOS `</s>` used by some LLMs
+  filteredText = filteredText.replace(/<\/s>/gi, '');
   
   // Remove thinking blocks (always for default, conditionally for deepseek)
   if (modelConfig.removeThinkingBlocks) {
@@ -128,10 +207,60 @@ function applyModelFilters(text: string, modelId: string, isDeepThinking: boolea
   return filteredText;
 }
 
+// Relevance filter: remove echoed user question, role markers, and repeated sentences
+function enforceRelevanceAndDedup(answerText: string, userMessage: string): string {
+  try {
+    let text = String(answerText || '');
+    const norm = (s: string) => s.toLowerCase()
+      .replace(/<\|user\|>|<\|assistant\|>/gi, '')
+      .replace(/user\s*:|assistant\s*:/gi, '')
+      .replace(/[^a-z0-9]+/gi, ' ')
+      .trim();
+
+    const userNorm = norm(userMessage || '');
+
+    // Remove obvious context/preamble lines
+    text = text
+      .replace(/^as an ai[\s\S]*?\.?\s*/gi, '')
+      .replace(/^as a language model[\s\S]*?\.?\s*/gi, '')
+      .replace(/^context\s*:\s*[\s\S]*?\n/gi, '')
+      .replace(/^q\s*:\s*/gim, '')
+      .replace(/^a\s*:\s*/gim, '');
+
+    // Split into sentences while preserving order
+    const sentences = text
+      .split(/(?<=[.!?])\s+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const seen = new Set<string>();
+    const result: string[] = [];
+
+    for (const s of sentences) {
+      const sNorm = norm(s);
+      // Drop if it's the same as the user's question or contains it heavily
+      if (sNorm === userNorm) continue;
+      if (userNorm && sNorm.length > 0 && (sNorm.includes(userNorm) || userNorm.includes(sNorm))) continue;
+      // Deduplicate globally by normalized sentence
+      if (seen.has(sNorm)) continue;
+      seen.add(sNorm);
+      result.push(s);
+    }
+
+    // If still very long with many sentences, keep first 3 for relevance
+    if (result.length > 3) {
+      return result.slice(0, 3).join(' ').trim();
+    }
+    return result.join(' ').trim();
+  } catch {
+    return String(answerText || '').trim();
+  }
+}
+
 // Llava 1.5 processing (for default model)
 function processLlavaStream(textChunk: string, model: string, isDeepThinking: boolean): string {
-  // For default model streaming, preserve original formatting to maintain proper spacing
-  if (model === 'default-model') {
+  // For default and llama models streaming, preserve original formatting to maintain proper spacing
+  if (model === 'default-model' || model === 'llama-3.1-8b-q4') {
     // Only apply minimal cleaning without affecting spacing
     let cleanedText = textChunk;
     
@@ -140,6 +269,13 @@ function processLlavaStream(textChunk: string, model: string, isDeepThinking: bo
     cleanedText = cleanedText.replace(/<\/?thinking>/gi, '');
     cleanedText = cleanedText.replace(/<\/think>/gi, '');
     cleanedText = cleanedText.replace(/<think>/gi, '');
+    // Remove llama special tokens if they leak into chunks
+  cleanedText = cleanedText.replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '');
+  cleanedText = cleanedText.replace(/<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi, '');
+  cleanedText = cleanedText.replace(/<\/s>/gi, '');
+  // Remove end-of-sentence markers
+  cleanedText = cleanedText.replace(/<｜end▁of▁sentence｜>/g, '');
+  cleanedText = cleanedText.replace(/<\|end_of_sentence\|>/g, '');
     
     // Return original text with minimal cleaning to preserve streaming format
     return cleanedText;
@@ -151,8 +287,30 @@ function processLlavaStream(textChunk: string, model: string, isDeepThinking: bo
 
 // DeepSeek R1 advanced processing (for deepseek model)
 function processDeepSeekStream(textChunk: string, model: string, isDeepThinking: boolean, showThinkingProcess: boolean = false): string {
-  // For DeepSeek R1, always return raw content - frontend will handle formatting
-  return textChunk;
+  let cleaned = textChunk;
+  // If not showing thinking, remove <think> blocks and tags
+  if (!showThinkingProcess) {
+    cleaned = cleaned.replace(/<thinking>[\s\S]*?<\/thinking>/gi, '');
+    cleaned = cleaned.replace(/<\/?thinking>/gi, '');
+    cleaned = cleaned.replace(/<\/think>/gi, '');
+    cleaned = cleaned.replace(/<think>/gi, '');
+    cleaned = cleaned.replace(/\s*<\/think>\s*/gi, ' ');
+  }
+  // Remove any leaked LLaMA special tokens
+  cleaned = cleaned.replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '');
+  cleaned = cleaned.replace(/<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi, '');
+  cleaned = cleaned.replace(/<\/s>/gi, '');
+  cleaned = cleaned.replace(/<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi, '');
+  cleaned = cleaned.replace(/^\s*assistant\s*:/gi, '');
+  // Remove end-of-sentence markers
+  cleaned = cleaned.replace(/<｜end▁of▁sentence｜>/g, '');
+  cleaned = cleaned.replace(/<\|end_of_sentence\|>/g, '');
+  // If role markers for a new turn are present in a chunk, truncate before them to avoid cross-turn bleed
+  const roleCut = cleaned.match(/<\|USER\|>|<\|ASSISTANT\|>|\n\s*User\s*:|\n\s*Assistant\s*:/i);
+  if (roleCut && roleCut.index !== undefined && roleCut.index >= 0) {
+    cleaned = cleaned.slice(0, roleCut.index);
+  }
+  return cleaned;
 }
 
 // Rate limiting in-memory store (for edge runtime)
@@ -213,7 +371,20 @@ export async function POST(req: NextRequest) {
       return new Response("Invalid JSON format", { status: 400 });
     }
 
-    const { message, messages, model, useDeepThinking = false, isDeepThinking = false, showThinkingProcess = true, cortensorSessionId, environment: requestEnvironment, rawOutput = false } = requestBody;
+    const { 
+      message, 
+      messages, 
+      model, 
+      useDeepThinking = false, 
+      isDeepThinking = false, 
+      showThinkingProcess = true, 
+      cortensorSessionId, 
+      environment: requestEnvironment, 
+      rawOutput = false,
+      enableMemory = false,
+      chatHistory = [],
+      nonStreaming = false
+    } = requestBody;
     
     // Handle both single message and messages array formats
     let userMessage = '';
@@ -268,21 +439,22 @@ export async function POST(req: NextRequest) {
       useDeepThinking: deepThinking
     });
 
-    if (model === 'deepseek-r1') {
+  if (model === 'deepseek-r1') {
       sessionId = envConfig.deepseekSession;
       isDeepseekR1 = true;
       apiLogger.debug('Using Deepseek R1 mode');
-    } else if (model === 'meta-llama-3.1') {
+    } else if (model === 'llama-3.1-8b-q4') {
       sessionId = envConfig.llamaSession;
       isLlama3_1 = true;
-      apiLogger.debug('Using Meta-Llama-3.1 mode');
+      apiLogger.debug('Using Llama 3.1 mode');
     } else {
       apiLogger.debug('Using Default model (Llava 1.5)');
     }
 
-    // Determine which prompt to use
+  // Determine which prompt to use
     let systemPrompt: string;
-    const maxTokens = 20000;
+  // Use a lower token cap for DeepSeek to encourage concise answers
+  const maxTokens = isDeepseekR1 ? 2048 : 20000;
 
     if (isDeepseekR1) {
       if (deepThinking) {
@@ -297,9 +469,51 @@ export async function POST(req: NextRequest) {
       systemPrompt = appConfig.prompts.default.systemPrompt;
     }
 
-    // Format prompt
+    // Helpers: sanitize previous contents from leaked control tokens before re-injecting
+    const sanitizeForPrompt = (text: string): string => {
+      let t = String(text ?? '');
+      // strip known special/control tokens and thinking tags that could confuse the new turn
+      t = t.replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '');
+      t = t.replace(/<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi, '');
+  t = t.replace(/<\|USER\|>|<\|ASSISTANT\|>/gi, '');
+  t = t.replace(/<\/s>/gi, '');
+      t = t.replace(/<thinking>[\s\S]*?<\/thinking>/gi, '');
+      t = t.replace(/<\/?thinking>/gi, '');
+      t = t.replace(/<\/think>/gi, '');
+      t = t.replace(/<think>/gi, '');
+      t = t.replace(/<｜end▁of▁sentence｜>/g, '');
+      t = t.replace(/<\|end_of_sentence\|>/g, '');
+      return t.trim();
+    };
+
+    // Build history chunk if Memory Mode is enabled
+    let historyPrompt = '';
+    if (enableMemory && Array.isArray(chatHistory) && chatHistory.length > 0) {
+      // Keep only {role, content} pairs for user/assistant, drop system or others
+      type ChatMsg = { role: string; content: string };
+      const cleaned: ChatMsg[] = (chatHistory as ChatMsg[])
+        .filter(m => m && typeof m.content === 'string' && (m.role === 'user' || m.role === 'assistant'))
+        // prevent duplicates or empty
+        .map(m => ({ role: m.role, content: sanitizeForPrompt(m.content) }))
+        .filter(m => m.content.length > 0);
+
+      // Cap history to avoid overly long prompts: last 12 messages or ~6000 chars
+      const MAX_MSGS = 12;
+      const sliced = cleaned.slice(-MAX_MSGS);
+      // Additionally cap by characters
+      const MAX_CHARS = 6000;
+      let running = '';
+      for (const m of sliced) {
+        const chunk = `${m.role === 'assistant' ? '<|ASSISTANT|>' : '<|USER|>'}\n${m.content}\n`;
+        if ((running.length + chunk.length) > MAX_CHARS) break;
+        running += chunk;
+      }
+      historyPrompt = running;
+    }
+
+    // Format final prompt with optional memory
     const clientReference = `${Date.now()}${Math.random().toString(36).substr(2, 9)}`;
-    const formattedPrompt = systemPrompt + '\n<|USER|>\n' + userMessage + '\n<|ASSISTANT|>\n';
+    const formattedPrompt = `${systemPrompt}\n${historyPrompt}${historyPrompt ? '' : ''}<|USER|>\n${sanitizeForPrompt(userMessage)}\n<|ASSISTANT|>\n`;
 
     const apiUrl = `${envConfig.cortensorUrl}/api/v1/completions`;
     const apiKey = envConfig.cortensorApiKey;
@@ -326,7 +540,7 @@ export async function POST(req: NextRequest) {
       prompt: formattedPrompt,
       prompt_type: 1,
       prompt_template: "",
-      stream: true, // Enable streaming for real-time text extraction
+      stream: nonStreaming ? false : true, // Allow client to disable streaming
       timeout: parseInt(process.env.LLM_TIMEOUT || process.env.LLM_DEFAULT_TIMEOUT || '360', 10),
       client_reference: clientReference,
       max_tokens: maxTokens,
@@ -334,7 +548,9 @@ export async function POST(req: NextRequest) {
       top_p: 0.95,
       top_k: 40,
       presence_penalty: 0,
-      frequency_penalty: 0
+      frequency_penalty: 0,
+      // Stop tokens to prevent the model from adding new user/assistant turns or leaking control tokens
+  stop: ["\nUser:", "\nAssistant:", "<|eot_id|>", "<|USER|>", "<|ASSISTANT|>"]
     };
     
     apiLogger.debug('Making request to Cortensor API', {
@@ -343,7 +559,10 @@ export async function POST(req: NextRequest) {
       timeout: payload.timeout,
       isStreaming: payload.stream,
       rawOutputDefault: true,
-      streamingDisabled: 'Always disabled - RAW JSON is default for all models'
+      streamingDisabled: nonStreaming ? 'Client requested non-streaming' : 'Always disabled - RAW JSON is default for all models',
+      enableMemory,
+      historyIncluded: historyPrompt.length > 0,
+      historyLengthChars: historyPrompt.length
     });
 
     let cortensorResponse: Response;
@@ -359,7 +578,7 @@ export async function POST(req: NextRequest) {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'Accept': 'text/event-stream', // Use streaming for real-time text extraction
+          'Accept': nonStreaming ? 'application/json' : 'text/event-stream', // Request JSON in non-streaming mode
           'Connection': 'keep-alive',
         },
         body: JSON.stringify(payload),
@@ -401,7 +620,7 @@ export async function POST(req: NextRequest) {
         responseHeaders: Object.fromEntries(cortensorResponse.headers.entries())
       });
       
-      // First, let's get the raw response to debug what we're actually receiving
+  // First, let's get the raw response to debug what we're actually receiving
       const responseText = await cortensorResponse.text();
       apiLogger.info('Raw response from Cortensor', {
         responseLength: responseText.length,
@@ -409,6 +628,107 @@ export async function POST(req: NextRequest) {
         isJSON: responseText.trim().startsWith('{')
       });
       
+      // If client asked nonStreaming, parse once and return JSON
+      if (nonStreaming) {
+        let jsonResponse: any;
+        try {
+          jsonResponse = JSON.parse(responseText);
+        } catch (parseError) {
+          apiLogger.error('Failed to parse non-streaming response as JSON', { parseError, preview: responseText.substring(0, 600) });
+          return new Response("Invalid JSON from upstream", { status: 502 });
+        }
+
+        // Extract text content
+        let textContent = '';
+        if (jsonResponse.choices && jsonResponse.choices[0]) {
+          const choice = jsonResponse.choices[0];
+          if (typeof choice.text === 'string') textContent = choice.text;
+          else if (choice.message?.content) textContent = choice.message.content;
+        } else if (jsonResponse.response) {
+          textContent = jsonResponse.response;
+        } else if (jsonResponse.content) {
+          textContent = jsonResponse.content;
+        } else if (typeof jsonResponse === 'string') {
+          textContent = jsonResponse;
+        }
+
+        if (!textContent) {
+          apiLogger.error('No text content in non-streaming response', { keys: Object.keys(jsonResponse) });
+          return new Response("No content from upstream", { status: 502 });
+        }
+
+        // For DeepSeek, split thinking and answer for UI
+        let thinkingContent: string | undefined = undefined;
+        let answerText = textContent;
+
+        if (model === 'deepseek-r1') {
+          // Pre-clean tokens first
+          let cleaned = textContent
+            .replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '')
+            .replace(/<\|start_header_id\|>[\s\S]*?<\|end_header_id\|>/gi, '')
+            .replace(/<\/s>/gi, '')
+            .replace(/<\|USER\|>[\s\S]*?<\|ASSISTANT\|>/gi, '')
+            .replace(/<｜end▁of▁sentence｜>/g, '')
+            .replace(/<\|end_of_sentence\|>/g, '');
+          // If any role markers for a new turn appear, hard truncate before them
+          const roleMarkerIdx = (() => {
+            const m = cleaned.match(/<\|USER\|>|<\|ASSISTANT\|>|\n\s*User\s*:|\n\s*Assistant\s*:/i);
+            return m && m.index !== undefined ? m.index : -1;
+          })();
+          if (roleMarkerIdx > -1) {
+            cleaned = cleaned.slice(0, roleMarkerIdx);
+          }
+          // If output contains multiple turns, select the last assistant/user segment
+          const findLastIndex = (text: string, patterns: RegExp[]): { idx: number; len: number } => {
+            let last = -1; let len = 0;
+            for (const p of patterns) {
+              let m: RegExpExecArray | null;
+              const r = new RegExp(p.source, p.flags.includes('g') ? p.flags : p.flags + 'g');
+              while ((m = r.exec(text)) !== null) { last = m.index; len = m[0].length; }
+            }
+            return { idx: last, len };
+          };
+          const lastAssistant = findLastIndex(cleaned, [/<\|ASSISTANT\|>/i, /\n\s*Assistant\s*:/i]);
+          const lastUser = findLastIndex(cleaned, [/<\|USER\|>/i, /\n\s*User\s*:/i]);
+          let segment = cleaned;
+          if (lastAssistant.idx >= 0) segment = cleaned.slice(lastAssistant.idx + lastAssistant.len);
+          else if (lastUser.idx >= 0) segment = cleaned.slice(lastUser.idx + lastUser.len);
+
+          // Extract think/answer from the chosen segment
+          const startIdx = segment.indexOf('<think>');
+          const idx = segment.indexOf('</think>');
+          if (idx > -1) {
+            // Prefer post-think as final answer; keep pre-think text only for thinking panel
+            thinkingContent = (startIdx > -1 ? segment.substring(startIdx, idx) : segment.substring(0, idx))
+              .replace(/^<think>\s*/i, '')
+              .replace(/<\|USER\|>|<\|ASSISTANT\|>/gi, '')
+              .replace(/^\s*(user|assistant)\s*:\s*/gi, '')
+              .trim();
+            answerText = segment.substring(idx + 8).trim();
+          } else {
+            // No explicit think block; show entire content as answer
+            answerText = segment.trim();
+          }
+          // Finally apply generic filters to the answer and trim for conciseness
+          answerText = applyModelFilters(answerText, model, deepThinking, false);
+          // Ensure relevance and remove echoed user question / duplicates
+          answerText = enforceRelevanceAndDedup(answerText, userMessage);
+          // Enforce concise style: collapse whitespace and limit to ~1200 chars
+          answerText = answerText.replace(/\s+$/g, '').replace(/\n{3,}/g, '\n\n');
+          if (answerText.length > 1200) {
+            answerText = answerText.slice(0, 1200).trimEnd() + '…';
+          }
+        } else {
+          answerText = applyModelFilters(textContent, model, deepThinking, showThinkingProcess);
+          answerText = enforceRelevanceAndDedup(answerText, userMessage);
+        }
+
+        const body = JSON.stringify({ content: answerText, thinkingContent });
+        return new Response(body, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
       if (!isStreamingResponse) {
         // Handle non-streaming JSON response and convert to streaming format
         apiLogger.info('Converting JSON response to streaming format');
@@ -583,6 +903,10 @@ export async function POST(req: NextRequest) {
                       
                       if (model === 'deepseek-r1') {
                         filteredText = processDeepSeekStream(textContent, model, deepThinking, showThinkingProcess);
+                        finalText = filteredText;
+                      } else if (model === 'llama-3.1-8b-q4') {
+                        // For Llama 3.1 variants, use minimally cleaned text to avoid leaking special tokens
+                        filteredText = processLlavaStream(textContent, model, deepThinking);
                         finalText = filteredText;
                       } else {
                         // For default model, preserve original text for proper streaming format

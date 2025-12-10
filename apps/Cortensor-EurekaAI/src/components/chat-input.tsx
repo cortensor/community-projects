@@ -26,6 +26,8 @@ interface ChatInputProps {
   onMemoryModeChange: (checked: boolean) => void
   onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  onTemplateInsert?: (text: string) => void
+  onAttachContext?: () => Promise<void> | void
   disabled?: boolean
 }
 
@@ -175,6 +177,35 @@ export function ChatInput({
                 />
               </>
             )}
+
+            {/* Quick actions */}
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              {[
+                { label: '/summarize', text: 'Summarize the following content:' },
+                { label: '/fix code', text: 'Please refactor and fix this code:' },
+                { label: '/explain', text: 'Explain this in simple terms:' }
+              ].map(action => (
+                <Button
+                  key={action.label}
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => onTemplateInsert?.(action.text + '\n')}
+                >
+                  {action.label}
+                </Button>
+              ))}
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="h-7 px-2 text-xs"
+                onClick={() => onAttachContext?.()}
+              >
+                Attach context
+              </Button>
+            </div>
             
             <div className="relative">
               <Textarea
@@ -189,9 +220,9 @@ export function ChatInput({
                 className={cn(
                   "flex-1 bg-card/60 backdrop-blur-sm border-border/50 shadow-sm resize-none transition-all",
                   "focus:ring-2 focus:ring-primary/20 focus:border-primary/50",
-                  "focus:outline-none", // Remove default outline
-                  isMobile && "text-base leading-relaxed pr-12 py-3 rounded-lg min-h-[48px]", // Better mobile UX
-                  !isMobile && "pr-14 py-3 rounded-lg",
+                  "focus:outline-none text-sm", // Tighter typography ala ChatGPT
+                  isMobile && "text-[15px] pr-12 py-2.5 rounded-lg min-h-[44px]", // Slightly smaller on mobile
+                  !isMobile && "pr-12 py-2.5 rounded-lg",
                   isLoading && "animate-pulse cursor-not-allowed",
                   // Professional styling
                   "placeholder:text-muted-foreground/60",
@@ -201,8 +232,8 @@ export function ChatInput({
                 maxLength={maxLength + 100}
                 rows={1}
                 style={{ 
-                  minHeight: isMobile ? '48px' : '40px', // Larger touch target on mobile
-                  maxHeight: isMobile ? '120px' : '200px'
+                  minHeight: isMobile ? '44px' : '38px',
+                  maxHeight: isMobile ? '120px' : '180px'
                 }}
               />
               

@@ -1,17 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
     unoptimized: true,
-  },
-  // Allow cross-origin requests for development
-  experimental: {
-    allowedRevalidateHeaderKeys: ['x-vercel-cache'],
   },
   async headers() {
     return [

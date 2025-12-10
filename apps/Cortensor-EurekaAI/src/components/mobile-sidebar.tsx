@@ -79,10 +79,26 @@ export function MobileSidebar({
                       <MessageCircle className="h-3 w-3 flex-shrink-0" />
                       <span className="font-medium text-sm truncate flex-1 min-w-0">{session.title}</span>
                     </div>
-                    <div className="text-xs opacity-70 flex items-center justify-start">
+                    <div className="text-xs opacity-70 flex items-center justify-start gap-1">
                       <Badge variant="outline" className="text-xs px-1 py-0 h-4">
                         {session.messages.length}
                       </Badge>
+                      {session.selectedModel && (
+                        <Badge
+                          variant="outline"
+                          className={
+                            `text-xs px-1 py-0 h-4 ${
+                              session.selectedModel === 'deepseek-r1'
+                                ? 'bg-purple-100 border-purple-300 text-purple-700 dark:bg-purple-900/30 dark:border-purple-600 dark:text-purple-300'
+                                : session.selectedModel === 'llama-3.1-8b-q4'
+                                  ? 'bg-yellow-100 border-yellow-300 text-yellow-700 dark:bg-yellow-900/30 dark:border-yellow-600 dark:text-yellow-300'
+                                  : 'bg-blue-100 border-blue-300 text-blue-700 dark:bg-blue-900/30 dark:border-blue-600 dark:text-blue-300'
+                            }`
+                          }
+                        >
+                          {session.selectedModel === 'deepseek-r1' ? 'R1' : 'L'}
+                        </Badge>
+                      )}
                     </div>
                   </button>
                   <Button

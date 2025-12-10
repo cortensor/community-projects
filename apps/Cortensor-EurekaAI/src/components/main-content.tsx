@@ -132,6 +132,7 @@ interface MainContentProps {
   isThinkingPhase: boolean;
   environment: 'testnet' | 'devnet6';
   onMemoryModeChange: (enabled: boolean) => void;
+    onPrefill?: (text: string) => void;
 }
 
 export function MainContent({
@@ -145,7 +146,8 @@ export function MainContent({
     isDeepThinking,
     isThinkingPhase,
     environment = 'testnet',
-    onMemoryModeChange
+    onMemoryModeChange,
+    onPrefill
 }: MainContentProps) {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -188,19 +190,19 @@ export function MainContent({
             {/* Professional Header - Mobile Optimized */}
             <div className={cn(
                 "sticky top-0 z-50 flex items-center justify-between border-b bg-background/95 backdrop-blur-md",
-                isMobile ? "p-3 min-h-[60px]" : "p-4"
+                isMobile ? "p-2.5 min-h-[56px]" : "p-3"
             )}>
                 <div className="flex items-center space-x-3 flex-1 min-w-0">
                     <div className={cn(
                         "flex-shrink-0 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center",
-                        isMobile ? "w-6 h-6" : "w-8 h-8"
+                        isMobile ? "w-6 h-6" : "w-7 h-7"
                     )}>
-                        <MessageSquare className={cn("text-white", isMobile ? "w-3 h-3" : "w-4 h-4")} />
+                        <MessageSquare className={cn("text-white", isMobile ? "w-3 h-3" : "w-3.5 h-3.5")} />
                     </div>
                     <div className="flex-1 min-w-0">
                         <h1 className={cn(
                             "font-semibold text-foreground truncate",
-                            isMobile ? "text-base" : "text-lg"
+                            isMobile ? "text-sm" : "text-base"
                         )}>
                             {currentSession?.title || "New Chat"}
                         </h1>
@@ -208,9 +210,13 @@ export function MainContent({
                             "flex items-center space-x-2 text-muted-foreground",
                             isMobile ? "text-xs" : "text-xs"
                         )}>
-                            <span className="truncate">
-                                {selectedModel === 'deepseek-r1' ? 'DeepSeek R1' : 'Llava 1.5'}
-                            </span>
+                                                        <span className="truncate">
+                                                                {selectedModel === 'deepseek-r1' 
+                                                                    ? 'DeepSeek R1' 
+                                                                    : selectedModel === 'llama-3.1-8b-q4' 
+                                                                        ? 'Llama 3.1 8B Q4' 
+                                                                        : 'Llava 1.5'}
+                                                        </span>
                             {!isMobile && (
                                 <>
                                     <span>•</span>
@@ -221,15 +227,21 @@ export function MainContent({
                                             ? 'bg-orange-900/50 text-orange-300 border border-orange-700/50' 
                                             : 'bg-blue-900/50 text-blue-300 border border-blue-700/50'
                                     }`}>
-                                        {environment === 'devnet6' ? 'DEVNET6' : 'TESTNET'}
+                                        {environment === 'devnet6' ? 'DEVNET-7' : 'TESTNET0'}
                                     </span>
                                     <span>•</span>
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                         selectedModel === 'deepseek-r1' 
                                             ? 'bg-purple-900/50 text-purple-300 border border-purple-700/50' 
-                                            : 'bg-blue-900/50 text-blue-300 border border-blue-700/50'
+                                            : selectedModel === 'llama-3.1-8b-q4'
+                                              ? 'bg-yellow-900/50 text-yellow-300 border border-yellow-700/50'
+                                              : 'bg-blue-900/50 text-blue-300 border border-blue-700/50'
                                     }`}>
-                                        {selectedModel === 'deepseek-r1' ? 'DeepSeek R1' : 'Llava 1.5'}
+                                        {selectedModel === 'deepseek-r1' 
+                                          ? 'DeepSeek R1' 
+                                          : selectedModel === 'llama-3.1-8b-q4'
+                                            ? 'Llama 3.1 8B Q4'
+                                            : 'Llava 1.5'}
                                     </span>
                                     {isDeepThinking && selectedModel === 'deepseek-r1' && (
                                         <>
@@ -262,12 +274,34 @@ export function MainContent({
             {/* Messages Container with proper scrolling */}
             <ScrollArea className={cn(
                 "flex-1",
-                isMobile ? "px-2 pb-44 mobile-scroll-safe" : "px-4 pb-48" // Extra padding for mobile chat input
+                isMobile ? "px-2 pb-36 mobile-scroll-safe" : "px-3 pb-40" // Tighter padding ala ChatGPT
             )}>
                 <div className={cn(
-                    "space-y-6 min-h-0",
-                    isMobile ? "py-3 max-w-full overflow-hidden" : "py-4"
+                    "space-y-4 min-h-0",
+                    isMobile ? "py-3 max-w-full overflow-hidden" : "py-3.5"
                 )}>
+                    {!messages.length && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {[ 
+                                { title: 'Code review', body: 'Review this code and suggest fixes.' },
+                                { title: 'Summarize', body: 'Summarize the following text in bullet points.' },
+                                { title: 'Explain', body: 'Explain this concept in simple terms.' },
+                                { title: 'Write test', body: 'Write unit tests for this function.' },
+                                { title: 'Blockchain', body: 'Explain this smart contract risk surface.' },
+                                { title: 'Optimize', body: 'Optimize this code for readability and performance.' },
+                            ].map((card, idx) => (
+                                <div key={idx} className="rounded-lg border border-border/50 bg-card/70 p-3 hover:border-primary/50 transition cursor-pointer"
+                                    onClick={() => {
+                                        onMemoryModeChange(true);
+                                        onPrefill?.(card.body);
+                                    }}
+                                >
+                                    <div className="text-sm font-semibold text-foreground mb-1">{card.title}</div>
+                                    <div className="text-xs text-muted-foreground leading-5">{card.body}</div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                     {messages.map((message, index) => (
                         <div key={index} className="space-y-4">
                             <div className={`flex items-start ${
@@ -289,7 +323,7 @@ export function MainContent({
                                 )}
                                 
                                 <Card className={`chat-bubble ${
-                                    isMobile ? 'max-w-[85vw] w-full' : 'max-w-[80%]'
+                                    isMobile ? 'max-w-[85vw] w-full' : 'max-w-[78%]'
                                 } ${
                                     message.role === 'user'
                                         ? 'bg-blue-600/20 border-blue-600/30'
@@ -297,19 +331,19 @@ export function MainContent({
                                 }`}>
                                     <CardContent className={cn(
                                         "break-words overflow-wrap-anywhere word-break overflow-hidden",
-                                        isMobile ? "p-3 text-sm leading-relaxed max-w-full" : "p-4"
+                                        isMobile ? "p-2.5 text-[13px] leading-6 max-w-full" : "p-3 text-[15px] leading-6"
                                     )}>
                                         {message.role === 'user' ? (
                                             <p className={cn(
-                                                "text-foreground whitespace-pre-wrap break-words overflow-hidden max-w-full",
-                                                isMobile && "text-sm leading-relaxed"
+                                                "text-foreground whitespace-pre-wrap break-words overflow-hidden max-w-full text-[15px] leading-6",
+                                                isMobile && "text-[13px] leading-6"
                                             )}>
                                                 {message.content}
                                             </p>
                                         ) : (
                                             <div className={cn(
-                                                "prose prose-invert max-w-none break-words overflow-hidden",
-                                                isMobile && "prose-sm text-sm max-w-full"
+                                                "prose prose-invert max-w-none break-words overflow-hidden text-[15px] leading-6",
+                                                isMobile && "prose-sm text-[13px] leading-6 max-w-full"
                                             )}>
                                                 {/* Thinking Process Display for DeepSeek R1 - Always visible */}
                                                 {selectedModel.includes('deepseek-r1') && message.thinkingContent && (

@@ -1,78 +1,22 @@
-# Release Notes
+# Release Notes: Version 1.1.0
 
-## Latest Release - Mobile Optimization & Dark Mode Focus
+**Release Date:** July 10, 2025
 
-**Release Date:** August 8, 2025
+This version marks a significant milestone for the **Cortensor AI Chat** application. The architecture has been completely overhauled to ensure stability, reliability, and a superior user experience. The primary focus of this release was to resolve critical issues related to response handling and session management.
 
-This major release transforms Eureka AI into a mobile-first, professional dark-mode application with advanced keyboard handling and user experience improvements.
+## ✨ New Features & Improvements
 
-### ✨ Major Features
+* **Robust Response Aggregation**: The backend logic has been rewritten from the ground up. It now correctly processes the raw data stream from the Cortensor network, aggregates responses from all available miners, and intelligently selects the most complete and accurate answer to be presented to the user.
+* **Local-First Chat History**: The application now fully embraces a client-side architecture for chat histories.
+    * **Static Session ID**: Utilizes a single, persistent session ID from the environment variables, eliminating the slow and unreliable on-chain session creation process during initialization.
+    * **Client-Side "New Chat"**: The "New Chat" button is now a purely local operation, creating a new, independent conversation history in the browser's storage without any server calls.
+* **Frontend Context Isolation**: Implemented a crucial logic change where the application only sends the message history of the *currently active chat* to the AI. This completely prevents context mixing between different local conversations, even though they share the same server session ID.
+* **Toggleable Memory Mode**: Users now have direct control over the AI's conversational memory via a UI switch, allowing for both deep, context-aware dialogues and quick, single-turn queries.
+* **Enhanced Error Handling**: Improved user-facing error messages to be more specific, distinguishing between network timeouts and a lack of response from miners.
 
-#### **🌙 Dark Mode Only**
-- **Forced Dark Theme**: Removed light mode entirely for consistent professional appearance
-- **Theme Toggle Removal**: Simplified interface without theme switching complexity
-- **Optimized CSS**: Streamlined styling with dark-mode specific optimizations
+## 🐛 Bug Fixes
 
-#### **📱 Advanced Mobile Optimization**
-- **Stable Keyboard Handling**: Fixed positioning system prevents layout jumps when keyboard appears
-- **iOS Safari Compatibility**: Proper dynamic viewport height (100dvh) handling
-- **Android Keyboard Support**: Optimized for various Android input methods
-- **Touch-First Interface**: 48px minimum touch targets for accessibility compliance
-
-#### **🎨 UI/UX Improvements**
-- **Chat History Truncation**: Limited chat titles to 22 characters to prevent sidebar overflow
-- **Glass Morphism Effects**: Modern backdrop blur and translucent components
-- **Responsive Typography**: Optimized font sizes and line heights for mobile reading
-- **Performance Optimizations**: Reduced bundle size and improved loading times
-
-### 🔧 Technical Improvements
-
-- **Fixed Positioning System**: Chat input uses stable positioning without transform-based movements
-- **Debounced Keyboard Detection**: Smooth keyboard state management without performance issues
-- **Optimized Rendering**: Reduced unnecessary re-renders and improved memory usage
-- **Enhanced Error Handling**: Better error messages and recovery mechanisms
-
-### 🐛 Bug Fixes
-
-- **Mobile Layout Jumps**: Eliminated content shifting when mobile keyboard appears/disappears
-- **Sidebar Overflow**: Fixed long chat titles breaking sidebar layout
-- **Touch Target Issues**: Improved button sizes and touch responsiveness
-- **iOS Scroll Issues**: Fixed momentum scrolling and safe area handling
-
----
-
-## Previous Release - DeepSeek R1 Integration
-
-**Release Date:** August 5, 2025
-
-Major update focusing on advanced AI model integration and reasoning capabilities.
-
-### ✨ Major Features
-
-#### **🏗️ Robust Response Aggregation**
-- **Rewritten Backend Logic**: Complete overhaul of response processing system
-- **Multi-Miner Support**: Intelligent aggregation from multiple Cortensor miners
-- **Smart Response Selection**: Automatic selection of most complete and accurate responses
-
-#### **💾 Local-First Architecture**
-- **Static Session Management**: Single persistent session ID from environment variables
-- **Client-Side Chat History**: Browser-based storage for privacy and speed
-- **Context Isolation**: Prevents conversation mixing between different chat sessions
-
-#### **🎛️ Enhanced User Controls**
-- **Memory Mode Toggle**: Direct user control over AI conversational memory
-- **Improved Error Messages**: More specific and actionable error feedback
-- **Better Loading States**: Clear indication of application status
-
-### 🐛 Critical Bug Fixes
-
-- **"No Valid Responses" Error**: Fixed parsing issues with mixed data streams
-- **UI Initialization Lock**: Eliminated startup hanging on "Initializing..." screen
-- **Disappearing Chat Messages**: Resolved state management issues causing message loss
-- **Inconsistent AI Memory**: Fixed conflicting dual-prompt system behavior
-
-### 🔧 Technical Improvements
-
-- **Frontend State Management**: Cleaner, more maintainable React state logic
-- **Error Handling**: Comprehensive error tracking and user feedback
-- **Performance**: Faster startup times and improved responsiveness
+* **Resolved "No Valid Responses" Error**: Fixed the critical bug where the backend would fail to parse the mixed data stream from miners. The new aggregation logic ensures a valid response is always selected if one is available.
+* **Fixed UI Initialization Lock**: By removing the dynamic, on-chain session creation at startup, the application no longer gets stuck on the "Initializing..." screen.
+* **Resolved Disappearing Chat Bug**: Corrected the frontend state management logic to prevent the user's last message from disappearing while waiting for an AI response.
+* **Fixed Inconsistent AI Memory**: Removed the conflicting dual-prompt system in the backend. The AI's memory is now exclusively controlled by the "Memory Mode" switch on the frontend, ensuring its behavior is always predictable.

@@ -17,14 +17,14 @@ export function EnvironmentToggle() {
   const envConfig = environment === 'testnet' 
     ? {
         icon: Globe,
-        name: 'L3 Testnet',
-        session: 'Session 10/8',
+        name: 'Testnet0',
+        session: 'Session Testnet0',
         color: 'bg-blue-500/10 text-blue-600 border-blue-200',
-        description: 'Stable testing environment'
+        description: 'Stable testing environment (Testnet0)'
       }
-    : {
+  : {
         icon: Zap,
-        name: 'Devnet6',
+        name: 'Devnet-7',
         session: 'Session 11/22',
         color: 'bg-orange-500/10 text-orange-600 border-orange-200',
         description: 'Development environment'

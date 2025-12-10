@@ -59,10 +59,18 @@ class Logger {
   }
 }
 
+// Determine runtime logging config from env vars
+const envLogLevel = (process.env.NEXT_PUBLIC_LOG_LEVEL || process.env.LOG_LEVEL || '').toLowerCase();
+const resolvedLevel: LogLevel = ['debug', 'info', 'warn', 'error'].includes(envLogLevel as LogLevel)
+  ? (envLogLevel as LogLevel)
+  : (process.env.NODE_ENV === 'production' ? 'error' : 'debug');
+
+const enableProdLogs = process.env.NEXT_PUBLIC_ENABLE_LOGS === 'true' || process.env.ENABLE_LOGS === 'true';
+
 // Create singleton instance
 export const logger = new Logger({
-  level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
-  enableInProduction: false
+  level: resolvedLevel,
+  enableInProduction: enableProdLogs
 });
 
 // Convenience exports for different categories

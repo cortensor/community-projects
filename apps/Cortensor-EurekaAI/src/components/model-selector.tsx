@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -52,6 +52,18 @@ export function ModelSelector({ selectedModel, onModelChange, disabled = false }
     currentModel = models.find(m => m.isDefault) || models[0]
   }
 
+  // Auto-sync selectedModel with currently available models to avoid stale selection
+  useEffect(() => {
+    if (!models.length) return;
+    const exists = models.find(m => m.id === selectedModel);
+    if (!exists) {
+      const fallback = models.find(m => m.isDefault) || models[0];
+      if (fallback) {
+        onModelChange(fallback.id, fallback.name);
+      }
+    }
+  }, [models, selectedModel, onModelChange]);
+
 
   return (
     <DropdownMenu>
@@ -81,46 +93,24 @@ export function ModelSelector({ selectedModel, onModelChange, disabled = false }
             key={model.id}
             onClick={() => onModelChange(model.id, model.name)}
             className={cn(
-              "flex items-start gap-2 p-2 cursor-pointer",
+              "flex items-center gap-2 p-2 cursor-pointer",
               currentModel.id === model.id && "bg-accent text-accent-foreground"
             )}
           >
             <div className="flex-shrink-0 mt-0.5">
               {getModelIcon(model.name)}
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-medium text-sm">{model.name}</div>
-              <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                {model.description}
+            <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="font-medium text-sm truncate">{model.name}</div>
+                {model.streamingSystem && (
+                  <div className="flex-shrink-0">{getStreamingSystemBadge(model.streamingSystem)}</div>
+                )}
               </div>
-              {model.streamingSystem && (
-                <div className="mt-1">
-                  {getStreamingSystemBadge(model.streamingSystem)}
-                </div>
-              )}
-              {model.capabilities && (
-                <div className="mt-2 space-y-1">
-                  <div className="text-xs font-medium text-muted-foreground">Capabilities:</div>
-                  {model.capabilities.slice(0, 2).map((capability: string, index: number) => (
-                    <div key={index} className="text-xs text-muted-foreground">
-                      • {capability}
-                    </div>
-                  ))}
-                </div>
-              )}
-              {model.features && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {model.features.slice(0, 3).map((feature: string) => (
-                    <span key={feature} className="text-xs px-1.5 py-0.5 bg-muted/50 text-muted-foreground rounded">
-                      {feature.replace('-', ' ')}
-                    </span>
-                  ))}
-                </div>
+              {currentModel.sessionId === model.sessionId && (
+                <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
               )}
             </div>
-            {currentModel.sessionId === model.sessionId && (
-              <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
-            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

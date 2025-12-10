@@ -2,119 +2,113 @@
 
   <img src="https://avatars.githubusercontent.com/u/174224856?s=200&v=4" alt="Project Logo" width="150">
 
-# **Eureka AI**
+# **Cortensor ChatWeb EUREKA**
 
-*Professional Dark-Mode AI Chat Interface for Cortensor Network*
+*An Advanced, Context-Aware Web Interface for the Cortensor Network*
 
 <p>
-<a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
+<a href="./LICENSE"\><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
 <a href="./STATUS.md"\><img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"></a>
-<a href="#"><img src="https://img.shields.io/badge/Next.js-15.2-blue.svg" alt="Next.js Version"></a>
+<a href="\#"\><img src="https://img.shields.io/badge/Next.js-15.x-blue.svg" alt="Next.js Version"\></a>
+<a href="[https://t.me/cortensor](https://t.me/cortensor)"\><img src="https://img.shields.io/badge/Telegram-%232CA5E0.svg?logo=telegram\&logoColor=white" alt="Telegram"\></a>
 </p>
 
 <p align="center">
-<a href="#-features">Features</a> •
-<a href="#-architecture-overview">Architecture</a> •
-<a href="#-installation--setup">Installation</a> •
-<a href="#-mobile-optimization">Mobile</a> •
-<a href="#-usage">Usage</a>
+<a href="#-features"\>Features</a> •
+<a href="#-architecture-overview"\>Architecture</a> •
+<a href="#-prerequisites"\>Prerequisites</a> •
+<a href="#-installation--setup"\>Installation</a> •
+<a href="#-usage"\>Usage</a>
 </p>
 </div>
 
-**Eureka AI** is a professional, production-ready AI chat interface built with Next.js 15 and TypeScript. Featuring a sleek dark-only theme, mobile-first responsive design, and advanced AI interaction capabilities including DeepSeek R1 reasoning mode support.
+**Cortensor ChatWeb EUREKA** is a modern, web-based chat application built with Next.js that demonstrates a robust and efficient way to interact with the Cortensor AI network. It provides a seamless, real-time conversational experience with the "Eureka" AI persona, featuring advanced state management and user-centric controls.
 
-This application serves as the definitive frontend for Cortensor Network, providing seamless integration with multiple AI models, real-time streaming responses, and sophisticated mobile keyboard handling.
+This project has evolved to serve as a comprehensive example of a production-ready frontend application that handles the nuances of a decentralized AI network, including response aggregation and client-side context isolation.
 
 ## ✨ Features
 
-### 🎨 **User Interface**
-  * **Dark Mode Only**: Professional dark theme optimized for extended usage
-  * **Mobile-First Design**: Optimized keyboard handling and touch interactions
-  * **Responsive Layout**: Adaptive sidebar and chat interface for all screen sizes
-  * **Glass Morphism**: Modern backdrop blur effects and translucent components
-
-### 🤖 **AI Capabilities**  
-  * **Multi-Model Support**: DeepSeek R1, Llama 3.1 (soon), and Llava 1.5 integration
-  * **Deep Thinking Mode**: Advanced reasoning display for DeepSeek R1 models
-  * **Memory Mode Toggle**: Control conversation context and AI memory
-  * **Real-Time Streaming**: Live response streaming with thinking process visualization
-
-### 📱 **Mobile Optimization**
-  * **Stable Keyboard Handling**: Fixed positioning without layout jumps
-  * **Touch-Friendly Controls**: Optimized button sizes and interactions
-  * **iOS Safari Compatible**: Proper viewport handling and scroll behavior
-  * **Mobile Controls**: Dedicated mobile interface with simplified controls
-
-### 💾 **Data Management**
-  * **Local Storage**: Browser-based chat history with privacy protection
-  * **Session Management**: Multiple concurrent chat sessions
+  * **Advanced AI Persona**: Interact with "Eureka," an AI configured with a detailed system prompt for professional, accurate, and context-aware responses.
+  * **Local-First Chat History**: Create, load, and delete multiple chat histories that are stored exclusively in the user's browser, ensuring privacy and fast access.
+  * **Frontend-Managed Context Isolation**: Guarantees that conversations remain separate and coherent by only sending the active chat's history to the AI, even while using a single static server session.
+  * **Toggleable Memory Mode**: A UI switch gives users direct control over the AI's conversational memory, allowing them to choose between deep, context-aware dialogue or quick, single-turn queries.
+  * **Response Aggregation & Selection**: The backend intelligently processes responses from multiple decentralized AI miners, filters out invalid data, and selects the most complete answer to present to the user.
+  * **Modern & Responsive UI**: Built with Shadcn/UI and Tailwind CSS, featuring a multi-line input, clear loading states, and a clean, responsive design.
 
 ## 🏛️ Architecture Overview
 
-### **Frontend Architecture**
-- **Next.js 15**: App Router with TypeScript and Tailwind CSS
-- **State Management**: React hooks with localStorage persistence  
-- **Component System**: Shadcn/UI with custom mobile-optimized components
-- **Responsive Design**: CSS Grid and Flexbox with mobile-first approach
+This application uses a unique and efficient architecture to solve common challenges in decentralized networks:
 
-### **Backend Integration**
-- **Cortensor API**: Direct integration with decentralized AI network
-- **Response Aggregation**: Intelligent filtering and selection of best responses
-- **Error Handling**: Comprehensive error management and fallback systems
-- **Rate Limiting**: Built-in request throttling and queue management
-
-### **Mobile Features**
-- **Keyboard Detection**: Advanced mobile keyboard state management
-- **Fixed Positioning**: Stable chat input without transform-based positioning
-- **Touch Optimization**: Enhanced touch targets and gesture handling
+1.  **Static Server Session**: The application utilizes a single, static `session_id` (defined in `.env.local`) for all communications with the Cortensor network. This eliminates the need for complex on-chain session creation for each user, making the app instantly available.
+2.  **Client-Side History Management**: All chat histories ("New Chat" instances) are managed as separate entries in the browser's `localStorage`. The "New Chat" button is a client-side only operation.
+3.  **Context Isolation at the Source**: To prevent context mixing, the frontend is responsible for sending **only the relevant message history** of the currently active chat to the backend. This ensures the AI's context is always clean and specific to the ongoing conversation.
 
 ## 📋 Prerequisites
-Before running this application, ensure you have:
 
-### **System Requirements**
-  * **Node.js 18+**: Latest LTS version recommended
-  * **pnpm**: Package manager (faster than npm/yarn)
-  * **Git**: For version control and repository management
+Before running this application, you must have access to a fully operational Cortensor backend infrastructure. The core requirements are:
 
-### **Cortensor Network Access**
-  * **Cortensor API Endpoint**: Access to Testnet or Devnet6
-  * **Session ID**: Valid session identifier for API calls
-  * **Network Configuration**: Proper environment variables setup
+  * A configured **Cortensor Node**
+  * **cortensord**: The Cortensor daemon service.
+  * A running **Router Node** that the web application can connect to.
 
-For Cortensor Network setup, follow the **[Official Documentation](https://docs.cortensor.network/)**.
+For complete, step-by-step instructions on setting up this backend, please follow the official **[Router Node Setup Guide](https://docs.cortensor.network/getting-started/installation-and-setup/router-node-setup)**.
 
 ## 🔧 Installation & Setup
 
-### **Quick Start**
+This project is located within the `Cortensor Community Projects` monorepo. Follow these steps to set it up.
 
-1.  **Clone the Repository**
+1.  **Clone the Main Repository**
+    Clone the central hub where all community projects reside.
+
     ```bash
     git clone https://github.com/cortensor/community-projects.git
-    cd community-projects/apps/eurekaai
+    cd community-projects
     ```
 
-2.  **Install Dependencies**
+2.  **Navigate to the Project Directory**
+    This web app is located in the `apps/` directory.
+
     ```bash
-    pnpm install
-    # or
-    npm install
+    cd apps/cortensor-chatweb-eureka
     ```
 
-3.  **Environment Configuration**
-    Create `.env.local` file in the root directory:
-    ```env
+3.  **Install Dependencies**
+    From the **root** of the `community-projects` monorepo, run the pnpm install command. This will install dependencies for all projects, including this one.
+
+    ```bash
+    # Run this from the root directory: /community-projects/apps/cortensor-chatweb-eureka
+    apt install npm
+    npm install -g pnpm
+    pnpm install --force
+    ```
+    
+4.  **Configure Environment Variables**
+    Create a file named `.env.local` in the root directory and populate it with your credentials.
+
+    ```ini
     # App Configuration
-    NEXT_PUBLIC_APP_NAME="Eureka AI"
-    NEXT_PUBLIC_APP_VERSION="1.0.0"
+    NEXT_PUBLIC_APP_NAME="Cortensor AI Chat"
+    NEXT_PUBLIC_APP_VERSION="1.1.0"
 
-    # Cortensor API Configuration (Replace with your actual server)
-    CORTENSOR_ROUTER_URL="http://your_cortensor_router_ip:5010"
-    NEXT_PUBLIC_CORTENSOR_COMPLETIONS_URL="http://your_cortensor_router_ip:5010/api/v1/completions"
+    # Cortensor API Configuration (ensure your router URL is correct)
+    CORTENSOR_ROUTER_URL="http://your_router_ip:5010"
+    CORTENSOR_API_KEY="your_api_key_here"
+    NEXT_PUBLIC_CORTENSOR_COMPLETIONS_URL="http://your_router_ip:5010/api/v1/completions"
 
-    # Session IDs (Configure based on your Cortensor setup)
-    NEXT_PUBLIC_LLM_SESSION_ID=1
-    NEXT_PUBLIC_DEEPSEEK_SESSION_ID=2
+  # Static Session IDs used by models
+  # Default Model (Llava 1.5) Session ID
+  NEXT_PUBLIC_LLAVA_SESSION_ID=5
+    
+  # Deepseek R1 Session ID
+  NEXT_PUBLIC_DEEPSEEK_SESSION_ID=6
 
+  # Llama 3.1 8B Q4 Session ID
+  NEXT_PUBLIC_LLAMA_SESSION_ID=7
+
+    # LLM Parameters
+    NEXT_PUBLIC_MAX_INPUT_LENGTH=
+    LLM_TIMEOUT=
+    LLM_MAX_TOKENS=
     ```
 
 ## 🚀 Usage
@@ -125,20 +119,12 @@ Once the configuration is complete, run the development server:
 pnpm dev
 ```
 
+The application will be available at [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000). Open it in your browser; a "New Chat" will be created automatically, and you can begin your conversation.
+
 ## 👤 Maintainer
 
   * **@beranalpagion** (Discord)
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-<div align="center">
-<strong>Built with ❤️ for the Cortensor Community</strong>
-</div>
+This project is licensed under the MIT License. See the `LICENSE` file for more details.

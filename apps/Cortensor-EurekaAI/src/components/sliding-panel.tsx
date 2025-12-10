@@ -19,6 +19,8 @@ interface SlidingPanelProps {
   isOpen: boolean
   onToggle: () => void
   isMobile: boolean
+  sortMode?: 'recent' | 'unread'
+  onSortChange?: (mode: 'recent' | 'unread') => void
 }
 
 export function SlidingPanel({
@@ -30,8 +32,33 @@ export function SlidingPanel({
   isOpen,
   onToggle,
   isMobile,
+  sortMode = 'recent',
+  onSortChange,
 }: SlidingPanelProps) {
   const sessionList = Array.isArray(sessions) ? sessions.slice().reverse() : [];
+
+  const formatTimeAgo = (d?: Date | string) => {
+    if (!d) return '';
+    const ts = new Date(d).getTime();
+    const diff = Date.now() - ts;
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    const days = Math.floor(hrs / 24);
+    return `${days}d ago`;
+  };
+
+  const estimateTokens = (session: ChatSession) => {
+    const text = (session.messages || []).map(m => m.content || '').join(' ');
+    const approxTokens = Math.ceil(text.length / 4); // rough heuristic
+    if (approxTokens < 1) return '';
+    if (approxTokens > 5000) return '>5k tok';
+    if (approxTokens > 2000) return '>2k tok';
+    if (approxTokens > 1000) return '>1k tok';
+    return `${approxTokens} tok`;
+  };
 
   return (
     <>
@@ -92,6 +119,17 @@ export function SlidingPanel({
                 </Badge>
               </div>
 
+              {onSortChange && (
+                <div className="flex items-center gap-1 mb-3">
+                  <Button size="xs" variant={sortMode === 'recent' ? 'default' : 'ghost'} className="h-7 px-2 text-xs" onClick={() => onSortChange('recent')}>
+                    Recent
+                  </Button>
+                  <Button size="xs" variant={sortMode === 'unread' ? 'default' : 'ghost'} className="h-7 px-2 text-xs" onClick={() => onSortChange('unread')}>
+                    Unread
+                  </Button>
+                </div>
+              )}
+
               <div className="space-y-1">
                 {sessionList.map((session) => (
                   <div
@@ -125,12 +163,23 @@ export function SlidingPanel({
                                 "text-xs px-1 py-0 h-4 font-normal shrink-0",
                                 session.selectedModel === 'deepseek-r1' 
                                   ? "bg-purple-100 border-purple-300 text-purple-700 dark:bg-purple-900/30 dark:border-purple-600 dark:text-purple-300"
-                                  : "bg-blue-100 border-blue-300 text-blue-700 dark:bg-blue-900/30 dark:border-blue-600 dark:text-blue-300"
+                                  : session.selectedModel === 'llama-3.1-8b-q4'
+                                    ? "bg-yellow-100 border-yellow-300 text-yellow-700 dark:bg-yellow-900/30 dark:border-yellow-600 dark:text-yellow-300"
+                                    : "bg-blue-100 border-blue-300 text-blue-700 dark:bg-blue-900/30 dark:border-blue-600 dark:text-blue-300"
                               )}
                             >
                               {session.selectedModel === 'deepseek-r1' ? 'R1' : 'L'}
                             </Badge>
                           )}
+                        </div>
+                        <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                          <span>{formatTimeAgo(session.updatedAt || session.createdAt)}</span>
+                          <span>•</span>
+                          <span>{estimateTokens(session)}</span>
+                          {session.messages?.length ? (<>
+                            <span>•</span>
+                            <span>{session.messages.length} msgs</span>
+                          </>) : null}
                         </div>
                       </div>
                       <Button
