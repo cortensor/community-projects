@@ -1,0 +1,9 @@
+- name: cortensor-claim-check
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-12-23
+  version: v1.0.0
+  tags: [next.js, typescript, ai, cortensor, web]
