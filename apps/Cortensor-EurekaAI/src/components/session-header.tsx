@@ -1,10 +1,10 @@
 "use client"
 
+import { Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { ChatExport } from "./chat-export"
 import { appConfig } from "@/lib/app-config"
 import type { ChatSession } from "@/lib/storage"
-import { IconTrash } from "./ui/icons" // Asumsi Anda punya file ini, jika tidak, hapus atau ganti
 
 interface SessionHeaderProps {
   currentSession: ChatSession | undefined
@@ -30,8 +30,7 @@ export function SessionHeader({
           size="icon"
           onClick={() => onDeleteSession(currentSession.id)}
         >
-          {/* Ganti dengan ikon yang benar jika IconTrash tidak ada */}
-          <Trash2 className="h-4 w-4" /> 
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
     </div>

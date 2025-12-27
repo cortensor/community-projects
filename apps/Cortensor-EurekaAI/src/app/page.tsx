@@ -38,7 +38,7 @@ function CortensorAIChatInner() {
   const { environment, setEnvironment } = useEnvironment();
   const { toast } = useToast();
   const [isMemoryMode, setIsMemoryMode] = useState(true);
-  const [selectedModel, setSelectedModelState] = useState('default-model');
+  const [selectedModel, setSelectedModelState] = useState('llama-3.1-8b-q4');
   const [isDeepThinking, setIsDeepThinking] = useState(false);
   const [isThinkingPhase, setIsThinkingPhase] = useState(false);
   const [pendingModelChange, setPendingModelChange] = useState<{
@@ -47,6 +47,7 @@ function CortensorAIChatInner() {
   } | null>(null);
   const [isModelChanging, setIsModelChanging] = useState(false);
   const [isConfirmingModelChange, setIsConfirmingModelChange] = useState(false);
+  const [sessionSort, setSessionSort] = useState<'recent' | 'unread'>('recent');
   const isMobile = useIsMobile();
 
   // Helper function to save current model sessions while preserving others
@@ -128,6 +129,15 @@ function CortensorAIChatInner() {
       if (!modelExists) {
         throw new Error(`Model ${modelId} not found in app config`);
       }
+
+      // Apply model presets (prompt, deep thinking, memory)
+      if (modelExists.preset) {
+        setIsDeepThinking(!!modelExists.preset.deepThinking);
+        setIsMemoryMode(modelExists.preset.memory !== false);
+        if (modelExists.preset.prompt && !input.trim()) {
+          setInput(modelExists.preset.prompt);
+        }
+      }
       
       // Safe model update with timeout protection
       const updateTimer = setTimeout(() => {
@@ -207,7 +217,7 @@ function CortensorAIChatInner() {
     // Show toast notification
     toast({
       title: "Environment Changed",
-      description: `Switched to ${newEnv === 'testnet' ? 'L3 Testnet' : 'Devnet6'}. Changes will apply to new messages.`,
+      description: `Switched to ${newEnv === 'testnet' ? 'Testnet0' : 'Devnet-7'}. Changes will apply to new messages.`,
       duration: 3000,
     });
   }, [setEnvironment, toast, environment]);
@@ -430,6 +440,19 @@ function CortensorAIChatInner() {
   }, [selectedModel, toast, saveModelSessions, generateUniqueId]);
 
   useEffect(() => {
+    // Log initial load/reload for visibility in console
+    try {
+      const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+      const navType = navEntry?.type || (performance as any).navigation?.type;
+      frontendLogger.info('Page load event', {
+        navType: typeof navType === 'number' ? navType : navType || 'unknown',
+        path: window.location.pathname,
+        search: window.location.search,
+      });
+    } catch (error) {
+      frontendLogger.warn('Navigation log failed', { error });
+    }
+
     const initializeApp = async () => {
       try {
         frontendLogger.info('Initializing application');
@@ -452,7 +475,7 @@ function CortensorAIChatInner() {
             needsMigration = true;
             return {
               ...session,
-              selectedModel: 'default-model' // Default to Llava 1.5
+              selectedModel: 'llama-3.1-8b-q4' // Default to Meta-Llama 3.1 8B Q4
             };
           }
           return session;
@@ -495,6 +518,14 @@ function CortensorAIChatInner() {
             activeSessionId: sessionToLoad.id,
             selectedModel: savedModel // Use user's selection, not session's model
           });
+          const currentModel = appConfig.chat.models.find(m => m.id === savedModel);
+          if (currentModel?.preset) {
+            setIsDeepThinking(!!currentModel.preset.deepThinking);
+            setIsMemoryMode(currentModel.preset.memory !== false);
+            if (currentModel.preset.prompt && !input.trim()) {
+              setInput(currentModel.preset.prompt);
+            }
+          }
         } else {
           frontendLogger.info('No existing sessions found, creating new chat');
           // Create new chat inline to avoid circular dependency
@@ -533,7 +564,7 @@ function CortensorAIChatInner() {
           cortensorSessionId: appConfig.chat.staticSessionId,
           title: "New Chat",
           messages: [],
-          selectedModel: 'default-model',
+          selectedModel: 'llama-3.1-8b-q4',
           createdAt: new Date(),
           updatedAt: new Date(),
         };
@@ -669,6 +700,9 @@ function CortensorAIChatInner() {
       const selectedModelData = appConfig.chat.models.find(m => m.id === selectedModel);
       const sessionId = selectedModelData?.sessionId || appConfig.chat.staticSessionId;
       
+      // Include latest user turn in history when memory mode is enabled
+      const historyToSend = enableMemory ? [...messages, userMessage] : [];
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -682,14 +716,89 @@ function CortensorAIChatInner() {
           model: selectedModel,
           isDeepThinking,
           showThinkingProcess: selectedModel.includes('deepseek-r1'), // Always true for DeepSeek
-          chatHistory: enableMemory ? messages : [],
-          environment: environment
+          chatHistory: historyToSend,
+          environment: environment,
+          // Stream for Llama, non-stream for others
+          nonStreaming: selectedModel === 'llama-3.1-8b-q4' ? false : true
         }),
       });
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`API request failed: ${response.status} ${response.statusText}. ${errorText}`);
+      }
+
+      // If API returns JSON (non-stream), parse once and finish
+      const contentType = response.headers.get('Content-Type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await response.json();
+        let contentText: string = (data?.content || data?.response || data?.text || '').toString();
+        let thinkingText: string | undefined = data?.thinkingContent;
+
+        // Summarize DeepSeek thinking in English for display
+        const summarizeThinking = (thinking: string, userMsg: string): string => {
+          const clean = (thinking || '').replace(/\s+/g, ' ').trim();
+          if (!clean) return '';
+          const um = (userMsg || '').trim();
+          const firstSentence = clean.split(/(?<=[.!?])\s+/)[0]?.slice(0, 160) || '';
+          const lc = clean.toLowerCase();
+          const bullets: string[] = [];
+          const ctxSnippet = (um || firstSentence).replace(/^[\u2212\-•\s]+/, '').slice(0, 160);
+          bullets.push('Thinking summary:');
+          bullets.push(`- Context: ${ctxSnippet}`);
+          if (/(step|plan|approach|strategy|first|second|third|1\.|2\.|3\.)/i.test(lc)) bullets.push('- Laying out a solution plan');
+          if (/(assumption|assume|if|suppose)/i.test(lc)) bullets.push('- Establishing key assumptions');
+          if (/(risk|edge\s*case|limitation|constraint|ambiguity)/i.test(lc)) bullets.push('- Considering risks and limitations');
+          if (/(check|validate|relevant|compare|verify|confirm)/i.test(lc)) bullets.push('- Validating relevance and consistency');
+          if (/(formula|compute|calculate|estimation|derivation|reasoning)/i.test(lc)) bullets.push('- Performing calculations/reasoning');
+        
+          const seen = new Set<string>();
+          const capped = bullets.filter(b => !seen.has(b) && (seen.add(b), true)).slice(0, 8);
+          return capped.join('\n');
+        };
+
+        if (selectedModel.includes('deepseek-r1') && thinkingText) {
+          thinkingText = summarizeThinking(thinkingText, trimmedMessage);
+        }
+
+        const assistantMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          content: contentText,
+          role: 'assistant',
+          timestamp: new Date(),
+          ...(thinkingText ? { thinkingContent: thinkingText } : {})
+        };
+
+        // Append assistant message
+        let finalMessages: ChatMessage[] = [];
+        setMessages(prev => {
+          const updated = [...prev, assistantMessage];
+          finalMessages = updated;
+          return updated;
+        });
+
+        // Update session storage
+        const currentSession = sessions.find(s => s.id === currentChatId);
+        const updatedSession: ChatSession = {
+          id: currentChatId,
+          cortensorSessionId: selectedModelData?.sessionId || appConfig.chat.staticSessionId,
+          title: userMessage.content.slice(0, 50) + "..." || "New Chat",
+          messages: finalMessages.filter(m => m.role === 'user' || m.role === 'assistant'),
+          selectedModel: currentSession?.selectedModel || selectedModel,
+          createdAt: currentSession?.createdAt || new Date(),
+          updatedAt: new Date(),
+        };
+
+        setSessions(prevSessions => {
+          const updatedSessions = prevSessions.map(s => s.id === currentChatId ? updatedSession : s);
+          saveModelSessions(updatedSessions);
+          return updatedSessions;
+        });
+        setAllSessions(prevAllSessions => prevAllSessions.map(s => s.id === currentChatId ? updatedSession : s));
+
+        setIsLoading(false);
+        setIsThinkingPhase(false);
+        return; // Exit early; non-stream path complete
       }
 
       // Handle streaming response with text extraction
@@ -728,6 +837,39 @@ function CortensorAIChatInner() {
       });
       
       try {
+        // Helper: Summarize DeepSeek thinking into readable English steps
+        const summarizeDeepSeekThinking = (thinking: string, userMessage: string): string => {
+          const clean = (thinking || '').replace(/\s+/g, ' ').trim();
+          if (!clean) return '';
+          const um = (userMessage || '').trim();
+          const firstSentence = clean.split(/(?<=[.!?])\s+/)[0]?.slice(0, 160) || '';
+          const lc = clean.toLowerCase();
+          const bullets: string[] = [];
+          const ctxSnippet = (um || firstSentence).replace(/^[-•\s]+/, '').slice(0, 160);
+          bullets.push(`Thinking summary:`);
+          bullets.push(`- Context: ${ctxSnippet}`);
+          if (/(step|plan|approach|strategy|first|second|third|1\.|2\.|3\.)/i.test(lc)) {
+            bullets.push('- Laying out a solution plan');
+          }
+          if (/(assumption|assume|if|suppose)/i.test(lc)) {
+            bullets.push('- Establishing key assumptions');
+          }
+          if (/(risk|edge\s*case|limitation|constraint|ambiguity)/i.test(lc)) {
+            bullets.push('- Considering risks and limitations');
+          }
+          if (/(check|validate|relevant|compare|verify|confirm)/i.test(lc)) {
+            bullets.push('- Validating relevance and consistency');
+          }
+          if (/(formula|compute|calculate|estimation|derivation|reasoning)/i.test(lc)) {
+            bullets.push('- Performing calculations/reasoning');
+          }
+          // Always conclude with formulating the answer
+          bullets.push('- Formulating a clear and concise answer');
+          // Deduplicate and cap
+          const seen = new Set<string>();
+          const capped = bullets.filter(b => !seen.has(b) && (seen.add(b), true)).slice(0, 6);
+          return `Thinking summary:\n- ${capped.join('\n- ')}`;
+        };
         while (true) {
           const { done, value } = await reader.read();
           
@@ -849,9 +991,18 @@ function CortensorAIChatInner() {
                       setIsThinkingPhase(false); // No explicit thinking, just show content
                     }
                     
-                    // Remove <think> opening tag from thinking content if present
+                    // Cleanup thinking content for proper display
                     if (thinkingContent) {
-                      thinkingContent = thinkingContent.replace(/^<think>\s*/, '');
+                      thinkingContent = thinkingContent
+                        .replace(/^<think>\s*/i, '')
+                        .replace(/<\|USER\|>|<\|ASSISTANT\|>/gi, '')
+                        .replace(/^\s*(user|assistant)\s*:\s*/gi, '')
+                        .replace(/<\|begin_of_text\|>|<\|end_of_text\|>|<\|eot_id\|>/gi, '')
+                        .replace(/<｜end▁of▁sentence｜>/g, '')
+                        .replace(/<\|end_of_sentence\|>/g, '')
+                        .trim();
+                      // Convert raw thinking into readable steps
+                      thinkingContent = summarizeDeepSeekThinking(thinkingContent, trimmedMessage);
                     }
                   }
                   
@@ -975,14 +1126,62 @@ function CortensorAIChatInner() {
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim()) {
+      frontendLogger.info('Submit triggered', {
+        chatId: currentChatId,
+        model: selectedModel,
+        environment,
+        length: input.trim().length
+      });
       sendMessage(input.trim());
     }
-  }, [input, sendMessage]);
+  }, [input, sendMessage, currentChatId, selectedModel, environment]);
+
+  const handleTemplateInsert = useCallback((text: string) => {
+    setInput(prev => prev ? `${prev}\n\n${text}` : text);
+  }, []);
+
+  const handleAttachContext = useCallback(async () => {
+    try {
+      if (!navigator.clipboard?.readText) {
+        toast({ title: "Clipboard unavailable", description: "Clipboard API not supported.", variant: "destructive" });
+        return;
+      }
+      const content = await navigator.clipboard.readText();
+      if (!content) {
+        toast({ title: "No clipboard content", description: "Clipboard is empty." });
+        return;
+      }
+      const template = `Please summarize this context:\n${content}\n\nKeep it concise.`;
+      setInput(template);
+      toast({ title: "Context attached", description: "Clipboard content pasted into input." });
+    } catch (error) {
+      frontendLogger.error('Attach context failed', { error });
+      toast({ title: "Attach failed", description: "Could not read clipboard.", variant: "destructive" });
+    }
+  }, [toast]);
 
   // Memoize deduplication to avoid running on every render
   const deduplicatedSessions = useMemo(() => {
-    return removeDuplicateSessions(allSessions);
-  }, [allSessions, removeDuplicateSessions]);
+    const cleaned = removeDuplicateSessions(allSessions);
+    if (sessionSort === 'recent') {
+      return cleaned.slice().sort((a, b) => {
+        const at = new Date(a.updatedAt || a.createdAt || 0).getTime();
+        const bt = new Date(b.updatedAt || b.createdAt || 0).getTime();
+        return bt - at;
+      });
+    }
+    // unread-first: sessions where last message is assistant (user has not replied) bubble to top
+    return cleaned.slice().sort((a, b) => {
+      const lastA = a.messages?.[a.messages.length - 1];
+      const lastB = b.messages?.[b.messages.length - 1];
+      const aScore = lastA?.role === 'assistant' ? 1 : 0;
+      const bScore = lastB?.role === 'assistant' ? 1 : 0;
+      if (aScore !== bScore) return bScore - aScore;
+      const at = new Date(a.updatedAt || a.createdAt || 0).getTime();
+      const bt = new Date(b.updatedAt || b.createdAt || 0).getTime();
+      return bt - at;
+    });
+  }, [allSessions, removeDuplicateSessions, sessionSort]);
 
   if (isPageLoading) {
     return <AppLoadingScreen />;
@@ -1002,6 +1201,8 @@ function CortensorAIChatInner() {
           isOpen={isPanelOpen}
           onToggle={() => setIsPanelOpen(!isPanelOpen)}
           isMobile={isMobile}
+          sortMode={sessionSort}
+          onSortChange={setSessionSort}
         />
 
         <div className="flex-1 flex flex-col min-w-0">
@@ -1018,6 +1219,7 @@ function CortensorAIChatInner() {
               isThinkingPhase={isThinkingPhase}
               environment={environment}
               onMemoryModeChange={setIsMemoryMode}
+              onPrefill={setInput}
             />
             
             {/* Add padding bottom to prevent content being hidden behind fixed ChatInput + Footer */}
@@ -1038,6 +1240,8 @@ function CortensorAIChatInner() {
           onMemoryModeChange={setIsMemoryMode}
           onInputChange={(e) => setInput(e.target.value)}
           onSubmit={handleSubmit}
+          onTemplateInsert={handleTemplateInsert}
+          onAttachContext={handleAttachContext}
           disabled={isLoading || !currentChatId}
         />
 

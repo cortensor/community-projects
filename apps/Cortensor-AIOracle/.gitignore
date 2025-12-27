@@ -26,6 +26,18 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# Local data and caches
+data/
+*.sqlite*
+*.db
+tmp/
+
+# Editors/IDE
+.vscode/
+.idea/
+.history
+.fleet/
+
 # OS
 .DS_Store
 Thumbs.db

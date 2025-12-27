@@ -12,7 +12,6 @@ import {
   Search, 
   Trash2, 
   ExternalLink, 
-  Calendar, 
   User, 
   FileText,
   RotateCcw,
@@ -171,7 +170,11 @@ export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: 
             ) : (
               <>
                 <AlertCircle className="h-8 w-8 mx-auto mb-3 opacity-50" />
-                <p>No summaries found matching "{searchQuery}"</p>
+                <p>
+                  No summaries found matching &ldquo;
+                  {searchQuery}
+                  &rdquo;
+                </p>
                 <Button
                   variant="link"
                   size="sm"

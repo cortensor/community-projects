@@ -17,7 +17,7 @@ interface EnvironmentProviderProps {
 }
 
 export function EnvironmentProvider({ children }: EnvironmentProviderProps) {
-  const [environment, setEnvironmentState] = useState<Environment>('devnet6')
+  const [environment, setEnvironmentState] = useState<Environment>('testnet')
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

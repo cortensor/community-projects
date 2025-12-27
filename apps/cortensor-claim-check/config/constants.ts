@@ -1,0 +1,5 @@
+export const CLAIM_CHECK_DEFAULTS = {
+  NUM_MINERS: 3,
+  MIN_MINERS: 1,
+  MAX_MINERS: 10,
+};

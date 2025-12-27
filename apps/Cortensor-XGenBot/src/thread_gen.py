@@ -4,6 +4,36 @@ from .cortensor_api import request_completion
 from . import config
 
 
+_IRRELEVANT_WORDS = {w.lower() for w in getattr(config, 'IRRELEVANT_WORDS', []) if w}
+
+
+def _filter_irrelevant_words(text: str) -> str:
+    if not text or not _IRRELEVANT_WORDS:
+        return text
+    tokens = re.split(r"(\s+)", text)
+    cleaned: list[str] = []
+    for token in tokens:
+        if not token:
+            continue
+        if token.isspace():
+            cleaned.append(token)
+            continue
+        normalized = re.sub(r"[^\w#]", "", token).lower().lstrip('#')
+        if normalized and normalized in _IRRELEVANT_WORDS:
+            continue
+        cleaned.append(token)
+    merged = "".join(cleaned)
+    merged = re.sub(r"\s{2,}", " ", merged).strip()
+    return merged
+
+
+def _finalize_line(text: str) -> str:
+    cleaned = _clean_line(text)
+    cleaned = _sanitize_text(cleaned)
+    cleaned = _filter_irrelevant_words(cleaned)
+    return cleaned
+
+
 def _length_target(length: str, n_posts: int) -> Tuple[int, str]:
     length = (length or 'medium').lower()
     if length == 'short':
@@ -117,35 +147,49 @@ def generate_thread(topic: str, n_posts: int, tone: str | None, hashtags: str, i
     n = max(2, min(25, int(n_posts or 6)))
     target, _ = _length_target(length, n)
     tone = tone or config.DEFAULT_TONE
-    extra = (f"\nGuidance: {instructions.strip()}" if instructions else '')
     role_pattern = (config.THREAD_ROLE_PATTERN or '')
     roles: list[str] = []
     if role_pattern:
         roles = [r.strip() for r in role_pattern.split(',') if r.strip()]
-    role_lines = ''
+    role_section = ''
     if roles:
         role_map = []
         for i in range(n):
             role = roles[(offset + i) % len(roles)]
-            role_map.append(f"Post {i+1}: {role}")
-        role_lines = "Roles:\n" + "\n".join(role_map) + "\n"
+            role_map.append(f"- Post {i+1}: {role}")
+        role_section = "Role focus per post:\n" + "\n".join(role_map)
+    guidance_section = ''
+    if instructions:
+        guidance_section = "Additional guidance:\n" + instructions.strip()
 
-    numbering_clause = "No explicit numbering like 1/5." if config.THREAD_ENUM_FORMAT == 'none' else "Number each line implicitly only if needed for clarity."
-    prompt = (
-        "Create a social thread for X/Twitter.\n"
-        "- Language: English.\n"
-        "- Number of posts: {n}.\n"
-        "- Tone: {tone}.\n"
-        f"- {numbering_clause}\n"
-        "- Each line is a separate post.\n"
-        f"- Keep each line around {{target}} characters, max {config.TWEET_CHAR_LIMIT}.\n"
-        "- No hashtags except possibly at the end of the last line.\n"
-        "- Do NOT include UI words like More, Less, Edit, Delete, Note, Cancel, Final, Submit, Revert, Done, Yes, No.\n"
-        "- Do NOT include phrases like 'The final output is', 'Output is ready', or any meta commentary.\n"
-        + (role_lines if role_lines else "")
-        + "Topic: {topic}{extra}\n"
-        + "Return exactly {n} lines."
-    ).format(n=n, tone=tone, target=target, topic=topic.strip(), extra=extra)
+    numbering_clause = "Never prepend ratios like 1/5 or (1)." if config.THREAD_ENUM_FORMAT == 'none' else "Use light, natural sequencing only when it reads organically; avoid '1/5' style counters."
+    prompt_parts = [
+        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a senior social strategist.",
+        "Goal: craft a native X/Twitter thread that feels insightful and concise.",
+        "",
+        "Thread requirements:",
+        f"- Posts: {n}.",
+        f"- Tone: {tone}.",
+        "- Language: English.",
+        f"- Keep each post near {target} characters (hard max {config.TWEET_CHAR_LIMIT}).",
+        "- Each line must read as its own post—no combined paragraphs.",
+        f"- {numbering_clause}",
+        "- Avoid UI/control words (More, Edit, Delete, Final, Submit, Revert, Cancel, Done).",
+        "- Never include meta narration such as 'The final output is' or 'Output is ready'.",
+        "- No hashtags except optionally inside the final post.",
+        "",
+        "Topic:",
+        topic.strip(),
+    ]
+    if role_section:
+        prompt_parts.extend(["", role_section])
+    if guidance_section:
+        prompt_parts.extend(["", guidance_section])
+    prompt_parts.extend([
+        "",
+        f"Deliverable:\nReturn exactly {n} separate lines, each representing one post with no extra commentary.",
+    ])
+    prompt = "\n".join(part for part in prompt_parts if part is not None)
     raw = _extract_text(request_completion(prompt, config.MODEL_PROVIDER, config.MODEL_NAME))
     raw = _strip_think(raw)
     # Split raw output into non-empty lines
@@ -160,13 +204,13 @@ def generate_thread(topic: str, n_posts: int, tone: str | None, hashtags: str, i
     if len(lines) < n:
         lines += [''] * (n - len(lines))
     lines = lines[:n]
-    lines = [_sanitize_text(_clean_line(l)) for l in lines]
+    lines = [_finalize_line(l) for l in lines]
     # Append hashtags to final line if provided and room
     if hashtags:
         last = lines[-1]
         suffix = ' ' + hashtags.strip()
         if len(last) + len(suffix) <= config.TWEET_CHAR_LIMIT:
-            lines[-1] = _sanitize_text((last + suffix).strip())
+            lines[-1] = _finalize_line((last + suffix).strip())
     return lines
 
 
@@ -202,23 +246,28 @@ def format_thread_preview(posts: List[str]) -> List[str]:
 def generate_tweet(topic: str, tone: str | None, length: str, hashtags: str) -> str:
     target, _ = _length_target(length, 1)
     tone = tone or config.DEFAULT_TONE
-    prompt = (
-        "Create one high-quality X/Twitter post (single tweet).\n"
-        "- Language: English.\n"
-        "- Tone: {tone}.\n"
-        f"- Keep around {{target}} characters (hard max {config.TWEET_CHAR_LIMIT}).\n"
-        "- Output EXACTLY one tweet.\n"
-        "- Do NOT wrap the tweet in quotes.\n"
-        "- Do NOT output multiple sentences separated by standalone quotes.\n"
-        "- Avoid generic hype or filler.\n"
-        "- Do NOT include UI/control words (More, Edit, Delete, Final, Submit, Revert, Cancel, Done).\n"
-        "- No meta phrases like 'The final output is' or 'Output is ready'.\n"
-        "Topic: {topic}\n"
-        "Return only the tweet text with no explanations."
-    ).format(tone=tone, target=target, topic=topic.strip())
+    prompt_parts = [
+        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a senior X/Twitter copywriter.",
+        "Task: craft exactly one scroll-stopping tweet for the topic below.",
+        "",
+        "Tweet requirements:",
+        f"- Tone: {tone}.",
+        "- Language: English.",
+        f"- Aim for ~{target} characters and never exceed {config.TWEET_CHAR_LIMIT} characters.",
+        "- Deliver a single cohesive tweet—no quoted blocks or numbered lists.",
+        "- Avoid filler, generic hype, or trailing hashtags unless provided separately.",
+        "- Do not include UI/control words (More, Edit, Delete, Final, Submit, Revert, Cancel, Done).",
+        "- Remove any meta narration such as 'The final output is' or 'Output is ready'.",
+        "",
+        "Topic:",
+        topic.strip(),
+        "",
+        "Deliverable: Return only the tweet text with no explanations or markup.",
+    ]
+    prompt = "\n".join(prompt_parts)
     raw = _extract_text(request_completion(prompt, config.MODEL_PROVIDER, config.MODEL_NAME))
     raw = _strip_think(raw)
-    out = _sanitize_text(_clean_line(raw))
+    out = _finalize_line(raw)
     # If model still dumps multiple quoted sentences, keep first 2 concise sentences.
     sentences = re.split(r"(?<=[.!?])\s+", out)
     if len(sentences) > 2:
@@ -229,27 +278,41 @@ def generate_tweet(topic: str, tone: str | None, length: str, hashtags: str) -> 
             if second and len(combined) + 1 + len(second) <= config.TWEET_CHAR_LIMIT:
                 combined = f"{combined} {second}"
         out = combined
+    out = _finalize_line(out)
     if hashtags:
         if len(out) + 1 + len(hashtags) <= config.TWEET_CHAR_LIMIT:
-            out = _sanitize_text((out + ' ' + hashtags).strip())
+            out = _finalize_line((out + ' ' + hashtags).strip())
     return out
 
 
 def generate_reply(context_text: str, tone: str | None, length: str, instructions: str) -> str:
     target, _ = _length_target(length, 1)
     tone = tone or config.DEFAULT_TONE
-    extra = (f"\nGuidance: {instructions.strip()}" if instructions else '')
-    prompt = (
-        "Write a reply to the following X/Twitter post.\n"
-        "- Language: English.\n"
-        "- Tone: {tone}.\n"
-        f"- Keep around {{target}} characters, max {config.TWEET_CHAR_LIMIT}.\n"
-        "- No numbering.\n"
-        "- Avoid UI/control words (More, Edit, Delete, Final, Submit, Revert, Cancel, Done).\n"
-        "- No meta phrases like 'The final output is' or 'Output is ready'.\n"
-        "Context:\n{ctx}{extra}\n"
-        "Return only the reply text."
-    ).format(tone=tone, target=target, ctx=context_text.strip(), extra=extra)
+    guidance_section = ''
+    if instructions:
+        guidance_section = "Additional guidance:\n" + instructions.strip()
+    prompt_parts = [
+        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a thoughtful X/Twitter responder.",
+        "Task: write one native reply to the post below.",
+        "",
+        "Reply requirements:",
+        f"- Tone: {tone}.",
+        "- Language: English.",
+        f"- Aim for ~{target} characters and never exceed {config.TWEET_CHAR_LIMIT} characters.",
+        "- No numbering, no greetings, and no closing signatures.",
+        "- Avoid UI/control words (More, Edit, Delete, Final, Submit, Revert, Cancel, Done).",
+        "- Remove any meta narration or chain-of-thought markers.",
+        "",
+        "Context:",
+        context_text.strip(),
+    ]
+    if guidance_section:
+        prompt_parts.extend(["", guidance_section])
+    prompt_parts.extend([
+        "",
+        "Deliverable: Return only the reply text with no explanations.",
+    ])
+    prompt = "\n".join(prompt_parts)
     raw = _extract_text(request_completion(prompt, config.MODEL_PROVIDER, config.MODEL_NAME))
     raw = _strip_think(raw)
-    return _sanitize_text(_clean_line(raw))
+    return _finalize_line(raw)

@@ -3,10 +3,33 @@ import re
 import json
 import logging
 import requests
+from urllib.parse import urlsplit, urlunsplit
 from typing import Dict, Any
 from . import config
 
 logger = logging.getLogger(__name__)
+
+
+def _mask_sensitive_text(text: str) -> str:
+    if not text:
+        return ''
+    masked = re.sub(r"(?:\d{1,3}\.){3}\d{1,3}", '<redacted-ip>', text)
+    masked = re.sub(r"host='[^']+'", "host='<hidden>'", masked)
+    return masked
+
+
+def _mask_url_for_log(raw_url: str) -> str:
+    if not raw_url:
+        return '<unknown>'
+    try:
+        parts = urlsplit(raw_url)
+        netloc = parts.netloc
+        netloc = re.sub(r"^[^@]+@", '***@', netloc)
+        netloc = re.sub(r"(?:\d{1,3}\.){3}\d{1,3}", '<redacted-ip>', netloc)
+        sanitized = parts._replace(netloc=netloc)
+        return urlunsplit(sanitized)
+    except Exception:
+        return '<redacted>'
 
 
 def _build_endpoint(base_url: str) -> str:
@@ -127,10 +150,15 @@ def request_completion(prompt: str, provider: str | None = None, model: str | No
         if isinstance(data, dict):
             text = data.get('output') or data.get('text') or ''
         return {'choices': [{'text': text}]}
+    except requests.exceptions.Timeout as e:
+        safe_url = _mask_url_for_log(url)
+        logger.error('Cortensor request timed out for %s: %s', safe_url, _mask_sensitive_text(str(e)))
+        raise RuntimeError('Cortensor request timed out. Please try again.') from e
+    except requests.exceptions.RequestException as e:
+        safe_url = _mask_url_for_log(url)
+        logger.error('Cortensor request failed for %s: %s', safe_url, _mask_sensitive_text(str(e)))
+        raise RuntimeError('Unable to reach the Cortensor service. Please try again later.') from e
     except Exception as e:
-        # Sanitize URL for logs: drop scheme, strip query, and mask any userinfo
-        safe_url = url.split('://', 1)[-1]
-        safe_url = safe_url.split('?', 1)[0]
-        safe_url = re.sub(r'^[^@]+@', '***@', safe_url)
-        logger.error('Cortensor request failed: %s to %s', e, safe_url)
-        raise
+        safe_url = _mask_url_for_log(url)
+        logger.error('Unexpected Cortensor error at %s: %s', safe_url, _mask_sensitive_text(str(e)))
+        raise RuntimeError('Generation failed unexpectedly. Please retry.') from e

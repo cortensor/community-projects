@@ -1,0 +1,101 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env.*
+!.env.example
+.envrc
+.envrc.*
+
+# secrets / certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.pfx
+*.p12
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local databases & caches
+.data/
+/data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.realm
+
+# framework caches
+.next/cache
+.turbo/
+.cache/
+.swc/
+dist/
+
+# misc generated assets
+logs/
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.tgz
+*.orig
+
+# local tooling
+solrc/
+.idea/
+.vscode/
+*.code-workspace
+
+# Test files
+test-*.js
+debug-*.js
+analyze-*.js
+
+# Deployment files
+deploy-*/
+deploy-*.tar.gz
+deploy.sh
+manual-deploy.sh
+upload.sh
+setup-ssl.sh
+ecosystem.config.js
+nginx.conf
+nginx-dev.conf

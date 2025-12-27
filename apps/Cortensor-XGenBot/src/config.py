@@ -58,5 +58,9 @@ THREAD_ENUM_FORMAT = (os.getenv('THREAD_ENUM_FORMAT') or 'fraction').strip().low
 # If true, send thread preview as multiple Telegram messages (one per post) to avoid single-message length limits.
 THREAD_SPLIT_SEND = (os.getenv('THREAD_SPLIT_SEND', 'false').lower() in ('1','true','yes','on'))
 
+# Optional comma or newline separated list of words to strip from generated copy.
+_irrelevant_raw = (os.getenv('IRRELEVANT_WORDS') or '').replace('\n', ',')
+IRRELEVANT_WORDS = [w.strip().lower() for w in _irrelevant_raw.split(',') if w.strip()]
+
 if CORTENSOR_TLS_INSECURE:
     logger.getChild('config').warning('CORTENSOR_TLS_INSECURE is enabled. SSL certificate verification is DISABLED for Cortensor requests.')

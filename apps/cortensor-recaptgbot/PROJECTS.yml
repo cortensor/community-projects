@@ -1,0 +1,9 @@
+- name: Cortensor-RecapTGBot
+  category: apps
+  owner: "@beranalpa"
+  collaborators:
+    - "@beranalpa"
+  status: active
+  created: 2025-12-14
+  version: v1.0.0
+  tags: [python, telegram, bot, cortensor, ai, twitter]

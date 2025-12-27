@@ -1,9 +1,9 @@
-- name: cortensor-eureka-ai
+- name: cortensor-ai-chat
   category: apps
   owner: "@beranalpa"
   collaborators:
     - "@beranalpa"
   status: active
-  created: 2025-08-08
-  version: v1.2.0
+  created: 2025-07-10
+  version: v1.1.0
   tags: [nextjs, react, typescript, tailwindcss, shadcn-ui, cortensor, web-app]

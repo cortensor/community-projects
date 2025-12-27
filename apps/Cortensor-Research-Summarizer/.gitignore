@@ -9,6 +9,8 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/.turbo
+/.cache
 
 # testing
 /coverage
@@ -23,6 +25,29 @@
 # misc
 .DS_Store
 *.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.cer
+*.crt
+*.csr
+*.der
+*.jks
+*.keystore
+.npmrc
+.yarnrc*
+*.pid
+*.pid.lock
+*.log
+*.sqlite*
+tmp/
+logs/
+*.swp
+*.swo
+*.bak
+*.orig
+.envrc
 
 # debug
 npm-debug.log*
@@ -33,6 +58,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.*
 
 # vercel
 .vercel

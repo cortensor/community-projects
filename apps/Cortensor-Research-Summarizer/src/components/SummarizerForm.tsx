@@ -10,7 +10,8 @@ import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { HistoryService, HistoryItem } from '@/lib/historyService';
 import { HistoryPanel } from '@/components/HistoryPanel';
-import { 
+import { NewsPanel } from '@/components/NewsPanel';
+import {
   Loader2, 
   ExternalLink, 
   Globe, 
@@ -29,8 +30,10 @@ import {
   Brain,
   Lightbulb,
   History,
-  PanelRightOpen,
-  PanelRightClose
+  PanelRightClose,
+  Scissors,
+  Minimize2,
+  Newspaper
 } from 'lucide-react';
 
 interface SummaryResult {
@@ -46,6 +49,11 @@ interface SummaryResult {
   keyPoints: string[];
   wordCount: number;
   wasEnriched?: boolean;
+  needsEnrichment?: boolean;
+  contentTruncated?: boolean;
+  originalContentLength?: number;
+  submittedContentLength?: number;
+  compressionMethod?: 'pass-through' | 'extractive-summary' | 'truncate';
 }
 
 interface LoadingStep {
@@ -57,13 +65,43 @@ interface LoadingStep {
   duration?: string;
 }
 
+const USER_ID_STORAGE_KEY = 'research-summarizer:user-id';
+
+const generateUserId = (): string => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID().replace(/-/g, '').slice(0, 12);
+  }
+  return Math.random().toString(36).slice(2, 14);
+};
+
+const getOrCreateUserId = (): string | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  try {
+    const existing = window.localStorage.getItem(USER_ID_STORAGE_KEY);
+    if (existing && existing.trim().length > 0) {
+      return existing;
+    }
+    const newId = generateUserId();
+    window.localStorage.setItem(USER_ID_STORAGE_KEY, newId);
+    return newId;
+  } catch (error) {
+    console.error('User ID initialization failed:', error);
+    return null;
+  }
+};
+
 export default function SummarizerForm() {
+  const [userId, setUserId] = useState<string | null>(null);
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<SummaryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-  const [showHistory, setShowHistory] = useState(false);
+  const [showSidePanel, setShowSidePanel] = useState(true);
+  const [showHistoryPanel, setShowHistoryPanel] = useState(true);
+  const [showNewsPanel, setShowNewsPanel] = useState(true);
   const [historyCount, setHistoryCount] = useState(0);
 
   // Handle history changes
@@ -74,6 +112,10 @@ export default function SummarizerForm() {
   // Load history count on component mount
   useEffect(() => {
     handleHistoryChange();
+    const initializedId = getOrCreateUserId();
+    if (initializedId) {
+      setUserId(initializedId);
+    }
   }, []);
 
   // Save result to history using HistoryService
@@ -281,6 +323,15 @@ export default function SummarizerForm() {
     e.preventDefault();
     if (!url.trim()) return;
 
+    const activeUserId = userId ?? getOrCreateUserId();
+    if (!activeUserId) {
+      setError('Unable to initialize your session. Please refresh and try again.');
+      return;
+    }
+    if (activeUserId !== userId) {
+      setUserId(activeUserId);
+    }
+
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -312,7 +363,7 @@ export default function SummarizerForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, userId: activeUserId }),
       });
 
       if (!response.ok) {
@@ -422,7 +473,12 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
 
   return (
     <div className="min-h-screen w-full">
-      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 md:space-y-8">
+      <div className="relative max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 md:space-y-8">
+        <div className="absolute right-3 top-3 sm:right-4 sm:top-4">
+          <Badge variant="outline" className="text-[10px] sm:text-xs md:text-sm font-mono tracking-tight px-2 py-1">
+            {`User ID: ${userId ?? 'initializing...'}`}
+          </Badge>
+        </div>
         {/* Header */}
         <div className="text-center space-y-3 sm:space-y-4">
           <div className="flex items-center justify-center space-x-2">
@@ -436,22 +492,32 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
             comprehensive, professional summaries with automatic quality enhancement.
           </p>
           
-          {/* History Toggle Button */}
+          {/* Side Panel Toggle */}
           <div className="flex justify-center">
             <Button
               variant="outline"
-              onClick={() => setShowHistory(!showHistory)}
+              onClick={() => {
+                if (showSidePanel) {
+                  setShowSidePanel(false);
+                } else {
+                  if (!showHistoryPanel && !showNewsPanel) {
+                    setShowHistoryPanel(true);
+                    setShowNewsPanel(true);
+                  }
+                  setShowSidePanel(true);
+                }
+              }}
               className="flex items-center space-x-2 text-sm hover:bg-blue-50 transition-colors"
             >
-              {showHistory ? (
+              {showSidePanel ? (
                 <>
                   <PanelRightClose className="h-4 w-4" />
-                  <span>Hide History</span>
+                  <span>Hide Side Panel</span>
                 </>
               ) : (
                 <>
                   <History className="h-4 w-4" />
-                  <span>Show Recent Summaries</span>
+                  <span>Show Side Panel</span>
                   {historyCount > 0 && (
                     <Badge variant="secondary" className="ml-1 text-xs">
                       {historyCount}
@@ -466,12 +532,12 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
         {/* Main Content */}
         <div className={cn(
           "grid gap-6 transition-all duration-300",
-          showHistory ? "grid-cols-1 lg:grid-cols-3" : "grid-cols-1"
+          showSidePanel && (showHistoryPanel || showNewsPanel) ? "grid-cols-1 lg:grid-cols-3" : "grid-cols-1"
         )}>
           {/* Main Column - Form and Results */}
           <div className={cn(
             "space-y-6",
-            showHistory ? "lg:col-span-2" : "max-w-4xl mx-auto w-full"
+            showSidePanel && (showHistoryPanel || showNewsPanel) ? "lg:col-span-2" : "max-w-4xl mx-auto w-full"
           )}>
             {/* Input Form */}
             <Card className="border-2 shadow-lg">
@@ -678,7 +744,28 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
                     Enhanced with additional sources
                   </Badge>
                 )}
+                {result.contentTruncated && (
+                  <Badge
+                    variant="outline"
+                    className="text-xs border-orange-400 text-orange-700 bg-orange-50 flex items-center"
+                  >
+                    {result.compressionMethod === 'extractive-summary' ? (
+                      <Minimize2 className="h-3 w-3 mr-1" />
+                    ) : (
+                      <Scissors className="h-3 w-3 mr-1" />
+                    )}
+                    {result.compressionMethod === 'extractive-summary'
+                      ? 'Source compressed to fit model context limit'
+                      : 'Source truncated to fit model context limit'}
+                  </Badge>
+                )}
               </div>
+              {result.contentTruncated && (
+                <p className="text-xs text-orange-700 mt-2">
+                  Submitted {result.submittedContentLength ?? 0} of {result.originalContentLength ?? 0} characters after
+                  {result.compressionMethod === 'extractive-summary' ? ' compression' : ' truncation'} to honor the Cortensor context window.
+                </p>
+              )}
             </CardContent>
           </Card>
 
@@ -741,15 +828,56 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
       )}
           </div>
 
-          {/* History Panel - Conditional */}
-          {showHistory && (
+          {/* Side Panel - Conditional */}
+          {showSidePanel && (showHistoryPanel || showNewsPanel) && (
             <div className="lg:col-span-1">
-              <div className="sticky top-6">
-                <HistoryPanel 
-                  onLoadHistoryItem={loadFromHistory}
-                  onHistoryChange={handleHistoryChange}
-                  className="shadow-lg"
-                />
+              <div className="sticky top-6 space-y-4">
+                <div className="flex gap-2">
+                  <Button
+                    variant={showHistoryPanel ? "default" : "outline"}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setShowHistoryPanel((v) => {
+                      const next = !v;
+                      if (!next && !showNewsPanel) setShowNewsPanel(true);
+                      return next;
+                    })}
+                  >
+                    <History className="h-4 w-4 mr-2" />
+                    History
+                  </Button>
+                  <Button
+                    variant={showNewsPanel ? "default" : "outline"}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setShowNewsPanel((v) => {
+                      const next = !v;
+                      if (!next && !showHistoryPanel) setShowHistoryPanel(true);
+                      return next;
+                    })}
+                  >
+                    <Newspaper className="h-4 w-4 mr-2" />
+                    News
+                  </Button>
+                </div>
+
+                {showHistoryPanel && (
+                  <HistoryPanel 
+                    onLoadHistoryItem={loadFromHistory}
+                    onHistoryChange={handleHistoryChange}
+                    className="shadow-lg"
+                  />
+                )}
+
+                {showNewsPanel && (
+                  <NewsPanel className="shadow-lg" />
+                )}
+
+                {!showHistoryPanel && !showNewsPanel && (
+                  <div className="p-4 rounded border text-sm text-muted-foreground bg-muted/40">
+                    Pilih panel yang ingin ditampilkan.
+                  </div>
+                )}
               </div>
             </div>
           )}

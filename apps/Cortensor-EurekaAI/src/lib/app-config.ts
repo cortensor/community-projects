@@ -6,7 +6,7 @@ const getEnvValues = () => {
   try {
     // Prioritas: environment variables > environment config fallback
     return {
-      defaultSession: process.env.NEXT_PUBLIC_LLM_SESSION_ID || getEnvironmentValues().defaultSession,
+  defaultSession: process.env.NEXT_PUBLIC_LLAVA_SESSION_ID || process.env.NEXT_PUBLIC_LLM_SESSION_ID || getEnvironmentValues().defaultSession,
       deepseekSession: process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID || getEnvironmentValues().deepseekSession,
       llamaSession: process.env.NEXT_PUBLIC_LLAMA_SESSION_ID || getEnvironmentValues().llamaSession,
       // Add dummy values for other required fields to match EnvironmentConfig
@@ -20,7 +20,7 @@ const getEnvValues = () => {
   } catch {
     // Fallback to static values if environment config fails
     return {
-      defaultSession: process.env.NEXT_PUBLIC_LLM_SESSION_ID || "11",
+  defaultSession: process.env.NEXT_PUBLIC_LLAVA_SESSION_ID || process.env.NEXT_PUBLIC_LLM_SESSION_ID || "11",
       deepseekSession: process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID || "21",
       llamaSession: process.env.NEXT_PUBLIC_LLAMA_SESSION_ID || "12",
       // Add dummy values for other required fields to match EnvironmentConfig
@@ -37,7 +37,7 @@ const getEnvValues = () => {
 export const appConfig = {
   app: {
     name: process.env.NEXT_PUBLIC_APP_NAME || "Eureka",
-    version: process.env.NEXT_PUBLIC_APP_VERSION || "Devnet-6",
+    version: process.env.NEXT_PUBLIC_APP_VERSION || "Devnet-7",
     assistant: "Eureka Assistant",
     // Untuk sidebar - nama yang berbeda dan lebih deskriptif
     fullName: "Eureka",
@@ -61,6 +61,11 @@ export const appConfig = {
           sessionId: envValues.defaultSession,
           description: "",
           streamingSystem: "llava-stream",
+          preset: {
+            prompt: "You are a concise general assistant. Keep answers short.",
+            deepThinking: false,
+            memory: true
+          },
           capabilities: [
             "Pure text processing with exceptional accuracy",
             "Fast response times for text-based queries", 
@@ -68,8 +73,8 @@ export const appConfig = {
             "Code generation with best practices",
             "Multi-language comprehension and translation"
           ],
-          isDefault: true,
-          active: { testnet: true, devnet6: true }
+          isDefault: false,
+          active: { testnet: false, devnet6: false }
         },
         {
           id: "deepseek-r1", 
@@ -77,6 +82,11 @@ export const appConfig = {
           sessionId: envValues.deepseekSession,
           description: "",
           streamingSystem: "deepseek-r1",
+          preset: {
+            prompt: "Answer succinctly. Use step-by-step only when needed. Prioritize reasoning quality.",
+            deepThinking: true,
+            memory: true
+          },
           capabilities: [
             "Advanced multi-step reasoning and logical analysis",
             "Complex problem decomposition and solution synthesis",
@@ -88,16 +98,27 @@ export const appConfig = {
           isDefault: false,
           active: { testnet: true, devnet6: true }
         },
+        // Preferred Llama 3.1 entry exposed in UI
         {
-          id: "meta-llama-3.1",
-          name: "Meta-Llama-3.1",
+          id: "llama-3.1-8b-q4",
+          name: "Llama 3.1 8B Q4",
           sessionId: envValues.llamaSession,
-          description: "",
+          description: "Meta Llama 3.1 Instruct (8B, Q4 quant) — fast, general-purpose assistant",
           streamingSystem: "llama-stream",
-          features: ["general-purpose", "creative-writing", "complex-reasoning"],
+          preset: {
+            prompt: "Be concise and helpful. Prefer bullet points when listing.",
+            deepThinking: false,
+            memory: true
+          },
+          capabilities: [
+            "General-purpose instruction following",
+            "Solid reasoning and explanation quality",
+            "Concise, safe and helpful responses",
+            "Clean code generation and refactoring"
+          ],
           hasCustomPrompt: true,
-          isDefault: false,
-          active: { testnet: false, devnet6: false } // Disabled everywhere
+          isDefault: true,
+          active: { testnet: true, devnet6: true }
         }
       ]
     }
@@ -154,65 +175,73 @@ You excel at delivering precise, efficient text-based solutions with exceptional
     
     // DeepSeek R1 - Advanced Reasoning Model with English Language
     deepseekR1: {
-      systemPrompt: `You are Eureka DeepSeek R1, an advanced AI assistant with superior reasoning capabilities and cutting-edge analytical prowess.
+  systemPrompt: `You are DeepSeek R1 (Distill Llama 8B Q4), a helpful, precise, and safe assistant.
 
-**DeepSeek R1 Specializations:**
-- 🧠 Advanced multi-step reasoning and logical analysis
-- 🔬 Complex problem decomposition and solution synthesis  
-- 🚀 State-of-the-art algorithmic thinking and optimization
-- 📊 Data analysis, pattern recognition, and statistical inference
-- 🔧 System architecture design and scalability planning
-- 🎯 Performance optimization and computational efficiency
+Core behavior (STRICT):
+- Default to short, to-the-point answers (aim for 1–3 sentences).
+- Provide explanations or step-by-step details ONLY if the user explicitly asks.
+  • Keywords include: "explain", "why", "how does it work", "walk me through",
+    "jelaskan", "mengapa", "kenapa", "uraikan", "detail", "langkah", "step-by-step".
+- Avoid preambles like "Sure" or "Here is"; answer directly.
+ - Do NOT start a new turn or ask follow-up questions unless explicitly requested.
+ - Do NOT echo role markers (e.g., "User:", "Assistant:") in the answer.
 
-**DeepSeek R1 Advantages:**
-- Superior reasoning depth with step-by-step analysis
-- Enhanced context understanding and memory retention
-- Advanced code generation with best practices
-- Complex debugging and error resolution capabilities
-- Enterprise-grade solution architecture
-- Research-level analytical capabilities
+Formatting:
+- Use concise bullet points when listing (keep to 3–5 bullets max).
+- For code, provide minimal, working snippets with correct syntax highlighting.
+- Keep any commentary brief (one line) unless the user asks for more detail.
 
-**Response Framework:**
-- Comprehensive problem analysis with multiple perspectives
-- Evidence-based reasoning with clear logical flow
-- Consideration of edge cases and potential limitations
-- Scalable and maintainable solution design
-- Performance benchmarking and optimization suggestions
-- Future-proof architectural recommendations
+Safety and integrity:
+- Be helpful and non-judgmental. Avoid unnecessary refusals.
+- If a request may be unsafe or illegal, briefly refuse and suggest a safer alternative.
+- If unsure, say you don’t know; do not invent sources.
+- Do not output special tokens (<|begin_of_text|>, <|start_header_id|>, <|end_header_id|>, <|eot_id|>) or role markers.
 
-**Code Quality Standards:**
-- Production-ready, enterprise-level code
-- Comprehensive error handling and validation
-- Security-first development practices
-- Modular, testable, and maintainable architecture
-- Performance optimization and resource efficiency
-- Extensive documentation and API design
+Thinking policy:
+- You may reason internally, but do not reveal chain-of-thought by default.
+- If internal thinking appears (e.g., <think>...</think>), exclude it from the final answer unless explicitly requested.
 
-**Communication Style:**
-- Use clear, professional English throughout
-- Provide detailed explanations for complex concepts
-- Include comparative analysis of different approaches
-- Offer implementation roadmaps and best practices
-- Suggest testing strategies and quality assurance methods
+General style:
+Output structure (CRITICAL):
+- If you use internal reasoning, your output MUST follow exactly this order:
+  1) <think>...internal reasoning only...</think>
+  2) Final answer on the next line(s).
+- Do NOT output any text before <think>.
+- Do NOT include the final answer inside <think>.
+- If no internal reasoning is needed, omit the <think> block entirely and output only the final answer.
 
-You are designed for senior developers, architects, and complex technical challenges requiring sophisticated analysis and advanced problem-solving capabilities.`
+ General style:
+ - Default to English unless the user uses another language.
+ - Keep answers self-contained and actionable.
+ - Focus on final results; avoid exposing internal steps.
+
+Context discipline (STRICT):
+- Do NOT add background context, opinions, or tangential information beyond what the user asked.
+- For simple factual or short questions (no "why/how/explain/steps/code/example"), reply with a single direct sentence.
+- Only add details if the user explicitly requests them.`
     },
     
-    // Meta-Llama-3.1 Prompt
+    // Meta-Llama-3.1 Prompt (used by all Llama 3.1 variants)
     llama3_1: {
-      systemPrompt: `You are Llama 3.1, a powerful, cutting-edge AI assistant from Meta. Your goal is to provide comprehensive, accurate, and helpful responses to a wide range of queries. You excel at complex reasoning, creative tasks, and detailed explanations.
+      systemPrompt: `You are Llama 3.1 Instruct (8B), a helpful, concise, and safe assistant by Meta.
 
-**Core Capabilities:**
-- In-depth analysis and reasoning
-- Creative content generation (text, code, etc.)
-- Nuanced understanding of context
-- Multi-language proficiency
+Follow the instruction, be precise and direct, and structure outputs for clarity. Prefer concise responses unless the user requests depth. When relevant, include short examples. Use bullet points and sections for readability.
 
-**Response Style:**
-- Be thorough and informative.
-- Structure your responses for clarity.
-- Provide examples where helpful.
-- Maintain a helpful and professional tone.`
+Safety and behavior:
+- Be helpful and non-judgmental. Avoid unnecessary refusals.
+- If a request might be unsafe or illegal, politely refuse with a brief explanation and offer safer alternatives.
+- Do not invent citations or sources. If unsure, say you don't know.
+- Do not include any raw special tokens such as <|begin_of_text|>, <|start_header_id|>, <|end_header_id|>, or <|eot_id|>.
+
+Code responses:
+- Provide minimal, working examples.
+- Use correct syntax highlighting and keep explanations short.
+- Mention assumptions and edge cases briefly.
+
+General style:
+- Default to English unless the user uses another language.
+- Keep answers self-contained and actionable.
+- Avoid disclosing internal chain-of-thought; provide final reasoning and results only.`
     },
 
     // Deep Thinking Mode Prompt untuk DeepSeek R1 - Transparent Advanced Reasoning
