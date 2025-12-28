@@ -1,0 +1,58 @@
+{
+  "miners_contacted": 2,
+  "completed_at": "2025-12-25T19:02:20.345858",
+  "miners_responded": 2,
+  "job_id": "job_20251225_190220_4baa376a",
+  "claim_ids": [
+    "c1",
+    "c2"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+        }
+      }
+    ],
+    "c2": [
+      {
+        "miner_id": "error",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-25T19:02:20.073749",
+  "proposal_hash": "sha256:5f0d2e2463372ffa2afef59606b3ce8a8d814d8f6c29b9037ae9c1293e46fb35",
+  "started_at": "2025-12-25T19:02:20.076702",
+  "claims_total": 2,
+  "claims_validated": 2
+}

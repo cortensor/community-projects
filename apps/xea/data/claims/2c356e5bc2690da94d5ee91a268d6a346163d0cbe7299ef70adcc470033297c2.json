@@ -1,0 +1,23 @@
+{
+  "proposal_hash": "sha256:2c356e5bc2690da94d5ee91a268d6a346163d0cbe7299ef70adcc470033297c2",
+  "canonical_text": "Enable New Governance Module\n\nProposal to enable the new timelock module for improved security.\n\nClaims:\n- The module has been audited by Trail of Bits\n- Implementation will take 2 weeks\n- No existing proposals will be affected",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Claims:\n- The module has been audited by Trail of Bits\n- Implementation will take 2 weeks\n- No existing proposals will be affected",
+      "paragraph_index": 2,
+      "char_range": [
+        97,
+        227
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

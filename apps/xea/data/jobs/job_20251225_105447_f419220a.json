@@ -1,0 +1,58 @@
+{
+  "miners_contacted": 2,
+  "completed_at": "2025-12-25T10:54:47.886348",
+  "miners_responded": 2,
+  "job_id": "job_20251225_105447_f419220a",
+  "claim_ids": [
+    "c1",
+    "c2"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: name 'json' is not defined",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "name 'json' is not defined"
+        }
+      }
+    ],
+    "c2": [
+      {
+        "miner_id": "error",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "System Error: name 'json' is not defined",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "name 'json' is not defined"
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-25T10:54:47.606028",
+  "proposal_hash": "sha256:c32f532a0f91ff2d796b988c9113c013d221e78e8fc6c67e4653f24818726725",
+  "started_at": "2025-12-25T10:54:47.635403",
+  "claims_total": 2,
+  "claims_validated": 2
+}

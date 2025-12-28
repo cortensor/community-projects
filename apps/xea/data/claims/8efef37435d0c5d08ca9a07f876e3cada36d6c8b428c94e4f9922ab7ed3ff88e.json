@@ -1,0 +1,83 @@
+{
+  "proposal_hash": "sha256:8efef37435d0c5d08ca9a07f876e3cada36d6c8b428c94e4f9922ab7ed3ff88e",
+  "canonical_text": "Title: Enable Phase 1 Governance for Xea Oracle\n\u200b\n\nSummary:\nThis proposal activates on\u2011chain governance for the Xea Governance Oracle, defining who can propose, how voting works, and how passed proposals are executed via a timelock.\n\u200b\n\nKey Points:\n\nToken\u2011weighted voting with a minimum quorum and simple majority to pass.\n\u200b\n\nProposals configure oracle parameters, treasury usage, and contract upgrades.\n\u200b\n\nPassed proposals are queued in a timelock before execution to improve security.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: Enable Phase 1 Governance for Xea Oracle\n\u200b",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        49
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "Summary:\nThis proposal activates on\u2011chain governance for the Xea Governance Oracle, defining who can propose, how voting works, and how passed proposals are executed via a timelock.",
+      "paragraph_index": 1,
+      "char_range": [
+        51,
+        232
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c3",
+      "text": "Token\u2011weighted voting with a minimum quorum and simple majority to pass.",
+      "paragraph_index": 3,
+      "char_range": [
+        249,
+        321
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c4",
+      "text": "Proposals configure oracle parameters, treasury usage, and contract upgrades.",
+      "paragraph_index": 4,
+      "char_range": [
+        325,
+        402
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c5",
+      "text": "Passed proposals are queued in a timelock before execution to improve security.",
+      "paragraph_index": 5,
+      "char_range": [
+        406,
+        485
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

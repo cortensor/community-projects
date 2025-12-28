@@ -1,0 +1,96 @@
+{
+  "proposal_hash": "sha256:5ae2a299f36e10b16db7ce34c2262662dae307331961998ec0cc48d583588097",
+  "job_id": "job_20251228_065004_1f406c7a",
+  "proposal_id": null,
+  "version_number": null,
+  "claim_diff": null,
+  "validation_scope": "full",
+  "revalidated_claims": [],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "DAO Proposal: Strategic Initiative for Growth and Efficiency\nClaim 1: Allocating 15,000 DAI to marketing will increase community engagement by at least 20% within 3 months.",
+      "was_revalidated": true,
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.6,
+      "pouw_ci_95": [
+        0.6,
+        0.6
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-168",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "\": \"The claim is supported by research that shows marketing can increase community engagement. The proposed allocation of 15,000 DAI is reasonable based on industry standards.\", \".",
+          "evidence_links": [
+            "https://www.marketingcharts.com/charts/how-much-do-marketing-budget-increases-affect-brand-awareness-and-sales-30207",
+            "https://www.forbes.com/sites/forbesbusinesscouncil/2021/01/19/how-marketing-budget-allocations-impact-business-growth/?sh=7e19e2e57d5c"
+          ],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.6,
+            "omission_risk": 0.4,
+            "evidence_quality": 0.48,
+            "governance_relevance": 0.54,
+            "composite": 0.6
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The claim is supported by research that shows marketing can increase community engagement. The proposed allocation of 15,000 DAI is reasonable based on industry standards.\",\n\"evidence\\_links\": [\n\"<https://www.marketingcharts.com/charts/how-much-do-marketing-budget-increases-affect-brand-awareness-and-sales-30207>\",\n\"<https://www.forbes.com/sites/forbesbusinesscouncil/2021/01/19/how-marketing-budget-allocations-impact-business-growth/?sh=7e19e2e57d5c>\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-27T16:30:00+00:00\"\n}</s>"
+              }
+            ],
+            "created": 1766904636,
+            "id": "cmpl-1766904636",
+            "model": "cortensor-testnet0",
+            "object": "text_completion",
+            "session_id": 168,
+            "task_id": 13,
+            "usage": {
+              "completion_tokens": 39,
+              "prompt_tokens": 112,
+              "total_tokens": 151
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.6,
+  "overall_ci_95": [
+    0.6,
+    0.6
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-28T06:51:20.049788+00:00",
+  "redundancy_level": "full",
+  "miners_requested": 5,
+  "miners_responded": 1,
+  "missing_miners": [],
+  "confidence_adjustment_factor": 1.0,
+  "replay_version": "1.0",
+  "verification_instructions": {
+    "algorithm": "SHA256",
+    "components": [
+      "claims_hash",
+      "responses_hash",
+      "aggregation_hash"
+    ],
+    "cli_command": "python -m backend.cli verify <file.json>"
+  },
+  "network_metadata": {
+    "network_used": "testnet0",
+    "fallback_attempted": false,
+    "miner_quorum_target": 3
+  },
+  "computation_hash": "sha256:12d4b1032ce366347594647214531f885e47a9a502a817d9e6685f3609406546"
+}

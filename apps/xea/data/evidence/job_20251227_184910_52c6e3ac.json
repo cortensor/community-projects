@@ -1,0 +1,82 @@
+{
+  "proposal_hash": "sha256:766968363c93afc64d85e5eed1724c3afaf6098270cb7e7fa16d587475eb2903",
+  "job_id": "job_20251227_184910_52c6e3ac",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The price of ETH will stabilize between $4,500 and $5,000 for the duration of Q3 2026 due to institutional adoption alone.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.5,
+      "pouw_ci_95": [
+        0.5,
+        0.5
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-156",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "The claim is unverifiable as it relies on future events and their specific outcomes, which cannot be accurately predicted or verified at this time.",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.5,
+            "omission_risk": 0.5,
+            "evidence_quality": 0.4,
+            "governance_relevance": 0.45,
+            "composite": 0.5
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is unverifiable as it relies on future events and their specific outcomes, which cannot be accurately predicted or verified at this time.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2023-03-15T12:34:56Z\"\n}</s>"
+              }
+            ],
+            "created": 1766861351,
+            "id": "cmpl-1766861351",
+            "model": "cortensor-testnet-0",
+            "object": "text_completion",
+            "session_id": 156,
+            "task_id": 12,
+            "usage": {
+              "completion_tokens": 35,
+              "prompt_tokens": 107,
+              "total_tokens": 142
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.5,
+  "overall_ci_95": [
+    0.5,
+    0.5
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-27T18:50:01.332389+00:00",
+  "redundancy_level": "full",
+  "miners_requested": 5,
+  "miners_responded": 1,
+  "missing_miners": [],
+  "confidence_adjustment_factor": 1.0,
+  "replay_version": "1.0",
+  "verification_instructions": {
+    "algorithm": "SHA256",
+    "components": [
+      "claims_hash",
+      "responses_hash",
+      "aggregation_hash"
+    ],
+    "cli_command": "python -m backend.cli verify <file.json>"
+  },
+  "computation_hash": "sha256:87effd0f5c9ed7801767261eaad74a0f53336cb36df6de39f1ca3a09d984e887"
+}

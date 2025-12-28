@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./workers:/app/workers
+      - ./data:/data
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-changeme}
+      - IPFS_API_URL=${IPFS_API_URL:-http://ipfs:5001}
+      - CORTENSOR_ROUTER_URL=${CORTENSOR_ROUTER_URL:-}
+      - MOCK_MINER_URL=http://mock-miner:8001
+      - USE_MOCK_MINERS=true
+      - MINER_COUNT=5
+      - MINER_QUORUM=3
+      - MINER_TIMEOUT_SECONDS=12
+      - DATA_DIR=/data
+    depends_on:
+      - redis
+      - mock-miner
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    working_dir: /app/backend
+
+  worker:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.backend
+    volumes:
+      - ./backend:/app/backend
+      - ./workers:/app/workers
+      - ./data:/data
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-changeme}
+      - IPFS_API_URL=${IPFS_API_URL:-http://ipfs:5001}
+      - CORTENSOR_ROUTER_URL=${CORTENSOR_ROUTER_URL:-}
+      - MOCK_MINER_URL=http://mock-miner:8001
+      - USE_MOCK_MINERS=true
+      - MINER_COUNT=5
+      - MINER_QUORUM=3
+      - MINER_TIMEOUT_SECONDS=12
+      - DATA_DIR=/data
+    depends_on:
+      - redis
+      - mock-miner
+    command: python /app/workers/worker.py
+    working_dir: /app
+
+  mock-miner:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.backend
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./workers:/app/workers
+    command: python /app/workers/mock_miner.py --host 0.0.0.0 --port 8001
+    working_dir: /app
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    command: npm run dev
+
+volumes:
+  redis_data:

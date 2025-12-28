@@ -1,0 +1,37 @@
+{
+  "miners_contacted": 1,
+  "completed_at": "2025-12-27T04:13:22.643202",
+  "miners_responded": 1,
+  "job_id": "job_20251227_040719_b0dcdc3e",
+  "claim_ids": [
+    "c1"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: ",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: "
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-27T04:07:19.188387",
+  "proposal_hash": "sha256:361850f2d348b9238abd59bd66f3deba538d4b1f2d1da6843eb4850c1d905eed",
+  "started_at": "2025-12-27T04:07:19.191431",
+  "claims_total": 1,
+  "claims_validated": 1
+}

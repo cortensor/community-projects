@@ -1,0 +1,1809 @@
+{
+  "job_id": "job_20251225_074123_5b4dc550",
+  "responses": [
+    {
+      "timestamp": "2025-12-25T07:41:27.123350",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:30.328559",
+      "claim_id": "c2",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:33.534284",
+      "claim_id": "c3",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c3",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:36.761753",
+      "claim_id": "c4",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c4",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:39.954641",
+      "claim_id": "c5",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c5",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:43.151069",
+      "claim_id": "c6",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c6",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:46.351514",
+      "claim_id": "c7",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c7",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:49.549555",
+      "claim_id": "c8",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c8",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:52.751489",
+      "claim_id": "c9",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c9",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:56.017201",
+      "claim_id": "c10",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c10",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:41:59.223017",
+      "claim_id": "c11",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c11",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:02.426220",
+      "claim_id": "c12",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c12",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:05.643623",
+      "claim_id": "c13",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c13",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:08.991495",
+      "claim_id": "c14",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c14",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:12.250330",
+      "claim_id": "c15",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c15",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:15.467543",
+      "claim_id": "c16",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c16",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:18.676650",
+      "claim_id": "c17",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c17",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:21.956038",
+      "claim_id": "c18",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c18",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:25.177894",
+      "claim_id": "c19",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c19",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:28.385558",
+      "claim_id": "c20",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c20",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:31.589079",
+      "claim_id": "c21",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c21",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:34.803077",
+      "claim_id": "c22",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c22",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:38.017308",
+      "claim_id": "c23",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c23",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:41.222320",
+      "claim_id": "c24",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c24",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:44.448429",
+      "claim_id": "c25",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c25",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:47.668540",
+      "claim_id": "c26",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c26",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:50.939382",
+      "claim_id": "c27",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c27",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:54.171772",
+      "claim_id": "c28",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c28",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:42:57.842244",
+      "claim_id": "c29",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c29",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:01.190491",
+      "claim_id": "c30",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c30",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:04.467138",
+      "claim_id": "c31",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c31",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:07.753439",
+      "claim_id": "c32",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c32",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:11.023021",
+      "claim_id": "c33",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c33",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:14.334563",
+      "claim_id": "c34",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c34",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:17.577126",
+      "claim_id": "c35",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c35",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:20.801104",
+      "claim_id": "c36",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c36",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:24.114625",
+      "claim_id": "c37",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c37",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:27.467885",
+      "claim_id": "c38",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c38",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:30.705934",
+      "claim_id": "c39",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c39",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:34.006445",
+      "claim_id": "c40",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c40",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:37.211564",
+      "claim_id": "c41",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c41",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:40.439468",
+      "claim_id": "c42",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c42",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:43.655119",
+      "claim_id": "c43",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c43",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:46.886488",
+      "claim_id": "c44",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c44",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:50.183302",
+      "claim_id": "c45",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c45",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:53.390256",
+      "claim_id": "c46",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c46",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:56.611491",
+      "claim_id": "c47",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c47",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:43:59.808891",
+      "claim_id": "c48",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c48",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:03.000379",
+      "claim_id": "c49",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c49",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:06.312109",
+      "claim_id": "c50",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c50",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:09.679613",
+      "claim_id": "c51",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c51",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:13.011716",
+      "claim_id": "c52",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c52",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:16.239185",
+      "claim_id": "c53",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c53",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:19.464252",
+      "claim_id": "c54",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c54",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:22.672674",
+      "claim_id": "c55",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c55",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:25.868398",
+      "claim_id": "c56",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c56",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:29.061106",
+      "claim_id": "c57",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c57",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:32.351363",
+      "claim_id": "c58",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c58",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:35.551621",
+      "claim_id": "c59",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c59",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:38.745055",
+      "claim_id": "c60",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c60",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:42.009291",
+      "claim_id": "c61",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c61",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:45.227363",
+      "claim_id": "c62",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c62",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:48.437523",
+      "claim_id": "c63",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c63",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:51.633287",
+      "claim_id": "c64",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c64",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:54.828452",
+      "claim_id": "c65",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c65",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:44:58.026093",
+      "claim_id": "c66",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c66",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:01.219862",
+      "claim_id": "c67",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c67",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:04.427749",
+      "claim_id": "c68",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c68",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:07.639932",
+      "claim_id": "c69",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c69",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:10.890460",
+      "claim_id": "c70",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c70",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:14.089883",
+      "claim_id": "c71",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c71",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:17.286281",
+      "claim_id": "c72",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c72",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:20.506623",
+      "claim_id": "c73",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c73",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:23.707252",
+      "claim_id": "c74",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c74",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:26.906199",
+      "claim_id": "c75",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c75",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:30.124284",
+      "claim_id": "c76",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c76",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:33.322566",
+      "claim_id": "c77",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c77",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:36.523948",
+      "claim_id": "c78",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c78",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:39.722530",
+      "claim_id": "c79",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c79",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:42.922699",
+      "claim_id": "c80",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c80",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:46.120438",
+      "claim_id": "c81",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c81",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:45:49.321167",
+      "claim_id": "c82",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c82",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+        }
+      }
+    }
+  ]
+}

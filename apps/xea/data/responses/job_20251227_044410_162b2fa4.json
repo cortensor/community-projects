@@ -1,0 +1,45 @@
+{
+  "job_id": "job_20251227_044410_162b2fa4",
+  "responses": [
+    {
+      "timestamp": "2025-12-27T04:44:20.048706",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-156",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "No rationale provided",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": " {\n  \"verdict\": \"verified\",\n  \"rationale\": \"The claim states that the goal is to improve reliability and transparency of governance by using a specialized oracle instead of ad-hoc reads from multiple contracts. This is a valid statement as using a specialized oracle can provide a more reliable and transparent method for data retrieval compared to ad-hoc reads from multiple contracts.\",\n  \"evidence_links\": [],\n  \"confidence\": 1.0,\n  \"collection_timestamp\": \"2022-03-15T12:34:56Z\"\n}</s>"
+            }
+          ],
+          "created": 1766810652,
+          "id": "cmpl-1766810652",
+          "model": "cortensor-testnet-0",
+          "object": "text_completion",
+          "session_id": 156,
+          "task_id": 1,
+          "usage": {
+            "completion_tokens": 65,
+            "prompt_tokens": 108,
+            "total_tokens": 173
+          }
+        }
+      }
+    }
+  ]
+}

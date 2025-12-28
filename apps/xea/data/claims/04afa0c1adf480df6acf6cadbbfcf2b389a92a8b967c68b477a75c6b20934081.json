@@ -1,0 +1,21 @@
+{
+  "proposal_hash": "sha256:04afa0c1adf480df6acf6cadbbfcf2b389a92a8b967c68b477a75c6b20934081",
+  "canonical_text": "Bitcoin was created by Satoshi Nakamoto and launched in January 2009.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Bitcoin was created by Satoshi Nakamoto and launched in January 2009.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        69
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

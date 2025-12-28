@@ -1,0 +1,21 @@
+{
+  "proposal_hash": "sha256:1f1a3bc98699b9501b3b500c47981ac33ae4f8943228730b283fd03d314ffdf6",
+  "canonical_text": "BTC is biggest crptocurrency ever made in term of security.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "BTC is biggest crptocurrency ever made in term of security.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        59
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

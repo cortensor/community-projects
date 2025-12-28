@@ -1,0 +1,97 @@
+{
+  "proposal_hash": "sha256:96a5e0a7ed2ad66d33a0d43a9a92d3f4326856b3db93d9fb7586ae559f6f21ac",
+  "job_id": "job_20251228_071725_65d667d9",
+  "proposal_id": null,
+  "version_number": null,
+  "claim_diff": null,
+  "validation_scope": "full",
+  "revalidated_claims": [],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "DAO Proposal: Strategic Initiative for Growth and Efficiency Claim 4: Partnering with external advisors will improve strategic decision-making and risk management for the DAO.",
+      "was_revalidated": true,
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.6,
+      "pouw_ci_95": [
+        0.6,
+        0.6
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-168",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "\": \"The claim is supported by the DAO's history of partnering with external advisors to improve strategic decision-making and risk management. The proposal also outlines specific benefits of partnering with external advisors, such as expertise in specific areas and access to new markets. The proposal also includes a detailed plan for selecting and engaging external advisors. The context provided, including the proposal hash, supports the validity of the claim. Overall, the claim is well-supporte",
+          "evidence_links": [
+            "https://www.example.com/dao-partnership-with-external-advisor-1.pdf",
+            "https://www.example.com/dao-partnership-with-external-advisor-2.pdf](https://www.example.com/dao-partnership-with-external-advisor-2.pdf)\",",
+            "https://www.example.com/dao-partnership-with-external-advisor-3.pdf](https://www.example.com/dao-partnership-with-external-advisor-3.pdf)\""
+          ],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.6,
+            "omission_risk": 0.4,
+            "evidence_quality": 0.48,
+            "governance_relevance": 0.54,
+            "composite": 0.6
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The claim is supported by the DAO's history of partnering with external advisors to improve strategic decision-making and risk management. The proposal also outlines specific benefits of partnering with external advisors, such as expertise in specific areas and access to new markets. The proposal also includes a detailed plan for selecting and engaging external advisors. The context provided, including the proposal hash, supports the validity of the claim. Overall, the claim is well-supported and appears to be factually accurate.\",\n\"evidence\\_links\": [\n\"<https://www.example.com/dao-partnership-with-external-advisor-1.pdf>\",\n\"[https://www.example.com/dao-partnership-with-external-advisor-2.pdf](https://www.example.com/dao-partnership-with-external-advisor-2.pdf)\",\n\"[https://www.example.com/dao-partnership-with-external-advisor-3.pdf](https://www.example.com/dao-partnership-with-external-advisor-3.pdf)\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-10T12:00:00Z\"\n}</s>"
+              }
+            ],
+            "created": 1766906246,
+            "id": "cmpl-1766906246",
+            "model": "cortensor-testnet0",
+            "object": "text_completion",
+            "session_id": 168,
+            "task_id": 17,
+            "usage": {
+              "completion_tokens": 94,
+              "prompt_tokens": 110,
+              "total_tokens": 204
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.6,
+  "overall_ci_95": [
+    0.6,
+    0.6
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-28T07:17:39.432120+00:00",
+  "redundancy_level": "full",
+  "miners_requested": 5,
+  "miners_responded": 1,
+  "missing_miners": [],
+  "confidence_adjustment_factor": 1.0,
+  "replay_version": "1.0",
+  "verification_instructions": {
+    "algorithm": "SHA256",
+    "components": [
+      "claims_hash",
+      "responses_hash",
+      "aggregation_hash"
+    ],
+    "cli_command": "python -m backend.cli verify <file.json>"
+  },
+  "network_metadata": {
+    "network_used": "testnet0",
+    "fallback_attempted": false,
+    "miner_quorum_target": 3
+  },
+  "computation_hash": "sha256:5bcffdc62ccf4a939a9b548e887f080abfb0489b1a9dbc5406cee94192091327"
+}

@@ -1,0 +1,85 @@
+{
+  "proposal_hash": "sha256:c32f532a0f91ff2d796b988c9113c013d221e78e8fc6c67e4653f24818726725",
+  "job_id": "job_20251225_105447_f419220a",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: DAO-001: Core Governance Update",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: name 'json' is not defined",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "name 'json' is not defined"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "\u200b\nIf passed, the DAO will execute the required on\u2011chain transactions to apply these parameter changes exactly as specified in the associated execution payload.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c2",
+          "verdict": "unverifiable",
+          "rationale": "System Error: name 'json' is not defined",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "name 'json' is not defined"
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed",
+    "claim c2: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T11:00:57.582906+00:00"
+}

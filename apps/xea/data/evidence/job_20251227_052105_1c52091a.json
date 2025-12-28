@@ -1,0 +1,68 @@
+{
+  "proposal_hash": "sha256:151ea1045fbf809530d858a2d4d1f9f657c94a2dcb2126c6626b183aec75e183",
+  "job_id": "job_20251227_052105_1c52091a",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Layer 2 scaling solutions will reduce Ethereum gas fees by 90% by 2025.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-156",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "The claim is unverifiable at this time as it relies on future events and the specific impact of Layer 2 scaling solutions on Ethereum gas fees is not determinable with certainty.",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 1.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is unverifiable at this time as it relies on future events and the specific impact of Layer 2 scaling solutions on Ethereum gas fees is not determinable with certainty.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2023-03-15T12:34:56Z\"\n}</s>"
+              }
+            ],
+            "created": 1766812866,
+            "id": "cmpl-1766812866",
+            "model": "cortensor-testnet-0",
+            "object": "text_completion",
+            "session_id": 156,
+            "task_id": 7,
+            "usage": {
+              "completion_tokens": 42,
+              "prompt_tokens": 99,
+              "total_tokens": 141
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed"
+  ],
+  "timestamp": "2025-12-27T05:22:09.331671+00:00"
+}

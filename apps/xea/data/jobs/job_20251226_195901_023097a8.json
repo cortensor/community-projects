@@ -1,0 +1,16 @@
+{
+  "miners_contacted": 1,
+  "completed_at": null,
+  "miners_responded": 0,
+  "job_id": "job_20251226_195901_023097a8",
+  "claim_ids": [
+    "c1"
+  ],
+  "responses": {},
+  "status": "running",
+  "created_at": "2025-12-26T19:59:01.529753",
+  "proposal_hash": "sha256:361850f2d348b9238abd59bd66f3deba538d4b1f2d1da6843eb4850c1d905eed",
+  "started_at": "2025-12-26T19:59:01.534853",
+  "claims_total": 1,
+  "claims_validated": 0
+}

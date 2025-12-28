@@ -1,0 +1,190 @@
+{
+  "proposal_hash": "sha256:8efef37435d0c5d08ca9a07f876e3cada36d6c8b428c94e4f9922ab7ed3ff88e",
+  "job_id": "job_20251225_073142_8d5aa9b9",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: Enable Phase 1 Governance for Xea Oracle\n\u200b",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Summary:\nThis proposal activates on\u2011chain governance for the Xea Governance Oracle, defining who can propose, how voting works, and how passed proposals are executed via a timelock.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c2",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Token\u2011weighted voting with a minimum quorum and simple majority to pass.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c3",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Proposals configure oracle parameters, treasury usage, and contract upgrades.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c4",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "Passed proposals are queued in a timelock before execution to improve security.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c5",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Client error '401 UNAUTHORIZED' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed",
+    "claim c2: marked as disputed",
+    "claim c3: marked as disputed",
+    "claim c4: marked as disputed",
+    "claim c5: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T07:32:00.892409+00:00"
+}

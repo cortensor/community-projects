@@ -1,0 +1,33 @@
+{
+  "proposal_id": "prop_327956cac447",
+  "latest_version": 1,
+  "versions": [
+    {
+      "version_number": 1,
+      "proposal_hash": "sha256:1f1a3bc98699b9501b3b500c47981ac33ae4f8943228730b283fd03d314ffdf6",
+      "previous_hash": null,
+      "created_at": "2025-12-28T06:20:53.478524+00:00",
+      "claim_ids": [
+        "c1"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text": "BTC is biggest crptocurrency ever made in term of security.",
+          "paragraph_index": 0,
+          "char_range": [
+            0,
+            59
+          ],
+          "type": "factual",
+          "canonical": {
+            "numbers": [],
+            "addresses": [],
+            "urls": []
+          }
+        }
+      ],
+      "canonical_text": "BTC is biggest crptocurrency ever made in term of security."
+    }
+  ]
+}

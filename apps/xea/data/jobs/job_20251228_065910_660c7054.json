@@ -1,0 +1,89 @@
+{
+  "completed_at": "2025-12-28T07:01:53.283060",
+  "miners_contacted": 1,
+  "created_at": "2025-12-28T06:59:10.165531",
+  "miners_responded": 1,
+  "status": "completed",
+  "quorum_target": 3,
+  "started_at": "2025-12-28T06:59:10.191474",
+  "current_stage": "completed",
+  "claim_ids": [
+    "c1"
+  ],
+  "job_id": "job_20251228_065910_660c7054",
+  "proposal_hash": "sha256:66217bb9e417d221ee754fa719160979753e9ebd794862c66ab0febe7b869471",
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "cortensor-168",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The proposal mentions partnering with external advisors to improve strategic decision-making and risk management. This is a common practice in the industry and is likely to be effective in improving the DAO's performance.\", \".",
+        "evidence_links": [
+          "https://www.forbes.com/sites/forbestechcouncil/2021/05/10/why-external-advisors-are-key-to-successful-strategy-implementation/?sh=70d1e6e27c1c",
+          "https://www.cio.com/article/2435464/why-companies-hire-external-consultants-and-advisors.html"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The proposal mentions partnering with external advisors to improve strategic decision-making and risk management. This is a common practice in the industry and is likely to be effective in improving the DAO's performance.\",\n\"evidence\\_links\": [\n\"<https://www.forbes.com/sites/forbestechcouncil/2021/05/10/why-external-advisors-are-key-to-successful-strategy-implementation/?sh=70d1e6e27c1c>\",\n\"<https://www.cio.com/article/2435464/why-companies-hire-external-consultants-and-advisors.html>\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-18T16:30:00Z\"\n}</s>"
+            }
+          ],
+          "created": 1766905303,
+          "id": "cmpl-1766905303",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 15,
+          "usage": {
+            "completion_tokens": 47,
+            "prompt_tokens": 110,
+            "total_tokens": 157
+          }
+        }
+      }
+    ]
+  },
+  "claims_validated": 1,
+  "error_message": null,
+  "retries_attempted": 0,
+  "claims_total": 1,
+  "stage_history": [
+    {
+      "stage": "received",
+      "timestamp": "2025-12-28T06:59:10.165545"
+    },
+    {
+      "stage": "dispatching",
+      "timestamp": "2025-12-28T06:59:10.188128",
+      "message": "Sending to Cortensor network"
+    },
+    {
+      "stage": "waiting",
+      "timestamp": "2025-12-28T06:59:10.193363",
+      "message": "Validating 1 claims"
+    },
+    {
+      "stage": "aggregating",
+      "timestamp": "2025-12-28T07:01:53.279585",
+      "message": "Computing evidence bundle"
+    },
+    {
+      "stage": "completed",
+      "timestamp": "2025-12-28T07:01:53.289329",
+      "message": "Validation complete"
+    }
+  ],
+  "last_heartbeat": "2025-12-28T07:01:53.289329"
+}

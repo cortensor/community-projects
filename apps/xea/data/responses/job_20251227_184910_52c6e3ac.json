@@ -1,0 +1,45 @@
+{
+  "job_id": "job_20251227_184910_52c6e3ac",
+  "responses": [
+    {
+      "timestamp": "2025-12-27T18:49:59.834946",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-156",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "The claim is unverifiable as it relies on future events and their specific outcomes, which cannot be accurately predicted or verified at this time.",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.5,
+          "omission_risk": 0.5,
+          "evidence_quality": 0.4,
+          "governance_relevance": 0.45,
+          "composite": 0.5
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is unverifiable as it relies on future events and their specific outcomes, which cannot be accurately predicted or verified at this time.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2023-03-15T12:34:56Z\"\n}</s>"
+            }
+          ],
+          "created": 1766861351,
+          "id": "cmpl-1766861351",
+          "model": "cortensor-testnet-0",
+          "object": "text_completion",
+          "session_id": 156,
+          "task_id": 12,
+          "usage": {
+            "completion_tokens": 35,
+            "prompt_tokens": 107,
+            "total_tokens": 142
+          }
+        }
+      }
+    }
+  ]
+}

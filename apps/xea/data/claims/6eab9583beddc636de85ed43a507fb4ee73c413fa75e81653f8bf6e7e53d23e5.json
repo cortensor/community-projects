@@ -1,0 +1,1711 @@
+{
+  "proposal_hash": "sha256:6eab9583beddc636de85ed43a507fb4ee73c413fa75e81653f8bf6e7e53d23e5",
+  "canonical_text": "P-3: Developer DAO Season 0 - \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals - Developer DAO Developer DAO P-3: Developer DAO Season 0 \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals official-proposal kempsterrrr October 29, 2021, 6:25pm 1 docs.google.com Proposal: Season 0 This Doc is private Authors: @kempsterrrr @wolovim @willblackburn @dabit3 @Erik_Knobl @with-heart Original draft: How we move forward as a DAO - Season 0 \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals Title: How we move forward as a DAO - Season 0 Authors: @kempsterrrr @dabit3 Our community has grown fast. We\u2019re now counting ~1500 genesis NFT holders (3000+ minted) and &gt; 1000 of us have joined the DAO server. This includes multiple Protocol Foundation team members, Web3 Founders, major open-source project maintainers, Web2 community leaders, and many more other talented and passionate people excited by learning about, and building on, Web3. Teams have formed around projects, individuals \u2026 Summary: Our community has grown fast. We\u2019re now counting ~2900 genesis NFT holders (4600+ minted) and &gt; 1700 passionate builders have joined the DAO discord server. This includes multiple Protocol Foundation team members, Web3 Founders, major open-source project maintainers, Web2 community leaders, and many more other talented and passionate people excited by learning about, and building on, Web3. Teams have formed around projects, individuals have launched something like 10 different tools for the community and the support we\u2019re giving each other, re: learning and collaboration, is invaluable. We\u2019re already in discussions regarding collaborations and potential treasury allocations with a few other DAOs and organizations, including Gitcoin and a new DAO being formed by the founders of Decrypt, among others. It\u2019s exciting and the potential is obvious to see, but how do we move forward from here? This proposal provides full scope for the idea of Seasons, establishing our initial DAO Structure and provides guidelines for Governance. Developer DAO Season 0 What is a Season? A discrete period of time for DAO members to come together to align on projects and initiatives that help us deliver on our mission, values, and goals. Objectives for each future Season must be defined up front (process TBD) and, prior to ending a Season, a retrospective must be carried out to ensure we can learn and improve (process TBD). Details for Developer DAO Season 0 The Developer DAO Season 0 vote will be done using Snapshot with each Ethereum wallet that holds any number of DEV tokens receiving one vote. Season 0 will start on the passing of a Snapshot vote for this proposal and last for two months with the option to extend for one further month via another Snapshot vote. Objectives for Season 0 Ratify our mission, values, and goals. ( snapshot vote ). Implement and refine the DAO Structure and improve external and internal on-boarding processes for joining the DAO and contributing. Implement and refine the Governance process and guidelines for community decision making. Research and propose options for $DBUCKS token issue &amp; DAO legal structure (if required). Create space for bigger picture conversations about the DAO and identify Core Projects we want to back as a community through into Season 1. Plan Season 1 launch event with partners. DAO Structure DAO_Structure 1152\u00d7864 21 KB The DAO structure consists of a governance layer, a core team, and our guilds. Projects are worked on by pulling resources from guilds. During the course of Season 0, Discord will be reconfigured to reflect this structure. Governance Layer The Governance layer is not a team. It represents how the DAO will make decisions that require a \u201chard consensus\u201d from the community: funding/budgets, changes to governance rules, etc. Please see the Governance section for more details on the process. Core Team The closest thing we have to a full-time team, staffed by Guild \u201cLeaders\u201d. They are responsible for initial organisation of the guilds and implementing the tooling, infrastructure and processes required to operate successfully as a DAO. For Season 0, we have proposed six guilds and their leaders (below) based on existing contributions to the DAO. This suggestion is not a permanent setup, but allows us to move forward. Core Team roles, how guilds are established, and how Leaders are \u201celected\u201d will be refined in the community via our Governance process during Season 0. Core team Season 0 Objectives: Deploy DAO Treasury, fund with initial capital, and produce proposals for further funding (internal/external). Implement DAO Structure for Season 0. This will be refined moving forward by the Community Guild moving forward based on feedback from members. Implement Governance for Season 0: to be refined during going forward by the Governance Guild Guild Leader Community kempsterrrr Design Eknobl Developer Mark (with-heart) Writers Marc Governance Will Blackburn Marketing/Biz-Dev Nader Guilds Guilds are the DAOs most important resource - skilled labour. Each guild will represent a group of members with shared skills, expertise, and interests who self-organise their working practices and on-board new members. For example, the Design Guild may create standard DAO brand guidelines and assets, whereas the Writers Guild may want to create templates to aid writing or develop a way for the DAO to capture and organise ideas. Beyond on-boarding and setting some standing working practices, some guilds (i.e. writers) will have consistent outputs (i.e. newsletters/articles) and others (i.e. design/dev) will act as resource pools for DAO projects to draw talent from. For Season 0, guilds will initially have no defined hierarchy beyond its \u201cLeader\u201d as proposed above. Guilds at genesis for Season 0: Community Guild Refine external on-boarding (content of public channels) to make it clearer for potential new members how they can join the DAO. Refine internal on-boarding into guilds that makes it easier for members to get up to speed and find their path to learning, collaborating and contributing. Update and refine the DAO Wiki in line with changes in the DAO. Ensure community is kept up to speed via Town Hall and weekly DAO newsletter. Developer Guild Decide on best way to organise developers within the DAO (i.e. do we break down into separate/sub guilds for specialties, like Smart Contract Devs vs. Front End devs) Create on-boarding experience to understand new devs skills/level, find suitable learning resources and opportunities to collaborate on community projects or contribute to the DAO. Design Guild Kick off process to fully define the Developer DAO brand, and create guidelines and assets for use across projects/guilds. Create on-boarding experience to understand new designers skills/level and find opportunities to contribute to collaborate on community projects or contribute to the DAO. Use finalised branding to create designs for Develop DAO merch. Writers Guild Specify content types and platforms where each content type will be published (e.g., mirror.xyz, dev.to, developerdao.com , etc.) and establish presence there. Create on-boarding experience for new writers, methods for taking content idea submission, distributing writing work, and managing the content pipeline. Governance Guild Refine process for making proposals in the DAO, including clarity on what needs to be a proposal, threshold for a proposal to be made, and level of consensus required for different types of proposals. Setup and manage tooling for governance process. Improve documentation around governance process &amp; tooling use. Marketing/Biz-Dev Guild Refine process for publishing across social media channels. Seek and establish partnerships with other DAOs and Web3 organisations. Lead on organising a launch event, including sourcing speakers and sponsors. As a community, we\u2019ll address the process for creating further guilds during Season 0. Projects Projects are groups of DAO members who are organising around specific goals. Some projects will naturally operate within a single guild, while others may require cross-guild collaboration of resources. As outlined in this post from @willblackburn , to be successful as a DAO we need some focus. During Season 0, we will be calling on the community to propose further \u201cCore DAO Projects\u201d that are in line with our mission, values, and goals, taking a vote to choose those to focus on through into Season 1. That said, many of us are here to build shit. Whilst we figure out official DAO Projects, we encourage community members to pitch and collaborate on ideas and the DAO will support them as best it can. For existing projects, we\u2019re proposing the following goals for Season 0 (TBD): Derivatives Launch Pixel Avatars Project to DAO members. Brainstorm and propose other derivative NFT projects or other ways we can incorporate the metadata from genesis NFTs into future projects or partnerships. Website Their primary objective during Season 0 is to build and launch V1 of the website with a structure and content that helps the DAO deliver on its mission, values, and goals. This potentially includes the following: Landing Page that gives high-level overview of the DAO and encourages people to take action (join, check out projects, Learn Web3) Projects page(s) that primarily highlight ongoing DAO projects, but also provides some visibility for member projects created in/for the DAO/its members. Contact or partner with us section/page. Resource Base Deploy, refine and improve Airtable resources system with the community. Build automated GitHub actions scripts for generating markdown repo based on collected resources. Build Discord Bot to make contributions to the resources based much easier for the community. Governance Our governance mechanism will continue to evolve through community input and community-lead proposals. It is important that proposals can be created by anyone in the community from the beginning. It is also important to note that decentralized governance is a spectrum, and our governance and the strategies used to execute consensus will become more decentralized over time. Taking inspiration from Bankless DAO, the following initial governance flow is proposed: Conversations \u2192 Brainstorming \u2192 Proposals \u2192 Consensus \u2192 Execution Conversations : Discord Brainstorming : Discord + Discourse Proposals : Discourse Consensus : Snapshot Execution : Discord Conversations &amp; Decision Making Most conversations and decisions will not require proposals and consensus voting. Internal project or guild decisions (e.g., how to organise project work, on-boarding, etc.) do not require broad community consensus (formal vote), just consensus within that project or guild in a way they deem appropriate (e.g., Discord or Discourse polls). Proposals &amp; Consensus Decisions that impact the DAO and the community (e.g., use of the DAO brand publicly, funding support, changes to Governance, DAOstack, partnerships, etc.) should be scoped out in detail (following Governance flow above) before committing resources, then should be proposed on Discourse using this template . The first important intended output here is achieving a quorum. If the Core Team, a guild, project or any other group/individual want to make a change that impacts the wider community, they should seek the support of the community before moving ahead with their idea. The second important outcome is ensuring ideas that reach the proposal stage have been properly scoped and discussed before the community is asked to back them. Any group can create a proposal, but please bear in mind the points above and in this discourse post . The more we move forward as a community with focus, the further we will go. For a proposal to be accepted on discourse, it must meet the following criteria: Identifies champions (at least one) responsible for executing the proposal Highlights evidence of discussion/brainstorming leading up to proposal Helps us deliver on our mission, values, and goals Has a clear timeline for delivery and measurable indicators for success Specifies resources/tooling/changes required Carefully considers wide impact on DAO Reaches a voting threshold for moving to Snapshot Has clear next steps for implementing if the vote passes The Governance Guild will moderate posts made to the \u201cProposal\u201d category to make sure they meet this threshold and support people where needed. Governance &amp; Season 0 The proposed governance process outlined here will be revisited by the community in Season 0. While it is important to launch with a clear process for anyone in the community to create a proposal leading to a DAO vote, we anticipate another more in-depth governance proposal. This proposal will likely answer outstanding questions such as what issues require a proposal, how we should handle voting power with the various strategies available to us, and so on. Rewarding Contributions Building in mechanisms to reward contributions is fundamental for operating successfully as a DAO and therefore delivering on our mission, values &amp; goals. The plan is to eventually provide every contributor rewards via our governance token, $DBUCKS, a key goal to deliver a proposal for this Season. In order to reward people during Season 0, we\u2019re proposing a system based on POAPs and NFTs for attending community events and/or contributing to the DAO in many different ways (suggested structure below). These rewards will also play a role in our initial $DBUCKS token allocation as to reward early contributors to the DAO. Reward Structure: FOUNDER POAPS (Voting on Season0 proposal) TOWN HALL POAPS (One for each town hall attended) SCRIBE POAPS (One for each article for the DAO.) BUILDER POAPS (One for each participation in a DAO project. Team leaders need to confirm). EDUCATOR POAPS (One for each 2 contributions to the resource base) DIPLOMAT POAPS (Making connection with another DAO/organisation) Next Steps for this draft proposal This vote will run until Sunday pm. If the vote passed it will be elevated to a Snapshot vote runs until town starts on Friday 12th @ 5pm UTC Next steps in snapshot vote passed Update Discord to match Guild Structure Migrate info from proposal to DAO Wiki as soon as deployed Announcement post from DAO Mirror Properly scope existing projects Onboard members into guilds Move to snapshot Support but request changes (please comment) Full rework (please comment) 0 voters 23 Likes P19: S1 Specification &amp; Budget P-7: Formalizing our Developer DAO Operations Team [DRAFT] Developer DAO Improvement Proposals (outdated) Formalizing the Operations Team - Request for Comments RFC: Accountability Groups ryanharris October 29, 2021, 10:05pm 2 Nice work, @kempsterrrr Core Team roles, how Guilds are established and how Leaders are \u201celected\u201d will be refined in the community via our Governance process during Season 0. Glad to see this and that you\u2019re already thinking ahead about this type of thing! 5 Likes wfqfw November 1, 2021, 3:14pm 3 Reward Structure: FOUNDER POAPS (Voting on Season0 proposal) TOWN HALL POAPS (One for each town hall attended) SCRIBE POAPS (One for each article for the DAO.]) BUILDER POAPS (One for each participation in a DAO project. Team leaders need to confirm). EDUCATOR POAPS (One for each 2 contributions to the resource base) DIPLOMAT POAPS (Making connection with another DAO/organisation) voting on snapshot proposals could also be added to reward structure 8 Likes TheHeroShep November 4, 2021, 1:09am 4 kempsterrrr: (i.e. do we break down into separate/sub guilds things like Smart Contract Devs vs Front End devs) Would recommend having all contributing devs labeled by their proficiencies (smart contract vs front end vs FS, etc.) but have the sub guilds actually be self sufficient pods with roles inside depending on the project e.g. building trustless NFT giveaway (1 engineering manager, 1 frontend, 1 smart contract, 1 data analyst to measure impact) instead of having the verticals being their own groups and trying to work together across them. 6 Likes gjsyme November 4, 2021, 2:04am 5 kempsterrrr: SCRIBE POAPS (One for each article for the DAO.]) Rogue \u2018]\u2019 hiding just before the closing parenthesis. 2 Likes dhaiwat10 November 4, 2021, 4:20am 6 Re. the developer guild, since a lot revolves around the projects there I think we should also add this: Co-ordinate work on community projects &amp; open source tooling. (something along those lines) carlomigueldy.eth November 4, 2021, 7:22am 7 kempsterrrr: That said, many of us are here to build shit. Definitely! 2 Likes jv-nz November 4, 2021, 8:37am 8 Just a request that if there are POAPs for town hall sessions that there are options for folks in timezones that can\u2019t make the call times. As a New Zealand based dev I\u2019m always seeing sessions at 2am and appreciate when there are video recordings I can catch up on when the timezones don\u2019t work. 8 Likes zeuslawyer November 4, 2021, 10:13am 9 For the reward structure it is unclear whether scribe vs educator is beneficial. There seem to be enough overlap risk that either the concepts need to be flushed better or the rewards need to be combined. On the face of it it appears the initial approaches for internal resources and external articles would overlap strongly as we are in the build phase. Unifying the approaches, content strategy , content creation and editorializing would make sense for this period. This would also utilize available contributors in a way that builds internal and external value. Cheers guys ! Z From Australia 1 Like dmipet November 4, 2021, 5:37pm 10 Great work on this! Exciting to see more of a structure come together. I hadn\u2019t realized there was this forum, so great! I personally find it really hard to use Discord/messaging apps for stuff like this, the stream is overwhelming and IMO things get lost, difficult to maintain discussions. I\u2019m sure we\u2019re all quite busy outside of the DAO, and having a more async medium for communication is in my view. On another note, what\u2019s the best way to learn about scheduled Town Halls? Can we perhaps set up a shared calendar or something like that? Super eager to get more involved! 3 Likes camolezi November 4, 2021, 8:55pm 11 Thanks so much for this, awesome work, really liked the proposal. I know it\u2019s not the priority right now but I think we could consider changing the names of \"season\u2019/\u201cguilds\u201d to reflect something DEV-related. It\u2019s not important right now but possibly could help with the DAO branding in the long run. isiah November 5, 2021, 11:28am 12 @kempsterrrr @dabit3 thoughts on marketing/biz-dev being two separate guilds? for example I would see biz-dev being focused on B2B (or DAO to DAO initiatives) and partnerships - so campaigns that target groups. wheres marketing would perhaps be more so focused on social campaigns that target individuals (web 2 developers or web3 creators) as well as brand awareness campaigns (NFT drops, etc.) there\u2019s a ton of overlap between both for sure. but was curious to know if this is something that could be split into two guilds as the DAO grows? 3 Likes willblackburn November 5, 2021, 12:49pm 14 That makes sense long-term to me! Part of the challenge early on is not spreading too thin ( see post ). So this might be the right thing to put together until we feel the need to really pull it apart like you suggested. Especially when we have better coordinated resources for the biz dev projects. 1 Like willblackburn November 5, 2021, 12:52pm 15 100%! Any suggestions on exactly how to do that? Second meeting 12 hrs later with poaps? 1 Like isiah November 5, 2021, 1:04pm 16 @willblackburn Gotcha! Makes perfect sense. I definitely agree with not spreading resources too thin. I have a strong background in marketing (growth) and would love to contribute there in anyway I can. @dabit3 is there a meeting date/time that is setup for the marketing/biz-dev guild? 2 Likes kempsterrrr November 5, 2021, 3:23pm 17 So this was suggested a few times by @wolovim as well and too my shame I forgot to put it up to a vote Might have to be something we revisit in Season 0 now given the votes up. Totally my bad. ryanharris November 5, 2021, 3:40pm 18 Decide on best way to organise developers within the DAO (i.e. do we break down into separate/sub guilds for specialties, like Smart Contract Devs vs. Front End devs) @kempsterrrr Organizing around specialties would be helpful \u2013 having a way to express areas of interest too would be a nice compliment. Since many members are here to learn (myself included!), that could help us be mindful in terms of matching folks up so A) projects are getting done and B) the DAO\u2019s collective knowledge is growing. Create on-boarding experience to understand new devs skills/level, find suitable learning resources and opportunities to collaborate on community projects or contribute to the DAO. @kempsterrrr Great callout re: onboarding! Anything that can help get folks from new DAO member to project contributor in the least amount of time will be highly valuable. It also directly lines up with the reward structure outlined in the proposal 2 Likes thisizkp November 5, 2021, 6:13pm 19 I think we should have meetings scheduled based on a rotation basis. The goal should be to make it easy for everyone to participate and contribute. 1 Like jv-nz November 6, 2021, 4:45am 20 I don\u2019t mind @thisizkp \u2019s idea of alternating timeslots for meetings (after every meeting add 8 hours to the recurring meetings timeslot). The idea of mirror meetings 12 hours apart is also fine as is just have a recording of the meeting and leave poap claims open for 24 hours so that folks from out of the way timezones aren\u2019t excluded. I\u2019m also a big fan of https://thehtime.com - it takes a bit of mental investment to start using but then it makes mental timezone translations disappear. 1 Like djbowers November 7, 2021, 8:14pm 21 +1 to having a shared calendar with the town hall meetings! 2 Likes next page \u2192 Home Categories Guidelines Terms of Service Privacy Policy Powered by Discourse , best viewed with JavaScript enabled",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "P-3: Developer DAO Season 0 - \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals - Developer DAO Developer DAO P-3: Developer DAO Season 0 \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals official-proposal kempsterrrr October 29, 2021, 6:25pm 1 docs.google.com Proposal: Season 0 This Doc is private Authors: @kempsterrrr @wolovim @willblackburn @dabit3 @Erik_Knobl @with-heart Original draft: How we move forward as a DAO - Season 0 \ud83d\udc69\ud83c\udffd\u200d\u2696\ufe0f Proposals Title: How we move forward as a DAO - Season 0 Authors: @kempsterrrr @dabit3 Our community has grown fast.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        488
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          0.0,
+          29.0,
+          2021.0,
+          6.0,
+          25.0,
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "We\u2019re now counting ~1500 genesis NFT holders (3000+ minted) and &gt; 1000 of us have joined the DAO server.",
+      "paragraph_index": 0,
+      "char_range": [
+        489,
+        596
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1500.0,
+          3000.0,
+          1000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c3",
+      "text": "This includes multiple Protocol Foundation team members, Web3 Founders, major open-source project maintainers, Web2 community leaders, and many more other talented and passionate people excited by learning about, and building on, Web3.",
+      "paragraph_index": 0,
+      "char_range": [
+        597,
+        832
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c4",
+      "text": "Teams have formed around projects, individuals \u2026 Summary: Our community has grown fast.",
+      "paragraph_index": 0,
+      "char_range": [
+        833,
+        920
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c5",
+      "text": "We\u2019re now counting ~2900 genesis NFT holders (4600+ minted) and &gt; 1700 passionate builders have joined the DAO discord server.",
+      "paragraph_index": 0,
+      "char_range": [
+        921,
+        1050
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2900.0,
+          4600.0,
+          1700.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c6",
+      "text": "This includes multiple Protocol Foundation team members, Web3 Founders, major open-source project maintainers, Web2 community leaders, and many more other talented and passionate people excited by learning about, and building on, Web3.",
+      "paragraph_index": 0,
+      "char_range": [
+        1051,
+        1286
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c7",
+      "text": "Teams have formed around projects, individuals have launched something like 10 different tools for the community and the support we\u2019re giving each other, re: learning and collaboration, is invaluable.",
+      "paragraph_index": 0,
+      "char_range": [
+        1287,
+        1487
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          10.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c8",
+      "text": "We\u2019re already in discussions regarding collaborations and potential treasury allocations with a few other DAOs and organizations, including Gitcoin and a new DAO being formed by the founders of Decrypt, among others.",
+      "paragraph_index": 0,
+      "char_range": [
+        1488,
+        1704
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c9",
+      "text": "It\u2019s exciting and the potential is obvious to see, but how do we move forward from here?",
+      "paragraph_index": 0,
+      "char_range": [
+        1705,
+        1793
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c10",
+      "text": "Developer DAO Season 0 What is a Season?",
+      "paragraph_index": 0,
+      "char_range": [
+        1932,
+        1972
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c11",
+      "text": "Details for Developer DAO Season 0 The Developer DAO Season 0 vote will be done using Snapshot with each Ethereum wallet that holds any number of DEV tokens receiving one vote.",
+      "paragraph_index": 0,
+      "char_range": [
+        2315,
+        2491
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c12",
+      "text": "Season 0 will start on the passing of a Snapshot vote for this proposal and last for two months with the option to extend for one further month via another Snapshot vote.",
+      "paragraph_index": 0,
+      "char_range": [
+        2492,
+        2662
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c13",
+      "text": "Objectives for Season 0 Ratify our mission, values, and goals.",
+      "paragraph_index": 0,
+      "char_range": [
+        2663,
+        2725
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c14",
+      "text": "( snapshot vote ).",
+      "paragraph_index": 0,
+      "char_range": [
+        2726,
+        2744
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c15",
+      "text": "Research and propose options for $DBUCKS token issue &amp; DAO legal structure (if required).",
+      "paragraph_index": 0,
+      "char_range": [
+        2968,
+        3061
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c16",
+      "text": "Create space for bigger picture conversations about the DAO and identify Core Projects we want to back as a community through into Season 1.",
+      "paragraph_index": 0,
+      "char_range": [
+        3062,
+        3202
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c17",
+      "text": "Plan Season 1 launch event with partners.",
+      "paragraph_index": 0,
+      "char_range": [
+        3203,
+        3244
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c18",
+      "text": "DAO Structure DAO_Structure 1152\u00d7864 21 KB The DAO structure consists of a governance layer, a core team, and our guilds.",
+      "paragraph_index": 0,
+      "char_range": [
+        3245,
+        3366
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1152.0,
+          864.0,
+          21.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c19",
+      "text": "Projects are worked on by pulling resources from guilds.",
+      "paragraph_index": 0,
+      "char_range": [
+        3367,
+        3423
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c20",
+      "text": "During the course of Season 0, Discord will be reconfigured to reflect this structure.",
+      "paragraph_index": 0,
+      "char_range": [
+        3424,
+        3510
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c21",
+      "text": "Governance Layer The Governance layer is not a team.",
+      "paragraph_index": 0,
+      "char_range": [
+        3511,
+        3563
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c22",
+      "text": "It represents how the DAO will make decisions that require a \u201chard consensus\u201d from the community: funding/budgets, changes to governance rules, etc.",
+      "paragraph_index": 0,
+      "char_range": [
+        3564,
+        3712
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c23",
+      "text": "Core Team The closest thing we have to a full-time team, staffed by Guild \u201cLeaders\u201d.",
+      "paragraph_index": 0,
+      "char_range": [
+        3780,
+        3864
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c24",
+      "text": "They are responsible for initial organisation of the guilds and implementing the tooling, infrastructure and processes required to operate successfully as a DAO.",
+      "paragraph_index": 0,
+      "char_range": [
+        3865,
+        4026
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c25",
+      "text": "For Season 0, we have proposed six guilds and their leaders (below) based on existing contributions to the DAO.",
+      "paragraph_index": 0,
+      "char_range": [
+        4027,
+        4138
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c26",
+      "text": "This suggestion is not a permanent setup, but allows us to move forward.",
+      "paragraph_index": 0,
+      "char_range": [
+        4139,
+        4211
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c27",
+      "text": "Core Team roles, how guilds are established, and how Leaders are \u201celected\u201d will be refined in the community via our Governance process during Season 0.",
+      "paragraph_index": 0,
+      "char_range": [
+        4212,
+        4363
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c28",
+      "text": "Core team Season 0 Objectives: Deploy DAO Treasury, fund with initial capital, and produce proposals for further funding (internal/external).",
+      "paragraph_index": 0,
+      "char_range": [
+        4364,
+        4505
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c29",
+      "text": "Implement DAO Structure for Season 0.",
+      "paragraph_index": 0,
+      "char_range": [
+        4506,
+        4543
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c30",
+      "text": "This will be refined moving forward by the Community Guild moving forward based on feedback from members.",
+      "paragraph_index": 0,
+      "char_range": [
+        4544,
+        4649
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c31",
+      "text": "Implement Governance for Season 0: to be refined during going forward by the Governance Guild Guild Leader Community kempsterrrr Design Eknobl Developer Mark (with-heart) Writers Marc Governance Will Blackburn Marketing/Biz-Dev Nader Guilds Guilds are the DAOs most important resource - skilled labour.",
+      "paragraph_index": 0,
+      "char_range": [
+        4650,
+        4952
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c32",
+      "text": "Each guild will represent a group of members with shared skills, expertise, and interests who self-organise their working practices and on-board new members.",
+      "paragraph_index": 0,
+      "char_range": [
+        4953,
+        5110
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c33",
+      "text": "writers) will have consistent outputs (i.e.",
+      "paragraph_index": 0,
+      "char_range": [
+        5406,
+        5449
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c34",
+      "text": "design/dev) will act as resource pools for DAO projects to draw talent from.",
+      "paragraph_index": 0,
+      "char_range": [
+        5489,
+        5565
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c35",
+      "text": "For Season 0, guilds will initially have no defined hierarchy beyond its \u201cLeader\u201d as proposed above.",
+      "paragraph_index": 0,
+      "char_range": [
+        5566,
+        5666
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c36",
+      "text": "Guilds at genesis for Season 0: Community Guild Refine external on-boarding (content of public channels) to make it clearer for potential new members how they can join the DAO.",
+      "paragraph_index": 0,
+      "char_range": [
+        5667,
+        5843
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c37",
+      "text": "Ensure community is kept up to speed via Town Hall and weekly DAO newsletter.",
+      "paragraph_index": 0,
+      "char_range": [
+        6065,
+        6142
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c38",
+      "text": "Writers Guild Specify content types and platforms where each content type will be published (e.g., mirror.xyz, dev.to, developerdao.com , etc.) and establish presence there.",
+      "paragraph_index": 0,
+      "char_range": [
+        6878,
+        7051
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c39",
+      "text": "Seek and establish partnerships with other DAOs and Web3 organisations.",
+      "paragraph_index": 0,
+      "char_range": [
+        7623,
+        7694
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c40",
+      "text": "As a community, we\u2019ll address the process for creating further guilds during Season 0.",
+      "paragraph_index": 0,
+      "char_range": [
+        7772,
+        7858
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c41",
+      "text": "Projects Projects are groups of DAO members who are organising around specific goals.",
+      "paragraph_index": 0,
+      "char_range": [
+        7859,
+        7944
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c42",
+      "text": "Some projects will naturally operate within a single guild, while others may require cross-guild collaboration of resources.",
+      "paragraph_index": 0,
+      "char_range": [
+        7945,
+        8069
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c43",
+      "text": "During Season 0, we will be calling on the community to propose further \u201cCore DAO Projects\u201d that are in line with our mission, values, and goals, taking a vote to choose those to focus on through into Season 1.",
+      "paragraph_index": 0,
+      "char_range": [
+        8163,
+        8373
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c44",
+      "text": "That said, many of us are here to build shit.",
+      "paragraph_index": 0,
+      "char_range": [
+        8374,
+        8419
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c45",
+      "text": "Whilst we figure out official DAO Projects, we encourage community members to pitch and collaborate on ideas and the DAO will support them as best it can.",
+      "paragraph_index": 0,
+      "char_range": [
+        8420,
+        8574
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c46",
+      "text": "For existing projects, we\u2019re proposing the following goals for Season 0 (TBD): Derivatives Launch Pixel Avatars Project to DAO members.",
+      "paragraph_index": 0,
+      "char_range": [
+        8575,
+        8710
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c47",
+      "text": "Website Their primary objective during Season 0 is to build and launch V1 of the website with a structure and content that helps the DAO deliver on its mission, values, and goals.",
+      "paragraph_index": 0,
+      "char_range": [
+        8866,
+        9045
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0,
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c48",
+      "text": "This potentially includes the following: Landing Page that gives high-level overview of the DAO and encourages people to take action (join, check out projects, Learn Web3) Projects page(s) that primarily highlight ongoing DAO projects, but also provides some visibility for member projects created in/for the DAO/its members.",
+      "paragraph_index": 0,
+      "char_range": [
+        9046,
+        9371
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c49",
+      "text": "Governance Our governance mechanism will continue to evolve through community input and community-lead proposals.",
+      "paragraph_index": 0,
+      "char_range": [
+        9692,
+        9805
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c50",
+      "text": "It is important that proposals can be created by anyone in the community from the beginning.",
+      "paragraph_index": 0,
+      "char_range": [
+        9806,
+        9898
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c51",
+      "text": "It is also important to note that decentralized governance is a spectrum, and our governance and the strategies used to execute consensus will become more decentralized over time.",
+      "paragraph_index": 0,
+      "char_range": [
+        9899,
+        10078
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c52",
+      "text": "Taking inspiration from Bankless DAO, the following initial governance flow is proposed: Conversations \u2192 Brainstorming \u2192 Proposals \u2192 Consensus \u2192 Execution Conversations : Discord Brainstorming : Discord + Discourse Proposals : Discourse Consensus : Snapshot Execution : Discord Conversations &amp; Decision Making Most conversations and decisions will not require proposals and consensus voting.",
+      "paragraph_index": 0,
+      "char_range": [
+        10079,
+        10474
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c53",
+      "text": "Internal project or guild decisions (e.g., how to organise project work, on-boarding, etc.) do not require broad community consensus (formal vote), just consensus within that project or guild in a way they deem appropriate (e.g., Discord or Discourse polls).",
+      "paragraph_index": 0,
+      "char_range": [
+        10475,
+        10733
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c54",
+      "text": "The first important intended output here is achieving a quorum.",
+      "paragraph_index": 0,
+      "char_range": [
+        11069,
+        11132
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c55",
+      "text": "The second important outcome is ensuring ideas that reach the proposal stage have been properly scoped and discussed before the community is asked to back them.",
+      "paragraph_index": 0,
+      "char_range": [
+        11337,
+        11497
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c56",
+      "text": "The more we move forward as a community with focus, the further we will go.",
+      "paragraph_index": 0,
+      "char_range": [
+        11601,
+        11676
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c57",
+      "text": "Governance &amp; Season 0 The proposed governance process outlined here will be revisited by the community in Season 0.",
+      "paragraph_index": 0,
+      "char_range": [
+        12362,
+        12481
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c58",
+      "text": "While it is important to launch with a clear process for anyone in the community to create a proposal leading to a DAO vote, we anticipate another more in-depth governance proposal.",
+      "paragraph_index": 0,
+      "char_range": [
+        12482,
+        12663
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c59",
+      "text": "Rewarding Contributions Building in mechanisms to reward contributions is fundamental for operating successfully as a DAO and therefore delivering on our mission, values &amp; goals.",
+      "paragraph_index": 0,
+      "char_range": [
+        12849,
+        13031
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c60",
+      "text": "The plan is to eventually provide every contributor rewards via our governance token, $DBUCKS, a key goal to deliver a proposal for this Season.",
+      "paragraph_index": 0,
+      "char_range": [
+        13032,
+        13176
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c61",
+      "text": "In order to reward people during Season 0, we\u2019re proposing a system based on POAPs and NFTs for attending community events and/or contributing to the DAO in many different ways (suggested structure below).",
+      "paragraph_index": 0,
+      "char_range": [
+        13177,
+        13382
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c62",
+      "text": "These rewards will also play a role in our initial $DBUCKS token allocation as to reward early contributors to the DAO.",
+      "paragraph_index": 0,
+      "char_range": [
+        13383,
+        13502
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c63",
+      "text": "Reward Structure: FOUNDER POAPS (Voting on Season0 proposal) TOWN HALL POAPS (One for each town hall attended) SCRIBE POAPS (One for each article for the DAO.) BUILDER POAPS (One for each participation in a DAO project.",
+      "paragraph_index": 0,
+      "char_range": [
+        13503,
+        13722
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c64",
+      "text": "EDUCATOR POAPS (One for each 2 contributions to the resource base) DIPLOMAT POAPS (Making connection with another DAO/organisation) Next Steps for this draft proposal This vote will run until Sunday pm.",
+      "paragraph_index": 0,
+      "char_range": [
+        13754,
+        13956
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c65",
+      "text": "5 Likes wfqfw November 1, 2021, 3:14pm 3 Reward Structure: FOUNDER POAPS (Voting on Season0 proposal) TOWN HALL POAPS (One for each town hall attended) SCRIBE POAPS (One for each article for the DAO.]) BUILDER POAPS (One for each participation in a DAO project.",
+      "paragraph_index": 0,
+      "char_range": [
+        14920,
+        15181
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          5.0,
+          1.0,
+          2021.0,
+          3.0,
+          14.0,
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c66",
+      "text": "EDUCATOR POAPS (One for each 2 contributions to the resource base) DIPLOMAT POAPS (Making connection with another DAO/organisation) voting on snapshot proposals could also be added to reward structure 8 Likes TheHeroShep November 4, 2021, 1:09am 4 kempsterrrr: (i.e.",
+      "paragraph_index": 0,
+      "char_range": [
+        15213,
+        15479
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          8.0,
+          4.0,
+          2021.0,
+          1.0,
+          9.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c67",
+      "text": "building trustless NFT giveaway (1 engineering manager, 1 frontend, 1 smart contract, 1 data analyst to measure impact) instead of having the verticals being their own groups and trying to work together across them.",
+      "paragraph_index": 0,
+      "char_range": [
+        15796,
+        16011
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c68",
+      "text": "6 Likes gjsyme November 4, 2021, 2:04am 5 kempsterrrr: SCRIBE POAPS (One for each article for the DAO.]) Rogue \u2018]\u2019 hiding just before the closing parenthesis.",
+      "paragraph_index": 0,
+      "char_range": [
+        16012,
+        16170
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          6.0,
+          4.0,
+          2021.0,
+          2.0,
+          5.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c69",
+      "text": "2 Likes dhaiwat10 November 4, 2021, 4:20am 6 Re.",
+      "paragraph_index": 0,
+      "char_range": [
+        16171,
+        16219
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          10.0,
+          4.0,
+          2021.0,
+          20.0,
+          6.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c70",
+      "text": "(something along those lines) carlomigueldy.eth November 4, 2021, 7:22am 7 kempsterrrr: That said, many of us are here to build shit.",
+      "paragraph_index": 0,
+      "char_range": [
+        16387,
+        16520
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          4.0,
+          2021.0,
+          7.0,
+          22.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c71",
+      "text": "2 Likes jv-nz November 4, 2021, 8:37am 8 Just a request that if there are POAPs for town hall sessions that there are options for folks in timezones that can\u2019t make the call times.",
+      "paragraph_index": 0,
+      "char_range": [
+        16533,
+        16713
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          4.0,
+          2021.0,
+          8.0,
+          37.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c72",
+      "text": "As a New Zealand based dev I\u2019m always seeing sessions at 2am and appreciate when there are video recordings I can catch up on when the timezones don\u2019t work.",
+      "paragraph_index": 0,
+      "char_range": [
+        16714,
+        16870
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c73",
+      "text": "8 Likes zeuslawyer November 4, 2021, 10:13am 9 For the reward structure it is unclear whether scribe vs educator is beneficial.",
+      "paragraph_index": 0,
+      "char_range": [
+        16871,
+        16998
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          8.0,
+          4.0,
+          2021.0,
+          10.0,
+          13.0,
+          9.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c74",
+      "text": "On the face of it it appears the initial approaches for internal resources and external articles would overlap strongly as we are in the build phase.",
+      "paragraph_index": 0,
+      "char_range": [
+        17123,
+        17272
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c75",
+      "text": "Z From Australia 1 Like dmipet November 4, 2021, 5:37pm 10 Great work on this!",
+      "paragraph_index": 0,
+      "char_range": [
+        17498,
+        17576
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          4.0,
+          2021.0,
+          5.0,
+          37.0,
+          10.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c76",
+      "text": "I hadn\u2019t realized there was this forum, so great!",
+      "paragraph_index": 0,
+      "char_range": [
+        17628,
+        17677
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c77",
+      "text": "I personally find it really hard to use Discord/messaging apps for stuff like this, the stream is overwhelming and IMO things get lost, difficult to maintain discussions.",
+      "paragraph_index": 0,
+      "char_range": [
+        17678,
+        17848
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c78",
+      "text": "I\u2019m sure we\u2019re all quite busy outside of the DAO, and having a more async medium for communication is in my view.",
+      "paragraph_index": 0,
+      "char_range": [
+        17849,
+        17962
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c79",
+      "text": "3 Likes camolezi November 4, 2021, 8:55pm 11 Thanks so much for this, awesome work, really liked the proposal.",
+      "paragraph_index": 0,
+      "char_range": [
+        18135,
+        18245
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          4.0,
+          2021.0,
+          8.0,
+          55.0,
+          11.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c80",
+      "text": "isiah November 5, 2021, 11:28am 12 @kempsterrrr @dabit3 thoughts on marketing/biz-dev being two separate guilds?",
+      "paragraph_index": 0,
+      "char_range": [
+        18481,
+        18593
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          5.0,
+          2021.0,
+          11.0,
+          28.0,
+          12.0,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c81",
+      "text": "for example I would see biz-dev being focused on B2B (or DAO to DAO initiatives) and partnerships - so campaigns that target groups.",
+      "paragraph_index": 0,
+      "char_range": [
+        18594,
+        18726
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          2000000000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c82",
+      "text": "wheres marketing would perhaps be more so focused on social campaigns that target individuals (web 2 developers or web3 creators) as well as brand awareness campaigns (NFT drops, etc.) there\u2019s a ton of overlap between both for sure.",
+      "paragraph_index": 0,
+      "char_range": [
+        18727,
+        18959
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c83",
+      "text": "but was curious to know if this is something that could be split into two guilds as the DAO grows?",
+      "paragraph_index": 0,
+      "char_range": [
+        18960,
+        19058
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c84",
+      "text": "3 Likes willblackburn November 5, 2021, 12:49pm 14 That makes sense long-term to me!",
+      "paragraph_index": 0,
+      "char_range": [
+        19059,
+        19143
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          5.0,
+          2021.0,
+          12.0,
+          49.0,
+          14.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c85",
+      "text": "Part of the challenge early on is not spreading too thin ( see post ).",
+      "paragraph_index": 0,
+      "char_range": [
+        19144,
+        19214
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c86",
+      "text": "Especially when we have better coordinated resources for the biz dev projects.",
+      "paragraph_index": 0,
+      "char_range": [
+        19331,
+        19409
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c87",
+      "text": "1 Like willblackburn November 5, 2021, 12:52pm 15 100%!",
+      "paragraph_index": 0,
+      "char_range": [
+        19410,
+        19465
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          5.0,
+          2021.0,
+          12.0,
+          52.0,
+          15.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c88",
+      "text": "Second meeting 12 hrs later with poaps?",
+      "paragraph_index": 0,
+      "char_range": [
+        19509,
+        19548
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          12.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c89",
+      "text": "1 Like isiah November 5, 2021, 1:04pm 16 @willblackburn Gotcha!",
+      "paragraph_index": 0,
+      "char_range": [
+        19549,
+        19612
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          5.0,
+          2021.0,
+          4.0,
+          16.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c90",
+      "text": "I have a strong background in marketing (growth) and would love to contribute there in anyway I can.",
+      "paragraph_index": 0,
+      "char_range": [
+        19692,
+        19792
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c91",
+      "text": "@dabit3 is there a meeting date/time that is setup for the marketing/biz-dev guild?",
+      "paragraph_index": 0,
+      "char_range": [
+        19793,
+        19876
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c92",
+      "text": "2 Likes kempsterrrr November 5, 2021, 3:23pm 17 So this was suggested a few times by @wolovim as well and too my shame I forgot to put it up to a vote Might have to be something we revisit in Season 0 now given the votes up.",
+      "paragraph_index": 0,
+      "char_range": [
+        19877,
+        20101
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          5.0,
+          2021.0,
+          3.0,
+          23.0,
+          17.0,
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c93",
+      "text": "ryanharris November 5, 2021, 3:40pm 18 Decide on best way to organise developers within the DAO (i.e.",
+      "paragraph_index": 0,
+      "char_range": [
+        20118,
+        20219
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          5.0,
+          2021.0,
+          3.0,
+          40.0,
+          18.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c94",
+      "text": "Since many members are here to learn (myself included!), that could help us be mindful in terms of matching folks up so A) projects are getting done and B) the DAO\u2019s collective knowledge is growing.",
+      "paragraph_index": 0,
+      "char_range": [
+        20460,
+        20658
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c95",
+      "text": "Anything that can help get folks from new DAO member to project contributor in the least amount of time will be highly valuable.",
+      "paragraph_index": 0,
+      "char_range": [
+        20883,
+        21011
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c96",
+      "text": "1 Like jv-nz November 6, 2021, 4:45am 20 I don\u2019t mind @thisizkp \u2019s idea of alternating timeslots for meetings (after every meeting add 8 hours to the recurring meetings timeslot).",
+      "paragraph_index": 0,
+      "char_range": [
+        21282,
+        21461
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          6.0,
+          2021.0,
+          4.0,
+          45.0,
+          20.0,
+          8.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c97",
+      "text": "The idea of mirror meetings 12 hours apart is also fine as is just have a recording of the meeting and leave poap claims open for 24 hours so that folks from out of the way timezones aren\u2019t excluded.",
+      "paragraph_index": 0,
+      "char_range": [
+        21462,
+        21661
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          12.0,
+          24.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c98",
+      "text": "I\u2019m also a big fan of https://thehtime.com - it takes a bit of mental investment to start using but then it makes mental timezone translations disappear.",
+      "paragraph_index": 0,
+      "char_range": [
+        21662,
+        21815
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": [
+          "https://thehtime.com/"
+        ]
+      }
+    },
+    {
+      "id": "c99",
+      "text": "1 Like djbowers November 7, 2021, 8:14pm 21 +1 to having a shared calendar with the town hall meetings!",
+      "paragraph_index": 0,
+      "char_range": [
+        21816,
+        21919
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          7.0,
+          2021.0,
+          8.0,
+          14.0,
+          21.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c100",
+      "text": "2 Likes next page \u2192 Home Categories Guidelines Terms of Service Privacy Policy Powered by Discourse , best viewed with JavaScript enabled",
+      "paragraph_index": 0,
+      "char_range": [
+        21920,
+        22057
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

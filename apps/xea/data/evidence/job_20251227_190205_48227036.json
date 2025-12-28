@@ -1,0 +1,66 @@
+{
+  "proposal_hash": "sha256:766968363c93afc64d85e5eed1724c3afaf6098270cb7e7fa16d587475eb2903",
+  "job_id": "job_20251227_190205_48227036",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The price of ETH will stabilize between $4,500 and $5,000 for the duration of Q3 2026 due to institutional adoption alone.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Cortensor Validation Failed. Last error: ",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Cortensor Validation Failed. Last error: "
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed"
+  ],
+  "timestamp": "2025-12-27T19:15:33.678329+00:00",
+  "redundancy_level": "full",
+  "miners_requested": 5,
+  "miners_responded": 1,
+  "missing_miners": [],
+  "confidence_adjustment_factor": 1.0,
+  "replay_version": "1.0",
+  "verification_instructions": {
+    "algorithm": "SHA256",
+    "components": [
+      "claims_hash",
+      "responses_hash",
+      "aggregation_hash"
+    ],
+    "cli_command": "python -m backend.cli verify <file.json>"
+  },
+  "computation_hash": "sha256:a1ff4aa6c17f9eb93c3b82b205a22dee1d4c4e65b88176d5917e40bac069ad1d"
+}

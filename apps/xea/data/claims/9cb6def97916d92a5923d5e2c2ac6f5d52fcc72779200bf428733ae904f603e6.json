@@ -1,0 +1,23 @@
+{
+  "proposal_hash": "sha256:9cb6def97916d92a5923d5e2c2ac6f5d52fcc72779200bf428733ae904f603e6",
+  "canonical_text": "Title: Validation of Ethereum Merge Date Body: The Ethereum network completed \"The Merge\" on September 15, 2022. This transition moved the network from Proof-of-Work to Proof-of-Stake.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: Validation of Ethereum Merge Date Body: The Ethereum network completed \"The Merge\" on September 15, 2022.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        112
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          15.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}
