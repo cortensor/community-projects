@@ -1,0 +1,6 @@
+export const INVARIANTS = {
+  NEVER_TRUST_INFERENCE: true,
+  NEVER_AUTO_RELEASE: true,
+  FAIL_CLOSED_ALWAYS: true,
+  AGREEMENT_REQUIRED_FOR_ACTION: true,
+} as const;

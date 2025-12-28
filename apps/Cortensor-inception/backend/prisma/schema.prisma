@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  taskHash  String
+  policy    String
+  createdAt BigInt
+  evidence  Evidence?
+}
+
+model Evidence {
+  id         Int    @id @default(autoincrement())
+  sessionId  Int    @unique
+  hash       String
+  cid        String?
+  createdAt  BigInt
+  session    Session @relation(fields: [sessionId], references: [id])
+}

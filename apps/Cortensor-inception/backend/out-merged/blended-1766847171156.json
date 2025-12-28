@@ -1,0 +1,72 @@
+{
+  "id": "blended-1766847171156",
+  "sources": [
+    {
+      "path": "out-variants/bundle-unanimous-1766846962910.json",
+      "bundle": {
+        "decisionId": "decision-unanimous-1766846962908",
+        "envelope": {
+          "decision": "RELEASE",
+          "rationale": "majority 3/3 >= 0.75",
+          "evidence": {
+            "totalClaims": 3,
+            "groupCount": 1,
+            "distinctMiners": 3,
+            "replayHash": "fb77c7235d6d3b4e8dfd93e45661e5a44041773037c95dd06baa0d2852f983da"
+          },
+          "agreementState": "AGREED"
+        },
+        "provenance": {
+          "sessionId": 200,
+          "taskIds": []
+        },
+        "createdAt": 1766846962908,
+        "version": "v1"
+      }
+    },
+    {
+      "path": "out-llm/bundle-llm-1766846981811.json",
+      "bundle": {
+        "decisionId": "llm-run-1766846981808",
+        "envelope": {
+          "decision": "BLOCK",
+          "rationale": "conflict 1/3",
+          "evidence": {
+            "totalClaims": 3,
+            "groupCount": 3,
+            "distinctMiners": 3,
+            "replayHash": "01e8166f663b812b4a57ceff2ffb0dae25b3ea2764c6b64c7e32bcac550d28f8"
+          },
+          "agreementState": "CONFLICT_DETECTED"
+        },
+        "provenance": {
+          "sessionId": 0,
+          "taskIds": []
+        },
+        "createdAt": 1766846981808,
+        "version": "v1"
+      }
+    }
+  ],
+  "blended": {
+    "decision": "ESCALATE",
+    "agreementState": "ESCALATED",
+    "rationale": "Source A (decision-unanimous-1766846962908): majority 3/3 >= 0.75\nSource B (llm-run-1766846981808): conflict 1/3",
+    "evidence": {
+      "totalClaims": 6,
+      "groupCount": 4,
+      "distinctMiners": 6,
+      "replayHash": [
+        "fb77c7235d6d3b4e8dfd93e45661e5a44041773037c95dd06baa0d2852f983da",
+        "01e8166f663b812b4a57ceff2ffb0dae25b3ea2764c6b64c7e32bcac550d28f8"
+      ]
+    },
+    "diffs": [
+      "decision",
+      "rationale",
+      "agreementState",
+      "replayHash"
+    ]
+  },
+  "createdAt": 1766847171156
+}
