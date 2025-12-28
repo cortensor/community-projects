@@ -1,0 +1,38 @@
+{
+  "name": "cortensor-judge-backend",
+  "version": "1.0.0",
+  "description": "Backend for Cortensor Judge - decentralized dispute resolution layer for AI",
+  "private": true,
+  "workspaces": [
+    "sentinel",
+    "judge-sdk"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev -w sentinel",
+    "start": "npm start -w sentinel",
+    "test": "npm test --workspaces",
+    "test:coverage": "npm run test:coverage --workspaces",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "format": "npm run format --workspaces",
+    "contracts:build": "cd contracts && forge build",
+    "contracts:deploy": "cd contracts && forge script script/Deploy.s.sol:DeployJudge --broadcast --verify",
+    "docker:build": "docker build -f docker/Dockerfile -t cortensor-judge:latest .",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down"
+  },
+  "keywords": [
+    "cortensor",
+    "blockchain",
+    "ai",
+    "dispute-resolution",
+    "judge"
+  ],
+  "author": "Cortensor Judge Team",
+  "license": "MIT",
+  "devDependencies": {
+    "hardhat": "^3.1.0"
+  }
+}

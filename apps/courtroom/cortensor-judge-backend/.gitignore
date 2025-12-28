@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+
+# Testing
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Forge/Foundry
+cache/
+artifacts/
+
+# Docker
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Contracts
+contracts/lib/
+contracts/out/
+
+# Coverage
+.coverage
+.coverage.json
+
+# Hardhat
+.openzeppelin/
+
+# Redis
+dump.rdb
+
+# Node
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
