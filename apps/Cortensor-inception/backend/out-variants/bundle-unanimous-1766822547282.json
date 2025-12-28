@@ -1,0 +1,20 @@
+{
+  "decisionId": "decision-unanimous-1766822547281",
+  "envelope": {
+    "decision": "RELEASE",
+    "rationale": "majority 3/3 >= 0.75",
+    "evidence": {
+      "totalClaims": 3,
+      "groupCount": 1,
+      "distinctMiners": 3,
+      "replayHash": "fb77c7235d6d3b4e8dfd93e45661e5a44041773037c95dd06baa0d2852f983da"
+    },
+    "agreementState": "AGREED"
+  },
+  "provenance": {
+    "sessionId": 200,
+    "taskIds": []
+  },
+  "createdAt": 1766822547281,
+  "version": "v1"
+}

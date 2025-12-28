@@ -1,0 +1,20 @@
+{
+  "decisionId": "llm-run-1766822948937",
+  "envelope": {
+    "decision": "BLOCK",
+    "rationale": "conflict 1/3",
+    "evidence": {
+      "totalClaims": 3,
+      "groupCount": 3,
+      "distinctMiners": 3,
+      "replayHash": "87444ea6ee931fd2a5a624ea63650828ea89b4f668b03c7f25630013835ec813"
+    },
+    "agreementState": "CONFLICT_DETECTED"
+  },
+  "provenance": {
+    "sessionId": 0,
+    "taskIds": []
+  },
+  "createdAt": 1766822948937,
+  "version": "v1"
+}

@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  html, body, #__next {
+    height: 100%;
+  }
+
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial;
+  }
+
+  /* ===== Uiverse Button (styled-component inspired) ===== */
+
+  .uiverse-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1.1em 2em;
+
+    /* base look inspired by provided style */
+    background-color: #ecd448;
+    color: #131313;
+    border: 2px solid #ffffff;
+
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 2px 0 2px #000;
+
+    transition: all 0.3s ease;
+  }
+  /* ===== TEXT GLITCH (Framer-style) ===== */
+
+.glitch {
+  position: relative;
+}
+
+/* both layers clipped */
+.glitch-layer,
+.glitch-layer2 {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 0);
+  pointer-events: none;
+}
+
+/* cyan offset */
+.glitch-layer {
+  animation: glitch1 2.2s infinite linear alternate-reverse;
+  filter: drop-shadow(-2px 0 #00ffff);
+}
+
+/* magenta offset */
+.glitch-layer2 {
+  animation: glitch2 2.6s infinite linear alternate-reverse;
+  filter: drop-shadow(2px 0 #ff00ff);
+}
+
+/* animations */
+@keyframes glitch1 {
+  0%   { clip-path: inset(10% 0 85% 0); transform: translate(-2px, -1px); }
+  10%  { clip-path: inset(40% 0 40% 0); transform: translate(2px, 1px); }
+  20%  { clip-path: inset(80% 0 5% 0);  transform: translate(-1px, 0); }
+  30%  { clip-path: inset(15% 0 65% 0); transform: translate(1px, -1px); }
+  40%  { clip-path: inset(55% 0 30% 0); transform: translate(-2px, 1px); }
+  50%  { clip-path: inset(75% 0 10% 0); transform: translate(2px, -1px); }
+  60%  { clip-path: inset(35% 0 45% 0); transform: translate(-1px, 1px); }
+  70%  { clip-path: inset(5% 0 85% 0);  transform: translate(1px, 0); }
+  80%  { clip-path: inset(65% 0 20% 0); transform: translate(-2px, -1px); }
+  100% { clip-path: inset(10% 0 80% 0); transform: translate(0); }
+}
+
+@keyframes glitch2 {
+  0%   { clip-path: inset(80% 0 5% 0);  transform: translate(2px, 1px); }
+  10%  { clip-path: inset(20% 0 65% 0); transform: translate(-2px, -1px); }
+  20%  { clip-path: inset(60% 0 30% 0); transform: translate(1px, 0); }
+  30%  { clip-path: inset(10% 0 80% 0); transform: translate(-1px, 1px); }
+  40%  { clip-path: inset(70% 0 15% 0); transform: translate(2px, -1px); }
+  50%  { clip-path: inset(35% 0 45% 0); transform: translate(-2px, 1px); }
+  60%  { clip-path: inset(5% 0 85% 0);  transform: translate(1px, -1px); }
+  70%  { clip-path: inset(55% 0 30% 0); transform: translate(-1px, 0); }
+  80%  { clip-path: inset(25% 0 60% 0); transform: translate(2px, 1px); }
+  100% { clip-path: inset(80% 0 10% 0); transform: translate(0); }
+}
+
+  /* animated diagonal highlight */
+  .uiverse-button::before {
+    content: "";
+    position: absolute;
+    /* make the highlight much wider so it sweeps fully across the button */
+    width: 140%;
+    height: 140%;
+    background-color: #ff6700;
+    top: 50%;
+    left: -30%;
+    /* start well off the left edge and move fully past the right edge */
+    transform: skewX(30deg) translate(-120%, -50%);
+    /* slower sweep for a smoother effect */
+    transition: transform 1.5s cubic-bezier(.2,.9,.2,1);
+    will-change: transform;
+    pointer-events: none;
+    z-index: 1; /* behind text */
+  }
+
+  /* delay changing the button background so the sweep is visible first */
+  .uiverse-button {
+    transition: background-color 220ms ease 450ms, color 220ms ease 450ms, transform 160ms ease;
+  }
+
+  .uiverse-button:hover {
+    transform: translateY(-1px);
+    background-color: #4cc9f0;
+    color: #ffffff;
+    box-shadow: 0 2px 0 2px #0d3b66;
+  }
+
+  .uiverse-button:hover::before {
+    transform: skewX(30deg) translate(120%, -50%);
+    /* no separate delay here; the background-color transition is delayed above */
+  }
+
+  .uiverse-button:active {
+    transform: scale(0.96);
+  }
+
+  .uiverse-button.disabled,
+  .uiverse-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Sliding text container (supports both .uiverse-button and .u-button) */
+  .uiverse-button .bgContainer,
+  .u-button .bgContainer {
+    position: relative;
+    min-width: 160px; /* prevent clipping */
+    height: 24px;
+    overflow: hidden;
+    z-index: 2; /* above the ::before highlight */
+  }
+
+  /* Text */
+  .uiverse-button .bgContainer span,
+  .u-button .bgContainer span {
+    position: absolute;
+    left: 0; right: 0;
+    display: block;
+    font-weight: 700;
+    line-height: 24px;
+    color: inherit; /* inherit current text color */
+    text-align: center;
+    white-space: nowrap;
+    transition: transform 280ms cubic-bezier(.2,.9,.2,1);
+    z-index: 3; /* ensure text is above highlight */
+  }
+
+  /* initial positions */
+  .uiverse-button .bgContainer span:first-child,
+  .u-button .bgContainer span:first-child { transform: translateY(0); }
+  .uiverse-button .bgContainer span:last-child,
+  .u-button .bgContainer span:last-child { transform: translateY(100%); }
+
+  /* Hover slide effect */
+  .uiverse-button:hover .bgContainer span:first-child,
+  .u-button:hover .bgContainer span:first-child { transform: translateY(-100%); }
+  .uiverse-button:hover .bgContainer span:last-child,
+  .u-button:hover .bgContainer span:last-child { transform: translateY(0); }
+
+
+  /* Arrow */
+  .uiverse-button .arrowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .uiverse-button:hover .arrowContainer {
+    transform: translateX(6px);
+  }
+
+  .uiverse-button .arrowContainer svg {
+    display: block;
+  }
+
+  /* prefer currentColor so arrow inverts with text color */
+  .uiverse-button .arrowContainer svg path,
+  .u-button .arrowContainer svg path {
+    fill: currentColor;
+  }
+
+  /* ===== New site-wide UI helpers ===== */
+  :root {
+    --btn-bg: #000;
+    --btn-foreground: #fff;
+    --card-bg: #fff;
+    --accent: #000;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 1.6rem;
+    background: var(--btn-bg);
+    color: var(--btn-foreground);
+    border: 3px solid var(--accent);
+    border-radius: 10px;
+    font-weight: 800;
+    box-shadow: 8px 8px 0 0 var(--accent);
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 14px 14px 0 0 var(--accent);
+  }
+
+  .btn-primary:active {
+    transform: translateY(-2px) scale(0.99);
+  }
+
+  .btn-primary:focus-visible {
+    outline: 3px solid rgba(0,0,0,0.12);
+    outline-offset: 4px;
+    border-color: var(--accent);
+  }
+
+  .card-ui {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    padding: 1.25rem;
+    border-radius: 8px;
+    box-shadow: 6px 6px 0 0 var(--accent);
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms ease, background 260ms;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-ui::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.00));
+    pointer-events: none;
+    transform: translateY(6%);
+    transition: transform 260ms;
+  }
+
+  .card-ui:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 12px 12px 0 0 var(--accent);
+  }
+
+  .card-ui:hover::before {
+    transform: translateY(-6%);
+  }
+
+  .card-ui:focus-visible {
+    outline: 3px solid rgba(0,0,0,0.06);
+    outline-offset: 6px;
+  }
+
+  /* subtle icon block */
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #fafafa;
+    border: 1px solid rgba(0,0,0,0.06);
+    margin-right: 12px;
+  }
+
+  /* Vertical side headings (large rotated labels on wide screens) */
+  .side-heading {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: rgba(0,0,0,0.12);
+    font-size: 14px;
+    z-index: 60;
+    cursor: pointer;
+    transition: color 220ms cubic-bezier(.2,.9,.2,1), transform 220ms;
+    user-select: none;
+    display: inline-block;
+    -webkit-text-stroke: 0.5px rgba(0,0,0,0.06);
+  }
+
+  .side-heading::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 44px;
+    background: rgba(0,0,0,0.06);
+    margin: 10px auto 0;
+    transition: background 220ms;
+  }
+
+  .side-heading.side-left {
+    left: 8px;
+    transform: rotate(-90deg) translateY(-50%);
+  }
+
+  .side-heading.side-right {
+    right: 8px;
+    transform: rotate(90deg) translateY(-50%);
+  }
+
+  .side-heading:hover {
+    color: rgba(0,0,0,0.9);
+    transform: translateY(-50%) scale(1.06);
+  }
+LOCK
+VALIDATE
+DECIDE
+RELEASE
+REJECT
+ESCALATE
+
+  /* Right-side stacked state headings */
+  .side-states-right {
+    position: fixed;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 62;
+  }
+
+  .side-states-right .side-state {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: rgba(0,0,0,0.12);
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 220ms cubic-bezier(.2,.9,.2,1), transform 220ms;
+    -webkit-text-stroke: 0.4px rgba(0,0,0,0.04);
+  }
+
+  .side-states-right .side-state:hover {
+    color: rgba(0,0,0,0.9);
+    transform: rotate(180deg) scale(1.06);
+  }
+
+  /* Hide on small screens */
+  @media (max-width: 1024px) {
+    .side-heading { display: none; }
+    .side-states-right { display: none; }
+  }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary, .card-ui, .uiverse-button, .glitch, .u-button, .side-heading {
+      transition: none !important;
+      animation: none !important;
+    }
+  }

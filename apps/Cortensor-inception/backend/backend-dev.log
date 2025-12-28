@@ -1,0 +1,34 @@
+
+> inception-backend@0.1.0 dev
+> ts-node-dev --respawn --transpile-only src/index.ts
+
+[INFO] 19:25:47 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+Backend running on :4000
+[INFO] 19:38:01 Restarting: /Users/dineshkumar/Projects/Inception/backend/src/contracts/validate.request.ts has been modified
+Backend running on :4000
+[INFO] 19:47:12 Restarting: /Users/dineshkumar/Projects/Inception/backend/src/server.ts has been modified
+Error: listen EADDRINUSE: address already in use :::4000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (/Users/dineshkumar/Projects/Inception/backend/node_modules/express/lib/application.js:635:24)
+    at Object.<anonymous> (/Users/dineshkumar/Projects/Inception/backend/src/index.ts:4:5)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1760:14)
+    at Module._compile (/Users/dineshkumar/Projects/Inception/backend/node_modules/source-map-support/source-map-support.js:568:25)
+    at Module.m._compile (/private/var/folders/kc/hgzvdkkd0q569jqq8j71s7p00000gn/T/ts-node-dev-hook-5586582625913301.js:69:33)
+    at node:internal/modules/cjs/loader:1892:10
+    at require.extensions..jsx.require.extensions..js (/private/var/folders/kc/hgzvdkkd0q569jqq8j71s7p00000gn/T/ts-node-dev-hook-5586582625913301.js:114:20)
+[ERROR] 19:47:12 Error: listen EADDRINUSE: address already in use :::4000
+[INFO] 19:47:12 Restarting: /Users/dineshkumar/Projects/Inception/backend/src/server.ts has been modified
+Error: listen EADDRINUSE: address already in use :::4000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (/Users/dineshkumar/Projects/Inception/backend/node_modules/express/lib/application.js:635:24)
+    at Object.<anonymous> (/Users/dineshkumar/Projects/Inception/backend/src/index.ts:4:5)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1760:14)
+    at Module._compile (/Users/dineshkumar/Projects/Inception/backend/node_modules/source-map-support/source-map-support.js:568:25)
+    at Module.m._compile (/private/var/folders/kc/hgzvdkkd0q569jqq8j71s7p00000gn/T/ts-node-dev-hook-5586582625913301.js:69:33)
+    at node:internal/modules/cjs/loader:1892:10
+    at require.extensions..jsx.require.extensions..js (/private/var/folders/kc/hgzvdkkd0q569jqq8j71s7p00000gn/T/ts-node-dev-hook-5586582625913301.js:114:20)
+[ERROR] 19:47:12 Error: listen EADDRINUSE: address already in use :::4000

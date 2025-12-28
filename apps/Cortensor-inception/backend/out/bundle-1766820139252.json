@@ -1,0 +1,20 @@
+{
+  "decisionId": "decision-1766820139245",
+  "envelope": {
+    "decision": "ESCALATE",
+    "rationale": "partial agreement 2/3",
+    "evidence": {
+      "totalClaims": 3,
+      "groupCount": 2,
+      "distinctMiners": 3,
+      "replayHash": "b1547e322011c1f35b6fa712867cc79851056f41f21dae88360c2197674626ed"
+    },
+    "agreementState": "ESCALATED"
+  },
+  "provenance": {
+    "sessionId": 141,
+    "taskIds": []
+  },
+  "createdAt": 1766820139251,
+  "version": "v1"
+}

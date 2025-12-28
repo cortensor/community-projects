@@ -1,0 +1,16 @@
+-- SQLite schema for sessions and evidence
+CREATE TABLE IF NOT EXISTS Session (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  taskHash TEXT NOT NULL,
+  policy TEXT NOT NULL,
+  createdAt INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Evidence (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sessionId INTEGER NOT NULL UNIQUE,
+  hash TEXT NOT NULL,
+  cid TEXT,
+  createdAt INTEGER NOT NULL,
+  FOREIGN KEY(sessionId) REFERENCES Session(id)
+);
