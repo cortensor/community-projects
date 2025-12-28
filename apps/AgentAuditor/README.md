@@ -345,8 +345,8 @@ npm install
 
 **Terminal 3 - Backend:**
 ```bash
-cd backend
-uvicorn backend.main:app --reload --port 8000
+cd AgentAuditor
+python -m backend.main
 ```
 
 **Terminal 4 - Frontend:**
