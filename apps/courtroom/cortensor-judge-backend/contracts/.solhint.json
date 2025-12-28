@@ -1,0 +1,10 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "prettier/prettier": ["error"],
+    "no-empty-blocks": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "reason-string": ["warn", {"minLength": 32}]
+  }
+}

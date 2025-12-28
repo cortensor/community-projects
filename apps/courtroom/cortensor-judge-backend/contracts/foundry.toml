@@ -1,0 +1,28 @@
+[profile.default]
+src = "."
+out = "out"
+libs = ["lib"]
+solc = "0.8.20"
+remappings = [
+    "forge-std/=lib/forge-std/src/"
+]
+
+[profile.default.optimizer]
+enabled = true
+runs = 200
+
+[rpc_endpoints]
+base = "https://mainnet.base.org"
+arbitrum = "https://arb1.arbitrum.io/rpc"
+localhost = "http://127.0.0.1:8545"
+
+[etherscan]
+base = { key = "${BASE_ETHERSCAN_KEY}" }
+arbitrum = { key = "${ARBITRUM_ETHERSCAN_KEY}" }
+
+[fmt]
+line_length = 100
+wrap_comments = true
+
+[profile.test]
+optimizer_runs = 1

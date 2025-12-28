@@ -1,0 +1,93 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Production
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Hardhat
+cache/
+artifacts/
+typechain-types/
+coverage.json
+coverage/
+
+# Foundry
+out/
+cache/
+broadcast/
+
+# Build outputs
+*.sol.js
+*.sol.js.map
+
+# Lock files (optional - some teams prefer to commit these)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Bun
+bun.lockb
+
+# Vite
+.vite/
+
+# Next.js (if used)
+.next/
+out/
+
+# Turbo
+.turbo/
+
+# Vercel
+.vercel
+
+# Misc
+*.pem
+*.key
+.env.backup
+
