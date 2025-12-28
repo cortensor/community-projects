@@ -1,0 +1,32 @@
+# Sample PROJECTS.yml entry for CortiGPT Monorepo
+# Add this entry to the main PROJECTS.yml file in cortensor/community-projects
+
+- name: cortigpt-monorepo
+  category: apps
+  owner: "@ezejaemmanuel"  # Replace with your GitHub username
+  collaborators: ["@ezejaemmanuel"]
+  status: active
+  created: 2025-08-18  # Replace with actual date
+  version: v1.0.0
+  tags: [monorepo, nextjs, react, ai-chat, web3, browser-extension, api-server, cortensor, full-stack]
+  description: "Complete CortiGPT ecosystem monorepo - decentralized AI platform with web app, browser extension, API server, and AI package. Features modern React 19, Next.js 15, Web3 integration, and comprehensive AI chat capabilities."
+  repository: "https://github.com/ezejaemmanuel/cortigpt-monorepo"  # Replace with your repo URL
+  demo: "https://cortigpt.jatique.dev"  # Replace with your demo URL if available
+  tech_stack: [nextjs, react, typescript, tailwindcss, wxt, wagmi, viem, cortensor, turborepo, pnpm]
+  components:
+    - name: "Web Application"
+      path: "apps/web"
+      description: "Modern web interface with AI chat and Web3 integration"
+      port: 3001
+    - name: "Browser Extension" 
+      path: "apps/extension"
+      port: 3000
+      description: "Cross-browser extension with sidepanel AI assistant"
+      browsers: [chrome, firefox, edge, safari]
+    - name: "API Server"
+      path: "apps/server" 
+      description: "RESTful API server for AI interactions"
+      port: 3002
+    - name: "AI Package"
+      path: "packages/ai"
+      description: "Shared AI integration and agent management library"
