@@ -1,0 +1,145 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.venv/
+pip-wheel-metadata/
+pip-log.txt
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Databases
+*.sqlite3
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+/dist
+/.vite
+
+# Docker
+docker-compose.override.yml
+
+# Jupyter
+.ipynb_checkpoints
+
+# Secrets / keys / certificates
+*.pem
+*.key
+private_key
+secrets.json
+
+# Misc
+*.bak
+*.swp
+```# filepath: c:\Users\shres\Desktop\AgentAuditor\.gitignore
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.venv/
+pip-wheel-metadata/
+pip-log.txt
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Databases
+*.sqlite3
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+/dist
+/.vite
+
+# Docker
+docker-compose.override.yml
+
+# Jupyter
+.ipynb_checkpoints
+
+# Secrets / keys / certificates
+*.pem
+*.key
+private_key
+secrets.json
+
+# Misc
+*.bak
+*.swp

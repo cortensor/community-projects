@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+pydantic-settings
+python-dotenv
+web3
+eth-account
+sentence-transformers
+scikit-learn
+numpy
+requests
