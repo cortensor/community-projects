@@ -1,0 +1,11 @@
+{
+  "sourceRepository": "https://github.com/Ezejaemmanuel/cortensor-openai-provider.git",
+  "lastSync": "2025-08-30T22:16:34.946Z",
+  "syncedBy": "HP",
+  "projectName": "cortensor-openai-provider",
+  "targetFolder": "tools",
+  "version": "1.0.0",
+  "syncTool": "Node.js",
+  "nodeVersion": "v22.14.0",
+  "communityProjectsPath": "C:\\Users\\HP\\development\\web-development\\javascript-node\\hackathon-dev\\cortensor-hackathon\\cortensor-community-sync\\community-projects"
+}
