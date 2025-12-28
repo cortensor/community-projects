@@ -1,0 +1,27 @@
+{
+  "job_id": "job_20251228_014244_99a90b90",
+  "responses": [
+    {
+      "timestamp": "2025-12-28T01:48:47.331257",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: ",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: "
+        }
+      }
+    }
+  ]
+}

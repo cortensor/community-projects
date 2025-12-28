@@ -1,0 +1,41 @@
+{
+  "proposal_hash": "sha256:5f0d2e2463372ffa2afef59606b3ce8a8d814d8f6c29b9037ae9c1293e46fb35",
+  "canonical_text": "**Title:** DAO-002: Neutral Governance Adjustment\n\nThis proposal authorizes a limited update to defined DAO configuration parameters to align operations with current best practices, without altering ownership, token distribution, or core governance rights.[1][2]",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "**Title:** DAO-002: Neutral Governance Adjustment",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        49
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "This proposal authorizes a limited update to defined DAO configuration parameters to align operations with current best practices, without altering ownership, token distribution, or core governance rights.[1][2]",
+      "paragraph_index": 1,
+      "char_range": [
+        51,
+        262
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

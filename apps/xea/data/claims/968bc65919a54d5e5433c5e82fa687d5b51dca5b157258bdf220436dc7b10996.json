@@ -1,0 +1,5 @@
+{
+  "proposal_hash": "sha256:968bc65919a54d5e5433c5e82fa687d5b51dca5b157258bdf220436dc7b10996",
+  "canonical_text": "sudo tail -f /var/log/cortensord.log",
+  "claims": []
+}

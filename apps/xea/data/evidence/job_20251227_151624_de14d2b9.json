@@ -1,0 +1,66 @@
+{
+  "proposal_hash": "sha256:2e2b2df2bdbaf9eada065494485b3247117485cff9d083d0f57ddde991cd26f6",
+  "job_id": "job_20251227_151624_de14d2b9",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Bitcoin will touch $100k soon.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.5,
+      "pouw_ci_95": [
+        0.5,
+        0.5
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-156",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "The claim is not verifiable as it is a prediction about the future price of Bitcoin, which is subject to numerous unpredictable factors.",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.5,
+            "omission_risk": 0.5,
+            "evidence_quality": 0.4,
+            "governance_relevance": 0.45,
+            "composite": 0.5
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is not verifiable as it is a prediction about the future price of Bitcoin, which is subject to numerous unpredictable factors.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2022-03-14T12:34:56Z\"\n}</s>"
+              }
+            ],
+            "created": 1766848617,
+            "id": "cmpl-1766848617",
+            "model": "cortensor-testnet-0",
+            "object": "text_completion",
+            "session_id": 156,
+            "task_id": 11,
+            "usage": {
+              "completion_tokens": 34,
+              "prompt_tokens": 91,
+              "total_tokens": 125
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.5,
+  "overall_ci_95": [
+    0.5,
+    0.5
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-27T15:18:21.922929+00:00"
+}

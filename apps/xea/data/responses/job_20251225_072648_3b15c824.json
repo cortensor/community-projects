@@ -1,0 +1,115 @@
+{
+  "job_id": "job_20251225_072648_3b15c824",
+  "responses": [
+    {
+      "timestamp": "2025-12-25T07:26:51.333302",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:26:54.628150",
+      "claim_id": "c2",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:26:57.821202",
+      "claim_id": "c3",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c3",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:27:01.013485",
+      "claim_id": "c4",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c4",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T07:27:04.200258",
+      "claim_id": "c5",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c5",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Client error '400 BAD REQUEST' for url 'http://127.0.0.1:5010/api/v1/completions/0xa8091d4589e9683eab7d'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "proposal_hash": "sha256:c530ebe405097dcf2ab559c26658df10c80e0fa3c1bfe11e5a118d43b1aca20d",
+  "job_id": "job_20251225_091910_e662e916",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Claims:\n- The module has been audited by Trail of Bits\n- Implementation will take 2 weeks\n- No existing proposals will be affected",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: name 'router_url' is not defined",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "name 'router_url' is not defined"
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T09:19:10.789039+00:00"
+}

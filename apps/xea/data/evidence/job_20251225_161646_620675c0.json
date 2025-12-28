@@ -1,0 +1,85 @@
+{
+  "proposal_hash": "sha256:b2bdc622f6bc7af41130369851da1ad1b7d4cc07e9b825f1d67bf66fc5c81be4",
+  "job_id": "job_20251225_161646_620675c0",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: DAO-002: Neutral Governance Adjustment",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "This proposal authorizes a limited update to defined DAO configuration parameters to align operations with current best practices, without altering ownership, token distribution, or core governance rights.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c2",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed",
+    "claim c2: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T16:39:27.677266+00:00"
+}

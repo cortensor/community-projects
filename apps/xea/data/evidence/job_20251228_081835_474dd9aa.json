@@ -1,0 +1,97 @@
+{
+  "proposal_hash": "sha256:96a5e0a7ed2ad66d33a0d43a9a92d3f4326856b3db93d9fb7586ae559f6f21ac",
+  "job_id": "job_20251228_081835_474dd9aa",
+  "proposal_id": null,
+  "version_number": null,
+  "claim_diff": null,
+  "validation_scope": "full",
+  "revalidated_claims": [],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "DAO Proposal: Strategic Initiative for Growth and Efficiency Claim 4: Partnering with external advisors will improve strategic decision-making and risk management for the DAO.",
+      "was_revalidated": true,
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.6,
+      "pouw_ci_95": [
+        0.6,
+        0.6
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-168",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "\": \"The claim is supported by multiple reputable sources.\", \".",
+          "evidence_links": [
+            "https://www.forbes.com/sites/forbestechcouncil/2021/07/27/partnering-with-external-advisors-can-improve-strategic-decision-making-and-risk-management/?sh=74e4e5e67f3f",
+            "https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html",
+            "https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html"
+          ],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.6,
+            "omission_risk": 0.4,
+            "evidence_quality": 0.48,
+            "governance_relevance": 0.54,
+            "composite": 0.6
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The claim is supported by multiple reputable sources.\",\n\"evidence\\_links\": [\n\"<https://www.forbes.com/sites/forbestechcouncil/2021/07/27/partnering-with-external-advisors-can-improve-strategic-decision-making-and-risk-management/?sh=74e4e5e67f3f>\",\n\"<https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html>\",\n\"<https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html>\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-27T16:30:00.000Z\"\n}</s>"
+              }
+            ],
+            "created": 1766909947,
+            "id": "cmpl-1766909947",
+            "model": "cortensor-testnet0",
+            "object": "text_completion",
+            "session_id": 168,
+            "task_id": 18,
+            "usage": {
+              "completion_tokens": 23,
+              "prompt_tokens": 110,
+              "total_tokens": 133
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.6,
+  "overall_ci_95": [
+    0.6,
+    0.6
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-28T08:19:54.000140+00:00",
+  "redundancy_level": "full",
+  "miners_requested": 5,
+  "miners_responded": 1,
+  "missing_miners": [],
+  "confidence_adjustment_factor": 1.0,
+  "replay_version": "1.0",
+  "verification_instructions": {
+    "algorithm": "SHA256",
+    "components": [
+      "claims_hash",
+      "responses_hash",
+      "aggregation_hash"
+    ],
+    "cli_command": "python -m backend.cli verify <file.json>"
+  },
+  "network_metadata": {
+    "network_used": "testnet0",
+    "fallback_attempted": false,
+    "miner_quorum_target": 3
+  },
+  "computation_hash": "sha256:2187f4c54cdd93ef308da7c1dac08ccc8b605d3015ee3aacc0d46d03e70b4a06"
+}

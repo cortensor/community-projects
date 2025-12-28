@@ -1,0 +1,90 @@
+{
+  "completed_at": "2025-12-28T08:19:53.465185",
+  "miners_contacted": 1,
+  "created_at": "2025-12-28T08:18:35.724963",
+  "miners_responded": 1,
+  "status": "completed",
+  "quorum_target": 3,
+  "started_at": "2025-12-28T08:18:35.766755",
+  "current_stage": "completed",
+  "claim_ids": [
+    "c1"
+  ],
+  "job_id": "job_20251228_081835_474dd9aa",
+  "proposal_hash": "sha256:96a5e0a7ed2ad66d33a0d43a9a92d3f4326856b3db93d9fb7586ae559f6f21ac",
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "cortensor-168",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The claim is supported by multiple reputable sources.\", \".",
+        "evidence_links": [
+          "https://www.forbes.com/sites/forbestechcouncil/2021/07/27/partnering-with-external-advisors-can-improve-strategic-decision-making-and-risk-management/?sh=74e4e5e67f3f",
+          "https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html",
+          "https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The claim is supported by multiple reputable sources.\",\n\"evidence\\_links\": [\n\"<https://www.forbes.com/sites/forbestechcouncil/2021/07/27/partnering-with-external-advisors-can-improve-strategic-decision-making-and-risk-management/?sh=74e4e5e67f3f>\",\n\"<https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html>\",\n\"<https://www.cio.com/article/3251494/why-partnering-with-external-advisors-is-a-smart-move-for-cios.html>\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-27T16:30:00.000Z\"\n}</s>"
+            }
+          ],
+          "created": 1766909947,
+          "id": "cmpl-1766909947",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 18,
+          "usage": {
+            "completion_tokens": 23,
+            "prompt_tokens": 110,
+            "total_tokens": 133
+          }
+        }
+      }
+    ]
+  },
+  "claims_validated": 1,
+  "error_message": null,
+  "retries_attempted": 0,
+  "claims_total": 1,
+  "stage_history": [
+    {
+      "stage": "received",
+      "timestamp": "2025-12-28T08:18:35.724994"
+    },
+    {
+      "stage": "dispatching",
+      "timestamp": "2025-12-28T08:18:35.763260",
+      "message": "Sending to Cortensor network"
+    },
+    {
+      "stage": "waiting",
+      "timestamp": "2025-12-28T08:18:35.772623",
+      "message": "Validating 1 claims"
+    },
+    {
+      "stage": "aggregating",
+      "timestamp": "2025-12-28T08:19:53.462181",
+      "message": "Computing evidence bundle"
+    },
+    {
+      "stage": "completed",
+      "timestamp": "2025-12-28T08:19:53.468762",
+      "message": "Validation complete"
+    }
+  ],
+  "last_heartbeat": "2025-12-28T08:19:53.468762"
+}

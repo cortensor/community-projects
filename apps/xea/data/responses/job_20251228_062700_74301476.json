@@ -1,0 +1,45 @@
+{
+  "job_id": "job_20251228_062700_74301476",
+  "responses": [
+    {
+      "timestamp": "2025-12-28T06:28:12.375280",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "Unable to parse miner response",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\nI'm sorry, but I cannot verify the claim 'trump will make pakistan biggest crpto hub' as it is not related to the context provided. The context given is about a proposal on the Cortensor decentralized network, but the claim is not related to the proposal. Please provide me with the correct context or the proposal details so that I can assist you better.</s>"
+            }
+          ],
+          "created": 1766903252,
+          "id": "cmpl-1766903252",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 2,
+          "usage": {
+            "completion_tokens": 63,
+            "prompt_tokens": 93,
+            "total_tokens": 156
+          }
+        }
+      }
+    }
+  ]
+}

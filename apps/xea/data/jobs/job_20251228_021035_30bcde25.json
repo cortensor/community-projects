@@ -1,0 +1,68 @@
+{
+  "completed_at": "2025-12-28T02:16:39.503937",
+  "miners_contacted": 1,
+  "created_at": "2025-12-28T02:10:35.909453",
+  "miners_responded": 1,
+  "status": "completed",
+  "quorum_target": 3,
+  "started_at": "2025-12-28T02:10:35.924958",
+  "current_stage": "completed",
+  "claim_ids": [
+    "c1"
+  ],
+  "job_id": "job_20251228_021035_30bcde25",
+  "proposal_hash": "sha256:766968363c93afc64d85e5eed1724c3afaf6098270cb7e7fa16d587475eb2903",
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: ",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: "
+        }
+      }
+    ]
+  },
+  "claims_validated": 1,
+  "error_message": null,
+  "retries_attempted": 0,
+  "claims_total": 1,
+  "stage_history": [
+    {
+      "stage": "received",
+      "timestamp": "2025-12-28T02:10:35.909478"
+    },
+    {
+      "stage": "dispatching",
+      "timestamp": "2025-12-28T02:10:35.921921",
+      "message": "Sending to Cortensor network"
+    },
+    {
+      "stage": "waiting",
+      "timestamp": "2025-12-28T02:10:35.926348",
+      "message": "Validating 1 claims"
+    },
+    {
+      "stage": "aggregating",
+      "timestamp": "2025-12-28T02:16:39.483857",
+      "message": "Computing evidence bundle"
+    },
+    {
+      "stage": "completed",
+      "timestamp": "2025-12-28T02:16:39.505220",
+      "message": "Validation complete"
+    }
+  ],
+  "last_heartbeat": "2025-12-28T02:16:39.505220"
+}

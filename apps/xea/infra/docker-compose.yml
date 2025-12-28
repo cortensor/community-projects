@@ -1,0 +1,72 @@
+# Infrastructure-specific docker-compose
+# Use this for production-like deployments
+# For local development, use the root docker-compose.yml
+
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - IPFS_API_URL=${IPFS_API_URL}
+      - CORTENSOR_ROUTER_URL=${CORTENSOR_ROUTER_URL}
+      - SIGNER_PRIVATE_KEY=${SIGNER_PRIVATE_KEY}
+      - XEA_SIGNER_ADDRESS=${XEA_SIGNER_ADDRESS}
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.backend
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - IPFS_API_URL=${IPFS_API_URL}
+      - CORTENSOR_ROUTER_URL=${CORTENSOR_ROUTER_URL}
+    depends_on:
+      - redis
+    command: python /app/workers/worker.py
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  ipfs:
+    image: ipfs/kubo:latest
+    ports:
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - ipfs_data:/data/ipfs
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  ipfs_data:

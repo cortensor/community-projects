@@ -1,0 +1,122 @@
+{
+  "miners_contacted": 2,
+  "completed_at": "2025-12-25T11:02:41.301572",
+  "miners_responded": 2,
+  "job_id": "job_20251225_110241_82d9a05d",
+  "claim_ids": [
+    "c1",
+    "c2"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "cortensor-0xa8091d4589e9683eab7d",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "Verified against Ethereum historical records (Beacon Chain consensus timestamp).",
+        "evidence_links": [
+          "https://ethereum.org/en/roadmap/merge/"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 1.0,
+          "omission_risk": 1.0,
+          "evidence_quality": 0.95,
+          "governance_relevance": 1.0,
+          "composite": 0.45
+        },
+        "cortensor_raw": {
+          "id": "cmpl-simulated-3eab7d",
+          "object": "text_completion",
+          "created": 1677652288,
+          "model": "cortensor-testnet-0",
+          "choices": [
+            {
+              "text": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}",
+              "index": 0,
+              "logprobs": null,
+              "finish_reason": "length",
+              "message": {
+                "role": "assistant",
+                "content": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}"
+              }
+            }
+          ],
+          "proof_of_useful_work": {
+            "score": 0.45,
+            "rubric_scores": {
+              "accuracy": 1.0,
+              "omission_risk": 1.0,
+              "evidence_quality": 0.95,
+              "governance_relevance": 1.0
+            }
+          },
+          "proof_of_inference": {
+            "miner_signatures": [
+              "0xsimulated..."
+            ],
+            "consensus_reached": true
+          }
+        }
+      }
+    ],
+    "c2": [
+      {
+        "miner_id": "cortensor-0xa8091d4589e9683eab7d",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "Verified against Ethereum historical records (Beacon Chain consensus timestamp).",
+        "evidence_links": [
+          "https://ethereum.org/en/roadmap/merge/"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 1.0,
+          "omission_risk": 1.0,
+          "evidence_quality": 0.95,
+          "governance_relevance": 1.0,
+          "composite": 0.45
+        },
+        "cortensor_raw": {
+          "id": "cmpl-simulated-3eab7d",
+          "object": "text_completion",
+          "created": 1677652288,
+          "model": "cortensor-testnet-0",
+          "choices": [
+            {
+              "text": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}",
+              "index": 0,
+              "logprobs": null,
+              "finish_reason": "length",
+              "message": {
+                "role": "assistant",
+                "content": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}"
+              }
+            }
+          ],
+          "proof_of_useful_work": {
+            "score": 0.45,
+            "rubric_scores": {
+              "accuracy": 1.0,
+              "omission_risk": 1.0,
+              "evidence_quality": 0.95,
+              "governance_relevance": 1.0
+            }
+          },
+          "proof_of_inference": {
+            "miner_signatures": [
+              "0xsimulated..."
+            ],
+            "consensus_reached": true
+          }
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-25T11:02:41.000499",
+  "proposal_hash": "sha256:b2bdc622f6bc7af41130369851da1ad1b7d4cc07e9b825f1d67bf66fc5c81be4",
+  "started_at": "2025-12-25T11:02:41.006886",
+  "claims_total": 2,
+  "claims_validated": 2
+}

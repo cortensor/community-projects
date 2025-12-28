@@ -1,0 +1,66 @@
+{
+  "proposal_hash": "sha256:766968363c93afc64d85e5eed1724c3afaf6098270cb7e7fa16d587475eb2903",
+  "job_id": "job_20251227_142713_ea0de744",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The price of ETH will stabilize between $4,500 and $5,000 for the duration of Q3 2026 due to institutional adoption alone.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.5,
+      "pouw_ci_95": [
+        0.5,
+        0.5
+      ],
+      "outliers": [],
+      "final_recommendation": "supported_with_caution",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-156",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "The claim is unverifiable as it is based on future events and predictions, which are inherently uncertain and difficult to verify. No existing data or evidence can definitively prove or disprove the claim about the price of ETH stabilizing between $4,500 and $5,000 for the duration of Q3 2026 due to institutional adoption alone.",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.5,
+            "omission_risk": 0.5,
+            "evidence_quality": 0.4,
+            "governance_relevance": 0.45,
+            "composite": 0.5
+          },
+          "cortensor_raw": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is unverifiable as it is based on future events and predictions, which are inherently uncertain and difficult to verify. No existing data or evidence can definitively prove or disprove the claim about the price of ETH stabilizing between $4,500 and $5,000 for the duration of Q3 2026 due to institutional adoption alone.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2023-03-28T12:34:56Z\"\n}</s>"
+              }
+            ],
+            "created": 1766845786,
+            "id": "cmpl-1766845786",
+            "model": "cortensor-testnet-0",
+            "object": "text_completion",
+            "session_id": 156,
+            "task_id": 9,
+            "usage": {
+              "completion_tokens": 65,
+              "prompt_tokens": 107,
+              "total_tokens": 172
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.5,
+  "overall_ci_95": [
+    0.5,
+    0.5
+  ],
+  "critical_flags": [],
+  "timestamp": "2025-12-27T14:43:00.673688+00:00"
+}

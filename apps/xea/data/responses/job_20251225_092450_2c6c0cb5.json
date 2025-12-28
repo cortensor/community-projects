@@ -1,0 +1,27 @@
+{
+  "job_id": "job_20251225_092450_2c6c0cb5",
+  "responses": [
+    {
+      "timestamp": "2025-12-25T09:24:50.543945",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+        }
+      }
+    }
+  ]
+}

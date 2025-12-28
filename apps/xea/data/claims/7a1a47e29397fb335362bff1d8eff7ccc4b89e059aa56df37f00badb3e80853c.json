@@ -1,0 +1,1441 @@
+{
+  "proposal_hash": "sha256:7a1a47e29397fb335362bff1d8eff7ccc4b89e059aa56df37f00badb3e80853c",
+  "canonical_text": "[Proposal] - Gating who can make a Snapshot governance proposals - \ud83d\udcdc Proposals - Gitcoin Governance Gitcoin Governance [Proposal] - Gating who can make a Snapshot governance proposals \ud83d\udcdc Proposals shawn16400 May 15, 2023, 6:49pm 1 THE PROBLEM: Over the past month, web3 (Gitcoin included) has experienced a series of \u201cfake\u201d or scam Snapshot proposals that have been posted to various DAO snapshot sites. Last week, SnapshotLabs responded with this guidance: Snap the scams out! TENSION: The social contract governing the proposal/vote process at Gitcoin was defined in Gitcoin DAO Governance Process v3. Generally speaking, anyone can make a proposal on the forum and it has to 1) be available for comment for five days and 2) receive comments from five stewards. With those two conditions met, and given the formatting of the proposal was correct, the proposal could move to snapshot for vote. Here is the relevant section from the Governance process v3 listed above: Proposal Discussion Before a proposal can go to a vote, it must be posted in the appropriate category on the forum for review and comment by the community. Proposals brought to the forum must be in the format required by the and address the considerations set out in Table 2: Required Information, above. Once it has been posted in the forum, a proposal must: Be available for review and comment for at least 5 days, and Receive input from at least 5 stewards not connected to or working with the proposal/with workstream (any stewards part of the proposal should also be disclosed). A proposal that does not meet the requirements for formatting, required information, length of review, or input from stewards will be removed from Snapshot voting if an attempt is made to hold a vote. From Gitcoin DAO Governance Process v3 Previously, the Gitcoin Snapshot voting site was pretty wide open. Nearly anyone could make a proposal on snapshot with, or without following the social convention outlined above. On four occasions, scam proposals were posted to the Gitcoin snapshot accounts suggesting or proposing Gitcoin airdrops. To quickly lock down the proposal capability, the snapshot account was locked using Gitcoin Passport, limiting posters to those who had donated to past grants rounds. This approach had issues given that database updates were no all ways 100%, thus the account was updated to allow posting only from those with a balance of at least 100GTC, or those who had greater than 1000 Twitter followers. PROPOSAL: The initial movement to lock down the snapshot account was necessary, but it is important to ensure that any major change in governance should be ratified by voters. This is especially important when putting controls and limitations around who can and who cannot make bonafide proposals for Gitcoin. This being the case, this proposal attempts to do three things: Explores options for gating proposals Articulated pros and cons for each case Set the draft governance proposal for change OPTION ASSESSMENT: To rectify the issue, we identified three options below to gate our Snapshot account. Please provide feedback on those options - or suggest additional options I may have missed. Option 1: establish a manual review process &amp; whitelist proposers This option would lock down snapshot to \u201ca few\u201d people who would be responsible for 1) reviewing the completeness of the proposal, 2) determining if the process was followed and 3) posting the vote if it passes the check image 1134\u00d7242 21 KB . Option 2: Continue to use Passport as a control, using at least GTC = 100 or twitter followers = 1000 This option would gate proposals via Gitcoin Passport connected to Snapshot using the existing stamps, which are at least 100GTC tokens held OR 1000 Twitter followers. image 1133\u00d7158 14.6 KB . Option 3: Continue to use Passport as a control, but explore other stamps This option would gate proposals via Gitcoin Passport connected to Snapshot but explore using other stamps to gate the community. See the appendix below for a complete list of Passport stamps. image 1135\u00d7190 14.9 KB Leading stamp options: GTC staking 100GTC (gold) (drives GTC utility - we use it to make proposals) Stamp seems to unstake after each grant round - not ideal for ongoing votes. Github: illustrates open source contributions (but not validated) Snapshot - voted on 2 or more DAO proposals: illustrates participation with Web3 Governance Recommendation: Option 2 . Current best thinking is that a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense. However as the scoring is not available on Snapshot yet, but there is effort under way, it makes the most sense to ratify our current settings Option #2 ) and adjust when the new scoring methodology is in place. In closing, this is not \u201cwow\u201d work that anyone is going to be excited about. But part of operational excellence is paying attention to governance detail that can come back and bite us in the butt later on. Going back and cleaning up work that was done on the fly is necessary, however often not very exciting. 8 Likes Gitcoin Digest #6 2023 Gitcoin Digest #8 2023 Gitcoin Digest #7 2023 shawn16400 May 18, 2023, 2:07pm 2 We had a great talk last night with Jeremy, Sophia and @0xZakk discussing this concept. In short: Passport gating is the right path to protect snapshot A minimum passport score should be the gate, not specific stamps. Specific stamps depreciate over time whereas a score allows for greater voter autonomy and consistency of protection. GTC staking could be a great option as it continues to be developed We should to connect this to the Passport plan the MMM team is developing The next exciting challenge will be to implement QV on DAO votes using Snapshot + a Passport score. More work analytical to be done first. (hint - @ale.k ) Thanks for the engagement! 4 Likes jengajojo May 19, 2023, 8:52am 3 Thanks @shawn16400 This is a good start and I would be in favor of using passport and adding other offchain or onchain features. * Staking 100GTC (gold) is a great add-on too! Using \u2018minimum status\u2019 according to discourse rules Understanding Discourse Trust Levels could be a useful filter Governance history: if the wallet has voted on atleast \u2018x\u2019 proposal in the past (in gitcoinDAO or other whitelisted DAOs) if the wallet has created proposals on snapshot in other whitelisted DAOs if the wallet holds atleast \u2018x\u2019 hypercerts 3 Likes shawn16400 May 21, 2023, 2:04pm 4 Thanks @jengajojo for the engagement on this one. I really appreciate your feedback. jengajojo: Thanks @shawn16400 This is a good start and I would be in favor of using passport and adding other offchain or onchain features. * Staking 100GTC (gold) is a great add-on too! I really like this option given it feeds into GTC utility - or using the governance token for something other than just voting. However at the moment the GTC staking stamp is limited to staking during Gitcoin rounds and it not yet an always-on feature. Once it is, I think this can be a powerful governance feature. Here I think about granting sliding governance influence linked to the duration and quantity of staked GTC. But that is for another proposal once the capability is in place. jengajojo: Governance history: if the wallet has voted on atleast \u2018x\u2019 proposal in the past (in gitcoinDAO or other whitelisted DAOs) if the wallet has created proposals on snapshot in other whitelisted DAOs if the wallet holds atleast \u2018x\u2019 hypercerts This is one reason why I am bullish web3 governance. We are developing the capability to craft infinitely customizable governance mechanism that can (for the first time ever) attempt to balance differing stakeholder incentives (contributors vs. investors vs. users vs. ecosystem vs partners). The challenge for governance architects is to 1) limit bureaucracy 2) credibly evaluate outcomes 3) watch for unintended consequences. What I like about your suggestions is it provides early thinking for cross-dao integration which is where I hope Gitcoin goes. This kind of thinking will lead us to antifragile networks and stronger linkages between nodes - especially as attacks get more sophisticated. What I appreciate about Gitcoin Passport team is their thinking about the sum total of reputational value, or score. It\u2019s less about an individual hypercert or passport stamp. Each of those certs or stamps have a dynamic anti sybil value - as scammers learn how to circumvent a stamp, that stamp degrades in value, and as such so does the governance strategy designed around individual stamps or hypercerts. For this reason, I intend to change the paper above from \u201cexploring options\u201d to a proposal using the Gitcoin Passport \u201cscore\u201d as opposed to individual stamps. I hope to have this strategy tested shortly so we can update this proposal and get on with it. 2 Likes Governance update: May 2023 Governance update: May 2023 Governance update: June 2023 Governance update: May 2023 Gitcoin Digest #9 2023 Gitcoin Digest #10 2023 juanna May 22, 2023, 4:41pm 5 1,000 Twitter followers sounds a little steep for some of our valued contributors who aren\u2019t as active on social media (also easily bought), but staking 100GTC + Passport sounds like it could be the way. It doesn\u2019t sound like the staking utility is available yet, so until then, agreed with Passport gating w/ a higher score than our typical donor min. As someone newer to Gitcoin governance, I\u2019m hesitant to put too many history-based limitations at risk of accidentally barring out myself haha. However, also foresee myself voting more on proposals, versus creating actual them in the actual near future, so even with history-based\u2013it probably wouldn\u2019t be an issue. Looking forward to seeing how our experimentations in governance pan out! Appreciate everyone putting their brilliant minds together to jam on making governance better for all 5 Likes kyle May 24, 2023, 1:34am 6 Thanks Shawn - I appreciate you calling this out and also working to get a viable alternative in place for the current implementation. the Passport Scoring seems like a great option. I don\u2019t quite understand this step as it doesn\u2019t seem related to gating creation of Snapshot proposals. shawn16400: The next exciting challenge will be to implement QV on DAO votes using Snapshot + a Passport score. More work analytical to be done first. Are you thinking we want to have a passport score for voting in addition to the score for posting proposals? Perhaps this is just on the sub domain snapshot voting? 1 Like shawn16400 May 24, 2023, 11:46am 7 Hey @kyle ! kyle: Are you thinking we want to have a passport score for voting in addition to the score for posting proposals? Perhaps this is just on the sub domain snapshot voting? You are correct, to keep our proposals clean, this proposal is limited to the creation of proposals on snapshot, gated by passport. Extending the gating of actual voters using passport would be a separate proposal, and a bit more work to be done. 1 Like ZER8 May 24, 2023, 9:09pm 8 This is an important issue, but imo staking 100 GTC &amp; holding 100 GTC is not enough. I would also increase the Snapshot stamp option to - voted on 5(ideally 10) or more Dao proposals. Nowadays people spam vote on snapshot for airdrops a lot. Hope this at least tangentially helps\u2026 So I would opt for a hybrid between option 2 &amp; option 3. Curious to see what others think 1 Like Jeremy May 24, 2023, 10:57pm 9 shawn16400: What I appreciate about Gitcoin Passport team is their thinking about the sum total of reputational value, or score. It\u2019s less about an individual hypercert or passport stamp. Each of those certs or stamps have a dynamic anti sybil value - as scammers learn how to circumvent a stamp, that stamp degrades in value, and as such so does the governance strategy designed around individual stamps or hypercerts. For this reason, I intend to change the paper above from \u201cexploring options\u201d to a proposal using the Gitcoin Passport \u201cscore\u201d as opposed to individual stamps. I hope to have this strategy tested shortly so we can update this proposal and get on with it. Thanks @shawn16400 . We\u2019re still finalizing the Snapshot integration which will enable this, but I agree, moving to a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense. 2 Likes Supreme May 30, 2023, 7:03am 10 This seems to exclude many. It also seems to centralize the governance even more by limiting who can submit proposal. If the proposal was out of left field, couldn\u2019t voters just vote NO? Also consider auditing hypercerts more thoroughly - GitHub GitHub - AnonWLAJFA/hypercerts_audit Contribute to AnonWLAJFA/hypercerts_audit development by creating an account on GitHub. 1 Like shawn16400 May 30, 2023, 1:49pm 11 Supreme: This seems to exclude many. It also seems to centralize the governance even more by limiting who can submit proposal. If the proposal was out of left field, couldn\u2019t voters just vote NO? You are partially correct, and perhaps a bit of nuance for clarification on decentralization. Adding a gating mechanism like this by design limits who can make proposals; our intent is to filter out spam. I should have saved a screen shot the prior examples before we deleted them but in essence the intent of those snapshot proposals was not to get a proposal passed, but to create false-legitimacy for twitter/airdrop farming campaigns. Those twitter campaigns pointed to our snapshot account and said \u201clook Gitcoin is going to do xyz!! Sign up now to be the first to get the airdrop!!\u201d followed by some evil link. Yes, we could leave them up on our snapshot, but if Snapshot is anything like Discord or our Forum, it would quicky be overrun by spambots &amp; trash. The tension is to set the bar high enough to make the cost of spam higher than the return on the investment, while keeping the costs low enough that any legitimate user can participate. See this article here by @kyle Building Sybil Resistance using Cost of Forgery | Gitcoin Blog . Related to decentralization, this design does not rely on a person or team to decide what can or cannot be posted, but hands the responsiblity for setting the threshold over to the community. Going one step further, by using the Passport scoring methodology instead of Passport stamps we are opening up the proposal process to anyone who meets the minimum score, not just holders of GTC. Which I am on the fence about, but its good we dogfood our new scoring technology. Thank you for the questions and engagement and I appreciate challenges to our assumptions and logic! 2 Likes shawn16400 June 13, 2023, 2:25pm 12 Quick update on this proposal - the Snapshot team is working with our Passport team to see if / when we will be able to use the Passport score as a gating mechanism. I am hopeful we can get a target date, but if not, we will move forward with a vote using the current gating mechanism applied on snapshot today. 1 Like shawn16400 June 19, 2023, 2:13pm 13 Quick update, we do not yet have a target date for implementing the Gitcoin Passport score with Snapshot. Given this is the preferred method for Snapshot gating, so we will move forward with a a proposal to ratifying our current methodology which is outlined as Option #2 above. Specifically, the gating is &gt; 1000 twitter followers or GTC at least 100. When the scoring capability comes on line, or we find that the current controls are not enough to curb our-of-process proposals, we will adjust via a new proposal. For clarity, we are adjusting the body of the proposal above to change the recommendation from option #3 , to option #2 , FROM: Recommendation: Option 3 with any of the following stamps: Implement the following stamps Staking 100GTC (gold) At least 100GTC held in the wallet To: Recommendation: Option 2 . Current best thinking is that a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense. However as the scoring is not available on Snapshot yet, but there is effort under way, it makes the most sense to ratify our current settings Option #2 ) and adjust when the new scoring methodology is in place. 1 Like shawn16400 June 19, 2023, 2:27pm 14 This proposal has been moved to snapshot for vote. The vote will close on 06.26. https://snapshot.org/#/gitcoindao.eth/proposal/0xa18926b9dc9592bdf02acc3cef5a41021cebe51f73a2a3d6b007d7c38685b296 2 Likes shawn16400 June 27, 2023, 10:55am 15 fyi - this snapshot vote has passed with ~99% approval rate. Metrics: 1891 unique votes ~2.8M GTC tokens cast. Thank you to all the voters for participating in our governance. 1 Like Home Categories Guidelines Terms of Service Privacy Policy Powered by Discourse , best viewed with JavaScript enabled",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "[Proposal] - Gating who can make a Snapshot governance proposals - \ud83d\udcdc Proposals - Gitcoin Governance Gitcoin Governance [Proposal] - Gating who can make a Snapshot governance proposals \ud83d\udcdc Proposals shawn16400 May 15, 2023, 6:49pm 1 THE PROBLEM: Over the past month, web3 (Gitcoin included) has experienced a series of \u201cfake\u201d or scam Snapshot proposals that have been posted to various DAO snapshot sites.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        402
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          16400.0,
+          15.0,
+          2023.0,
+          6.0,
+          49.0,
+          1.0,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "TENSION: The social contract governing the proposal/vote process at Gitcoin was defined in Gitcoin DAO Governance Process v3.",
+      "paragraph_index": 0,
+      "char_range": [
+        477,
+        602
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c3",
+      "text": "Generally speaking, anyone can make a proposal on the forum and it has to 1) be available for comment for five days and 2) receive comments from five stewards.",
+      "paragraph_index": 0,
+      "char_range": [
+        603,
+        762
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c4",
+      "text": "With those two conditions met, and given the formatting of the proposal was correct, the proposal could move to snapshot for vote.",
+      "paragraph_index": 0,
+      "char_range": [
+        763,
+        893
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c5",
+      "text": "A proposal that does not meet the requirements for formatting, required information, length of review, or input from stewards will be removed from Snapshot voting if an attempt is made to hold a vote.",
+      "paragraph_index": 0,
+      "char_range": [
+        1552,
+        1752
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c6",
+      "text": "From Gitcoin DAO Governance Process v3 Previously, the Gitcoin Snapshot voting site was pretty wide open.",
+      "paragraph_index": 0,
+      "char_range": [
+        1753,
+        1858
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c7",
+      "text": "On four occasions, scam proposals were posted to the Gitcoin snapshot accounts suggesting or proposing Gitcoin airdrops.",
+      "paragraph_index": 0,
+      "char_range": [
+        1972,
+        2092
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c8",
+      "text": "To quickly lock down the proposal capability, the snapshot account was locked using Gitcoin Passport, limiting posters to those who had donated to past grants rounds.",
+      "paragraph_index": 0,
+      "char_range": [
+        2093,
+        2259
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c9",
+      "text": "This approach had issues given that database updates were no all ways 100%, thus the account was updated to allow posting only from those with a balance of at least 100GTC, or those who had greater than 1000 Twitter followers.",
+      "paragraph_index": 0,
+      "char_range": [
+        2260,
+        2486
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          1000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c10",
+      "text": "This is especially important when putting controls and limitations around who can and who cannot make bonafide proposals for Gitcoin.",
+      "paragraph_index": 0,
+      "char_range": [
+        2663,
+        2796
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c11",
+      "text": "Option 1: establish a manual review process &amp; whitelist proposers This option would lock down snapshot to \u201ca few\u201d people who would be responsible for 1) reviewing the completeness of the proposal, 2) determining if the process was followed and 3) posting the vote if it passes the check image 1134\u00d7242 21 KB .",
+      "paragraph_index": 0,
+      "char_range": [
+        3181,
+        3494
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          2.0,
+          3.0,
+          1134.0,
+          242.0,
+          21.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c12",
+      "text": "Option 2: Continue to use Passport as a control, using at least GTC = 100 or twitter followers = 1000 This option would gate proposals via Gitcoin Passport connected to Snapshot using the existing stamps, which are at least 100GTC tokens held OR 1000 Twitter followers.",
+      "paragraph_index": 0,
+      "char_range": [
+        3495,
+        3764
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          100.0,
+          1000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c13",
+      "text": "image 1133\u00d7158 14.6 KB .",
+      "paragraph_index": 0,
+      "char_range": [
+        3765,
+        3789
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1133.0,
+          158.0,
+          14.6
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c14",
+      "text": "Option 3: Continue to use Passport as a control, but explore other stamps This option would gate proposals via Gitcoin Passport connected to Snapshot but explore using other stamps to gate the community.",
+      "paragraph_index": 0,
+      "char_range": [
+        3790,
+        3993
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c15",
+      "text": "image 1135\u00d7190 14.9 KB Leading stamp options: GTC staking 100GTC (gold) (drives GTC utility - we use it to make proposals) Stamp seems to unstake after each grant round - not ideal for ongoing votes.",
+      "paragraph_index": 0,
+      "char_range": [
+        4057,
+        4256
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1135.0,
+          190.0,
+          14.9,
+          100.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c16",
+      "text": "Github: illustrates open source contributions (but not validated) Snapshot - voted on 2 or more DAO proposals: illustrates participation with Web3 Governance Recommendation: Option 2 .",
+      "paragraph_index": 0,
+      "char_range": [
+        4257,
+        4441
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c17",
+      "text": "Current best thinking is that a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense.",
+      "paragraph_index": 0,
+      "char_range": [
+        4442,
+        4652
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c18",
+      "text": "However as the scoring is not available on Snapshot yet, but there is effort under way, it makes the most sense to ratify our current settings Option #2 ) and adjust when the new scoring methodology is in place.",
+      "paragraph_index": 0,
+      "char_range": [
+        4653,
+        4864
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c19",
+      "text": "In closing, this is not \u201cwow\u201d work that anyone is going to be excited about.",
+      "paragraph_index": 0,
+      "char_range": [
+        4865,
+        4941
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c20",
+      "text": "But part of operational excellence is paying attention to governance detail that can come back and bite us in the butt later on.",
+      "paragraph_index": 0,
+      "char_range": [
+        4942,
+        5070
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c21",
+      "text": "Going back and cleaning up work that was done on the fly is necessary, however often not very exciting.",
+      "paragraph_index": 0,
+      "char_range": [
+        5071,
+        5174
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c22",
+      "text": "8 Likes Gitcoin Digest #6 2023 Gitcoin Digest #8 2023 Gitcoin Digest #7 2023 shawn16400 May 18, 2023, 2:07pm 2 We had a great talk last night with Jeremy, Sophia and @0xZakk discussing this concept.",
+      "paragraph_index": 0,
+      "char_range": [
+        5175,
+        5373
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          8.0,
+          6.0,
+          2023.0,
+          7.0,
+          16400.0,
+          18.0,
+          2.0,
+          0.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c23",
+      "text": "4 Likes jengajojo May 19, 2023, 8:52am 3 Thanks @shawn16400 This is a good start and I would be in favor of using passport and adding other offchain or onchain features.",
+      "paragraph_index": 0,
+      "char_range": [
+        5947,
+        6116
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          4.0,
+          19.0,
+          2023.0,
+          8.0,
+          52.0,
+          3.0,
+          16400.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c24",
+      "text": "* Staking 100GTC (gold) is a great add-on too!",
+      "paragraph_index": 0,
+      "char_range": [
+        6117,
+        6163
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          100.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c25",
+      "text": "Using \u2018minimum status\u2019 according to discourse rules Understanding Discourse Trust Levels could be a useful filter Governance history: if the wallet has voted on atleast \u2018x\u2019 proposal in the past (in gitcoinDAO or other whitelisted DAOs) if the wallet has created proposals on snapshot in other whitelisted DAOs if the wallet holds atleast \u2018x\u2019 hypercerts 3 Likes shawn16400 May 21, 2023, 2:04pm 4 Thanks @jengajojo for the engagement on this one.",
+      "paragraph_index": 0,
+      "char_range": [
+        6164,
+        6608
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          16400.0,
+          21.0,
+          2023.0,
+          2.0,
+          4.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c26",
+      "text": "jengajojo: Thanks @shawn16400 This is a good start and I would be in favor of using passport and adding other offchain or onchain features.",
+      "paragraph_index": 0,
+      "char_range": [
+        6644,
+        6783
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          16400.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c27",
+      "text": "* Staking 100GTC (gold) is a great add-on too!",
+      "paragraph_index": 0,
+      "char_range": [
+        6784,
+        6830
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          100.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c28",
+      "text": "I really like this option given it feeds into GTC utility - or using the governance token for something other than just voting.",
+      "paragraph_index": 0,
+      "char_range": [
+        6831,
+        6958
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c29",
+      "text": "However at the moment the GTC staking stamp is limited to staking during Gitcoin rounds and it not yet an always-on feature.",
+      "paragraph_index": 0,
+      "char_range": [
+        6959,
+        7083
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c30",
+      "text": "Once it is, I think this can be a powerful governance feature.",
+      "paragraph_index": 0,
+      "char_range": [
+        7084,
+        7146
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c31",
+      "text": "But that is for another proposal once the capability is in place.",
+      "paragraph_index": 0,
+      "char_range": [
+        7255,
+        7320
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c32",
+      "text": "jengajojo: Governance history: if the wallet has voted on atleast \u2018x\u2019 proposal in the past (in gitcoinDAO or other whitelisted DAOs) if the wallet has created proposals on snapshot in other whitelisted DAOs if the wallet holds atleast \u2018x\u2019 hypercerts This is one reason why I am bullish web3 governance.",
+      "paragraph_index": 0,
+      "char_range": [
+        7321,
+        7623
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c33",
+      "text": "We are developing the capability to craft infinitely customizable governance mechanism that can (for the first time ever) attempt to balance differing stakeholder incentives (contributors vs.",
+      "paragraph_index": 0,
+      "char_range": [
+        7624,
+        7815
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c34",
+      "text": "The challenge for governance architects is to 1) limit bureaucracy 2) credibly evaluate outcomes 3) watch for unintended consequences.",
+      "paragraph_index": 0,
+      "char_range": [
+        7854,
+        7988
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c35",
+      "text": "What I like about your suggestions is it provides early thinking for cross-dao integration which is where I hope Gitcoin goes.",
+      "paragraph_index": 0,
+      "char_range": [
+        7989,
+        8115
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c36",
+      "text": "This kind of thinking will lead us to antifragile networks and stronger linkages between nodes - especially as attacks get more sophisticated.",
+      "paragraph_index": 0,
+      "char_range": [
+        8116,
+        8258
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c37",
+      "text": "What I appreciate about Gitcoin Passport team is their thinking about the sum total of reputational value, or score.",
+      "paragraph_index": 0,
+      "char_range": [
+        8259,
+        8375
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c38",
+      "text": "Each of those certs or stamps have a dynamic anti sybil value - as scammers learn how to circumvent a stamp, that stamp degrades in value, and as such so does the governance strategy designed around individual stamps or hypercerts.",
+      "paragraph_index": 0,
+      "char_range": [
+        8435,
+        8666
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c39",
+      "text": "I hope to have this strategy tested shortly so we can update this proposal and get on with it.",
+      "paragraph_index": 0,
+      "char_range": [
+        8826,
+        8920
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c40",
+      "text": "2 Likes Governance update: May 2023 Governance update: May 2023 Governance update: June 2023 Governance update: May 2023 Gitcoin Digest #9 2023 Gitcoin Digest #10 2023 juanna May 22, 2023, 4:41pm 5 1,000 Twitter followers sounds a little steep for some of our valued contributors who aren\u2019t as active on social media (also easily bought), but staking 100GTC + Passport sounds like it could be the way.",
+      "paragraph_index": 0,
+      "char_range": [
+        8921,
+        9322
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          2023.0,
+          9.0,
+          10.0,
+          22.0,
+          4.0,
+          41.0,
+          5.0,
+          100.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c41",
+      "text": "It doesn\u2019t sound like the staking utility is available yet, so until then, agreed with Passport gating w/ a higher score than our typical donor min.",
+      "paragraph_index": 0,
+      "char_range": [
+        9323,
+        9471
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c42",
+      "text": "Appreciate everyone putting their brilliant minds together to jam on making governance better for all 5 Likes kyle May 24, 2023, 1:34am 6 Thanks Shawn - I appreciate you calling this out and also working to get a viable alternative in place for the current implementation.",
+      "paragraph_index": 0,
+      "char_range": [
+        9861,
+        10133
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          5.0,
+          24.0,
+          2023.0,
+          1.0,
+          34.0,
+          6.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c43",
+      "text": "shawn16400: The next exciting challenge will be to implement QV on DAO votes using Snapshot + a Passport score.",
+      "paragraph_index": 0,
+      "char_range": [
+        10286,
+        10397
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          16400.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c44",
+      "text": "Are you thinking we want to have a passport score for voting in addition to the score for posting proposals?",
+      "paragraph_index": 0,
+      "char_range": [
+        10437,
+        10545
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c45",
+      "text": "Perhaps this is just on the sub domain snapshot voting?",
+      "paragraph_index": 0,
+      "char_range": [
+        10546,
+        10601
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c46",
+      "text": "1 Like shawn16400 May 24, 2023, 11:46am 7 Hey @kyle !",
+      "paragraph_index": 0,
+      "char_range": [
+        10602,
+        10655
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          16400.0,
+          24.0,
+          2023.0,
+          11.0,
+          46.0,
+          7.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c47",
+      "text": "kyle: Are you thinking we want to have a passport score for voting in addition to the score for posting proposals?",
+      "paragraph_index": 0,
+      "char_range": [
+        10656,
+        10770
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c48",
+      "text": "Perhaps this is just on the sub domain snapshot voting?",
+      "paragraph_index": 0,
+      "char_range": [
+        10771,
+        10826
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c49",
+      "text": "You are correct, to keep our proposals clean, this proposal is limited to the creation of proposals on snapshot, gated by passport.",
+      "paragraph_index": 0,
+      "char_range": [
+        10827,
+        10958
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c50",
+      "text": "1 Like ZER8 May 24, 2023, 9:09pm 8 This is an important issue, but imo staking 100 GTC &amp; holding 100 GTC is not enough.",
+      "paragraph_index": 0,
+      "char_range": [
+        11074,
+        11197
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          8.0,
+          24.0,
+          2023.0,
+          9.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c51",
+      "text": "I would also increase the Snapshot stamp option to - voted on 5(ideally 10) or more Dao proposals.",
+      "paragraph_index": 0,
+      "char_range": [
+        11198,
+        11296
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          5.0,
+          10.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c52",
+      "text": "Nowadays people spam vote on snapshot for airdrops a lot.",
+      "paragraph_index": 0,
+      "char_range": [
+        11297,
+        11354
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c53",
+      "text": "Hope this at least tangentially helps\u2026 So I would opt for a hybrid between option 2 &amp; option 3.",
+      "paragraph_index": 0,
+      "char_range": [
+        11355,
+        11454
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c54",
+      "text": "Curious to see what others think 1 Like Jeremy May 24, 2023, 10:57pm 9 shawn16400: What I appreciate about Gitcoin Passport team is their thinking about the sum total of reputational value, or score.",
+      "paragraph_index": 0,
+      "char_range": [
+        11455,
+        11654
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          24.0,
+          2023.0,
+          10.0,
+          57.0,
+          9.0,
+          16400.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c55",
+      "text": "Each of those certs or stamps have a dynamic anti sybil value - as scammers learn how to circumvent a stamp, that stamp degrades in value, and as such so does the governance strategy designed around individual stamps or hypercerts.",
+      "paragraph_index": 0,
+      "char_range": [
+        11714,
+        11945
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c56",
+      "text": "I hope to have this strategy tested shortly so we can update this proposal and get on with it.",
+      "paragraph_index": 0,
+      "char_range": [
+        12105,
+        12199
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c57",
+      "text": "Thanks @shawn16400 .",
+      "paragraph_index": 0,
+      "char_range": [
+        12200,
+        12220
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          16400.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c58",
+      "text": "We\u2019re still finalizing the Snapshot integration which will enable this, but I agree, moving to a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense.",
+      "paragraph_index": 0,
+      "char_range": [
+        12221,
+        12496
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c59",
+      "text": "2 Likes Supreme May 30, 2023, 7:03am 10 This seems to exclude many.",
+      "paragraph_index": 0,
+      "char_range": [
+        12497,
+        12564
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          30.0,
+          2023.0,
+          7.0,
+          3.0,
+          10.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c60",
+      "text": "If the proposal was out of left field, couldn\u2019t voters just vote NO?",
+      "paragraph_index": 0,
+      "char_range": [
+        12655,
+        12723
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c61",
+      "text": "1 Like shawn16400 May 30, 2023, 1:49pm 11 Supreme: This seems to exclude many.",
+      "paragraph_index": 0,
+      "char_range": [
+        12908,
+        12986
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          16400.0,
+          30.0,
+          2023.0,
+          49.0,
+          11.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c62",
+      "text": "If the proposal was out of left field, couldn\u2019t voters just vote NO?",
+      "paragraph_index": 0,
+      "char_range": [
+        13077,
+        13145
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c63",
+      "text": "You are partially correct, and perhaps a bit of nuance for clarification on decentralization.",
+      "paragraph_index": 0,
+      "char_range": [
+        13146,
+        13239
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c64",
+      "text": "Adding a gating mechanism like this by design limits who can make proposals; our intent is to filter out spam.",
+      "paragraph_index": 0,
+      "char_range": [
+        13240,
+        13350
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c65",
+      "text": "Those twitter campaigns pointed to our snapshot account and said \u201clook Gitcoin is going to do xyz!!",
+      "paragraph_index": 0,
+      "char_range": [
+        13585,
+        13684
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c66",
+      "text": "Yes, we could leave them up on our snapshot, but if Snapshot is anything like Discord or our Forum, it would quicky be overrun by spambots &amp; trash.",
+      "paragraph_index": 0,
+      "char_range": [
+        13763,
+        13914
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c67",
+      "text": "The tension is to set the bar high enough to make the cost of spam higher than the return on the investment, while keeping the costs low enough that any legitimate user can participate.",
+      "paragraph_index": 0,
+      "char_range": [
+        13915,
+        14100
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c68",
+      "text": "Going one step further, by using the Passport scoring methodology instead of Passport stamps we are opening up the proposal process to anyone who meets the minimum score, not just holders of GTC.",
+      "paragraph_index": 0,
+      "char_range": [
+        14389,
+        14584
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c69",
+      "text": "2 Likes shawn16400 June 13, 2023, 2:25pm 12 Quick update on this proposal - the Snapshot team is working with our Passport team to see if / when we will be able to use the Passport score as a gating mechanism.",
+      "paragraph_index": 0,
+      "char_range": [
+        14769,
+        14978
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0,
+          16400.0,
+          13.0,
+          2023.0,
+          25.0,
+          12.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c70",
+      "text": "I am hopeful we can get a target date, but if not, we will move forward with a vote using the current gating mechanism applied on snapshot today.",
+      "paragraph_index": 0,
+      "char_range": [
+        14979,
+        15124
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c71",
+      "text": "1 Like shawn16400 June 19, 2023, 2:13pm 13 Quick update, we do not yet have a target date for implementing the Gitcoin Passport score with Snapshot.",
+      "paragraph_index": 0,
+      "char_range": [
+        15125,
+        15273
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          16400.0,
+          19.0,
+          2023.0,
+          2.0,
+          13.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c72",
+      "text": "Given this is the preferred method for Snapshot gating, so we will move forward with a a proposal to ratifying our current methodology which is outlined as Option #2 above.",
+      "paragraph_index": 0,
+      "char_range": [
+        15274,
+        15446
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c73",
+      "text": "Specifically, the gating is &gt; 1000 twitter followers or GTC at least 100.",
+      "paragraph_index": 0,
+      "char_range": [
+        15447,
+        15523
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c74",
+      "text": "When the scoring capability comes on line, or we find that the current controls are not enough to curb our-of-process proposals, we will adjust via a new proposal.",
+      "paragraph_index": 0,
+      "char_range": [
+        15524,
+        15687
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c75",
+      "text": "For clarity, we are adjusting the body of the proposal above to change the recommendation from option #3 , to option #2 , FROM: Recommendation: Option 3 with any of the following stamps: Implement the following stamps Staking 100GTC (gold) At least 100GTC held in the wallet To: Recommendation: Option 2 .",
+      "paragraph_index": 0,
+      "char_range": [
+        15688,
+        15993
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          3.0,
+          2.0,
+          100.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c76",
+      "text": "Current best thinking is that a pluralistic passport score is the best option as it will us to add/remove/change stamps as the value changes in response to Sybil actions while providing the most robust defense.",
+      "paragraph_index": 0,
+      "char_range": [
+        15994,
+        16204
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c77",
+      "text": "However as the scoring is not available on Snapshot yet, but there is effort under way, it makes the most sense to ratify our current settings Option #2 ) and adjust when the new scoring methodology is in place.",
+      "paragraph_index": 0,
+      "char_range": [
+        16205,
+        16416
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c78",
+      "text": "1 Like shawn16400 June 19, 2023, 2:27pm 14 This proposal has been moved to snapshot for vote.",
+      "paragraph_index": 0,
+      "char_range": [
+        16417,
+        16510
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0,
+          16400.0,
+          19.0,
+          2023.0,
+          2.0,
+          27.0,
+          14.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c79",
+      "text": "The vote will close on 06.26.",
+      "paragraph_index": 0,
+      "char_range": [
+        16511,
+        16540
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c80",
+      "text": "https://snapshot.org/#/gitcoindao.eth/proposal/0xa18926b9dc9592bdf02acc3cef5a41021cebe51f73a2a3d6b007d7c38685b296 2 Likes shawn16400 June 27, 2023, 10:55am 15 fyi - this snapshot vote has passed with ~99% approval rate.",
+      "paragraph_index": 0,
+      "char_range": [
+        16541,
+        16760
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.99,
+          0.0,
+          18926.0,
+          9.0,
+          9592.0,
+          2.0,
+          3.0,
+          5.0,
+          41021.0,
+          51.0,
+          73.0,
+          6.0,
+          7.0,
+          38685.0,
+          296.0,
+          16400.0,
+          27.0,
+          2023.0,
+          10.0,
+          55.0,
+          15.0
+        ],
+        "addresses": [
+          "0xa18926b9dc9592bdf02acc3cef5a41021cebe51f"
+        ],
+        "urls": [
+          "https://snapshot.org/"
+        ]
+      }
+    },
+    {
+      "id": "c81",
+      "text": "Metrics: 1891 unique votes ~2.8M GTC tokens cast.",
+      "paragraph_index": 0,
+      "char_range": [
+        16761,
+        16810
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1891.0,
+          2.8,
+          2800000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c82",
+      "text": "1 Like Home Categories Guidelines Terms of Service Privacy Policy Powered by Discourse , best viewed with JavaScript enabled",
+      "paragraph_index": 0,
+      "char_range": [
+        16876,
+        17000
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          1.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

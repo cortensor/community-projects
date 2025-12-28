@@ -1,0 +1,24 @@
+{
+  "proposal_hash": "sha256:2e2b2df2bdbaf9eada065494485b3247117485cff9d083d0f57ddde991cd26f6",
+  "canonical_text": "Bitcoin will touch $100k soon.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Bitcoin will touch $100k soon.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        30
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          100.0,
+          100000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

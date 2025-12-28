@@ -1,0 +1,21 @@
+{
+  "proposal_hash": "sha256:d30cc927a261727bbf1d292a011d11f2a829ea8a29c724a77210f85c6cec6bb6",
+  "canonical_text": "Decentralized governance is always more transparent than centralized governance.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Decentralized governance is always more transparent than centralized governance.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        80
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

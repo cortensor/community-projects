@@ -1,0 +1,119 @@
+{
+  "proposal_hash": "sha256:e3c8140a5f3b9ba3cc621ff2b156d43821f568279aa9d5148a30b713e3e77288",
+  "canonical_text": "DAO Proposal: Strategic Initiative for Growth and Efficiency\nClaim 1: Allocating 15,000 DAI to marketing will increase community engagement by at least 20% within 3 months.\nClaim 2: Implementing a quarterly developer grant program will accelerate product innovation and reduce time-to-market by 25%.\nClaim 3: Introducing a decentralized voting system upgrade will enhance governance transparency and voter participation by 30%.\nClaim 4: Partnering with external advisors will improve strategic decision-making and risk management for the DAO.\nClaim 5: Regular community feedback sessions will foster inclusivity and align project goals with member interests.\nThis proposal requests approval to allocate funds and resources to execute these initiatives.\nThe marketing budget will be managed by a dedicated committee with monthly reporting to the DAO.\nDeveloper grants will be awarded based on merit and community voting to ensure fairness.\nThe voting system upgrade will be developed and audited by trusted third-party experts.\nCommunity sessions will be held bi-monthly, with summaries published for transparency.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Allocating 15,000 DAI to marketing will increase community engagement by at least 20% within 3 months",
+      "paragraph_index": 0,
+      "char_range": [
+        11,
+        96
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          15000.0,
+          0.2,
+          3.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "Implementing a quarterly developer grant program will accelerate product innovation and reduce time-to-market by 25%",
+      "paragraph_index": 0,
+      "char_range": [
+        105,
+        204
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.25
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c3",
+      "text": "Introducing a decentralized voting system upgrade will enhance governance transparency and voter participation by 30%",
+      "paragraph_index": 0,
+      "char_range": [
+        213,
+        313
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.3
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c4",
+      "text": "The marketing budget will be managed by a dedicated committee with monthly reporting to the DAO",
+      "paragraph_index": 1,
+      "char_range": [
+        11,
+        83
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c5",
+      "text": "Developer grants will be awarded based on merit and community voting to ensure fairness",
+      "paragraph_index": 1,
+      "char_range": [
+        93,
+        173
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c6",
+      "text": "The voting system upgrade will be developed and audited by trusted third-party experts",
+      "paragraph_index": 1,
+      "char_range": [
+        183,
+        255
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c7",
+      "text": "Community sessions will be held bi-monthly, with summaries published for transparency",
+      "paragraph_index": 1,
+      "char_range": [
+        265,
+        330
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

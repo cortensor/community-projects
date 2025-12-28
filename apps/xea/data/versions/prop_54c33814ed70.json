@@ -1,0 +1,37 @@
+{
+  "proposal_id": "prop_54c33814ed70",
+  "latest_version": 1,
+  "versions": [
+    {
+      "version_number": 1,
+      "proposal_hash": "sha256:df9ea9e850f5f8b71488ba42398c635047cb4db7e084d159ce3734952d8a37ed",
+      "previous_hash": null,
+      "created_at": "2025-12-28T06:15:24.794714+00:00",
+      "claim_ids": [
+        "c1"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text": "btc will touch $100k in 1 week.",
+          "paragraph_index": 0,
+          "char_range": [
+            0,
+            31
+          ],
+          "type": "numeric",
+          "canonical": {
+            "numbers": [
+              100.0,
+              1.0,
+              100000.0
+            ],
+            "addresses": [],
+            "urls": []
+          }
+        }
+      ],
+      "canonical_text": "btc will touch $100k in 1 week."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "proposal_hash": "sha256:361850f2d348b9238abd59bd66f3deba538d4b1f2d1da6843eb4850c1d905eed",
+  "canonical_text": "Title\nActivate Xea Governance Oracle for DAO Voting\n\nShort description\nEnable the Xea Governance Oracle as the primary data source for proposal state and voting power, so the DAO can securely read on-chain results and automate proposal execution.\n\nDetails\nThis proposal configures the oracle contract address, supported proposal types (text + on-chain execution), and required update interval, and authorizes it to be used by the DAO frontend and backend for all future governance votes. The goal is to improve reliability and transparency of governance by using a specialized oracle instead of ad\u2011hoc reads from multiple contracts.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The goal is to improve reliability and transparency of governance by using a specialized oracle instead of ad\u2011hoc reads from multiple contracts.",
+      "paragraph_index": 2,
+      "char_range": [
+        488,
+        632
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

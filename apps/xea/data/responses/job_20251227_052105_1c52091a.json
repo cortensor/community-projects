@@ -1,0 +1,45 @@
+{
+  "job_id": "job_20251227_052105_1c52091a",
+  "responses": [
+    {
+      "timestamp": "2025-12-27T05:22:08.996774",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-156",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "The claim is unverifiable at this time as it relies on future events and the specific impact of Layer 2 scaling solutions on Ethereum gas fees is not determinable with certainty.",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 1.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is unverifiable at this time as it relies on future events and the specific impact of Layer 2 scaling solutions on Ethereum gas fees is not determinable with certainty.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2023-03-15T12:34:56Z\"\n}</s>"
+            }
+          ],
+          "created": 1766812866,
+          "id": "cmpl-1766812866",
+          "model": "cortensor-testnet-0",
+          "object": "text_completion",
+          "session_id": 156,
+          "task_id": 7,
+          "usage": {
+            "completion_tokens": 42,
+            "prompt_tokens": 99,
+            "total_tokens": 141
+          }
+        }
+      }
+    }
+  ]
+}

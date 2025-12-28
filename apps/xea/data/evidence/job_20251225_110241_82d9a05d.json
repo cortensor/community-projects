@@ -1,0 +1,149 @@
+{
+  "proposal_hash": "sha256:b2bdc622f6bc7af41130369851da1ad1b7d4cc07e9b825f1d67bf66fc5c81be4",
+  "job_id": "job_20251225_110241_82d9a05d",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: DAO-002: Neutral Governance Adjustment",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.45,
+      "pouw_ci_95": [
+        0.45,
+        0.45
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-0xa8091d4589e9683eab7d",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "Verified against Ethereum historical records (Beacon Chain consensus timestamp).",
+          "evidence_links": [
+            "https://ethereum.org/en/roadmap/merge/"
+          ],
+          "embedding": null,
+          "scores": {
+            "accuracy": 1.0,
+            "omission_risk": 1.0,
+            "evidence_quality": 0.95,
+            "governance_relevance": 1.0,
+            "composite": 0.45
+          },
+          "cortensor_raw": {
+            "id": "cmpl-simulated-3eab7d",
+            "object": "text_completion",
+            "created": 1677652288,
+            "model": "cortensor-testnet-0",
+            "choices": [
+              {
+                "text": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}",
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "length",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}"
+                }
+              }
+            ],
+            "proof_of_useful_work": {
+              "score": 0.45,
+              "rubric_scores": {
+                "accuracy": 1.0,
+                "omission_risk": 1.0,
+                "evidence_quality": 0.95,
+                "governance_relevance": 1.0
+              }
+            },
+            "proof_of_inference": {
+              "miner_signatures": [
+                "0xsimulated..."
+              ],
+              "consensus_reached": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "This proposal authorizes a limited update to defined DAO configuration parameters to align operations with current best practices, without altering ownership, token distribution, or core governance rights.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.45,
+      "pouw_ci_95": [
+        0.45,
+        0.45
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "cortensor-0xa8091d4589e9683eab7d",
+          "claim_id": "c2",
+          "verdict": "unverifiable",
+          "rationale": "Verified against Ethereum historical records (Beacon Chain consensus timestamp).",
+          "evidence_links": [
+            "https://ethereum.org/en/roadmap/merge/"
+          ],
+          "embedding": null,
+          "scores": {
+            "accuracy": 1.0,
+            "omission_risk": 1.0,
+            "evidence_quality": 0.95,
+            "governance_relevance": 1.0,
+            "composite": 0.45
+          },
+          "cortensor_raw": {
+            "id": "cmpl-simulated-3eab7d",
+            "object": "text_completion",
+            "created": 1677652288,
+            "model": "cortensor-testnet-0",
+            "choices": [
+              {
+                "text": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}",
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "length",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"verdict\": \"unverifiable\", \"rationale\": \"Verified against Ethereum historical records (Beacon Chain consensus timestamp).\", \"evidence_links\": [\"https://ethereum.org/en/roadmap/merge/\"], \"confidence\": 0.99}"
+                }
+              }
+            ],
+            "proof_of_useful_work": {
+              "score": 0.45,
+              "rubric_scores": {
+                "accuracy": 1.0,
+                "omission_risk": 1.0,
+                "evidence_quality": 0.95,
+                "governance_relevance": 1.0
+              }
+            },
+            "proof_of_inference": {
+              "miner_signatures": [
+                "0xsimulated..."
+              ],
+              "consensus_reached": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.45,
+  "overall_ci_95": [
+    0.45,
+    0.45
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed",
+    "claim c2: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T11:02:44.133280+00:00"
+}

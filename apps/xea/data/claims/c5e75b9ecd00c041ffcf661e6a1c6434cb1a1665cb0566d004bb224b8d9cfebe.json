@@ -1,0 +1,40 @@
+{
+  "proposal_hash": "sha256:c5e75b9ecd00c041ffcf661e6a1c6434cb1a1665cb0566d004bb224b8d9cfebe",
+  "canonical_text": "The treasury holds 500,000 USDC. This represents 10% of funds.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The treasury holds 500,000 USDC.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        32
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          500000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "This represents 10% of funds.",
+      "paragraph_index": 0,
+      "char_range": [
+        33,
+        62
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.1
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

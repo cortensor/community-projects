@@ -1,0 +1,49 @@
+{
+  "job_id": "job_20251225_150315_29ac1a47",
+  "responses": [
+    {
+      "timestamp": "2025-12-25T15:03:51.845576",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: All connection attempts failed",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: All connection attempts failed"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-25T15:04:28.047221",
+      "claim_id": "c2",
+      "response": {
+        "miner_id": "error",
+        "claim_id": "c2",
+        "verdict": "unverifiable",
+        "rationale": "System Error: Cortensor Validation Failed. Last error: All connection attempts failed",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "Cortensor Validation Failed. Last error: All connection attempts failed"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "proposal_hash": "sha256:9cb6def97916d92a5923d5e2c2ac6f5d52fcc72779200bf428733ae904f603e6",
+  "job_id": "job_20251225_092450_2c6c0cb5",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: Validation of Ethereum Merge Date Body: The Ethereum network completed \"The Merge\" on September 15, 2022.",
+      "poi_agreement": 1.0,
+      "mode_verdict": "unverifiable",
+      "embedding_dispersion": 0.0,
+      "pouw_mean": 0.0,
+      "pouw_ci_95": [
+        0.0,
+        0.0
+      ],
+      "outliers": [],
+      "final_recommendation": "disputed",
+      "miner_responses": [
+        {
+          "miner_id": "error",
+          "claim_id": "c1",
+          "verdict": "unverifiable",
+          "rationale": "System Error: Cortensor Validation Failed. Last error: 401 Unauthorized with token admin",
+          "evidence_links": [],
+          "embedding": null,
+          "scores": {
+            "accuracy": 0.0,
+            "omission_risk": 0.0,
+            "evidence_quality": 0.0,
+            "governance_relevance": 0.0,
+            "composite": 0.0
+          },
+          "cortensor_raw": {
+            "error": "Cortensor Validation Failed. Last error: 401 Unauthorized with token admin"
+          }
+        }
+      ]
+    }
+  ],
+  "overall_poi_agreement": 1.0,
+  "overall_pouw_score": 0.0,
+  "overall_ci_95": [
+    0.0,
+    0.0
+  ],
+  "critical_flags": [
+    "claim c1: marked as disputed"
+  ],
+  "timestamp": "2025-12-25T09:24:53.437409+00:00"
+}

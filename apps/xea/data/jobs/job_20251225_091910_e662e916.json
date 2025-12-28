@@ -1,0 +1,37 @@
+{
+  "miners_contacted": 1,
+  "completed_at": "2025-12-25T09:19:10.759848",
+  "miners_responded": 1,
+  "job_id": "job_20251225_091910_e662e916",
+  "claim_ids": [
+    "c1"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "error",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "System Error: name 'router_url' is not defined",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "error": "name 'router_url' is not defined"
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-25T09:19:10.745599",
+  "proposal_hash": "sha256:c530ebe405097dcf2ab559c26658df10c80e0fa3c1bfe11e5a118d43b1aca20d",
+  "started_at": "2025-12-25T09:19:10.752421",
+  "claims_total": 1,
+  "claims_validated": 1
+}

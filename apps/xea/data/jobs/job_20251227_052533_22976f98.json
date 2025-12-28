@@ -1,0 +1,55 @@
+{
+  "miners_contacted": 1,
+  "completed_at": "2025-12-27T05:26:00.602301",
+  "miners_responded": 1,
+  "job_id": "job_20251227_052533_22976f98",
+  "claim_ids": [
+    "c1"
+  ],
+  "responses": {
+    "c1": [
+      {
+        "miner_id": "cortensor-156",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "The claim is subjective and relies on qualitative factors that are difficult to quantify and verify objectively.",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.0,
+          "omission_risk": 1.0,
+          "evidence_quality": 0.0,
+          "governance_relevance": 0.0,
+          "composite": 0.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": " {\n  \"verdict\": \"unverifiable\",\n  \"rationale\": \"The claim is subjective and relies on qualitative factors that are difficult to quantify and verify objectively.\",\n  \"evidence_links\": [],\n  \"confidence\": 0.0,\n  \"collection_timestamp\": \"2022-03-15T12:34:56Z\"\n}</s>"
+            }
+          ],
+          "created": 1766813135,
+          "id": "cmpl-1766813135",
+          "model": "cortensor-testnet-0",
+          "object": "text_completion",
+          "session_id": 156,
+          "task_id": 8,
+          "usage": {
+            "completion_tokens": 28,
+            "prompt_tokens": 95,
+            "total_tokens": 123
+          }
+        }
+      }
+    ]
+  },
+  "status": "completed",
+  "created_at": "2025-12-27T05:25:33.641094",
+  "proposal_hash": "sha256:d30cc927a261727bbf1d292a011d11f2a829ea8a29c724a77210f85c6cec6bb6",
+  "started_at": "2025-12-27T05:25:33.643621",
+  "claims_total": 1,
+  "claims_validated": 1
+}

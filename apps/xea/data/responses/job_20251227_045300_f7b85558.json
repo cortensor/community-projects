@@ -1,0 +1,48 @@
+{
+  "job_id": "job_20251227_045300_f7b85558",
+  "responses": [
+    {
+      "timestamp": "2025-12-27T04:56:06.534113",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-156",
+        "claim_id": "c1",
+        "verdict": "verified",
+        "rationale": "Bitcoin was indeed created by Satoshi Nakamoto and launched in January 2009. This information is well-documented and widely accepted in the cryptocurrency community.",
+        "evidence_links": [
+          "https://en.bitcoin.it/wiki/Satoshi_Nakamoto",
+          "https://bitcoin.org/en/about"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 1.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.8,
+          "governance_relevance": 0.9,
+          "composite": 1.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": " {\n  \"verdict\": \"verified\",\n  \"rationale\": \"Bitcoin was indeed created by Satoshi Nakamoto and launched in January 2009. This information is well-documented and widely accepted in the cryptocurrency community.\",\n  \"evidence_links\": [\n    \"https://en.bitcoin.it/wiki/Satoshi_Nakamoto\",\n    \"https://bitcoin.org/en/about\"\n  ],\n  \"confidence\": 1.0,\n  \"collection_timestamp\": \"2022-03-15T12:34:56Z\"\n}</s>"
+            }
+          ],
+          "created": 1766811333,
+          "id": "cmpl-1766811333",
+          "model": "cortensor-testnet-0",
+          "object": "text_completion",
+          "session_id": 156,
+          "task_id": 5,
+          "usage": {
+            "completion_tokens": 37,
+            "prompt_tokens": 97,
+            "total_tokens": 134
+          }
+        }
+      }
+    }
+  ]
+}

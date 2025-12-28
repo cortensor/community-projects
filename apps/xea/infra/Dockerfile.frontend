@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY frontend/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source (including config files)
+COPY frontend/ .
+
+# Expose port
+EXPOSE 3000
+
+# Default command - run dev server on port 3000
+CMD ["npm", "run", "dev"]

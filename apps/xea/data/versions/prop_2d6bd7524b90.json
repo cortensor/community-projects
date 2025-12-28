@@ -1,0 +1,33 @@
+{
+  "proposal_id": "prop_2d6bd7524b90",
+  "latest_version": 1,
+  "versions": [
+    {
+      "version_number": 1,
+      "proposal_hash": "sha256:aaf7dbc3d64902bf147b28a9975a0aca93ea17239fc97b819da6b045c19217cd",
+      "previous_hash": null,
+      "created_at": "2025-12-28T06:27:00.256322+00:00",
+      "claim_ids": [
+        "c1"
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text": "trump will make pakistan biggest crpto hub.",
+          "paragraph_index": 0,
+          "char_range": [
+            0,
+            43
+          ],
+          "type": "factual",
+          "canonical": {
+            "numbers": [],
+            "addresses": [],
+            "urls": []
+          }
+        }
+      ],
+      "canonical_text": "trump will make pakistan biggest crpto hub."
+    }
+  ]
+}

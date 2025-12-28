@@ -1,0 +1,55 @@
+{
+  "proposal_hash": "sha256:e68a5751df42f20f26002aadd8de39b2e477519d00625fc025f01f594b2d734a",
+  "canonical_text": "Title: Fund Security Audit for Xea Governance Oracle\n\nSummary:\nThis proposal asks the DAO to allocate up to $30,000 from the treasury to pay an independent security firm to audit the Xea Governance Oracle smart contracts and related off\u2011chain components, improving security and trust in governance.\n\u200b\nDetails:\nIf approved, the core contributors will select a reputable auditor, share documentation and code, implement all critical fixes, and publish a brief public audit summary for the community within 8 weeks of funding.\n\u200b",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Title: Fund Security Audit for Xea Governance Oracle",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        52
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c2",
+      "text": "Summary:\nThis proposal asks the DAO to allocate up to $30,000 from the treasury to pay an independent security firm to audit the Xea Governance Oracle smart contracts and related off\u2011chain components, improving security and trust in governance.",
+      "paragraph_index": 1,
+      "char_range": [
+        54,
+        298
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          30000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    },
+    {
+      "id": "c3",
+      "text": "\u200b\nDetails:\nIf approved, the core contributors will select a reputable auditor, share documentation and code, implement all critical fixes, and publish a brief public audit summary for the community within 8 weeks of funding.",
+      "paragraph_index": 1,
+      "char_range": [
+        299,
+        523
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          8.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

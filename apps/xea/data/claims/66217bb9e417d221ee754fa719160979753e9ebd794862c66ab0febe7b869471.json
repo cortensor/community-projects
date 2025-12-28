@@ -1,0 +1,23 @@
+{
+  "proposal_hash": "sha256:66217bb9e417d221ee754fa719160979753e9ebd794862c66ab0febe7b869471",
+  "canonical_text": "DAO Proposal: Strategic Initiative for Growth and Efficiency\nClaim 4: Partnering with external advisors will improve strategic decision-making and risk management for the DAO.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "DAO Proposal: Strategic Initiative for Growth and Efficiency\nClaim 4: Partnering with external advisors will improve strategic decision-making and risk management for the DAO.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        175
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          4.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "proposal_hash": "sha256:aaf7dbc3d64902bf147b28a9975a0aca93ea17239fc97b819da6b045c19217cd",
+  "canonical_text": "trump will make pakistan biggest crpto hub.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "trump will make pakistan biggest crpto hub.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        43
+      ],
+      "type": "factual",
+      "canonical": {
+        "numbers": [],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "proposal_hash": "sha256:151ea1045fbf809530d858a2d4d1f9f657c94a2dcb2126c6626b183aec75e183",
+  "canonical_text": "Layer 2 scaling solutions will reduce Ethereum gas fees by 90% by 2025.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Layer 2 scaling solutions will reduce Ethereum gas fees by 90% by 2025.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        71
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          0.9,
+          2.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

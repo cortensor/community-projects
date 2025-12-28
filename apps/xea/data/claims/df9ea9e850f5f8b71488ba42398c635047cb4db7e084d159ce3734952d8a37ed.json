@@ -1,0 +1,25 @@
+{
+  "proposal_hash": "sha256:df9ea9e850f5f8b71488ba42398c635047cb4db7e084d159ce3734952d8a37ed",
+  "canonical_text": "btc will touch $100k in 1 week.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "btc will touch $100k in 1 week.",
+      "paragraph_index": 0,
+      "char_range": [
+        0,
+        31
+      ],
+      "type": "numeric",
+      "canonical": {
+        "numbers": [
+          100.0,
+          1.0,
+          100000.0
+        ],
+        "addresses": [],
+        "urls": []
+      }
+    }
+  ]
+}

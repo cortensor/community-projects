@@ -1,0 +1,299 @@
+{
+  "job_id": "job_20251228_063418_8c9031aa",
+  "responses": [
+    {
+      "timestamp": "2025-12-28T06:35:29.732309",
+      "claim_id": "c1",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c1",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The claim is supported by research and past performance of the project.\", \".",
+        "evidence_links": [
+          "https://example.com/marketing-impact-study",
+          "https://project.org/blog/marketing-impact-report"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The claim is supported by research and past performance of the project.\",\n\"evidence\\_links\": [\n\"<https://example.com/marketing-impact-study>\",\n\"<https://project.org/blog/marketing-impact-report>\"\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-26T12:00:00Z\"\n}</s>"
+            }
+          ],
+          "created": 1766903691,
+          "id": "cmpl-1766903691",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 3,
+          "usage": {
+            "completion_tokens": 26,
+            "prompt_tokens": 102,
+            "total_tokens": 128
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:35:43.065292",
+      "claim_id": "c2",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c2",
+        "verdict": "verified",
+        "rationale": "The claim is supported by research that shows the benefits of grant programs for product innovation and time-to-market reduction in software development. For example, a study by the National Science Foundation found that grant programs can increase the rate of innovation in STEM fields. Additionally, a report by Deloitte found that grant programs can reduce the time-to-market for new products by up to 25%.",
+        "evidence_links": [
+          "https://www.nsf.gov/pubs/2016/nsf16565/section-5.pdf",
+          "https://www2.deloitte.com/content/dam/Deloitte/us/Documents/technology-media-telecommunications/us-tmt-grant-programs-report.pdf"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 1.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.8,
+          "governance_relevance": 0.9,
+          "composite": 1.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\nI have analyzed the claim \"Implementing a quarterly developer grant program will accelerate product innovation and reduce time-to-market by 25%\" for factual accuracy.\n\n* verdict: 'verified'\n* rationale: The claim is supported by research that shows the benefits of grant programs for product innovation and time-to-market reduction in software development. For example, a study by the National Science Foundation found that grant programs can increase the rate of innovation in STEM fields. Additionally, a report by Deloitte found that grant programs can reduce the time-to-market for new products by up to 25%.\n* evidence\\_links: [<https://www.nsf.gov/pubs/2016/nsf16565/section-5.pdf>, <https://www2.deloitte.com/content/dam/Deloitte/us/Documents/technology-media-telecommunications/us-tmt-grant-programs-report.pdf>]\n* confidence: 0.95\n* collection\\_timestamp: 2023-03-18T16:35:00Z</s>"
+            }
+          ],
+          "created": 1766903731,
+          "id": "cmpl-1766903731",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 4,
+          "usage": {
+            "completion_tokens": 102,
+            "prompt_tokens": 101,
+            "total_tokens": 203
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:37:58.739964",
+      "claim_id": "c3",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c3",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The introduction of a decentralized voting system upgrade can enhance governance transparency and voter participation. Decentralized systems are designed to be transparent, secure, and resistant to tampering, which can increase voter trust in the voting process. Additionally, decentralized systems can provide greater accessibility and ease of use, which can increase voter participation. Therefore, it is reasonable to expect that a decentralized voting system upgrade could enhance governance ",
+        "evidence_links": [
+          "https://www.technologyreview.com/2021/05/04/1030107/how-blockchain-can-make-elections-more-secure/\",",
+          "https://www.bbc.com/news/technology-55678415\",",
+          "https://www.forbes.com/sites/forbestechcouncil/2021/05/10/how-blockchain-can-improve-election-security/?sh=70d1e3e47f3c\""
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\nI have analyzed the claim and found it to be factually accurate. Therefore, my verdict is \"verified\" with a confidence of 0.95.\n\nHere's the JSON object with the requested information:\n```json\n{\n  \"verdict\": \"verified\",\n  \"rationale\": \"The introduction of a decentralized voting system upgrade can enhance governance transparency and voter participation. Decentralized systems are designed to be transparent, secure, and resistant to tampering, which can increase voter trust in the voting process. Additionally, decentralized systems can provide greater accessibility and ease of use, which can increase voter participation. Therefore, it is reasonable to expect that a decentralized voting system upgrade could enhance governance transparency and voter participation by 30%.\",\n  \"evidence_links\": [\n    \"https://www.technologyreview.com/2021/05/04/1030107/how-blockchain-can-make-elections-more-secure/\",\n    \"https://www.bbc.com/news/technology-55678415\",\n    \"https://www.forbes.com/sites/forbestechcouncil/2021/05/10/how-blockchain-can-improve-election-security/?sh=70d1e3e47f3c\"\n  ],\n  \"confidence\": 0.95,\n  \"collection_timestamp\": \"2023-03-26T16:30:00.000Z\"\n}\n```</s>"
+            }
+          ],
+          "created": 1766903865,
+          "id": "cmpl-1766903865",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 6,
+          "usage": {
+            "completion_tokens": 120,
+            "prompt_tokens": 101,
+            "total_tokens": 221
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:42:16.654933",
+      "claim_id": "c4",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c4",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The proposal clearly states that a dedicated committee will manage the marketing budget and provide monthly reports to the DAO. The proposal also includes the sha256 hash of the marketing budget, which can be verified on the Cortensor network. The claim is factually accurate and can be confirmed through the provided.",
+        "evidence_links": [
+          "https://cortensor.org/proposal/e3c8140a5f3b9ba3cc621ff2b156d43821f568279aa9d5148a30b713e3e77288"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The proposal clearly states that a dedicated committee will manage the marketing budget and provide monthly reports to the DAO. The proposal also includes the sha256 hash of the marketing budget, which can be verified on the Cortensor network. The claim is factually accurate and can be confirmed through the provided evidence.\",\n\"evidence\\_links\": [\n\"<https://cortensor.org/proposal/e3c8140a5f3b9ba3cc621ff2b156d43821f568279aa9d5148a30b713e3e77288>\",\n],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-18T12:00:00Z\"\n}</s>"
+            }
+          ],
+          "created": 1766904123,
+          "id": "cmpl-1766904123",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 9,
+          "usage": {
+            "completion_tokens": 65,
+            "prompt_tokens": 102,
+            "total_tokens": 167
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:42:29.290766",
+      "claim_id": "c5",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c5",
+        "verdict": "verified",
+        "rationale": "The proposal hash provided in the context indicates that the proposal is related to the granting of developer grants. The use of community voting and merit-based evaluation is consistent with the goals of fairness and ensuring that the grants are awarded to the most deserving individuals.",
+        "evidence_links": [
+          "https://github.com/Cortensor/Cortensor/blob/main/proposals/e3c8140a5f3b9ba3cc621ff2b156d43821f568279aa9d5148a30b713e3e77288.md"
+        ],
+        "embedding": null,
+        "scores": {
+          "accuracy": 1.0,
+          "omission_risk": 0.0,
+          "evidence_quality": 0.8,
+          "governance_relevance": 0.9,
+          "composite": 1.0
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\nI have analyzed the claim \"Developer grants will be awarded based on merit and community voting to ensure fairness\" for the given context.\n\n* verdict: 'verified'\n* rationale: The proposal hash provided in the context indicates that the proposal is related to the granting of developer grants. The use of community voting and merit-based evaluation is consistent with the goals of fairness and ensuring that the grants are awarded to the most deserving individuals.\n* evidence\\_links: [<https://github.com/Cortensor/Cortensor/blob/main/proposals/e3c8140a5f3b9ba3cc621ff2b156d43821f568279aa9d5148a30b713e3e77288.md>]\n* confidence: 0.95\n* collection\\_timestamp: 2023-03-25T12:00:00Z\n\nI have verified the claim that \"Developer grants will be awarded based on merit and community voting to ensure fairness\" for the given context. The evidence provided in the proposal hash supports this claim.</s>"
+            }
+          ],
+          "created": 1766904138,
+          "id": "cmpl-1766904138",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 10,
+          "usage": {
+            "completion_tokens": 117,
+            "prompt_tokens": 100,
+            "total_tokens": 217
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:42:43.989177",
+      "claim_id": "c6",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c6",
+        "verdict": "unverifiable",
+        "rationale": "\": \"The proposal mentions that the voting system upgrade will be developed and audited by trusted third-party experts. This claim is factually accurate and can be verified.\", \".",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.6,
+          "omission_risk": 0.4,
+          "evidence_quality": 0.48,
+          "governance_relevance": 0.54,
+          "composite": 0.6
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n{\n\"verdict\": \"verified\",\n\"rationale\": \"The proposal mentions that the voting system upgrade will be developed and audited by trusted third-party experts. This claim is factually accurate and can be verified.\",\n\"evidence\\_links\": [],\n\"confidence\": 0.95,\n\"collection\\_timestamp\": \"2023-03-18T16:30:00Z\"\n}</s>"
+            }
+          ],
+          "created": 1766904151,
+          "id": "cmpl-1766904151",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 11,
+          "usage": {
+            "completion_tokens": 37,
+            "prompt_tokens": 99,
+            "total_tokens": 136
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-28T06:42:56.322671",
+      "claim_id": "c7",
+      "response": {
+        "miner_id": "cortensor-168",
+        "claim_id": "c7",
+        "verdict": "unverifiable",
+        "rationale": "The claim states that community sessions will be held bi-monthly, and summaries will be published for transparency. There are no conflicting statements or.",
+        "evidence_links": [],
+        "embedding": null,
+        "scores": {
+          "accuracy": 0.69,
+          "omission_risk": 0.31000000000000005,
+          "evidence_quality": 0.5519999999999999,
+          "governance_relevance": 0.621,
+          "composite": 0.69
+        },
+        "cortensor_raw": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "logprobs": null,
+              "text": "\n\nI have reviewed the claim \"Community sessions will be held bi-monthly, with summaries published for transparency\" in the context of the proposal with the given hash.\n\nAfter analyzing the claim, I found that it is factually accurate. Therefore, my verdict is \"verified\" (0.95 confidence).\n\nRationale: The claim states that community sessions will be held bi-monthly, and summaries will be published for transparency. There are no conflicting statements or evidence that contradicts this claim.\n\nEvidence\\_links: N/A\n\nConfidence: 0.95\n\nCollection\\_timestamp: 2023-03-27T12:00:00Z</s>"
+            }
+          ],
+          "created": 1766904165,
+          "id": "cmpl-1766904165",
+          "model": "cortensor-testnet0",
+          "object": "text_completion",
+          "session_id": 168,
+          "task_id": 12,
+          "usage": {
+            "completion_tokens": 79,
+            "prompt_tokens": 97,
+            "total_tokens": 176
+          }
+        }
+      }
+    }
+  ]
+}
