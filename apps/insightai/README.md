@@ -1,40 +1,131 @@
-# InsightAI 🔍
+# InsightAI
 
-> AI Research Agent powered by Cortensor's decentralized inference network
+> **Agentic AI Research Assistant** powered by Cortensor's decentralized inference network
 
-[![Built for Hackathon #3](https://img.shields.io/badge/Cortensor-Hackathon%20%233-22c55e)](https://dorahacks.io/hackathon/1768)
-[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🌐 Live Demo
+---
 
-[https://insightai.vercel.app](https://insightai.vercel.app) *(Deploy to Vercel)*
+## Table of Contents
 
-## 🎯 What is InsightAI?
+1. [What is InsightAI](#1-what-is-insightai)
+2. [Cortensor Integration](#2-cortensor-integration)
+3. [Session Usage Proof](#3-session-usage-proof)
+4. [Agent Specification](#4-agent-specification)
+5. [Technical Architecture](#5-technical-architecture)
+6. [Quick Start](#6-quick-start)
+7. [User Flow](#7-user-flow)
+8. [Screenshots](#8-screenshots)
+9. [Links](#9-links)
 
-InsightAI is a decentralized AI research assistant that leverages Cortensor's distributed inference network to provide trusted, verifiable research insights. Instead of relying on a single AI provider, InsightAI uses Cortensor's multi-miner consensus to ensure accurate and reliable research outputs.
+---
 
-## ✨ Features
+## 1. What is InsightAI
 
-- 🔍 **Research Query Interface** - Ask any research question
-- 🌐 **URL Analysis** - Summarize content from any URL
-- ✅ **Verifiable Results** - Each response links to Cortensor dashboard for verification
-- 📊 **Structured Output** - Results formatted as summary + bullet points
-- 🎨 **Premium Dark UI** - Beautiful glassmorphism design with animations
-- 🔄 **Demo Mode Fallback** - Works even when TestNet miners are unavailable
+InsightAI is a **decentralized AI research assistant** that acts autonomously to provide verified research insights. Instead of relying on a single AI provider, InsightAI leverages Cortensor's **multi-miner consensus** and **blockchain verification** for trustworthy outputs.
 
-## 🏗️ Architecture
+### Why Decentralized Research?
+
+| Traditional AI | InsightAI + Cortensor |
+|----------------|----------------------|
+| Single provider = single point of failure | Distributed miners network |
+| No verification of outputs | Blockchain TX verification |
+| Opaque inference process | Session + Task ID transparency |
+| Centralized trust | Decentralized consensus |
+
+### Hackathon Track: Agentic Applications
+
+InsightAI fits the **Agentic Applications** track as an autonomous research assistant that:
+
+- Acts autonomously on user queries without step-by-step guidance
+- Monitors and handles network availability with graceful fallbacks
+- Produces verifiable outputs with blockchain transaction verification
+- Free public access - no API keys required for end users
+
+---
+
+## 2. Cortensor Integration
+
+### Features Used
+
+| Feature | Implementation | File |
+|---------|---------------|------|
+| **Router Node API** | `/api/v1/completions/{sessionId}` | [`src/app/api/research/route.ts`](./src/app/api/research/route.ts) |
+| **Session Management** | TestNet 0 session verification | [`src/lib/cortensor-web3.ts`](./src/lib/cortensor-web3.ts) |
+| **Multi-Miner Inference** | Queries processed by decentralized nodes | [`src/app/api/research/route.ts`](./src/app/api/research/route.ts) |
+| **Blockchain Verification** | TX hash via smart contract | [`src/lib/cortensor-web3.ts`](./src/lib/cortensor-web3.ts) |
+| **Web3 SDK** | Direct contract interaction (ethers.js) | [`src/lib/cortensor-web3.ts`](./src/lib/cortensor-web3.ts) |
+
+
+### Code Integration
+
+From [`src/app/api/research/route.ts`](./src/app/api/research/route.ts):
+
+```javascript
+// Cortensor Router API Call
+const response = await fetch(`${CORTENSOR_ROUTER_URL}/api/v1/completions/${sessionId}`, {
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${CORTENSOR_API_KEY}`,
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        session_id: 132,  // Cortensor TestNet 0 Session
+        prompt: userQuery,
+        stream: false,
+        timeout: 30,
+    }),
+});
+```
+
+---
+
+## 3. Session Usage Proof
+
+InsightAI uses **Cortensor TestNet 0 Session #132**
+
+| Proof | Link |
+|-------|------|
+| **Session Dashboard** | [View Session #132 on Cortensor](https://dashboard-testnet0.cortensor.network/session/132) |
+| **Contract Address** | `0x2e9cC638CF07efdeC82b4beF932Ca4a8Dcd55015` (SessionV2) |
+| **Network** | Arbitrum Sepolia TestNet |
+
+> **Note**: The app includes Demo mode as a fallback when TestNet miners are unavailable, but the primary mode uses real Cortensor session inference.
+
+---
+
+## 4. Agent Specification
+
+### Actions
+
+| Action | Description | Trigger |
+|--------|-------------|---------|
+| `research_query` | Process natural language research questions | User enters query |
+| `url_analysis` | Fetch and summarize web content | User provides URL |
+| `structured_output` | Format response as summary + bullet points | Automatic |
+| `verification_link` | Provide Cortensor dashboard link | On every response |
+
+### Safety Guardrails
+
+1. **Rate Limiting** - Prevents API abuse
+2. **Input Validation** - Checks query length and content
+3. **Timeout Handling** - 15-second timeout with graceful fallback
+4. **No PII Storage** - No user data stored on server
+5. **Demo Fallback** - Ensures availability when network down
+
+---
+
+## 5. Technical Architecture
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │   InsightAI     │────▶│ Cortensor       │────▶│ Decentralized   │
-│   Frontend      │     │ Router Node     │     │ Miners (94+)    │
+│   Frontend      │     │ Router Node     │     │ Miners          │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
          │                       │                       │
          │                       ▼                       │
          │              ┌─────────────────┐              │
-         │              │ Session #127    │              │
-         │              │ Gemma 3 270M    │              │
+         │              │ Session #132    │              │
+         │              │ LLaMA 3.1 8B    │              │
          │              └─────────────────┘              │
          │                       │                       │
          │                       ▼                       │
@@ -43,7 +134,32 @@ InsightAI is a decentralized AI research assistant that leverages Cortensor's di
                         └─────────────────┘
 ```
 
-## 🚀 Quick Start
+### Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | Next.js 16 (App Router + Turbopack) |
+| **Styling** | Tailwind CSS v4 |
+| **Components** | shadcn/ui |
+| **Backend** | Cortensor Router API |
+| **Blockchain** | Arbitrum Sepolia TestNet |
+| **Deployment** | Vercel |
+| **Web3** | ethers.js for contract interaction |
+
+### Core Features
+
+| Feature | Description |
+|---------|-------------|
+| **Research Query** | Natural language research questions |
+| **URL Analysis** | Summarize content from any web page |
+| **Verified Results** | Badge shows Cortensor verification status |
+| **Structured Output** | Summary + bullet points format |
+| **Mode Selection** | Choose Auto, Router, Web3, or Demo |
+| **Demo Fallback** | Works when TestNet is unavailable |
+
+---
+
+## 6. Quick Start
 
 ### Prerequisites
 - Node.js 18+
@@ -53,7 +169,7 @@ InsightAI is a decentralized AI research assistant that leverages Cortensor's di
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/insightai.git
+git clone https://github.com/himanshu-sugha/Insightai
 cd insightai
 
 # Install dependencies
@@ -63,154 +179,139 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## ⚙️ Configuration
+Open [http://localhost:3000](http://localhost:3000)
 
 ### Environment Variables
 
-Create a `.env.local` file:
+Create `.env.local`:
 
 ```env
 # Cortensor Router Configuration
 CORTENSOR_ROUTER_URL=http://localhost:5010
 CORTENSOR_API_KEY=your-api-key-from-dashboard
-CORTENSOR_SESSION_ID=127
+CORTENSOR_SESSION_ID=132
 
-# Set to false for real API, true for demo only
+# Web3 SDK Mode (optional)
+CORTENSOR_PRIVATE_KEY=your-wallet-private-key
+
+# Force demo mode (set to true if no router available)
 USE_MOCK=false
 ```
 
-### Running Your Own Router Node
+### Running with Cortensor Router (Optional)
 
-1. **Install cortensord** from [Cortensor Installer](https://github.com/cortensor/installer)
-2. **Create a session** on [TestNet 0 Dashboard](https://dashboard-testnet0.cortensor.network/session)
-3. **Start the router**: `cortensord ~/.cortensor/.env routerv1`
-4. **Update `.env.local`** with your session ID
+To use real Cortensor inference instead of Demo mode:
 
-See [ENV.md](./ENV.md) for detailed configuration instructions.
+1. **Install Cortensor Router**
+   ```bash
+   # Follow instructions at:
+   # https://github.com/cortensor/installer
+   ```
 
-## 🔧 Tech Stack
+2. **Create a Session**
+   - Go to [TestNet 0 Dashboard](https://dashboard-testnet0.cortensor.network/session)
+   - Create a new session with COR tokens
+   - Note down your Session ID
 
-- **Framework**: Next.js 16 (App Router + Turbopack)
-- **Styling**: Tailwind CSS v4
-- **Components**: shadcn/ui
-- **AI Backend**: Cortensor Router API (`/api/v1/completions`)
-- **Blockchain**: Arbitrum Sepolia TestNet
-- **Deployment**: Vercel
+3. **Start Router Node**
+   ```bash
+   cortensord ~/.cortensor/.env routerv1
+   ```
 
-## 📡 Cortensor Integration
+4. **Update Environment**
+   ```env
+   CORTENSOR_ROUTER_URL=http://localhost:5010
+   CORTENSOR_SESSION_ID=your-session-id
+   ```
 
-InsightAI integrates with Cortensor's Router Node API:
+5. **Restart the app**
+   ```bash
+   npm run dev
+   ```
 
-### How It Works
+---
 
-1. **Session Creation**: Create a session with COR tokens on the dashboard
-2. **Router Registration**: Your router node registers with the session
-3. **Task Submission**: Research queries are sent to `/api/v1/completions/{sessionId}`
-4. **Multi-Miner Processing**: Query processed by 94+ decentralized miners
-5. **Blockchain Verification**: Each response includes a TX hash for verification
-6. **Results Display**: Structured output with verification badge
+## 7. User Flow
 
-### API Endpoints Used
+### Step 1: Enter Research Query
+Visit the app and type your research question. Examples:
+- "What are the latest developments in decentralized AI?"
+- "Explain how proof of inference works in blockchain"
+- "Summarize the benefits of multi-node AI consensus"
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/v1/completions/{sessionId}` | POST | Submit inference request |
-| `/api/v1/sessions` | GET | List available sessions |
+### Step 2: Add URL (Optional)
+Paste a URL to analyze specific content:
+- Documentation pages
+- Blog posts
+- Research articles
 
-### Request Format
+### Step 3: Select Inference Mode
+Choose how your query gets processed:
 
-```javascript
-POST /api/v1/completions/127
-{
-  "prompt": "Research question here...",
-  "stream": false,
-  "timeout": 30
-}
+| Mode | Description | When to Use |
+|------|-------------|-------------|
+| **Auto** | Automatically selects best available | Default - recommended |
+| **Router API** | Uses local Cortensor router node | When running your own node |
+| **Web3 SDK** | Direct smart contract interaction | For on-chain verification |
+| **Demo** | Simulated responses | Testing without network |
+
+### Step 4: Click "Start Research"
+Query is processed through Cortensor's decentralized network:
+
+```
+Your Query → InsightAI API → Cortensor Router → Miners → Consensus Result
 ```
 
-### Response Handling
+### Step 5: View Results
+Receive research output with:
+- **Summary** - Concise overview of findings
+- **Key Findings** - Bullet points of important details
+- **Sources** - Referenced URLs
+- **Verification Badge** - Proof of decentralized processing
 
-The app parses Cortensor responses into structured format:
-- **Summary**: First paragraph of the response
-- **Bullet Points**: Lines starting with `-` or `•`
-- **Verification**: Session ID + Task ID for dashboard verification
+### Step 6: Verify on Blockchain
+Click "View on Cortensor Dashboard" to see:
+- Session ID
+- Task ID
+- Transaction hash
+- Miner participation details
 
-## 🎮 Demo Mode
+---
 
-When the Cortensor TestNet is unavailable, InsightAI automatically falls back to demo mode:
+## 8. Screenshots
 
-- Provides pre-configured research responses
-- Shows "🎮 Demo Mode" badge in the UI
-- Simulates realistic processing delay
-- Maintains full functionality for testing
+### Landing Page
+![Landing Page](./docs/screenshots/landing_page.png)
 
-Set `USE_MOCK=true` in `.env.local` to force demo mode.
+### Research Query
+![Query Entered](./docs/screenshots/query_entered.png)
 
-## 🎨 Screenshots
+### Results
+![Research Results](./docs/screenshots/research_results.png)
 
-### Research Interface
-*Dark mode UI with glassmorphism design*
+---
 
-### Verified Results
-*Results show "✓ Verified via Cortensor" badge when using real API*
+## 9. Links
 
-### Demo Mode
-*Shows "🎮 Demo Mode" badge when using fallback*
+- **Live Demo**: [https://insightai-chi.vercel.app](https://insightai-chi.vercel.app)
+- **GitHub**: [https://github.com/himanshu-sugha/Insightai](https://github.com/himanshu-sugha/Insightai)
+- **Community PR**: [cortensor/community-projects #78](https://github.com/cortensor/community-projects/pull/78)
+- **Cortensor Docs**: [https://docs.cortensor.network](https://docs.cortensor.network)
 
-## 🏆 Hackathon Track
+---
 
-**Agentic Applications** - InsightAI is an autonomous research assistant that:
-- Acts on user queries without requiring step-by-step guidance
-- Leverages Cortensor's decentralized inference for trust
-- Produces verifiable, structured research outputs
-- Includes blockchain transaction verification
+## Transparency Notes
 
-### Cortensor Features Used
-- ✅ Router Node API (`/api/v1/completions`)
-- ✅ Session Management (TestNet 0)
-- ✅ Multi-miner inference (94+ nodes)
-- ✅ Blockchain verification (TX hashes)
-- ✅ WebSocket communication
+- **Centralized Components**: Vercel hosting, Next.js server functions
+- **No Paid Services**: Uses only Cortensor TestNet (free) and Vercel free tier
+- **Data Sources**: User-provided queries, public URLs only
 
-## 🤖 Agent Specification
+---
 
-### Action List
-| Action | Description |
-|--------|-------------|
-| `research_query` | Process natural language research questions |
-| `url_analysis` | Fetch and summarize web content |
-| `structured_output` | Format response as summary + bullet points |
-| `verification_link` | Provide Cortensor dashboard link for verification |
-
-### Tool Integrations
-| Tool | Purpose |
-|------|---------|
-| **Cortensor Router API** | Decentralized AI inference |
-| **Session Management** | TestNet 0 session handling |
-| **URL Fetcher** | Web content retrieval for analysis |
-| **Response Parser** | Extract structured data from LLM output |
-
-### Safety Guardrails
-- 🛡️ **Rate Limiting**: API requests throttled to prevent abuse
-- 🛡️ **Input Validation**: Query length and content validation
-- 🛡️ **Timeout Handling**: 15-second timeout with graceful fallback
-- 🛡️ **Demo Fallback**: Automatic fallback when network unavailable
-- 🛡️ **No PII Storage**: No user data stored on server
-
-## 📝 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file.
 
-## 🤝 Contributing
+---
 
-Contributions welcome! Please open an issue or submit a PR.
-
-## 🔗 Links
-
-- [Cortensor Documentation](https://docs.cortensor.network)
-- [Cortensor Router Setup](https://docs.cortensor.network/getting-started/router-node-setup)
-- [TestNet 0 Dashboard](https://dashboard-testnet0.cortensor.network)
-- [Hackathon #3 Details](https://docs.cortensor.network/community-and-ecosystem/hackathon/hackathon-3)
-- [DoraHacks Submission](https://dorahacks.io/hackathon/1768)
+**Built for Cortensor Hackathon #3**

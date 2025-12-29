@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifySession, executeTask } from "@/lib/cortensor-web3";
 
-// Environment variables for Cortensor Router
+// Environment variables for Cortensor
 const CORTENSOR_ROUTER_URL = process.env.CORTENSOR_ROUTER_URL || "";
 const CORTENSOR_API_KEY = process.env.CORTENSOR_API_KEY || "default-dev-token";
-const CORTENSOR_SESSION_ID = process.env.CORTENSOR_SESSION_ID || "124";
-const USE_MOCK = process.env.USE_MOCK === "true" || !CORTENSOR_ROUTER_URL;
+const CORTENSOR_SESSION_ID = process.env.CORTENSOR_SESSION_ID || "132";
+const CORTENSOR_PRIVATE_KEY = process.env.CORTENSOR_PRIVATE_KEY || "";
+
+// Mode can be: "auto", "web3", "router", "demo"
+type InferenceMode = "auto" | "web3" | "router" | "demo";
 
 // Demo responses for fallback/demo mode
 const DEMO_RESPONSES: Record<string, { summary: string; bulletPoints: string[] }> = {
@@ -66,6 +70,39 @@ function parseResearchOutput(rawOutput: string): { summary: string; bulletPoints
     }
 
     return { summary: summary || "Research completed successfully.", bulletPoints };
+}
+
+// Call Cortensor via Web3 SDK (direct smart contract interaction)
+async function callCortensorWeb3(query: string, url?: string): Promise<{
+    summary: string;
+    bulletPoints: string[];
+    sessionId: string;
+    taskId: string;
+    txHash: string;
+}> {
+    const sessionId = parseInt(CORTENSOR_SESSION_ID);
+
+    // Build prompt for research
+    const prompt = url
+        ? `You are a research assistant. Analyze this URL: ${url}\n\nResearch question: ${query}\n\nProvide a concise summary followed by 5 key bullet points. Format your response clearly with a summary paragraph and bullet points starting with "-".`
+        : `You are a research assistant. Research question: ${query}\n\nProvide a concise summary followed by 5 key bullet points. Format your response clearly with a summary paragraph and bullet points starting with "-".`;
+
+    // Execute task via Web3 SDK
+    const result = await executeTask(sessionId, prompt, CORTENSOR_PRIVATE_KEY, 60000);
+
+    if (!result.success || !result.result) {
+        throw new Error("Task execution failed or timed out");
+    }
+
+    const parsed = parseResearchOutput(result.result);
+
+    return {
+        summary: parsed.summary,
+        bulletPoints: parsed.bulletPoints,
+        sessionId: CORTENSOR_SESSION_ID,
+        taskId: result.taskId.toString(),
+        txHash: result.txHash,
+    };
 }
 
 // Call real Cortensor Router API
@@ -138,7 +175,8 @@ function getDemoResponse(query: string): { summary: string; bulletPoints: string
 
 export async function POST(request: NextRequest) {
     try {
-        const { query, url } = await request.json();
+        const body = await request.json();
+        const { query, url, mode } = body;
 
         if (!query || typeof query !== "string") {
             return NextResponse.json(
@@ -147,39 +185,95 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Get mode from request or default to auto
+        const requestedMode = (mode as InferenceMode) || "auto";
+
+        // Determine actual mode based on request and available configs
+        let activeMode: "web3" | "router" | "demo";
+        if (requestedMode === "demo") {
+            activeMode = "demo";
+        } else if (requestedMode === "web3") {
+            if (CORTENSOR_PRIVATE_KEY) {
+                activeMode = "web3";
+            } else {
+                console.warn("Web3 mode requested but no private key configured, falling back to router");
+                activeMode = CORTENSOR_ROUTER_URL ? "router" : "demo";
+            }
+        } else if (requestedMode === "router") {
+            if (CORTENSOR_ROUTER_URL) {
+                activeMode = "router";
+            } else {
+                console.warn("Router mode requested but no router URL configured, falling back to demo");
+                activeMode = "demo";
+            }
+        } else {
+            // Auto mode: try router first, then web3, then demo
+            if (CORTENSOR_ROUTER_URL) {
+                activeMode = "router";
+            } else if (CORTENSOR_PRIVATE_KEY) {
+                activeMode = "web3";
+            } else {
+                activeMode = "demo";
+            }
+        }
+
         let result: {
             summary: string;
             bulletPoints: string[];
             sessionId: string;
             taskId: string;
             isDemo: boolean;
+            txHash?: string;
+            method: "web3" | "router" | "demo";
         };
 
-        if (USE_MOCK) {
+        if (activeMode === "demo") {
             // Demo mode
             await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate delay
 
             const demoResponse = getDemoResponse(query);
             result = {
                 ...demoResponse,
-                sessionId: Math.floor(Math.random() * 100 + 1).toString(),
+                sessionId: CORTENSOR_SESSION_ID,
                 taskId: Math.floor(Math.random() * 10).toString(),
                 isDemo: true,
+                method: "demo",
             };
+        } else if (activeMode === "web3") {
+            // Web3 SDK mode (direct smart contract)
+            try {
+                const web3Result = await callCortensorWeb3(query, url);
+                result = {
+                    ...web3Result,
+                    isDemo: false,
+                    method: "web3",
+                };
+            } catch (apiError) {
+                console.error("Web3 SDK error, falling back to demo:", apiError);
+                const demoResponse = getDemoResponse(query);
+                result = {
+                    ...demoResponse,
+                    sessionId: CORTENSOR_SESSION_ID,
+                    taskId: Math.floor(Math.random() * 10).toString(),
+                    isDemo: true,
+                    method: "demo",
+                };
+            }
         } else {
-            // Real Cortensor API
+            // Router API mode
             try {
                 const apiResult = await callCortensorAPI(query, url);
-                result = { ...apiResult, isDemo: false };
+                result = { ...apiResult, isDemo: false, method: "router" };
             } catch (apiError) {
                 console.error("Cortensor API error, falling back to demo:", apiError);
                 // Fallback to demo on API error
                 const demoResponse = getDemoResponse(query);
                 result = {
                     ...demoResponse,
-                    sessionId: Math.floor(Math.random() * 100 + 1).toString(),
+                    sessionId: CORTENSOR_SESSION_ID,
                     taskId: Math.floor(Math.random() * 10).toString(),
                     isDemo: true,
+                    method: "demo",
                 };
             }
         }
@@ -192,8 +286,11 @@ export async function POST(request: NextRequest) {
             sources,
             sessionId: result.sessionId,
             taskId: result.taskId,
+            txHash: result.txHash,
             verified: !result.isDemo, // Only verified if real API
             isDemo: result.isDemo,
+            method: result.method,
+            requestedMode,
             model: "meta-llama-3.1-8b-instruct",
             timestamp: new Date().toISOString(),
         });
@@ -203,5 +300,45 @@ export async function POST(request: NextRequest) {
             { error: "Failed to process research request" },
             { status: 500 }
         );
+    }
+}
+
+// Health check endpoint to verify session and available modes
+export async function GET() {
+    try {
+        const sessionId = parseInt(CORTENSOR_SESSION_ID);
+        const sessionInfo = await verifySession(sessionId);
+
+        // Determine available mode based on config
+        const availableModes: string[] = ["demo"];
+        if (CORTENSOR_ROUTER_URL) availableModes.push("router");
+        if (CORTENSOR_PRIVATE_KEY) availableModes.push("web3");
+
+        const defaultMode = CORTENSOR_ROUTER_URL ? "router" :
+            CORTENSOR_PRIVATE_KEY ? "web3" : "demo";
+
+        return NextResponse.json({
+            status: "ok",
+            defaultMode,
+            availableModes,
+            session: {
+                id: CORTENSOR_SESSION_ID,
+                valid: sessionInfo.valid,
+                name: sessionInfo.name,
+                model: sessionInfo.model,
+                error: sessionInfo.error,
+            },
+        });
+    } catch (error) {
+        return NextResponse.json({
+            status: "ok",
+            defaultMode: "demo",
+            availableModes: ["demo"],
+            session: {
+                id: CORTENSOR_SESSION_ID,
+                valid: false,
+                error: String(error),
+            },
+        });
     }
 }
