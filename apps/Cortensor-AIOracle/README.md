@@ -60,6 +60,12 @@ Cortensor-AIOracle is an AI-powered oracle that uses a consensus mechanism acros
     cp .env.example .env
     ```
 
+  ### Oracle Facts Storage
+
+  Oracle facts are stored in a SQLite database (and imported once from `data/oracle-facts.json` if present).
+
+  - `ORACLE_FACTS_DB_PATH` (optional): Path to the SQLite file. Defaults to `data/oracle-facts.sqlite`.
+
 ## Usage
 
 Once the configuration is complete, run the development server:

@@ -3,6 +3,7 @@ import { addOracleFact, getOracleFacts } from '@/lib/oracle-facts'
 
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
   try {

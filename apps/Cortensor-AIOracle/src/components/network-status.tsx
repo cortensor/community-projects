@@ -97,7 +97,7 @@ export function NetworkStatus({ className }: NetworkStatusProps) {
 
         <div className="pt-2 border-t">
           <div className="text-xs text-gray-500 text-center">
-            Powered by Cortensor • Deepseek AI
+            Powered by Cortensor • GPT OSS 20B
           </div>
         </div>
       </CardContent>
