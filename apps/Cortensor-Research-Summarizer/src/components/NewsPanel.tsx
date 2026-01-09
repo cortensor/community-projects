@@ -49,7 +49,6 @@ export function NewsPanel({ className }: { className?: string }) {
 
   useEffect(() => {
     loadNews(activeCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory]);
 
   return (

@@ -43,10 +43,11 @@ A modern web application that intelligently summarizes articles from URLs using 
 ### Installation
 ```bash
 npm install
-cp .env.example .env.local
-# Add your CORTENSOR_API_KEY to .env.local
+# Create .env.local and add your required env vars
 npm run dev
 ```
+
+Note: after changing `.env.local`, restart the dev server so changes take effect.
 
 Visit `http://localhost:3000` and start summarizing articles!
 
@@ -55,7 +56,8 @@ Create a `.env.local` file:
 ```env
 # Required: Cortensor Router Configuration
 CORTENSOR_API_KEY=your_cortensor_api_key_here
-CORTENSOR_API_URL=https://<routerip>:5010
+# Base URL only (the app will call: $CORTENSOR_BASE_URL/api/v1/completions)
+CORTENSOR_BASE_URL=https://<routerip>:5010
 
 # Optional: Google Search API (for additional source search)
 GOOGLE_API_KEY=your_google_api_key_here

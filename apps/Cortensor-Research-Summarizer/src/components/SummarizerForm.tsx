@@ -105,23 +105,48 @@ export default function SummarizerForm() {
   const [historyCount, setHistoryCount] = useState(0);
 
   // Handle history changes
-  const handleHistoryChange = () => {
-    setHistoryCount(HistoryService.getHistory().length);
+  const handleHistoryChange = async (overrideUserId?: string | null) => {
+    try {
+      const uid = overrideUserId ?? userId;
+      const items = await HistoryService.getHistory(uid);
+      setHistoryCount(items.length);
+    } catch (err) {
+      console.warn('Failed to refresh history count:', err);
+    }
   };
 
-  // Load history count on component mount
+  // Initialize user id on mount
   useEffect(() => {
-    handleHistoryChange();
     const initializedId = getOrCreateUserId();
     if (initializedId) {
       setUserId(initializedId);
     }
   }, []);
 
+  // Keep history count in sync with current user
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const items = await HistoryService.getHistory(userId);
+        if (!cancelled) {
+          setHistoryCount(items.length);
+        }
+      } catch (err) {
+        console.warn('Failed to refresh history count:', err);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
   // Save result to history using HistoryService
-  const saveToHistory = (newResult: SummaryResult) => {
+  const saveToHistory = async (newResult: SummaryResult, overrideUserId?: string) => {
     try {
-      HistoryService.saveToHistory({
+      const uid = overrideUserId ?? userId;
+      await HistoryService.saveToHistory(uid, {
         url: newResult.article.url,
         title: newResult.article.title,
         author: newResult.article.author,
@@ -133,8 +158,7 @@ export default function SummarizerForm() {
       });
       
       // Update history count
-      setHistoryCount(HistoryService.getHistory().length);
-      handleHistoryChange();
+      await handleHistoryChange(uid);
     } catch (error) {
       console.error('Error saving to history:', error);
     }
@@ -245,19 +269,6 @@ export default function SummarizerForm() {
     setProgress(0);
   };
 
-  const simulateProgress = () => {
-    const totalSteps = loadingSteps.length;
-    const currentStep = 0;
-    
-    const progressInterval = setInterval(() => {
-      const baseProgress = (currentStep / totalSteps) * 100;
-      const stepProgress = Math.min(baseProgress + Math.random() * 10, (currentStep + 1) / totalSteps * 100);
-      setProgress(stepProgress);
-    }, 200);
-
-    return progressInterval;
-  };
-
     // Function to ensure proper paragraph formatting on client side
   const formatSummaryForDisplay = (summary: string): string => {
     if (!summary) return '';
@@ -337,32 +348,10 @@ export default function SummarizerForm() {
     setResult(null);
     resetSteps();
 
-    const progressInterval = simulateProgress();
-
     try {
-      // Step 1: Validation
-      updateStepStatus('validate', 'active');
-      await new Promise(resolve => setTimeout(resolve, 800));
-      updateStepStatus('validate', 'completed', '0.8s');
-
-      // Step 2: Extraction
-      updateStepStatus('extract', 'active');
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      updateStepStatus('extract', 'completed', '1.2s');
-
-      // Step 3: Content Preparation
-      updateStepStatus('prepare', 'active');
-      await new Promise(resolve => setTimeout(resolve, 900));
-      updateStepStatus('prepare', 'completed', '0.9s');
-
-      // Step 4: AI Summarization (Long Process)
-      updateStepStatus('summarize', 'active');
-      
-      const response = await fetch('/api/summarize', {
+      const response = await fetch('/api/summarize/stream', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, userId: activeUserId }),
       });
 
@@ -370,44 +359,80 @@ export default function SummarizerForm() {
         throw new Error(`Analysis failed: ${response.statusText}`);
       }
 
-      const response_data = await response.json();
-      const data = response_data.data; // Extract the actual data from the API response
-      
-      updateStepStatus('summarize', 'completed', '45.2s');
-      
-      // Step 5: Key Insights Extraction
-      updateStepStatus('insights', 'active');
-      await new Promise(resolve => setTimeout(resolve, 800));
-      updateStepStatus('insights', 'completed', '0.8s');
-
-      // Step 6: Quality Assessment
-      updateStepStatus('quality', 'active');
-      await new Promise(resolve => setTimeout(resolve, 600));
-      updateStepStatus('quality', 'completed', '0.6s');
-
-      // Step 7: Enhancement (if needed)
-      if (data.needsEnrichment || response_data.data.wasEnriched) {
-        updateStepStatus('enrich', 'active');
-        await new Promise(resolve => setTimeout(resolve, 2500));
-        updateStepStatus('enrich', 'completed', '12.5s');
-      } else {
-        updateStepStatus('enrich', 'completed', 'Skipped');
+      if (!response.body) {
+        throw new Error('Streaming not supported by this browser');
       }
 
-      // Step 8: Finalize
-      updateStepStatus('finalize', 'active');
-      await new Promise(resolve => setTimeout(resolve, 400));
-      updateStepStatus('finalize', 'completed', '0.4s');
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
 
-      // Data is already processed by the API, but let's ensure proper formatting
-      const formattedData = {
-        ...data,
-        summary: formatSummaryForDisplay(data.summary || '')
+      const handleChunk = async (chunk: string) => {
+        const lines = chunk.split('\n');
+        let eventName = 'message';
+        let dataStr = '';
+        for (const line of lines) {
+          if (line.startsWith('event:')) {
+            eventName = line.slice('event:'.length).trim();
+          } else if (line.startsWith('data:')) {
+            dataStr += line.slice('data:'.length).trim();
+          }
+        }
+
+        if (!dataStr) return;
+
+        let payload: any;
+        try {
+          payload = JSON.parse(dataStr);
+        } catch {
+          return;
+        }
+
+        if (eventName === 'step') {
+          const stepId = typeof payload?.id === 'string' ? payload.id : '';
+          const status = payload?.status as LoadingStep['status'];
+          const duration = typeof payload?.duration === 'string' ? payload.duration : undefined;
+          const progressValue = typeof payload?.progress === 'number' ? payload.progress : undefined;
+
+          if (stepId && status) {
+            updateStepStatus(stepId, status, duration);
+          }
+          if (typeof progressValue === 'number') {
+            setProgress(progressValue);
+          }
+        }
+
+        if (eventName === 'error') {
+          const message = typeof payload?.message === 'string' ? payload.message : 'An unexpected error occurred during analysis';
+          const currentActiveStep = loadingSteps.find(step => step.status === 'active');
+          if (currentActiveStep) updateStepStatus(currentActiveStep.id, 'error');
+          setError(message);
+        }
+
+        if (eventName === 'result') {
+          const data = payload?.data;
+          if (data) {
+            const formattedData = {
+              ...data,
+              summary: formatSummaryForDisplay(data.summary || '')
+            };
+            setResult(formattedData);
+            await saveToHistory(formattedData, activeUserId);
+            setProgress(100);
+          }
+        }
       };
-      
-      setResult(formattedData);
-      saveToHistory(formattedData); // Save to local history
-      setProgress(100);
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+        for (const part of parts) {
+          await handleChunk(part);
+        }
+      }
 
     } catch (err) {
       const currentActiveStep = loadingSteps.find(step => step.status === 'active');
@@ -416,7 +441,6 @@ export default function SummarizerForm() {
       }
       setError(err instanceof Error ? err.message : 'An unexpected error occurred during analysis');
     } finally {
-      clearInterval(progressInterval);
       setIsLoading(false);
     }
   };
@@ -864,7 +888,8 @@ ${result.keyPoints.map(point => `- ${point}`).join('\n')}
                 {showHistoryPanel && (
                   <HistoryPanel 
                     onLoadHistoryItem={loadFromHistory}
-                    onHistoryChange={handleHistoryChange}
+                    onHistoryChange={() => { void handleHistoryChange(); }}
+                    userId={userId}
                     className="shadow-lg"
                   />
                 )}

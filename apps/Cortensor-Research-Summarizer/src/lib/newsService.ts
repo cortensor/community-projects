@@ -1,3 +1,5 @@
+import { env } from './env';
+
 type Category = 'general' | 'technology' | 'science' | 'random';
 
 export interface NewsItem {
@@ -10,8 +12,6 @@ export interface NewsItem {
 }
 
 const NEWS_LIMIT = 6;
-
-const getEnv = (key: string): string => process.env[key] || '';
 
 async function safeJsonFetch<T>(url: string, init?: RequestInit): Promise<T | null> {
   try {
@@ -146,7 +146,7 @@ async function fetchPublicApisNews(): Promise<NewsItem[]> {
   })).filter((a) => a.url);
 }
 
-async function fetchScienceSpotlight(nasaKey: string): Promise<NewsItem[]> {
+async function fetchScienceSpotlight(nasaKey?: string): Promise<NewsItem[]> {
   const items: NewsItem[] = [];
   const nasa = await safeJsonFetch<any>(`https://api.nasa.gov/planetary/apod?api_key=${nasaKey || 'DEMO_KEY'}`);
   if (nasa?.url) {
@@ -175,10 +175,10 @@ async function fetchScienceSpotlight(nasaKey: string): Promise<NewsItem[]> {
 }
 
 export async function fetchNews(category: Category): Promise<NewsItem[]> {
-  const newsApiKey = getEnv('NEWSAPI_API_KEY');
-  const gnewsKey = getEnv('GNEWS_API_KEY');
-  const mediastackKey = getEnv('MEDIASTACK_API_KEY');
-  const nasaKey = getEnv('NASA_API_KEY');
+  const newsApiKey = env.NEWSAPI_API_KEY;
+  const gnewsKey = env.GNEWS_API_KEY;
+  const mediastackKey = env.MEDIASTACK_API_KEY;
+  const nasaKey = env.NASA_API_KEY;
 
   if (category === 'random') {
     return fetchWikipediaRandom();

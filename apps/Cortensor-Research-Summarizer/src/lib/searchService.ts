@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { EnrichmentSource } from './cortensorService';
+import { env, debugLog } from './env';
 
 interface TavilyResult {
   title?: string;
@@ -28,9 +29,9 @@ export class SearchService {
   private tavilyApiKey: string;
 
   constructor() {
-    this.googleApiKey = process.env.GOOGLE_API_KEY || '';
-    this.googleSearchEngineId = process.env.GOOGLE_SEARCH_ENGINE_ID || '';
-    this.tavilyApiKey = process.env.TAVILY_API_KEY || '';
+    this.googleApiKey = env.GOOGLE_API_KEY || '';
+    this.googleSearchEngineId = env.GOOGLE_SEARCH_ENGINE_ID || '';
+    this.tavilyApiKey = env.TAVILY_API_KEY || '';
   }
 
   async searchAdditionalSources(
@@ -43,10 +44,10 @@ export class SearchService {
     // Priority 1: Tavily (Primary - Working and reliable)
     if (this.tavilyApiKey) {
       try {
-        console.log('🔍 Searching with Tavily API (Primary search provider)...');
+        debugLog('🔍 Searching with Tavily API (Primary search provider)...');
         const tavilySources = await this.searchWithTavily(title, keywords);
         sources.push(...tavilySources);
-        console.log(`✅ Tavily successfully found ${tavilySources.length} relevant sources`);
+        debugLog(`✅ Tavily successfully found ${tavilySources.length} relevant sources`);
       } catch (error) {
         console.warn('❌ Tavily search failed:', error);
       }
@@ -55,13 +56,13 @@ export class SearchService {
     // Priority 2: Google Custom Search (Backup - if Tavily insufficient)
     if (this.googleApiKey && this.googleSearchEngineId && sources.length < 3) {
       try {
-        console.log('🔍 Searching with Google Custom Search (Backup provider)...');
+        debugLog('🔍 Searching with Google Custom Search (Backup provider)...');
         const googleSources = await this.searchWithGoogle(title, keywords);
         if (googleSources.length > 0) {
           sources.push(...googleSources);
-          console.log(`✅ Google successfully found ${googleSources.length} additional sources`);
+          debugLog(`✅ Google successfully found ${googleSources.length} additional sources`);
         } else {
-          console.log('⚠️ Google Custom Search returned no results (search engine configuration may be required)');
+          debugLog('⚠️ Google Custom Search returned no results (search engine configuration may be required)');
         }
       } catch (error) {
         console.warn('❌ Google search failed:', error);
@@ -70,7 +71,7 @@ export class SearchService {
     
     // Fallback: Use broader search terms if no sources found
     if (sources.length === 0) {
-      console.log('🔍 Attempting fallback search with broader terms...');
+      debugLog('🔍 Attempting fallback search with broader terms...');
       return this.fallbackSearch(title, originalUrl);
     }
     
@@ -79,7 +80,7 @@ export class SearchService {
       sources.filter(source => source.url !== originalUrl)
     ).slice(0, 5); // Limit to 5 sources
     
-    console.log(`📋 Search completed: ${filteredSources.length} unique, relevant sources found for enhancement`);
+    debugLog(`📋 Search completed: ${filteredSources.length} unique, relevant sources found for enhancement`);
     return filteredSources;
   }
 
@@ -167,7 +168,7 @@ export class SearchService {
       .slice(0, 2);
     
     if (broadTerms.length === 0) {
-      console.log('⚠️ No suitable fallback terms found for broader search');
+      debugLog('⚠️ No suitable fallback terms found for broader search');
       return [];
     }
     
@@ -175,7 +176,7 @@ export class SearchService {
     if (this.tavilyApiKey) {
       try {
         const fallbackQuery = broadTerms.join(' OR ');
-        console.log(`🔍 Executing fallback Tavily search with query: "${fallbackQuery}"`);
+        debugLog(`🔍 Executing fallback Tavily search with query: "${fallbackQuery}"`);
         
         const response = await axios.post<TavilyResponse>(
           'https://api.tavily.com/search',
@@ -203,7 +204,7 @@ export class SearchService {
               snippet: result.content || result.snippet || ''
             }));
           
-          console.log(`✅ Fallback search successfully found ${fallbackSources.length} relevant sources`);
+          debugLog(`✅ Fallback search successfully found ${fallbackSources.length} relevant sources`);
           return fallbackSources;
         }
       } catch (error) {

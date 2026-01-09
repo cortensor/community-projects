@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { env } from './env';
 
 export interface ArticleContent {
   title: string;
@@ -12,83 +13,194 @@ export class URLFetcher {
   private static pdfParseLoader?: Promise<((data: Uint8Array | ArrayBuffer | Buffer | string | URL | number[]) => Promise<{ text: string; info?: { Title?: string; Author?: string } | undefined }>) | null>;
 
   async fetchArticle(url: string): Promise<ArticleContent> {
-    try {
-      // Validate URL
-      const parsedUrl = new URL(url);
-      const requestTimeout = parseInt(process.env.ARTICLE_FETCH_TIMEOUT || '60000', 10);
+    // Validate URL early
+    const parsedUrl = new URL(url);
+    const timeoutMs = env.ARTICLE_FETCH_TIMEOUT_MS;
 
-      const response = await axios.get(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.5',
-          'Accept-Encoding': 'gzip, deflate',
-          'DNT': '1',
-          'Connection': 'keep-alive',
-          'Upgrade-Insecure-Requests': '1'
-        },
+    const attempts: Array<{
+      name: string;
+      url: string;
+      responseType: 'arraybuffer' | 'text';
+      headers: Record<string, string>;
+    }> = [
+      {
+        name: 'direct-browser',
+        url,
         responseType: 'arraybuffer',
-        timeout: Number.isFinite(requestTimeout) ? requestTimeout : 60000
-      });
+        headers: this.buildBrowserHeaders(parsedUrl)
+      },
+      {
+        name: 'direct-browser+referer',
+        url,
+        responseType: 'arraybuffer',
+        headers: this.buildBrowserHeaders(parsedUrl, true)
+      },
+      {
+        name: 'jina-proxy',
+        url: this.toJinaProxyUrl(url),
+        responseType: 'text',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/plain, text/html;q=0.9, */*;q=0.8'
+        }
+      }
+    ];
 
-      const buffer = Buffer.isBuffer(response.data)
-        ? response.data
-        : Buffer.from(response.data);
+    let lastError: unknown;
 
-      const rawContentType = typeof response.headers['content-type'] === 'string'
-        ? response.headers['content-type']
-        : Array.isArray(response.headers['content-type'])
-          ? response.headers['content-type'][0]
-          : '';
-      const contentType = rawContentType.toLowerCase();
-      const pathLower = parsedUrl.pathname.toLowerCase();
-      const looksLikePdf = contentType.includes('application/pdf') || pathLower.endsWith('.pdf');
+    for (const attempt of attempts) {
+      try {
+        const response = await axios.get(attempt.url, {
+          headers: attempt.headers,
+          responseType: attempt.responseType,
+          timeout: timeoutMs,
+          maxRedirects: 5
+        });
 
-      if (looksLikePdf) {
-        const pdfArticle = await this.extractPdfArticle(buffer, url);
-        if (pdfArticle) {
-          return pdfArticle;
+        const rawContentType = typeof response.headers['content-type'] === 'string'
+          ? response.headers['content-type']
+          : Array.isArray(response.headers['content-type'])
+            ? response.headers['content-type'][0]
+            : '';
+        const contentType = rawContentType.toLowerCase();
+
+        const buffer = attempt.responseType === 'arraybuffer'
+          ? (Buffer.isBuffer(response.data) ? response.data : Buffer.from(response.data))
+          : Buffer.from(typeof response.data === 'string' ? response.data : String(response.data), 'utf-8');
+
+        const pathLower = parsedUrl.pathname.toLowerCase();
+        const looksLikePdf = contentType.includes('application/pdf') || pathLower.endsWith('.pdf');
+
+        if (looksLikePdf && attempt.responseType === 'arraybuffer') {
+          const pdfArticle = await this.extractPdfArticle(buffer, url);
+          if (pdfArticle) {
+            return pdfArticle;
+          }
+
+          return {
+            title: 'PDF Document',
+            content: 'Unable to extract readable text from this PDF using built-in parsers. The document may be scanned or contain unsupported encoding.',
+            url,
+            author: undefined,
+            publishDate: undefined
+          };
+        }
+
+        const rawText = attempt.responseType === 'arraybuffer'
+          ? this.decodeBufferToString(buffer, contentType)
+          : buffer.toString('utf-8');
+
+        const isLikelyHtml = /<\s*html\b|<\s*body\b|<\s*article\b|<\s*main\b|<\s*div\b|<\s*p\b/i.test(rawText);
+        const title = this.extractTitle(rawText) || this.deriveTitleFromText(rawText) || 'Untitled Article';
+        const content = isLikelyHtml ? this.extractContent(rawText) : this.cleanText(rawText);
+        const author = isLikelyHtml ? this.extractAuthor(rawText) : undefined;
+        const publishDate = isLikelyHtml ? this.extractPublishDate(rawText) : undefined;
+
+        if (!content.trim()) {
+          throw new Error(`No content could be extracted (${attempt.name})`);
         }
 
         return {
-          title: 'PDF Document',
-          content: 'Unable to extract readable text from this PDF using built-in parsers. The document may be scanned or contain unsupported encoding.',
+          title,
+          content: content.trim(),
           url,
-          author: undefined,
-          publishDate: undefined
+          author,
+          publishDate
         };
-      }
+      } catch (error) {
+        lastError = error;
 
-      const html = this.decodeBufferToString(buffer, contentType);
-
-      // Extract title using regex
-      const title = this.extractTitle(html);
-      
-      // Extract main content using regex
-      const content = this.extractContent(html);
-      
-      // Extract metadata
-      const author = this.extractAuthor(html);
-      const publishDate = this.extractPublishDate(html);
-      
-      if (!content.trim()) {
-        throw new Error('No content could be extracted from the URL');
+        const status = this.getAxiosStatus(error);
+        // If this is a hard 4xx other than 403/429, further attempts are unlikely to help.
+        if (typeof status === 'number' && status >= 400 && status < 500 && status !== 403 && status !== 429) {
+          break;
+        }
       }
-      
-      return {
-        title: title || 'Untitled Article',
-        content: content.trim(),
-        url,
-        author,
-        publishDate
-      };
-      
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Failed to fetch article: ${error.message}`);
-      }
-      throw new Error('Failed to fetch article: Unknown error');
     }
+
+    const status = this.getAxiosStatus(lastError);
+    const statusNote = typeof status === 'number' ? ` (status ${status})` : '';
+    const message = this.getErrorMessage(lastError);
+    throw new Error(`Failed to fetch article${statusNote}: ${message}`);
+  }
+
+  private buildBrowserHeaders(parsedUrl: URL, includeReferer = false): Record<string, string> {
+    const headers: Record<string, string> = {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Accept-Encoding': 'gzip, deflate',
+      'Upgrade-Insecure-Requests': '1',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    };
+
+    if (includeReferer) {
+      headers['Referer'] = `${parsedUrl.origin}/`;
+      headers['Origin'] = parsedUrl.origin;
+    }
+
+    return headers;
+  }
+
+  private toJinaProxyUrl(originalUrl: string): string {
+    // Jina AI "reader" proxy often bypasses basic anti-bot restrictions.
+    // Format: https://r.jina.ai/https://example.com/path
+    return `${env.JINA_READER_BASE_URL}/${originalUrl}`;
+  }
+
+  private getAxiosStatus(error: unknown): number | undefined {
+    if (!error) return undefined;
+    if (axios.isAxiosError(error)) {
+      return error.response?.status;
+    }
+    return undefined;
+  }
+
+  private getErrorMessage(error: unknown): string {
+    if (!error) return 'Unknown error';
+    if (typeof error === 'string') return error;
+    if (error instanceof Error) return error.message;
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      const status = axiosError.response?.status;
+      const statusText = axiosError.response?.statusText;
+      if (status && statusText) return `${status} ${statusText}`;
+      return axiosError.message;
+    }
+    try {
+      return JSON.stringify(error);
+    } catch {
+      return 'Unknown error';
+    }
+  }
+
+  private deriveTitleFromText(text: string): string {
+    const normalized = text
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .trim();
+
+    // Handle common "Title:" style outputs (e.g., some proxy/readability services)
+    const titleLine = normalized.match(/^(?:\s*#\s*)?title\s*[:\-]\s*(.+)$/im);
+    if (titleLine?.[1]) {
+      const candidate = this.cleanText(titleLine[1]);
+      if (candidate.length >= 8) return candidate;
+    }
+
+    const lines = normalized
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+
+    for (const line of lines.slice(0, 20)) {
+      const cleaned = this.cleanText(line);
+      if (cleaned.length >= 8 && cleaned.length <= 160) {
+        return cleaned;
+      }
+    }
+
+    return '';
   }
 
   private decodeBufferToString(buffer: Buffer, contentType: string): string {
