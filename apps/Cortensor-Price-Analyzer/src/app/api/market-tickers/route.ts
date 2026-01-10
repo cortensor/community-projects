@@ -121,7 +121,7 @@ const twelvedataStocksKey = process.env.TWELVEDATA_STOCKS_API_KEY ?? null;
 const alphaVantagePrimaryKey = process.env.ALPHA_VANTAGE_API_KEY;
 const alphaVantageForexKey = process.env.ALPHA_VANTAGE_FOREX_API_KEY ?? alphaVantagePrimaryKey;
 const alphaVantageCommodityKey = alphaVantagePrimaryKey ?? alphaVantageForexKey;
-const alphaVantageRetryKey = process.env.ALPHA_VANTAGE_RETRY_API_KEY ?? 'BWAHOQOJKEV0ER1A';
+const alphaVantageRetryKey = process.env.ALPHA_VANTAGE_RETRY_API_KEY ?? alphaVantagePrimaryKey;
 const marketstackKey = process.env.MARKETSTACK_API_KEY;
 const massiveKey = process.env.MASSIVE_API_KEY;
 const coingeckoKey = process.env.COINGECKO_API_KEY;
@@ -150,12 +150,13 @@ type CategorySpec = {
 };
 
 const CATEGORY_SPECS: Record<WatchlistKey, CategorySpec> = {
-  equities: { items: EQUITY_WATCHLIST, providers: ['twelvedata', 'stooq'], ttlMs: 5 * 60 * 1000 },
+  equities: { items: EQUITY_WATCHLIST, providers: ['twelvedata', 'stooq', 'marketstack', 'massive'], ttlMs: 5 * 60 * 1000 },
   crypto: { items: CRYPTO_WATCHLIST, providers: ['coingecko', 'twelvedata'], ttlMs: 10 * 60 * 1000 },
-  forex: { items: FOREX_WATCHLIST, providers: ['alphavantage', 'twelvedata'], ttlMs: 60 * 60 * 1000 },
+  forex: { items: FOREX_WATCHLIST, providers: ['twelvedata', 'alphavantage'], ttlMs: 60 * 60 * 1000 },
   commodities: {
     items: COMMODITY_WATCHLIST,
-    providers: ['alphavantage', 'twelvedata', 'stooq', 'marketstack', 'massive'],
+    // Prioritize twelvedata and stooq first (no strict rate limits), alphavantage as last fallback
+    providers: ['twelvedata', 'stooq', 'alphavantage'],
     ttlMs: 15 * 60 * 1000,
     requireComplete: true,
   },
@@ -495,6 +496,19 @@ type AlphaCommodityQuote = {
   refreshedAt: string | null;
 };
 
+// Rate limiting: Alpha Vantage free tier allows 1 request per second
+const ALPHA_VANTAGE_RATE_LIMIT_MS = 1200; // 1.2 seconds to be safe
+let lastAlphaVantageRequest = 0;
+
+async function alphaVantageRateLimitDelay(): Promise<void> {
+  const now = Date.now();
+  const elapsed = now - lastAlphaVantageRequest;
+  if (elapsed < ALPHA_VANTAGE_RATE_LIMIT_MS) {
+    await new Promise((resolve) => setTimeout(resolve, ALPHA_VANTAGE_RATE_LIMIT_MS - elapsed));
+  }
+  lastAlphaVantageRequest = Date.now();
+}
+
 async function fetchAlphaVantageCommodities(list: WatchItem[]): Promise<ProviderResult> {
   if (!alphaVantageCommodityKey) {
     throw new Error('ALPHA_VANTAGE_API_KEY (or ALPHA_VANTAGE_FOREX_API_KEY) is required for commodity quotes.');
@@ -506,21 +520,40 @@ async function fetchAlphaVantageCommodities(list: WatchItem[]): Promise<Provider
   for (const item of list) {
     const spec = ALPHA_COMMODITY_SPECS[item.symbol];
     if (!spec) {
-      throw new Error(`Missing Alpha Vantage commodity mapping for ${item.symbol}`);
+      // Skip items without mapping instead of throwing
+      console.warn(`Missing Alpha Vantage commodity mapping for ${item.symbol}, skipping`);
+      items.push({ ...item, currency: item.currency ?? 'USD' });
+      continue;
     }
 
-    const quote: AlphaCommodityQuote =
-      spec.mode === 'dailySeries'
-        ? await loadAlphaDailySeriesQuote(spec.symbol, alphaVantageCommodityKey)
-        : await loadAlphaMacroCommodityQuote(spec.function, spec.interval, alphaVantageCommodityKey);
+    try {
+      // Apply rate limiting before each request
+      await alphaVantageRateLimitDelay();
+      
+      const quote: AlphaCommodityQuote =
+        spec.mode === 'dailySeries'
+          ? await loadAlphaDailySeriesQuote(spec.symbol, alphaVantageCommodityKey)
+          : await loadAlphaMacroCommodityQuote(spec.function, spec.interval, alphaVantageCommodityKey);
 
-    timestampCandidates.push(quote.refreshedAt);
-    items.push({
-      ...item,
-      currency: item.currency ?? 'USD',
-      price: quote.price,
-      changePercent: quote.changePercent,
-    });
+      timestampCandidates.push(quote.refreshedAt);
+      items.push({
+        ...item,
+        currency: item.currency ?? 'USD',
+        price: quote.price,
+        changePercent: quote.changePercent,
+      });
+    } catch (error) {
+      // If rate limited, add item without price and continue
+      const message = error instanceof Error ? error.message : String(error);
+      if (message.includes('rate limit') || message.includes('Thank you for using Alpha Vantage')) {
+        console.warn(`Alpha Vantage rate limited for ${item.symbol}, skipping remaining items`);
+        // Add remaining items without prices
+        items.push({ ...item, currency: item.currency ?? 'USD' });
+        // Don't continue fetching - rate limit affects all requests
+        break;
+      }
+      throw error;
+    }
   }
 
   return {
