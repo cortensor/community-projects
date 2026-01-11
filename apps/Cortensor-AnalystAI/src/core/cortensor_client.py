@@ -1,6 +1,15 @@
 import logging
 import requests
-from src.config import CORTENSOR_API_URL, CORTENSOR_API_KEY, CORTENSOR_SESSION_ID
+from src.config import (
+    CORTENSOR_API_URL, 
+    CORTENSOR_API_KEY, 
+    CORTENSOR_SESSION_ID,
+    CORTENSOR_TEMPERATURE,
+    CORTENSOR_PROMPT_TYPE,
+    CORTENSOR_MAX_TOKENS,
+    CORTENSOR_TIMEOUT,
+    CORTENSOR_REQUEST_TIMEOUT
+)
 
 logger = logging.getLogger(__name__)
 
@@ -25,16 +34,16 @@ def get_ai_analysis(request_id: str, prompt: str) -> str | None:
     payload = {
         "session_id": int(CORTENSOR_SESSION_ID),
         "prompt": prompt,
-        "prompt_type": 1,
-        "temperature": 0.3,
+        "prompt_type": CORTENSOR_PROMPT_TYPE,
+        "temperature": CORTENSOR_TEMPERATURE,
         "stream": False,
-        "timeout": 300,
-        "max_tokens": 5024
+        "timeout": CORTENSOR_TIMEOUT,
+        "max_tokens": CORTENSOR_MAX_TOKENS
     }
 
     try:
-        logger.info(f"Sending request for ID {request_id} to Cortensor API with temperature=0.3.")
-        response = requests.post(CORTENSOR_API_URL, headers=headers, json=payload, timeout=320)
+        logger.info(f"Sending request for ID {request_id} to Cortensor API with temperature={CORTENSOR_TEMPERATURE}.")
+        response = requests.post(CORTENSOR_API_URL, headers=headers, json=payload, timeout=CORTENSOR_REQUEST_TIMEOUT)
         response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
         
         response_data = response.json()

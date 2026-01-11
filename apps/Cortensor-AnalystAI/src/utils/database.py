@@ -1,6 +1,13 @@
 import os
 from tinydb import TinyDB, Query
 from datetime import datetime
+from src.config import (
+    DEFAULT_TIMEZONE, 
+    DEFAULT_CURRENCY, 
+    CACHE_EXPIRATION_MINUTES,
+    DEFAULT_ALERTS_THRESHOLD,
+    DEFAULT_DATA_RETENTION_DAYS
+)
 
 # Ensure the data directory exists when this module is imported
 os.makedirs("data", exist_ok=True)
@@ -122,18 +129,18 @@ def get_user_settings(user_id: int) -> dict:
     """Retrieves user settings, returns default settings if not found."""
     settings = user_settings_db.get(UserSettings.user_id == user_id)
     if not settings:
-        # Default settings
+        # Default settings from config
         default_settings = {
             'user_id': user_id,
-            'timezone': 'Asia/Jakarta',
-            'currency': 'USD',
+            'timezone': DEFAULT_TIMEZONE,
+            'currency': DEFAULT_CURRENCY,
             'language': 'en',
             'notifications': True,
-            'alerts_threshold': 5.0,
+            'alerts_threshold': DEFAULT_ALERTS_THRESHOLD,
             'charts_enabled': True,
-            'cache_duration': 60,
+            'cache_duration': CACHE_EXPIRATION_MINUTES,
             'export_format': 'HTML',
-            'data_retention_days': 30,
+            'data_retention_days': DEFAULT_DATA_RETENTION_DAYS,
             'privacy_mode': False,
             'created_at': datetime.now().isoformat()
         }

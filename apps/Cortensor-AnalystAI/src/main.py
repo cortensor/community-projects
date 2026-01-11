@@ -48,35 +48,30 @@ def main():
     setup_logging()
     logger = logging.getLogger(__name__)
 
-    print("DEBUG: TELEGRAM_BOT_TOKEN loaded as: {}... (first 5 chars)".format(TELEGRAM_BOT_TOKEN[:5] if TELEGRAM_BOT_TOKEN else "None"))
-    print(f"DEBUG: TELEGRAM_BOT_TOKEN type: {type(TELEGRAM_BOT_TOKEN)}")
-    print("DEBUG: Inside main() function.")
+    logger.debug(f"TELEGRAM_BOT_TOKEN loaded: {'Yes' if TELEGRAM_BOT_TOKEN else 'No'}")
+    logger.info("Starting Analyst Bot...")
 
     if not TELEGRAM_BOT_TOKEN:
-        logger.critical("FATAL: TELEGRAM_BOT_TOKEN is not configured.")
-        print("DEBUG: TELEGRAM_BOT_TOKEN is NOT configured, exiting.")
+        logger.critical("FATAL: TELEGRAM_BOT_TOKEN is not configured. Exiting.")
         return
-    else:
-        print("DEBUG: TELEGRAM_BOT_TOKEN is configured, proceeding.")
 
+    logger.info("TELEGRAM_BOT_TOKEN configured successfully.")
 
     setup_database()
-    print("DEBUG: Database setup complete.")
+    logger.info("Database setup complete.")
 
     application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
-
-    print("DEBUG: Telegram Application initialized.")
+    logger.info("Telegram Application initialized.")
 
     scheduler_manager = SchedulerManager()
     scheduler_manager.start()
-
-    print("DEBUG: Scheduler started.")
+    logger.info("Scheduler started.")
 
     start_background_worker(application.bot)
-    print("DEBUG: Background worker started.")
+    logger.info("Background worker started.")
 
     start_dca_worker(application.bot)
-    print("DEBUG: DCA worker started.")
+    logger.info("DCA worker started.")
 
     # --- Register all command handlers ---
     application.add_handler(CommandHandler("start", start_command))
@@ -100,9 +95,8 @@ def main():
 
     application.add_error_handler(error_handler)
 
-    application.run_polling()
     logger.info("Bot is running with Scheduler and Worker. Press Ctrl+C to stop.")
-    print("DEBUG: application.run_polling() started (this should block).")
+    application.run_polling()
 
 if __name__ == '__main__':
     main()

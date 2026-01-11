@@ -8,8 +8,9 @@
 
 <p>
 <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
-<a href="./STATUS.md"\><img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"></a>
+<a href="./STATUS.md"><img src="https://img.shields.io/badge/status-production--ready-success.svg" alt="Status"></a>
 <a href="#"><img src="https://img.shields.io/badge/Next.js-15.2-blue.svg" alt="Next.js Version"></a>
+<a href="https://t.me/cortensor"><img src="https://img.shields.io/badge/Telegram-%232CA5E0.svg?logo=telegram&logoColor=white" alt="Telegram"></a>
 </p>
 
 <p align="center">
@@ -168,6 +169,18 @@ The bot uses TinyDB with the following databases:
 - `data/user_settings.db` - User preferences and settings
 - `data/tasks.db` - Analysis task queue
 - `data/schedules.db` - Scheduled analysis jobs
+
+## 🚦 Project Status
+
+- ✅ **Active Development** - Actively maintained and updated
+- ✅ **Production Ready** - Stable for production use
+- ✅ **Full Feature Set** - Complete DCA and portfolio management
+- ✅ **Multi-Currency Support** - USD, IDR, EUR, JPY
+- ✅ **Timezone Support** - Per-user timezone configuration
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [development workflow](https://github.com/cortensor/cortensor-community-projects#-development-workflow) for guidelines.
 
 ## 👤 Maintainer
 

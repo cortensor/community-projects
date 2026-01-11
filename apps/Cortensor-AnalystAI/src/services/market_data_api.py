@@ -4,14 +4,16 @@ import logging
 import requests
 import yfinance as yf # Import yfinance di sini
 from thefuzz import fuzz
-from src.config import COINGECKO_API_KEY, FMP_API_KEY
+from src.config import (
+    COINGECKO_API_KEY, 
+    FMP_API_KEY, 
+    COINGECKO_API_URL, 
+    FMP_API_URL,
+    DEFAULT_API_TIMEOUT
+)
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
-
-# --- API URLs ---
-COINGECKO_API_URL = "https://api.coingecko.com/api/v3"
-FMP_API_URL = "https://financialmodelingprep.com/api/v3"
 
 def calculate_price_change(prices: list) -> float:
     """Calculates percentage change between the first and last price in a list."""
@@ -28,7 +30,7 @@ def get_crypto_data(topic: str) -> dict | None:
     """Fetches crypto data from CoinGecko, including historical changes."""
     headers = {"x-cg-demo-api-key": COINGECKO_API_KEY, "Accept": "application/json"}
     try:
-        search_response = requests.get(f"{COINGECKO_API_URL}/search", headers=headers, params={'query': topic}, timeout=10)
+        search_response = requests.get(f"{COINGECKO_API_URL}/search", headers=headers, params={'query': topic}, timeout=DEFAULT_API_TIMEOUT)
         search_data = search_response.json()
         if not search_data.get('coins'):
             return None
@@ -51,7 +53,7 @@ def get_crypto_data(topic: str) -> dict | None:
         coin_id = best_match_coin['id']
         logger.info(f"Found crypto '{best_match_coin['name']}' ({best_match_coin['symbol']}) with ID: {coin_id}")
 
-        market_response = requests.get(f"{COINGECKO_API_URL}/coins/{coin_id}", headers=headers, timeout=10)
+        market_response = requests.get(f"{COINGECKO_API_URL}/coins/{coin_id}", headers=headers, timeout=DEFAULT_API_TIMEOUT)
         market_data = market_response.json()
         data = market_data.get('market_data', {})
 
@@ -66,13 +68,13 @@ def get_crypto_data(topic: str) -> dict | None:
         try:
             # Ambil data 7 hari
             url_7d = f"{COINGECKO_API_URL}/coins/{coin_id}/market_chart?vs_currency=usd&days=7"
-            response_7d = requests.get(url_7d, headers=headers, timeout=10)
+            response_7d = requests.get(url_7d, headers=headers, timeout=DEFAULT_API_TIMEOUT)
             if response_7d.status_code == 200:
                 prices_7d = [p[1] for p in response_7d.json().get('prices', [])]
             
             # Ambil data 30 hari
             url_30d = f"{COINGECKO_API_URL}/coins/{coin_id}/market_chart?vs_currency=usd&days=30"
-            response_30d = requests.get(url_30d, headers=headers, timeout=10)
+            response_30d = requests.get(url_30d, headers=headers, timeout=DEFAULT_API_TIMEOUT)
             if response_30d.status_code == 200:
                 prices_30d = [p[1] for p in response_30d.json().get('prices', [])]
 
@@ -106,8 +108,12 @@ def get_stock_data_from_fmp(symbol: str) -> dict | None:
         return None
     try:
         logger.info(f"Fetching stock data for exact symbol '{symbol.upper()}' from FMP.")
-        quote_url = f"{FMP_API_URL}/quote/{symbol.upper()}?apikey={FMP_API_KEY}"
-        quote_res = requests.get(quote_url, timeout=10)
+        quote_url = f"{FMP_API_URL}/quote"
+        quote_res = requests.get(
+            quote_url,
+            params={"symbol": symbol.upper(), "apikey": FMP_API_KEY},
+            timeout=DEFAULT_API_TIMEOUT
+        )
         quote_data_list = quote_res.json()
 
         if not quote_data_list:
@@ -115,6 +121,35 @@ def get_stock_data_from_fmp(symbol: str) -> dict | None:
             return None
         
         quote_data = quote_data_list[0] if isinstance(quote_data_list, list) else quote_data_list
+
+        def safe_float(value):
+            if isinstance(value, (int, float)):
+                return float(value)
+            if isinstance(value, str):
+                cleaned = value.replace(',', '').strip()
+                if not cleaned:
+                    return None
+                try:
+                    return float(cleaned)
+                except ValueError:
+                    return None
+            return None
+
+        symbol_value = quote_data.get('symbol') or symbol.upper()
+        name_value = (
+            quote_data.get('name')
+            or quote_data.get('companyName')
+            or symbol_value
+        )
+
+        current_price = safe_float(quote_data.get('price'))
+        price_change_pct = safe_float(quote_data.get('changesPercentage'))
+        trading_volume = safe_float(quote_data.get('volume'))
+        market_cap = safe_float(quote_data.get('marketCap'))
+        year_high = safe_float(quote_data.get('yearHigh'))
+        year_low = safe_float(quote_data.get('yearLow'))
+        pe_ratio_val = safe_float(quote_data.get('pe'))
+        eps_val = safe_float(quote_data.get('eps'))
 
         # --- Ambil data historis untuk saham dari yfinance ---
         price_change_7d_pct = 0.0
@@ -137,12 +172,16 @@ def get_stock_data_from_fmp(symbol: str) -> dict | None:
             logger.warning(f"Could not fetch historical stock data for '{symbol}' from yfinance: {hist_e}")
 
         return {
-            "type": "Stock", "name": quote_data.get('name'), "symbol": quote_data.get('symbol'),
-            "company_name": quote_data.get('name'),
-            "price_change_pct": quote_data.get('changesPercentage'), "current_price": quote_data.get('price'),
-            "trading_volume": quote_data.get('volume'), "high_52w": quote_data.get('yearHigh'),
-            "low_52w": quote_data.get('yearLow'), "market_cap": quote_data.get('marketCap'),
-            "pe_ratio": quote_data.get('pe', 'N/A'), "eps_ttm": quote_data.get('eps', 'N/A'),
+            "type": "Stock", "name": name_value, "symbol": symbol_value,
+            "company_name": name_value,
+            "price_change_pct": price_change_pct if price_change_pct is not None else 0.0,
+            "current_price": current_price if current_price is not None else 0.0,
+            "trading_volume": trading_volume if trading_volume is not None else 0.0,
+            "high_52w": year_high,
+            "low_52w": year_low,
+            "market_cap": market_cap if market_cap is not None else 0.0,
+            "pe_ratio": pe_ratio_val if pe_ratio_val is not None else 'N/A',
+            "eps_ttm": eps_val if eps_val is not None else 'N/A',
             "dividend_yield": 0.0, "revenue_ttm": None, "debt_equity_ratio": None,
             "price_change_7d_pct": price_change_7d_pct, # Tambahkan ini
             "price_change_30d_pct": price_change_30d_pct, # Tambahkan ini
