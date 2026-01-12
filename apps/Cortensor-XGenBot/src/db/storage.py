@@ -84,12 +84,25 @@ def load_user_defaults(user_id: str) -> Dict[str, Any]:
         conn.close()
 
 
-essential_defaults = {
-    "tone": os.getenv("DEFAULT_TONE", "concise"),
-    "length": "medium",
-    "n": 6,
-    "hashtags": (os.getenv("DEFAULT_HASHTAGS") or "").strip(),
-}
+# Import config for defaults (lazy to avoid circular imports)
+def _get_config_defaults():
+    try:
+        from ..config import DEFAULT_TONE, DEFAULT_LENGTH, DEFAULT_THREAD_N, DEFAULT_HASHTAGS
+        return {
+            "tone": DEFAULT_TONE or "concise",
+            "length": DEFAULT_LENGTH or "medium",
+            "n": DEFAULT_THREAD_N or 6,
+            "hashtags": (DEFAULT_HASHTAGS or "").strip(),
+        }
+    except Exception:
+        return {
+            "tone": os.getenv("DEFAULT_TONE", "concise"),
+            "length": os.getenv("DEFAULT_LENGTH", "medium"),
+            "n": int(os.getenv("DEFAULT_THREAD_N", "6")),
+            "hashtags": (os.getenv("DEFAULT_HASHTAGS") or "").strip(),
+        }
+
+essential_defaults = _get_config_defaults()
 
 
 def save_user_defaults(user_id: str, values: Dict[str, Any]) -> None:

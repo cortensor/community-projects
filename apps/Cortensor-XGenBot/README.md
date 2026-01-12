@@ -61,8 +61,8 @@ Cortensor-XGenBot is a powerful Telegram bot designed to generate engaging conte
     CORTENSOR_API_URL=your_cortensor_api_url
     CORTENSOR_API_KEY=your_cortensor_api_key
     CORTENSOR_SESSION_ID=your_cortensor_session_id
-    MODEL_PROVIDER=deepseek
-    MODEL_NAME=deepseek-r1
+    MODEL_PROVIDER=gpt-oss
+    MODEL_NAME=gpt-oss-20b
     DEFAULT_TONE=concise
     DEFAULT_HASHTAGS=#AI #Tech
     ```

@@ -9,6 +9,13 @@ try:
 except Exception:  # pragma: no cover - optional dep
     OAuth1 = None  # type: ignore
 
+# Import config for TWITTER_FETCH_TIMEOUT
+try:
+    from . import config as _cfg
+    _FETCH_TIMEOUT = getattr(_cfg, 'TWITTER_FETCH_TIMEOUT', 6.0)
+except Exception:
+    _FETCH_TIMEOUT = float(os.getenv('TWITTER_FETCH_TIMEOUT', '6.0'))
+
 _X_STATUS_RE = re.compile(r"https?://(?:x|twitter)\.com/[^/]+/status/(\d+)")
 _X_URL_RE = re.compile(r"https?://(?:x|twitter)\.com/[^\s]+/status/\d+[^\s]*")
 
@@ -16,7 +23,9 @@ def parse_x_status_id(url: str) -> Optional[str]:
     m = _X_STATUS_RE.search(url)
     return m.group(1) if m else None
 
-def fetch_x_tweet_json(status_id: str, timeout: float = 6.0) -> Optional[Dict[str, Any]]:
+def fetch_x_tweet_json(status_id: str, timeout: float = None) -> Optional[Dict[str, Any]]:
+    if timeout is None:
+        timeout = _FETCH_TIMEOUT
     # 1) Try official Twitter API v2 if credentials are present
     api_key = os.getenv("TWITTER_API_KEY")
     api_secret = os.getenv("TWITTER_API_SECRET")
@@ -113,10 +122,12 @@ def fetch_x_tweet_json(status_id: str, timeout: float = 6.0) -> Optional[Dict[st
     except Exception:
         return None
 
-def fetch_x_tweet_json_from_text(source_text: str, timeout: float = 6.0) -> Optional[Dict[str, Any]]:
+def fetch_x_tweet_json_from_text(source_text: str, timeout: float = None) -> Optional[Dict[str, Any]]:
     """Try to resolve a tweet from any text containing a tweet URL.
     Attempts by ID, then by URL-param syndication.
     """
+    if timeout is None:
+        timeout = _FETCH_TIMEOUT
     if not source_text:
         return None
     # Try by ID first
