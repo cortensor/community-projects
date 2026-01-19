@@ -54,4 +54,4 @@ dmypy.json
 Thumbs.db
 
 # Evidence bundles (generated during demos)
-evidence_bundle_*.json
+evidence_*.json
