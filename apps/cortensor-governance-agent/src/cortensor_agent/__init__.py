@@ -2,7 +2,16 @@
 
 __version__ = "0.1.0"
 
-from .client import CortensorMCPClient
-from .agent import GovernanceAgent
+from .client import CortensorClient, CortensorMCPClient, CortensorSession, ToolResult
+from .agent import GovernanceAgent, AnalysisResult, EvidenceBundle
 
-__all__ = ["CortensorMCPClient", "GovernanceAgent", "__version__"]
+__all__ = [
+    "CortensorClient",
+    "CortensorMCPClient",
+    "CortensorSession",
+    "ToolResult",
+    "GovernanceAgent",
+    "AnalysisResult",
+    "EvidenceBundle",
+    "__version__"
+]

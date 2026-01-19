@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from .client import CortensorMCPClient, ToolResult
+from .client import CortensorClient, ToolResult
 
 logger = logging.getLogger(__name__)
 
@@ -80,8 +80,8 @@ Provide a structured analysis covering:
 
 Be specific and cite relevant precedents if applicable."""
 
-    def __init__(self, client: CortensorMCPClient | None = None):
-        self.client = client or CortensorMCPClient()
+    def __init__(self, client: CortensorClient | None = None):
+        self.client = client or CortensorClient()
         self._raw_responses: list[dict] = []
         self._validation_responses: list[dict] = []
 
