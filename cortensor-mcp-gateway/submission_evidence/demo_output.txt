@@ -1,0 +1,151 @@
+======================================================================
+CORTENSOR DELEGATE-VALIDATE WORKFLOW DEMO
+Hackathon #4 Competitive Submission Pattern
+======================================================================
+
+Configuration:
+  Router URL: http://127.0.0.1:5010
+  Session ID: 0
+  Mock Mode: True
+  Timeout: 60s
+
+======================================================================
+STEP 1: DELEGATE - Submit task to Cortensor miners
+======================================================================
+
+Task Prompt:
+----------------------------------------
+Analyze the following DeFi governance proposal and provide a structured assessment:
+
+Proposal: Implement quadratic voting for protocol upgrades
+- Each token holder gets votes proportional to sqrt(tokens)
+- Minimum 1000 tokens required to participate
+- 7-day voting period with 3-day timelock
+
+Provide your analysis in the following format:
+1. Summary (2-3 sentences)
+2. Key Benefits (bullet points)
+3. Potential Risks (bullet points)
+4. Recommendation (approve/reject with reasoning)
+----------------------------------------
+
+Delegating to Cortensor network (k=3 redundancy)...
+2026-01-19 19:25:42 [info     ] mock_delegate_complete         consensus_score=1.0 num_miners=3 task_id=task-13a73f2631bf
+
+Delegate Result:
+  Task ID: task-13a73f2631bf
+  Consensus Score: 1.00
+  Miners Responded: 3
+  Latency: 1444ms
+  Verified: True
+
+Response Content:
+----------------------------------------
+Based on my analysis, the key points are:
+1. The proposal addresses important concerns
+2. Implementation appears feasible
+3. Risks are manageable with proper monitoring
+----------------------------------------
+
+Miner Responses:
+  - mock-miner-000: Mistral-7B-Instruct-v0.3 (101ms)
+  - mock-miner-001: DeepSeek-R1-Distill-Llama-8B (336ms)
+  - mock-miner-002: Mistral-7B-Instruct-v0.3 (474ms)
+
+======================================================================
+STEP 2: VALIDATE - Verify results via /validate endpoint
+======================================================================
+
+Validating result from miner: mock-miner-000
+Using k-redundant re-inference (k=3)...
+2026-01-19 19:25:42 [info     ] mock_validate_complete         confidence=0.9201970467463518 is_valid=True task_id=task-13a73f2631bf
+
+Validation Result:
+  Task ID: task-13a73f2631bf
+  Is Valid: True
+  Confidence: 0.92
+  K Miners Validated: 3
+  Method: k-redundant-poi
+
+Attestation (JWS):
+  eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0YXNrX2lkIjogInRhc2stMTNhNzNmMjYzMWJmIiw...
+
+======================================================================
+STEP 3: Additional Delegation (to demonstrate workflow)
+======================================================================
+
+Task 2: What are the key security considerations for implementing qu...
+2026-01-19 19:25:44 [info     ] mock_delegate_complete         consensus_score=1.0 num_miners=3 task_id=task-011c8b8fdb50
+  Task ID: task-011c8b8fdb50
+  Consensus: 1.00
+2026-01-19 19:25:44 [info     ] mock_validate_complete         confidence=0.8792836729038188 is_valid=True task_id=task-011c8b8fdb50
+  Validation: PASS (confidence: 0.88)
+
+======================================================================
+STEP 4: EXPORT - Generate session log for hackathon submission
+======================================================================
+
+Session Summary:
+  Session ID: 0
+  Session Name: hackathon-session-0
+  Total Delegates: 2
+  Total Validates: 2
+  Total Entries: 4
+
+  Session log exported to: session_log_20260119_112544.json
+
+Session Log Preview:
+----------------------------------------
+{
+  "session_id": 0,
+  "session_name": "hackathon-session-0",
+  "created_at": "2026-01-19T11:25:40.663240+00:00",
+  "entries": [
+    {
+      "operation": "delegate",
+      "timestamp": "2026-01-19T11:25:42.107796+00:00",
+      "request": {
+        "session_id": 0,
+        "prompt": "\nAnalyze the following DeFi governance proposal and provide a structured assessment:\n\nProposal: Implement quadratic voting for protocol upgrades\n- Each token holder gets votes proportional to sqrt(tokens)\n- Minimum 1000 tokens required to participate\n- 7-day voting period with 3-day timelock\n\nProvide your analysis in the following format:\n1. Summary (2-3 sentences)\n2. Key Benefits (bullet points)\n3. Potential Risks (bullet points)\n4. Recommendation (approve/reject with reasoning)\n",
+        "prompt_type": 1,
+        "stream": false,
+        "timeout": 60,
+        "max_tokens": 2048
+      },
+      "response": {
+        "task_id": "task-13a73f2631bf",
+        "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+        "miner_responses": [
+          {
+            "miner_id": "mock-miner-000",
+            "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+            "latency_ms": 101.24300743998735,
+            "model": "Mi
+... (truncated)
+
+======================================================================
+WORKFLOW COMPLETE
+======================================================================
+
+This demo demonstrated the competitive hackathon submission pattern:
+
+1. DELEGATE: Tasks submitted via /delegate endpoint (not /completions)
+   - k-redundant inference across multiple miners
+   - Consensus calculated from miner responses
+
+2. VALIDATE: Results verified via /validate endpoint
+   - k-redundant re-inference for PoI verification
+   - Signed attestation (JWS/EIP-712) generated
+   - Confidence score returned
+
+3. EXPORT: Session log exported for submission
+   - Complete audit trail of all operations
+   - Request/response pairs with timestamps
+   - Evidence for hackathon judging
+
+To run with real Cortensor network:
+    export CORTENSOR_MOCK_MODE=false
+    export CORTENSOR_ROUTER_URL=https://router1-t0.cortensor.app
+    export CORTENSOR_API_KEY=your-api-key
+    python examples/delegate_validate_demo.py
+

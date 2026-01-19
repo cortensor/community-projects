@@ -1,0 +1,175 @@
+{
+  "session_id": 0,
+  "session_name": "hackathon-session-0",
+  "created_at": "2026-01-19T11:25:40.663240+00:00",
+  "entries": [
+    {
+      "operation": "delegate",
+      "timestamp": "2026-01-19T11:25:42.107796+00:00",
+      "request": {
+        "session_id": 0,
+        "prompt": "\nAnalyze the following DeFi governance proposal and provide a structured assessment:\n\nProposal: Implement quadratic voting for protocol upgrades\n- Each token holder gets votes proportional to sqrt(tokens)\n- Minimum 1000 tokens required to participate\n- 7-day voting period with 3-day timelock\n\nProvide your analysis in the following format:\n1. Summary (2-3 sentences)\n2. Key Benefits (bullet points)\n3. Potential Risks (bullet points)\n4. Recommendation (approve/reject with reasoning)\n",
+        "prompt_type": 1,
+        "stream": false,
+        "timeout": 60,
+        "max_tokens": 2048
+      },
+      "response": {
+        "task_id": "task-13a73f2631bf",
+        "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+        "miner_responses": [
+          {
+            "miner_id": "mock-miner-000",
+            "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+            "latency_ms": 101.24300743998735,
+            "model": "Mistral-7B-Instruct-v0.3",
+            "timestamp": "2026-01-19T11:25:42.107234+00:00",
+            "metadata": {}
+          },
+          {
+            "miner_id": "mock-miner-001",
+            "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+            "latency_ms": 336.3800180314409,
+            "model": "DeepSeek-R1-Distill-Llama-8B",
+            "timestamp": "2026-01-19T11:25:42.107257+00:00",
+            "metadata": {}
+          },
+          {
+            "miner_id": "mock-miner-002",
+            "content": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+            "latency_ms": 474.4313321815169,
+            "model": "Mistral-7B-Instruct-v0.3",
+            "timestamp": "2026-01-19T11:25:42.107267+00:00",
+            "metadata": {}
+          }
+        ],
+        "consensus": {
+          "score": 1.0,
+          "agreement_count": 3,
+          "total_miners": 3,
+          "majority_response": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring",
+          "divergent_miners": [],
+          "is_consensus": true
+        },
+        "total_latency_ms": 1443.9698320056777,
+        "timestamp": "2026-01-19T11:25:42.107790+00:00",
+        "is_verified": true
+      },
+      "success": true,
+      "latency_ms": 1443.9698320056777,
+      "task_id": "task-13a73f2631bf"
+    },
+    {
+      "operation": "validate",
+      "timestamp": "2026-01-19T11:25:42.653843+00:00",
+      "request": {
+        "session_id": 0,
+        "task_id": 21609039933887,
+        "miner_address": "mock-miner-000",
+        "result_data": "Based on my analysis, the key points are:\n1. The proposal addresses important concerns\n2. Implementation appears feasible\n3. Risks are manageable with proper monitoring"
+      },
+      "response": {
+        "task_id": "task-13a73f2631bf",
+        "is_valid": true,
+        "confidence": 0.9201970467463518,
+        "attestation": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0YXNrX2lkIjogInRhc2stMTNhNzNmMjYzMWJmIiwgInNlc3Npb25faWQiOiAwLCAidmFsaWRhdGVkX2F0IjogIjIwMjYtMDEtMTlUMTE6MjU6NDIuNjUzNjYyKzAwOjAwIiwgImtfbWluZXJzIjogM30.99e531264a5d84e164040b44be5a14dbea95d632e303cf50ce8cb888bc37b403",
+        "k_miners_validated": 3,
+        "validation_details": {
+          "method": "k-redundant-poi",
+          "eval_version": "v3"
+        },
+        "timestamp": "2026-01-19T11:25:42.653731+00:00"
+      },
+      "success": true,
+      "latency_ms": 545.7993849995546,
+      "task_id": "task-13a73f2631bf"
+    },
+    {
+      "operation": "delegate",
+      "timestamp": "2026-01-19T11:25:44.335201+00:00",
+      "request": {
+        "session_id": 0,
+        "prompt": "What are the key security considerations for implementing quadratic voting in a smart contract?",
+        "prompt_type": 1,
+        "stream": false,
+        "timeout": 60,
+        "max_tokens": 4096
+      },
+      "response": {
+        "task_id": "task-011c8b8fdb50",
+        "content": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification.",
+        "miner_responses": [
+          {
+            "miner_id": "mock-miner-000",
+            "content": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification.",
+            "latency_ms": 257.4168439622266,
+            "model": "Qwen2.5-7B-Instruct",
+            "timestamp": "2026-01-19T11:25:44.334858+00:00",
+            "metadata": {}
+          },
+          {
+            "miner_id": "mock-miner-001",
+            "content": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification.",
+            "latency_ms": 433.0414705028534,
+            "model": "Mistral-7B-Instruct-v0.3",
+            "timestamp": "2026-01-19T11:25:44.334870+00:00",
+            "metadata": {}
+          },
+          {
+            "miner_id": "mock-miner-002",
+            "content": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification.",
+            "latency_ms": 424.06976349436445,
+            "model": "Mistral-7B-Instruct-v0.3",
+            "timestamp": "2026-01-19T11:25:44.334876+00:00",
+            "metadata": {}
+          }
+        ],
+        "consensus": {
+          "score": 1.0,
+          "agreement_count": 3,
+          "total_miners": 3,
+          "majority_response": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification.",
+          "divergent_miners": [],
+          "is_consensus": true
+        },
+        "total_latency_ms": 1681.011934997514,
+        "timestamp": "2026-01-19T11:25:44.335197+00:00",
+        "is_verified": true
+      },
+      "success": true,
+      "latency_ms": 1681.011934997514,
+      "task_id": "task-011c8b8fdb50"
+    },
+    {
+      "operation": "validate",
+      "timestamp": "2026-01-19T11:25:44.833333+00:00",
+      "request": {
+        "session_id": 0,
+        "task_id": 1222112172880,
+        "miner_address": "mock-miner-000",
+        "result_data": "Response to query: What are the key security considerations for imple...\n\nThis is a mock response demonstrating the Cortensor inference pipeline with multi-miner consensus verification."
+      },
+      "response": {
+        "task_id": "task-011c8b8fdb50",
+        "is_valid": true,
+        "confidence": 0.8792836729038188,
+        "attestation": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0YXNrX2lkIjogInRhc2stMDExYzhiOGZkYjUwIiwgInNlc3Npb25faWQiOiAwLCAidmFsaWRhdGVkX2F0IjogIjIwMjYtMDEtMTlUMTE6MjU6NDQuODMyOTgyKzAwOjAwIiwgImtfbWluZXJzIjogM30.5703d06686004f09fea30959f490f8f68c352f64314d92cb8681d40ef6cac42e",
+        "k_miners_validated": 3,
+        "validation_details": {
+          "method": "k-redundant-poi",
+          "eval_version": "v3"
+        },
+        "timestamp": "2026-01-19T11:25:44.833116+00:00"
+      },
+      "success": true,
+      "latency_ms": 497.8306539996993,
+      "task_id": "task-011c8b8fdb50"
+    }
+  ],
+  "summary": {
+    "total_delegates": 2,
+    "total_validates": 2,
+    "total_tasks": 2,
+    "total_entries": 4
+  }
+}
