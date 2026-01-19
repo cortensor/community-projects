@@ -146,6 +146,29 @@ POST("/mcp", {"method": "tools/call", "params": {"name": "cortensor_completions"
 | `cortensor_status` | GET | Router status |
 | `cortensor_about` | GET | Router metadata |
 
+## Safety & Constraints
+
+The agent enforces strict boundaries for responsible operation:
+
+### What the Agent Does
+- Analyzes governance proposals for technical feasibility, economic impact, and security risks
+- Delegates inference to Cortensor's decentralized network
+- Validates results through consensus mechanisms
+- Generates tamper-proof evidence bundles
+
+### What the Agent Refuses
+- **No execution of transactions** - Analysis only, no on-chain actions
+- **No private key handling** - Never requests or stores wallet credentials
+- **No financial advice** - Provides structured analysis, not investment recommendations
+- **No automated voting** - Human decision required for governance participation
+- **No external API calls** - Only communicates with configured Cortensor endpoints
+- **No persistent storage of proposals** - Stateless operation, data not retained
+
+### Rate Limiting & Resource Protection
+- Configurable timeout (default 60s) prevents runaway requests
+- Session-based operation limits scope of each analysis
+- Evidence bundles provide audit trail for all operations
+
 ## Evidence Bundle
 
 Cryptographic audit trail for transparency:
@@ -166,6 +189,73 @@ Cryptographic audit trail for transparency:
   "validation_responses": [...],
   "integrity_hash": "sha256:a1b2c3d4..."
 }
+```
+
+## Agent Runtime Proof
+
+### Sample Demo Output
+
+```
+============================================================
+   CORTENSOR GOVERNANCE AGENT DEMO
+   Hackathon #4 Submission
+============================================================
+
+============================================================
+Demo: MCP Connection to Cortensor Public Router
+============================================================
+
+1. Connecting to Cortensor MCP server...
+   Session ID: 83f5ef1f-d805-490c-b86f-0293a56c759f
+   Protocol: 2024-11-05
+
+2. Listing available tools...
+   - cortensor_completions
+   - cortensor_delegate
+   - cortensor_validate
+   - cortensor_create_session
+   - cortensor_tasks
+   - cortensor_miners
+   - cortensor_status
+   - cortensor_about
+   - cortensor_ping
+   - cortensor_info
+
+3. Getting router info...
+   Backend status: True
+
+   Connection closed.
+
+============================================================
+Demo: REST API Connection to Self-Hosted Router
+============================================================
+
+1. Connecting to VPS router...
+   Connected!
+
+2. Getting router status...
+   Uptime: 86400 seconds
+   Active sessions: 0
+   Connected miners: 0
+
+3. Getting router info...
+   Router address: 0x804191e9bf2aa622A7b1D658e2594320e433CEeF
+   x402 enabled: True
+   Endpoints: 20
+
+   Connection closed.
+
+============================================================
+Demo completed!
+============================================================
+```
+
+### Replay Command
+
+```bash
+cd apps/cortensor-governance-agent
+pip install -e .
+python demo.py
 ```
 
 ## Project Structure
@@ -193,12 +283,18 @@ cortensor-governance-agent/
 
 ## Hackathon Evaluation Alignment
 
-| Criteria | Implementation |
-|----------|---------------|
-| **Technical Excellence (40%)** | Full MCP protocol, dual-mode client, proper error handling |
-| **Trust & Verification (25%)** | `cortensor_validate` integration, evidence bundles with SHA-256 |
-| **User Experience (20%)** | Simple API, comprehensive demo, clear documentation |
-| **Production Readiness (15%)** | Self-hosted router support, API key auth, configurable endpoints |
+| Criteria | Weight | Implementation |
+|----------|--------|---------------|
+| **Agent capability & workflow** | 30% | Complete analysis workflow: parse -> delegate -> validate -> evidence bundle |
+| **Cortensor Integration** | 25% | MCP protocol, `cortensor_completions`, `cortensor_validate`, session management |
+| **Reliability & safety** | 20% | Error handling, type safety, dual-mode failover, strict constraints |
+| **Usability & demo** | 15% | Simple API, demo.py, clear README, architecture diagram |
+| **Public good impact** | 10% | MIT license, comprehensive docs, reusable client library |
+
+### Bonus Features
+- MCP 2024-11-05 protocol (HTTP stream with `notifications/initialized`)
+- `/validate` endpoint integration via `cortensor_validate`
+- x402-enabled router support
 
 ## License
 
