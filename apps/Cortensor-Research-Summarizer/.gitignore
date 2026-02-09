@@ -59,6 +59,7 @@ yarn-error.log*
 .env*.local
 .env
 .env.*
+.env.example
 
 # vercel
 .vercel
@@ -86,3 +87,6 @@ setup-ssl.sh
 ecosystem.config.js
 nginx.conf
 nginx-dev.conf
+
+# Docs
+README.md

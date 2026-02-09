@@ -1,4 +1,5 @@
 import { OracleQuery, MinerResponse, CortensorApiResponse } from '@/types/oracle'
+import { CORTENSOR_CONFIG } from '@/lib/config'
 
 class CortensorService {
   private apiKey: string
@@ -13,11 +14,9 @@ class CortensorService {
   private wsListeners: Array<(data: any) => void> = []
 
   constructor() {
-    this.apiKey = process.env.CORTENSOR_API_KEY!
-    this.baseUrl = process.env.CORTENSOR_ROUTER_URL!
-  const sidRaw = process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID
-  const sid = sidRaw ? parseInt(sidRaw, 10) : 0
-  this.sessionId = Number.isFinite(sid) ? sid : 0
+    this.apiKey = CORTENSOR_CONFIG.API_KEY
+    this.baseUrl = CORTENSOR_CONFIG.ROUTER_URL
+    this.sessionId = CORTENSOR_CONFIG.SESSION_ID
     this.wsUrl = process.env.NEXT_PUBLIC_CORTENSOR_WS_URL || 'ws://173.214.163.250:9007'
 
     // Default to WebSocket in browser; REST remains available as fallback

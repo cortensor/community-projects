@@ -5,6 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from pytz import timezone
 
+from src.config import DEFAULT_TIMEZONE
 from src.utils.database import (
     get_user_dca_schedules, 
     update_dca_execution, 
@@ -13,6 +14,12 @@ from src.utils.database import (
     get_active_dca_schedules
 )
 from src.services.market_data_api import get_market_data
+from src.services.currency_api import (
+    convert_currency,
+    get_conversion_rate,
+    format_currency,
+    get_exchange_rates
+)
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +28,7 @@ class DCAWorker:
     
     def __init__(self, bot=None):
         self.bot = bot
-        self.scheduler = BackgroundScheduler(timezone=timezone('Asia/Jakarta'))
+        self.scheduler = BackgroundScheduler(timezone=timezone(DEFAULT_TIMEZONE))
         
     def start(self):
         """Start the DCA scheduler."""
@@ -65,7 +72,7 @@ class DCAWorker:
                 # Process schedules by user timezone
                 for user_id, user_data in user_schedules.items():
                     user_settings = user_data['settings']
-                    user_timezone = user_settings.get('timezone', 'Asia/Jakarta')
+                    user_timezone = user_settings.get('timezone', DEFAULT_TIMEZONE)
                     
                     # Get current time in user's timezone
                     from pytz import timezone
@@ -131,20 +138,35 @@ class DCAWorker:
                 logger.warning(f"No market data for {schedule['symbol']} - skipping DCA execution")
                 return
             
-            current_price_usd = market_data.get('current_price', 0)
-            if current_price_usd <= 0:
-                logger.warning(f"Invalid price for {schedule['symbol']} - skipping DCA execution")
+            raw_price = market_data.get('current_price')
+            try:
+                current_price_usd = float(raw_price)
+            except (TypeError, ValueError):
+                current_price_usd = None
+
+            if current_price_usd is None or current_price_usd <= 0:
+                logger.warning(
+                    f"Invalid price '{raw_price}' for {schedule['symbol']} - skipping DCA execution"
+                )
                 return
             
             # Convert amount to USD if needed (main currency system)
-            conversion_rates = {'USD': 1.0, 'IDR': 15000.0, 'EUR': 0.85, 'JPY': 110.0}
             schedule_currency = schedule['currency']
-            amount_in_schedule_currency = schedule['amount']
+
+            try:
+                amount_in_schedule_currency = float(schedule['amount'])
+            except (TypeError, ValueError):
+                logger.warning(
+                    f"Invalid amount '{schedule['amount']}' for {schedule['symbol']} - skipping DCA execution"
+                )
+                return
             
-            # Convert to USD as base currency
+            # Convert to USD as base currency using real-time rates
             if schedule_currency != 'USD':
-                conversion_rate = conversion_rates.get(schedule_currency, 1.0)
-                amount_usd = amount_in_schedule_currency / conversion_rate
+                amount_usd = convert_currency(amount_in_schedule_currency, schedule_currency, 'USD')
+                if amount_usd is None:
+                    logger.warning(f"Currency conversion failed for {schedule_currency} - skipping DCA execution")
+                    return
             else:
                 amount_usd = amount_in_schedule_currency
             
@@ -194,28 +216,29 @@ class DCAWorker:
                 return  # User has notifications disabled
             
             # Get user's timezone for proper time display
-            user_timezone = user_settings.get('timezone', 'Asia/Jakarta')
+            user_timezone = user_settings.get('timezone', DEFAULT_TIMEZONE)
             from pytz import timezone
             user_tz = timezone(user_timezone)
             current_time_user = datetime.now(user_tz)
             
-            currency_symbols = {
-                'USD': '$', 'EUR': '€', 'JPY': '¥', 'IDR': 'Rp',
-                'GBP': '£', 'SGD': 'S$', 'AUD': 'A$', 'CAD': 'C$'
-            }
-            currency_symbol = currency_symbols.get(schedule['currency'], schedule['currency'])
-            
-            # Convert price to schedule currency if needed
-            conversion_rates = {'USD': 1.0, 'IDR': 15000.0, 'EUR': 0.85, 'JPY': 110.0}
-            conversion_rate = conversion_rates.get(schedule['currency'], 1.0)
+            # Convert price to schedule currency using real-time rates
+            schedule_currency = schedule['currency']
+            conversion_rate = get_conversion_rate('USD', schedule_currency)
+            if conversion_rate is None:
+                conversion_rate = 1.0  # Fallback to USD if conversion fails
             price_converted = price * conversion_rate
+            
+            # Format the amount with proper currency symbol
+            amount_formatted = format_currency(amount, schedule_currency)
+            
+            price_formatted = format_currency(price_converted, schedule_currency)
             
             message = (
                 f"🎯 <b>DCA Executed!</b>\n\n"
                 f"💰 <b>Asset:</b> {schedule['symbol'].upper()}\n"
-                f"💵 <b>Amount:</b> {currency_symbol}{amount:,.2f} {schedule['currency']}\n"
+                f"💵 <b>Amount:</b> {amount_formatted}\n"
                 f"📦 <b>Quantity:</b> {quantity:.6f}\n"
-                f"💎 <b>Price:</b> {currency_symbol}{price_converted:,.2f}\n"
+                f"💎 <b>Price:</b> {price_formatted}\n"
                 f"⏰ <b>Time:</b> {current_time_user.strftime('%Y-%m-%d %H:%M:%S')} {user_timezone}\n"
                 f"🔄 <b>Frequency:</b> {schedule['frequency'].title()}\n\n"
                 f"✅ Your portfolio has been updated!"

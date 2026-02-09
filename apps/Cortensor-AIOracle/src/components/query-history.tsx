@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Clock, CheckCircle, XCircle, AlertTriangle, ExternalLink, ChevronDown, ChevronUp, Globe, Newspaper, Search } from 'lucide-react'
 import { sanitizeModelAnswer, truncateAddress } from '@/lib/utils'
 
@@ -47,7 +48,38 @@ export function QueryHistory({ queries }: QueryHistoryProps) {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    return (
+      <Card className="max-w-4xl mx-auto">
+        <CardHeader>
+          <Skeleton className="h-5 w-40" />
+          <Skeleton className="h-4 w-72" />
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="border rounded-lg p-4 space-y-3">
+              <Skeleton className="h-4 w-2/3" />
+              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-3 w-5/6" />
+              <div className="flex items-center justify-between pt-2">
+                <Skeleton className="h-3 w-28" />
+                <Skeleton className="h-3 w-16" />
+              </div>
+            </div>
+            <div className="border rounded-lg p-4 space-y-3">
+              <Skeleton className="h-4 w-1/2" />
+              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-3 w-4/5" />
+              <div className="flex items-center justify-between pt-2">
+                <Skeleton className="h-3 w-28" />
+                <Skeleton className="h-3 w-16" />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   // Extract inline sources ("Sources:") from answer text so we can render them separately
   const extractSourcesFromAnswer = (text: string) => {

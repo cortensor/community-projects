@@ -35,21 +35,28 @@ def _finalize_line(text: str) -> str:
 
 
 def _length_target(length: str, n_posts: int) -> Tuple[int, str]:
-    length = (length or 'medium').lower()
+    """Get character target for given length mode.
+    
+    All values are now configurable via .env:
+    - LENGTH_SHORT_CHARS, LENGTH_MEDIUM_CHARS, LENGTH_LONG_CHARS
+    - AUTO_LENGTH_THRESHOLDS, AUTO_LENGTH_FALLBACK_CHARS
+    """
+    length = (length or getattr(config, 'DEFAULT_LENGTH', 'medium')).lower()
+    
     if length == 'short':
-        return 140, 'short'
+        return getattr(config, 'LENGTH_SHORT_CHARS', 140), 'short'
     if length == 'long':
-        return 240, 'long'
+        return getattr(config, 'LENGTH_LONG_CHARS', 240), 'long'
     if length == 'auto':
-        # Auto scale: more posts -> slightly shorter lines
-        if n_posts <= 4:
-            return 240, 'auto'
-        if n_posts <= 8:
-            return 200, 'auto'
-        if n_posts <= 12:
-            return 180, 'auto'
-        return 160, 'auto'
-    return 200, 'medium'
+        # Auto scale: more posts -> slightly shorter lines (configurable thresholds)
+        thresholds = getattr(config, 'AUTO_LENGTH_THRESHOLDS', [(4, 240), (8, 200), (12, 180)])
+        for threshold, chars in thresholds:
+            if n_posts <= threshold:
+                return chars, 'auto'
+        return getattr(config, 'AUTO_LENGTH_FALLBACK_CHARS', 160), 'auto'
+    
+    # Default: medium
+    return getattr(config, 'LENGTH_MEDIUM_CHARS', 200), 'medium'
 
 
 def _clean_line(s: str) -> str:
@@ -144,9 +151,13 @@ def _extract_text(out) -> str:
 
 
 def generate_thread(topic: str, n_posts: int, tone: str | None, hashtags: str, instructions: str, length: str, offset: int = 0) -> List[str]:
-    n = max(2, min(25, int(n_posts or 6)))
+    min_posts = getattr(config, 'MIN_THREAD_POSTS', 2)
+    max_posts = getattr(config, 'MAX_THREAD_POSTS', 25)
+    default_n = getattr(config, 'DEFAULT_THREAD_N', 6)
+    n = max(min_posts, min(max_posts, int(n_posts or default_n)))
     target, _ = _length_target(length, n)
     tone = tone or config.DEFAULT_TONE
+    model_identity = getattr(config, 'MODEL_IDENTITY', 'XGenBot AI')
     role_pattern = (config.THREAD_ROLE_PATTERN or '')
     roles: list[str] = []
     if role_pattern:
@@ -164,7 +175,7 @@ def generate_thread(topic: str, n_posts: int, tone: str | None, hashtags: str, i
 
     numbering_clause = "Never prepend ratios like 1/5 or (1)." if config.THREAD_ENUM_FORMAT == 'none' else "Use light, natural sequencing only when it reads organically; avoid '1/5' style counters."
     prompt_parts = [
-        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a senior social strategist.",
+        f"You are {model_identity} acting as a senior social strategist.",
         "Goal: craft a native X/Twitter thread that feels insightful and concise.",
         "",
         "Thread requirements:",
@@ -246,8 +257,9 @@ def format_thread_preview(posts: List[str]) -> List[str]:
 def generate_tweet(topic: str, tone: str | None, length: str, hashtags: str) -> str:
     target, _ = _length_target(length, 1)
     tone = tone or config.DEFAULT_TONE
+    model_identity = getattr(config, 'MODEL_IDENTITY', 'XGenBot AI')
     prompt_parts = [
-        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a senior X/Twitter copywriter.",
+        f"You are {model_identity} acting as a senior X/Twitter copywriter.",
         "Task: craft exactly one scroll-stopping tweet for the topic below.",
         "",
         "Tweet requirements:",
@@ -288,11 +300,12 @@ def generate_tweet(topic: str, tone: str | None, length: str, hashtags: str) -> 
 def generate_reply(context_text: str, tone: str | None, length: str, instructions: str) -> str:
     target, _ = _length_target(length, 1)
     tone = tone or config.DEFAULT_TONE
+    model_identity = getattr(config, 'MODEL_IDENTITY', 'XGenBot AI')
     guidance_section = ''
     if instructions:
         guidance_section = "Additional guidance:\n" + instructions.strip()
     prompt_parts = [
-        "You are Meta Llama 3.1 8B Instruct Q4_K_M acting as a thoughtful X/Twitter responder.",
+        f"You are {model_identity} acting as a thoughtful X/Twitter responder.",
         "Task: write one native reply to the post below.",
         "",
         "Reply requirements:",

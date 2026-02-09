@@ -21,6 +21,11 @@ def escape_html(text: str) -> str:
     # First, remove any MarkdownV2 specific escapes (\) that might be left
     # This is crucial because HTML doesn't use them and they appear as literal \.
     cleaned_text = text.replace('\\', '') 
+
+    # Remove special inference markers sometimes returned by models (e.g., DeepSeek)
+    markers_to_strip = ["<|end_of_sentence|>", "<｜end▁of▁sentence｜>"]
+    for marker in markers_to_strip:
+        cleaned_text = cleaned_text.replace(marker, '')
     
     # Remove </s> or <s> tags if present in AI output
     cleaned_text = re.sub(r'</?s>', '', cleaned_text).strip()
@@ -247,9 +252,15 @@ def format_final_message(
     now = escape_html(datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'))
     escaped_takeaway = escape_html(takeaway) # Escape the fallback or parsed takeaway
 
-    company_name = market_data.get('company_name', '').strip()
-    ticker = market_data.get('symbol', topic.upper()).strip().upper()
-    asset_type = market_data.get('type', '').strip().lower()
+    raw_company = market_data.get('company_name')
+    company_name = raw_company.strip() if isinstance(raw_company, str) else ''
+
+    raw_symbol = market_data.get('symbol')
+    symbol_source = raw_symbol if isinstance(raw_symbol, str) and raw_symbol.strip() else topic
+    ticker = symbol_source.strip().upper()
+
+    raw_asset_type = market_data.get('type')
+    asset_type = raw_asset_type.strip().lower() if isinstance(raw_asset_type, str) else ''
     # --- HEADER LABEL LOGIC ---
     if asset_type == 'crypto':
         header_label = 'Crypto'

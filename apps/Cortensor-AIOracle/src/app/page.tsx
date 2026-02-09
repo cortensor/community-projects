@@ -11,6 +11,7 @@ import { RealtimeLoading } from '../components/realtime-loading'
 import { QueryHistory } from '../components/query-history'
 import { AVAILABLE_MODELS, ModelConfig } from '../lib/models'
 import type { OracleFact } from '../lib/oracle-facts'
+import { Skeleton } from '../components/ui/skeleton'
 
 const USER_ID_STORAGE_KEY = 'ai-oracle-user-id'
 
@@ -84,6 +85,7 @@ export default function HomePage() {
   const [loadingComplete, setLoadingComplete] = useState(false)
   const [results, setResults] = useState<QueryResult | null>(null)
   const [queryHistory, setQueryHistory] = useState<QueryResult[]>([])
+  const [isHistoryHydrated, setIsHistoryHydrated] = useState(false)
   const [randomFact, setRandomFact] = useState<RandomFact | null>(null)
   const [isRandomFactLoading, setIsRandomFactLoading] = useState(false)
   const [randomFactError, setRandomFactError] = useState('')
@@ -133,6 +135,7 @@ export default function HomePage() {
         console.error('Error loading query history:', error)
       }
     }
+    setIsHistoryHydrated(true)
   }, [])
 
   useEffect(() => {
@@ -283,6 +286,19 @@ export default function HomePage() {
     setResults(null)
 
     try {
+      const readJsonResponse = async (res: Response) => {
+        const contentType = res.headers.get('content-type') || ''
+        if (contentType.toLowerCase().includes('application/json')) {
+          return await res.json()
+        }
+        const text = await res.text()
+        const snippet = text.replace(/\s+/g, ' ').trim().slice(0, 220)
+        throw new Error(
+          `API returned non-JSON response (status ${res.status}). ` +
+            (snippet ? `Body starts with: ${snippet}` : 'Empty response body')
+        )
+      }
+
       const activeUserId = ensureUserId()
       const clientReference = activeUserId ? `user-oracle-${activeUserId.replace(/^usr-/, '')}` : undefined
       // Direct submission - no WebSocket wait
@@ -297,10 +313,16 @@ export default function HomePage() {
           topK: selectedModel.topK,
           topP: selectedModel.topP,
           clientReference
-        })
+        }),
+        cache: 'no-store'
       })
-      
-      const data = await response.json()
+
+      const data = await readJsonResponse(response)
+      if (!response.ok) {
+        const msg = (data && (data.error || data.message)) || response.statusText || 'Request failed'
+        throw new Error(msg)
+      }
+
       const responseData = data.data || data
       const effectiveClientReference = responseData.clientReference || clientReference
       
@@ -317,7 +339,7 @@ export default function HomePage() {
           // Fetch detailed task information using the taskId
           const taskResponse = await fetch(`/api/tasks/${taskId}`)
           if (taskResponse.ok) {
-            realMinerData = await taskResponse.json()
+            realMinerData = await readJsonResponse(taskResponse)
             console.log('Task details fetched:', realMinerData)
           }
         } catch (err) {
@@ -608,7 +630,16 @@ export default function HomePage() {
 
               {/* Query History */}
               <div className="w-full">
-                {queryHistory.length === 0 ? (
+                {!isHistoryHydrated ? (
+                  <div className="max-w-4xl mx-auto">
+                    <div className="border rounded-lg p-4 space-y-3">
+                      <Skeleton className="h-4 w-48" />
+                      <Skeleton className="h-3 w-full" />
+                      <Skeleton className="h-3 w-5/6" />
+                      <Skeleton className="h-3 w-2/3" />
+                    </div>
+                  </div>
+                ) : queryHistory.length === 0 ? (
                   <p className="text-center text-gray-500 py-4">No queries yet. Ask the Oracle to see history.</p>
                 ) : (
                   <QueryHistory queries={queryHistory} />
@@ -825,7 +856,7 @@ export default function HomePage() {
               Powered by <span className="font-semibold text-blue-600 dark:text-blue-400">Cortensor Network</span>
             </p>
             <p className="text-xs text-gray-400 mt-1">
-              Decentralized AI consensus • {process.env.MODEL_NAME || 'Eureka'} Model
+              Decentralized AI consensus • {process.env.MODEL_NAME || 'GPT OSS 20B'} Model
             </p>
           </footer>
         </div>

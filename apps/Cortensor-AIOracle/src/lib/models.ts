@@ -19,21 +19,21 @@ export interface ModelConfig {
 
 export const AVAILABLE_MODELS: ModelConfig[] = [
   {
-    id: 'deepseek-r1',
-    name: 'Deepseek R1',
-    displayName: 'Deepseek R1',
-  sessionId: process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID || '0',
+    id: 'gpt-oss-20b',
+    name: 'GPT OSS 20B',
+    displayName: 'GPT OSS 20B',
+    sessionId: process.env.NEXT_PUBLIC_OSS20B_SESSION_ID || process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID || '5',
     promptType: 1, // RAW mode
-    nodeType: 2, // Node type for Deepseek
-    maxTokens: 5000,
-    temperature: 0.7,
-    topP: 0.95,
+    nodeType: 2,
+    maxTokens: 6000,
+    temperature: 0.55,
+    topP: 0.9,
     topK: 40,
     presencePenalty: 0,
     frequencyPenalty: 0,
-    timeout: 600, // 10 minutes for more miner participation
-    description: 'Advanced reasoning model with step-by-step thinking',
-    capabilities: ['Deep Reasoning', 'Chain of Thought', 'Technical Analysis']
+    timeout: 480, // prioritize faster turn-around for 20B
+    description: 'Open-weight GPT OSS 20B tuned for factual, source-grounded answers',
+    capabilities: ['Evidence-first', 'Concise Synthesis', 'Low Hallucination']
   }
   // Llava 1.5 disabled for now
   // {
@@ -114,39 +114,32 @@ INSTRUCTIONS FOR LLAVA 1.5 (TEXT-ONLY MODE):
 
 RESPONSE FORMAT: Provide a clear, direct answer to the query with factual backing.`
 
-    case 'deepseek-r1':
+    case 'gpt-oss-20b':
       return `${baseContext}
 
-INSTRUCTIONS FOR DEEPSEEK R1 (RAW, HIGH-ACCURACY):
-- Think step-by-step internally, but NEVER reveal chain-of-thought. Output only final conclusions.
-- Use the REAL-TIME DATA SOURCES above when present; they override stale training data.
-- Be specific with dates, numbers, symbols (USD $), and named entities.
-- Prefer credible domains for claims (gov/edu, NASA, Reuters/AP, major newspapers, established fact-checkers).
+INSTRUCTIONS FOR GPT OSS 20B (FACT-OPTIMIZED):
+- Reason silently; never expose chain-of-thought or XML tags.
+- Lead with a single-sentence answer. For claim checks, start with “Yes,” or “No,” decisively.
+- Treat REAL-TIME DATA SOURCES as the primary truth; only use training data to fill small gaps.
+- Use explicit numbers, dates, and currency markers (USD $). Avoid vague terms like “recently” or “about”.
+- Keep total output under ~170 words unless the user asks for more.
+- If uncertain, say what is missing and what would verify it.
 
-STRICT OUTPUT RULES:
-1) Start with a direct answer in one short sentence (no preamble). If the query is a claim/hoax check, begin with “Yes,” or “No,” clearly.
-2) Then provide 2–4 bullet points of key evidence with concrete facts (dates, figures, quotes), prioritized from the provided real-time sources.
-3) Then list 1–3 Sources as title + URL. Use reputable links only; avoid blogs or forums unless the claim pertains specifically to them.
-4) Do NOT include chain-of-thought, internal notes, or XML-like tags (no <think>, no analysis sections).
-5) Keep total output under ~180 words unless explicitly asked for more detail.
-
-DOMAIN-SPECIFIC GUIDANCE:
-- Fact-check/Hoax: If no reputable source confirms the claim, answer “No,” and cite credible debunks (e.g., NASA/.gov, Reuters/AP, Snopes/PolitiFact/FactCheck.org/FullFact). Avoid hedging if evidence is clear.
-- Numeric range (e.g., prices): Provide a range “between $X and $Y” in USD, both ends numeric with thousands separators (e.g., $120,000 and $130,000). Don’t output a single point unless asked.
-- Sports/F1: Prefer official sources and the latest verified results. Be precise about event name and date.
-- Markets: Prefer current price/market data when provided. Avoid predictions without a justified range and evidence.
-
-RESPONSE FORMAT TEMPLATE:
-Answer: <one-sentence conclusion>
+RESPONSE FORMAT (STRICT):
+Answer: <concise conclusion>
 Key Evidence:
-- <fact 1>
-- <fact 2>
-- <fact 3>
+- <dated fact with number or quote>
+- <another fact; prefer external data>
+- <optional third fact>
 Sources:
-- <title 1> — <url>
-- <title 2> — <url>
+- <title> — <url>
+- <title> — <url>
 
-Do not include any other sections.`
+DOMAIN NOTES:
+- Fact/Hoax: If no reputable confirmation, answer “No,” and cite high-credibility debunks (gov/edu, Reuters/AP, Snopes/PolitiFact/FactCheck/FullFact).
+- Numeric ranges: give bounded ranges (e.g., between $120,000 and $130,000) instead of point estimates unless the user asks for a single value.
+- Sports/F1: name the event and date; prefer official series sites or federation releases.
+- Markets: prefer current price feeds; do not predict without evidence.`
 
     default:
       return `${baseContext}

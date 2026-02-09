@@ -22,10 +22,11 @@ import {
 interface HistoryPanelProps {
   onLoadHistoryItem: (item: HistoryItem) => void;
   onHistoryChange?: () => void; // Callback when history changes
+  userId?: string | null;
   className?: string;
 }
 
-export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: HistoryPanelProps) {
+export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, userId, className }: HistoryPanelProps) {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredHistory, setFilteredHistory] = useState<HistoryItem[]>([]);
@@ -33,20 +34,29 @@ export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: 
 
   useEffect(() => {
     loadHistory();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   useEffect(() => {
     if (searchQuery.trim()) {
-      setFilteredHistory(HistoryService.searchHistory(searchQuery.trim()));
+      const q = searchQuery.trim().toLowerCase();
+      setFilteredHistory(
+        history.filter(item =>
+          item.title.toLowerCase().includes(q) ||
+          item.url.toLowerCase().includes(q) ||
+          item.summary.toLowerCase().includes(q) ||
+          (item.author && item.author.toLowerCase().includes(q))
+        )
+      );
     } else {
       setFilteredHistory(history);
     }
   }, [searchQuery, history]);
 
-  const loadHistory = () => {
+  const loadHistory = async () => {
     setIsLoading(true);
     try {
-      const items = HistoryService.getHistory();
+      const items = await HistoryService.getHistory(userId);
       setHistory(items);
       setFilteredHistory(items);
     } catch (error) {
@@ -56,17 +66,17 @@ export function HistoryPanel({ onLoadHistoryItem, onHistoryChange, className }: 
     }
   };
 
-  const handleDeleteItem = (id: string, event: React.MouseEvent) => {
+  const handleDeleteItem = async (id: string, event: React.MouseEvent) => {
     event.stopPropagation();
-    HistoryService.deleteHistoryItem(id);
-    loadHistory();
+    await HistoryService.deleteHistoryItem(userId, id);
+    await loadHistory();
     onHistoryChange?.(); // Notify parent of change
   };
 
-  const handleClearHistory = () => {
+  const handleClearHistory = async () => {
     if (window.confirm('Are you sure you want to clear all history? This action cannot be undone.')) {
-      HistoryService.clearHistory();
-      loadHistory();
+      await HistoryService.clearHistory(userId);
+      await loadHistory();
       onHistoryChange?.(); // Notify parent of change
     }
   };

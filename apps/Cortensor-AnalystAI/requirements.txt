@@ -10,3 +10,4 @@ thefuzz[speedup]
 yfinance
 SQLAlchemy<2.0 
 pytz       
+matplotlib

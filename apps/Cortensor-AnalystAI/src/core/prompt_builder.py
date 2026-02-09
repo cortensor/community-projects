@@ -5,30 +5,85 @@ def build_analyst_prompt(market_data: dict, news_data: list[dict]) -> str:
     Builds a DeepSeek R1–compatible prompt for zero‑hallucination, strict sentiment alignment,
     and English‑only expert analysis.
     """
-    asset_type = market_data.get('type', 'Asset')
-    asset_name = market_data.get('name', 'N/A')
+    def safe_text(value, default=''):
+        if isinstance(value, str):
+            return value
+        if value is None:
+            return default
+        return str(value)
+
+    def safe_float(value, default=0.0):
+        if isinstance(value, (int, float)):
+            return float(value)
+        if isinstance(value, str):
+            cleaned = value.replace(',', '').strip()
+            if not cleaned:
+                return default
+            try:
+                return float(cleaned)
+            except ValueError:
+                return default
+        return default
+
+    asset_type_raw = market_data.get('type')
+    asset_type = safe_text(asset_type_raw, 'Asset').strip() or 'Asset'
+
+    asset_name_source = (
+        market_data.get('name')
+        or market_data.get('company_name')
+        or market_data.get('symbol')
+        or 'N/A'
+    )
+    asset_name = safe_text(asset_name_source, 'N/A').strip() or 'N/A'
 
     # Market Data block
     summary = [f"## MARKET DATA for {asset_name.upper()} ({asset_type.upper()}):"]
-    if asset_type == "Crypto":
+    if asset_type.lower() == "crypto":
+        current_price = safe_float(market_data.get('current_price'))
+        change_24h = safe_float(market_data.get('price_change_24h_pct'))
+        change_7d = safe_float(market_data.get('price_change_7d_pct'))
+        change_30d = safe_float(market_data.get('price_change_30d_pct'))
+        volume_24h = safe_float(market_data.get('trading_volume_24h'))
+        market_cap = safe_float(market_data.get('market_cap'))
+
         summary += [
-            f"- Current Price: ${market_data.get('current_price', 0):,.2f} USD",
-            f"- 24h Change: {market_data.get('price_change_24h_pct', 0):+.2f}%",
-            f"- 7d Change: {market_data.get('price_change_7d_pct', 0):+.2f}%",
-            f"- 30d Change: {market_data.get('price_change_30d_pct', 0):+.2f}%",
-            f"- 24h Volume: ${market_data.get('trading_volume_24h', 0):,.0f} USD",
-            f"- Market Cap: ${market_data.get('market_cap', 0):,.0f} USD"
+            f"- Current Price: ${current_price:,.2f} USD",
+            f"- 24h Change: {change_24h:+.2f}%",
+            f"- 7d Change: {change_7d:+.2f}%",
+            f"- 30d Change: {change_30d:+.2f}%",
+            f"- 24h Volume: ${volume_24h:,.0f} USD",
+            f"- Market Cap: ${market_cap:,.0f} USD"
         ]
     else: # Stock type
+        current_price = safe_float(market_data.get('current_price'))
+        price_change_pct = safe_float(market_data.get('price_change_pct'))
+        change_7d = safe_float(market_data.get('price_change_7d_pct'))
+        change_30d = safe_float(market_data.get('price_change_30d_pct'))
+        trading_volume = safe_float(market_data.get('trading_volume'))
+        market_cap = safe_float(market_data.get('market_cap'))
+
+        pe_ratio_value = safe_text(market_data.get('pe_ratio'))
+        eps_value = safe_text(market_data.get('eps_ttm'))
+
+        try:
+            pe_ratio_display = f"{float(pe_ratio_value):.2f}"
+        except (TypeError, ValueError):
+            pe_ratio_display = pe_ratio_value.strip() if pe_ratio_value and pe_ratio_value.strip() else 'N/A'
+
+        try:
+            eps_display = f"{float(eps_value):.2f}"
+        except (TypeError, ValueError):
+            eps_display = eps_value.strip() if eps_value and eps_value.strip() else 'N/A'
+
         summary += [
-            f"- Current Price: ${market_data.get('current_price', 0):,.2f} USD",
-            f"- Today’s Change: {market_data.get('price_change_pct', 0):+.2f}%",
-            f"- 7d Change: {market_data.get('price_change_7d_pct', 0):+.2f}%",
-            f"- 30d Change: {market_data.get('price_change_30d_pct', 0):+.2f}%",
-            f"- Volume Today: {market_data.get('trading_volume', 0):,.0f} shares",
-            f"- Market Cap: ${market_data.get('market_cap', 0):,.0f} USD",
-            f"- P/E Ratio: {market_data.get('pe_ratio', 'N/A')}",
-            f"- EPS (TTM): {market_data.get('eps_ttm', 'N/A')}"
+            f"- Current Price: ${current_price:,.2f} USD",
+            f"- Today’s Change: {price_change_pct:+.2f}%",
+            f"- 7d Change: {change_7d:+.2f}%",
+            f"- 30d Change: {change_30d:+.2f}%",
+            f"- Volume Today: {trading_volume:,.0f} shares",
+            f"- Market Cap: ${market_cap:,.0f} USD",
+            f"- P/E Ratio: {pe_ratio_display}",
+            f"- EPS (TTM): {eps_display}"
         ]
 
     # News block

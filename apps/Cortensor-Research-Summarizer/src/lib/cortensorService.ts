@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { ArticleContent } from './urlFetcher';
+import { env, debugLog } from './env';
 
 export interface SummaryResult {
   summary: string;
@@ -41,34 +42,61 @@ export class CortensorService {
   private readonly maxContentCharactersCap: number | null;
 
   constructor() {
-    this.apiKey = process.env.CORTENSOR_API_KEY || '';
-    
-    // Use the standard API endpoint as per documentation
-    const baseUrl = process.env.CORTENSOR_BASE_URL || 'http://69.164.253.134:5010';
-    this.apiUrl = `${baseUrl}/api/v1/completions`;
-    
-    // Get session ID from environment variable
-    this.sessionId = parseInt(process.env.CORTENSOR_SESSION || '6');
-    this.promptType = parseInt(process.env.CORTENSOR_PROMPT_TYPE || '1');
-    this.timeout = parseInt(process.env.CORTENSOR_TIMEOUT || '300');
-    this.precommitTimeout = parseInt(process.env.CORTENSOR_PRECOMMIT_TIMEOUT || '90');
-    this.maxTokens = parseInt(process.env.CORTENSOR_MAX_TOKENS || '6000');
-    this.temperature = parseFloat(process.env.CORTENSOR_TEMPERATURE || '0.3');
-    this.topP = parseFloat(process.env.CORTENSOR_TOP_P || '0.9');
-    this.topK = parseInt(process.env.CORTENSOR_TOP_K || '40');
-    this.presencePenalty = parseFloat(process.env.CORTENSOR_PRESENCE_PENALTY || '0');
-    this.frequencyPenalty = parseFloat(process.env.CORTENSOR_FREQUENCY_PENALTY || '0');
-    this.stream = process.env.CORTENSOR_STREAM === 'true';
-  this.sessionLimitsLoaded = false;
-  this.fallbackMaxContextTokens = parseInt(process.env.CORTENSOR_FALLBACK_MAX_CONTEXT_TOKENS || '5000', 10);
-  this.promptTokenReserve = parseInt(process.env.CORTENSOR_PROMPT_TOKEN_RESERVE || '1200', 10);
-  this.averageCharsPerToken = parseFloat(process.env.CORTENSOR_AVG_CHARS_PER_TOKEN || '3');
-  const configuredMaxChars = parseInt(process.env.CORTENSOR_MAX_CONTENT_CHARS || '9500', 10);
-  this.maxContentCharactersCap = Number.isFinite(configuredMaxChars) && configuredMaxChars > 0 ? configuredMaxChars : null;
-    
-    if (!this.apiKey) {
-      throw new Error('CORTENSOR_API_KEY is required');
-    }
+    this.apiKey = env.CORTENSOR_API_KEY;
+
+    this.apiUrl = `${env.CORTENSOR_BASE_URL}/api/v1/completions`;
+    debugLog('🔗 Cortensor API URL:', this.apiUrl);
+
+    this.sessionId = env.CORTENSOR_SESSION;
+    this.promptType = env.CORTENSOR_PROMPT_TYPE;
+    this.timeout = env.CORTENSOR_TIMEOUT;
+    this.precommitTimeout = env.CORTENSOR_PRECOMMIT_TIMEOUT;
+    this.maxTokens = env.CORTENSOR_MAX_TOKENS;
+    this.temperature = env.CORTENSOR_TEMPERATURE;
+    this.topP = env.CORTENSOR_TOP_P;
+    this.topK = env.CORTENSOR_TOP_K;
+    this.presencePenalty = env.CORTENSOR_PRESENCE_PENALTY;
+    this.frequencyPenalty = env.CORTENSOR_FREQUENCY_PENALTY;
+    this.stream = env.CORTENSOR_STREAM;
+
+    this.sessionLimitsLoaded = false;
+    this.fallbackMaxContextTokens = env.CORTENSOR_FALLBACK_MAX_CONTEXT_TOKENS;
+    this.promptTokenReserve = env.CORTENSOR_PROMPT_TOKEN_RESERVE;
+    this.averageCharsPerToken = env.CORTENSOR_AVG_CHARS_PER_TOKEN;
+    const configuredMaxChars = env.CORTENSOR_MAX_CONTENT_CHARS;
+    this.maxContentCharactersCap = Number.isFinite(configuredMaxChars) && configuredMaxChars > 0 ? configuredMaxChars : null;
+  }
+
+  private buildCompletionRequestPayload(prompt: string, clientReference: string) {
+    return {
+      session_id: this.sessionId,
+      prompt_type: this.promptType,
+      prompt,
+      stream: this.stream,
+      timeout: this.timeout,
+      precommit_timeout: this.precommitTimeout,
+      max_tokens: this.maxTokens,
+      temperature: this.temperature,
+      top_p: this.topP,
+      top_k: this.topK,
+      presence_penalty: this.presencePenalty,
+      frequency_penalty: this.frequencyPenalty,
+      client_reference: clientReference
+    };
+  }
+
+  private buildAxiosConfig() {
+    const timeoutMs = Number.isFinite(this.timeout) && this.timeout > 0
+      ? (this.timeout + Math.max(this.precommitTimeout, 0) + 60) * 1000
+      : 360000;
+
+    return {
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      timeout: timeoutMs
+    };
   }
 
   async generateSummary(article: ArticleContent, clientReference?: string): Promise<SummaryResult> {
@@ -79,23 +107,26 @@ export class CortensorService {
       const promptArticle: ArticleContent = { ...article, content: truncation.text };
       const prompt = this.createSummaryPrompt(promptArticle, truncation.truncated);
       const effectiveClientReference = clientReference ?? this.generateFallbackClientReference('summary');
-      const requestPayload = {
-        session_id: this.sessionId, // Use session_id from environment variable
-        prompt,
-        stream: this.stream,
+      const requestPayload = this.buildCompletionRequestPayload(prompt, effectiveClientReference);
+
+      debugLog('🧩 Cortensor request params:', {
+        session_id: this.sessionId,
+        prompt_type: this.promptType,
+        max_tokens: this.maxTokens,
         timeout: this.timeout,
-        client_reference: effectiveClientReference
-      };
+        precommit_timeout: this.precommitTimeout,
+        temperature: this.temperature,
+        top_p: this.topP,
+        top_k: this.topK,
+        presence_penalty: this.presencePenalty,
+        frequency_penalty: this.frequencyPenalty,
+        stream: this.stream
+      });
       
       const response = await axios.post(
         this.apiUrl,
         requestPayload,
-        {
-          headers: {
-            'Authorization': `Bearer ${this.apiKey}`,
-            'Content-Type': 'application/json'
-          }
-        }
+        this.buildAxiosConfig()
       );
 
       const summaryText = response.data.choices?.[0]?.text || response.data.text || '';
@@ -127,23 +158,12 @@ export class CortensorService {
     try {
       const prompt = this.createEnrichmentPrompt(originalSummary, additionalSources);
       const effectiveClientReference = clientReference ?? this.generateFallbackClientReference('enrich');
-      const requestPayload = {
-        session_id: this.sessionId, // Use session_id from environment variable
-        prompt,
-        stream: this.stream,
-        timeout: this.timeout,
-        client_reference: effectiveClientReference
-      };
+      const requestPayload = this.buildCompletionRequestPayload(prompt, effectiveClientReference);
       
       const response = await axios.post(
         this.apiUrl,
         requestPayload,
-        {
-          headers: {
-            'Authorization': `Bearer ${this.apiKey}`,
-            'Content-Type': 'application/json'
-          }
-        }
+        this.buildAxiosConfig()
       );
 
       const enrichedText = response.data.choices?.[0]?.text || response.data.text || '';
@@ -229,12 +249,16 @@ Begin your professional analysis now:`;
       const discoveredLimit = await this.fetchContextLimit();
       if (typeof discoveredLimit === 'number') {
         this.maxContextTokens = discoveredLimit;
-        console.log('Cortensor session max context (tokens):', discoveredLimit);
+        debugLog('Cortensor session max context (tokens):', discoveredLimit);
         return;
       }
-      console.warn('Cortensor session response did not include a max context value. Falling back to 5K-token defaults.');
+      console.warn(
+        `Cortensor session response did not include a max context value. Falling back to ${this.fallbackMaxContextTokens}-token defaults.`
+      );
     } catch (error) {
-      console.warn('Unable to fetch Cortensor session limits via HTTP. Using fallback 5K-token configuration.');
+      console.warn(
+        `Unable to fetch Cortensor session limits via HTTP. Using fallback ${this.fallbackMaxContextTokens}-token configuration.`
+      );
       if (error instanceof Error) {
         console.warn(error.message);
       }
@@ -650,7 +674,7 @@ Begin summary enhancement:`;
   }
 
   private shouldEnrich(summary: SummaryResult): boolean {
-    const minParagraphs = parseInt(process.env.MIN_SUMMARY_PARAGRAPHS || '3');
+    const minParagraphs = env.MIN_SUMMARY_PARAGRAPHS;
     const paragraphCount = summary.summary.split('\n\n').length;
     
     return (

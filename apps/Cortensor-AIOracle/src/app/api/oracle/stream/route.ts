@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const query = searchParams.get('query') || ''
     const sessionId = searchParams.get('sessionId') || String(CORTENSOR_CONFIG.SESSION_ID)
-    const modelId = searchParams.get('modelId') || 'deepseek-r1'
+    const modelId = searchParams.get('modelId') || 'gpt-oss-20b'
     const miners = Math.max(3, Math.min(parseInt(searchParams.get('miners') || '5', 10), 15))
     const temperature = parseFloat(searchParams.get('temperature') || '0.7')
     const topK = parseInt(searchParams.get('topK') || '40', 10)

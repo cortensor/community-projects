@@ -300,7 +300,7 @@ const defaultSteps: LoadingStep[] = [
   {
     id: 'ai',
     title: 'AI Synthesis',
-    description: 'Generating institutional-grade narrative with Cortensor',
+    description: 'Generating institutional-grade narrative with Cortensor (may take a few minutes)',
     icon: Brain,
     status: 'pending',
   },
@@ -318,6 +318,8 @@ export default function PriceAnalyzerForm() {
   const [steps, setSteps] = useState<LoadingStep[]>(defaultSteps);
   const [showHistory, setShowHistory] = useState(false);
   const [historyCount, setHistoryCount] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [wasCached, setWasCached] = useState(false);
 
   const historySeries = useMemo<CandleWithClose[]>(() => {
     if (!result) return [];
@@ -353,9 +355,25 @@ export default function PriceAnalyzerForm() {
     }
   }, [ticker]);
 
+  // Timer for elapsed time during loading
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (isLoading) {
+      setElapsedTime(0);
+      interval = setInterval(() => {
+        setElapsedTime((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isLoading]);
+
   const resetSteps = () => {
     setSteps(defaultSteps.map((step: LoadingStep) => ({ ...step, status: 'pending' })));
     setProgress(0);
+    setElapsedTime(0);
+    setWasCached(false);
   };
 
   const updateStep = (stepId: string, status: LoadingStep['status'], completedIndex?: number) => {
@@ -391,23 +409,27 @@ export default function PriceAnalyzerForm() {
       });
 
       if (!response.ok) {
-        throw new Error(`Analysis failed: ${response.statusText}`);
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.error || `Analysis failed: ${response.statusText}`;
+        throw new Error(errorMessage);
       }
 
       const payload = await response.json();
       const data: AnalyzerResponse = payload.data;
+      const isCached = payload.cached === true;
 
       updateStep('technicals', 'completed', 1);
 
       updateStep('fundamentals', 'active');
-      await new Promise((resolve) => setTimeout(resolve, 250));
+      await new Promise((resolve) => setTimeout(resolve, isCached ? 50 : 250));
       updateStep('fundamentals', 'completed', 2);
 
       updateStep('ai', 'active');
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, isCached ? 50 : 200));
       updateStep('ai', 'completed', 3);
 
       setResult(data);
+      setWasCached(isCached);
       setProgress(100);
 
       HistoryService.saveToHistory({ report: data });
@@ -633,19 +655,31 @@ export default function PriceAnalyzerForm() {
             {isLoading && (
               <Card className="border-blue-200 bg-blue-50/60">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-blue-700">
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Pipeline Progress</span>
+                  <CardTitle className="flex items-center justify-between text-blue-700">
+                    <div className="flex items-center space-x-2">
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span>Pipeline Progress</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm font-normal">
+                      <Clock className="h-4 w-4" />
+                      <span>{elapsedTime}s</span>
+                    </div>
                   </CardTitle>
                   <Progress value={progress} className="h-2" />
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-start gap-3 rounded-md border border-blue-200 bg-white/80 p-3 text-sm text-slate-700">
                     <Info className="mt-0.5 h-4 w-4 text-blue-600" />
-                    <p>
-                      Technical scan and AI synthesis may take 1–3 minutes when the network is busy. Hang tight—we&apos;ll finalize
-                      the analysis as soon as the data pipeline completes.
-                    </p>
+                    <div>
+                      <p>
+                        AI synthesis may take a few minutes when the network is busy. We&apos;ll handle transient failures automatically.
+                      </p>
+                      {elapsedTime > 30 && (
+                        <p className="mt-1 text-xs text-blue-600">
+                          Still working... The AI service might be under heavy load. Thank you for your patience.
+                        </p>
+                      )}
+                    </div>
                   </div>
                   {steps.map((step: LoadingStep) => (
                     <div
@@ -691,13 +725,19 @@ export default function PriceAnalyzerForm() {
                 <Card className="shadow-sm border-slate-200">
                   <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <Badge variant="secondary" className="uppercase tracking-wide">
                           {result.meta.assetType}
                         </Badge>
                         <Badge variant="outline">Horizon: {result.meta.horizon}</Badge>
                         {result.ai.confidence && (
                           <Badge variant="outline">Confidence: {result.ai.confidence}</Badge>
+                        )}
+                        {wasCached && (
+                          <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                            <Zap className="h-3 w-3 mr-1" />
+                            Cached
+                          </Badge>
                         )}
                       </div>
                       <h2 className="text-xl font-bold text-slate-900">

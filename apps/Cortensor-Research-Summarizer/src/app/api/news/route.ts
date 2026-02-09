@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { fetchNews } from '@/lib/newsService';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 type Category = 'general' | 'technology' | 'science' | 'random';
 
 export async function GET(request: Request) {

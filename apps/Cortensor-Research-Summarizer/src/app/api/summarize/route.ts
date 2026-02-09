@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { URLFetcher } from '@/lib/urlFetcher';
 import { CortensorService } from '@/lib/cortensorService';
 import { SearchService } from '@/lib/searchService';
+import { debugLog } from '@/lib/env';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 // Function to filter DeepSeek thinking process and extract only the actual response
 function filterDeepSeekOutput(text: string): string {
   if (!text) return '';
   
-  console.log('🧠 Raw DeepSeek output length:', text.length);
+  debugLog('🧠 Raw DeepSeek output length:', text.length);
   
   // Remove <think>...</think> blocks
   let cleaned = text.replace(/<think>[\s\S]*?<\/think>/gi, '');
@@ -16,9 +20,9 @@ function filterDeepSeekOutput(text: string): string {
   const thinkEndIndex = text.toLowerCase().lastIndexOf('</think>');
   if (thinkEndIndex !== -1) {
     cleaned = text.substring(thinkEndIndex + 8).trim(); // 8 = length of '</think>'
-    console.log('🎯 Found </think> tag, extracted content after it');
+    debugLog('🎯 Found </think> tag, extracted content after it');
   } else {
-    console.log('ℹ️ No </think> tag found, using cleaned text');
+    debugLog('ℹ️ No </think> tag found, using cleaned text');
   }
   
   // Clean up any remaining artifacts
@@ -29,7 +33,7 @@ function filterDeepSeekOutput(text: string): string {
     .replace(/▁/g, ' ')
     .trim();
     
-  console.log('✅ Filtered output length:', cleaned.length);
+  debugLog('✅ Filtered output length:', cleaned.length);
   return cleaned;
 }
 
@@ -48,7 +52,7 @@ function processSummaryResponse(summaryData: { summary?: string; keyPoints?: str
   
   if (keyInsightsMatch) {
     const keyInsightsText = keyInsightsMatch[1];
-    console.log('🔍 Found key insights text:', keyInsightsText.substring(0, 200) + '...');
+    debugLog('🔍 Found key insights text:', keyInsightsText.substring(0, 200) + '...');
     
     // Split by bullet points first - look for • followed by text
     const bulletSplit = keyInsightsText.split(/\s*•\s*/).filter(part => part.trim().length > 10);
@@ -67,7 +71,7 @@ function processSummaryResponse(summaryData: { summary?: string; keyPoints?: str
           .trim();
       }).filter(point => point.length > 15);
       
-      console.log('✅ Extracted', keyPoints.length, 'key points from bullet splits');
+      debugLog('✅ Extracted', keyPoints.length, 'key points from bullet splits');
     } else {
       // Fallback: try other bullet patterns
       const bulletPoints = keyInsightsText.match(/(?:^|\n)[\s]*(?:[-•*]|\d+\.)\s*(.+)/gm);
@@ -76,13 +80,13 @@ function processSummaryResponse(summaryData: { summary?: string; keyPoints?: str
         keyPoints = bulletPoints.map(point => 
           point.replace(/^[\s]*(?:[-•*]|\d+\.)\s*/, '').trim()
         ).filter(point => point.length > 10);
-        console.log('✅ Extracted', keyPoints.length, 'key points from regex pattern');
+        debugLog('✅ Extracted', keyPoints.length, 'key points from regex pattern');
       } else {
         // Last resort: split by sentences that seem like key points
         const sentences = keyInsightsText.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 20);
         if (sentences.length > 1) {
           keyPoints = sentences.map(s => s.trim()).filter(s => s.length > 0);
-          console.log('📝 Split into', keyPoints.length, 'sentences as key points');
+          debugLog('📝 Split into', keyPoints.length, 'sentences as key points');
         }
       }
     }
@@ -106,7 +110,7 @@ function processSummaryResponse(summaryData: { summary?: string; keyPoints?: str
 
   wordCount = summary.split(/\s+/).filter(word => word.length > 0).length;
 
-  console.log('📊 Processing result: Summary length:', summary.length, 'Key points:', keyPoints.length);
+  debugLog('📊 Processing result: Summary length:', summary.length, 'Key points:', keyPoints.length);
 
   return { summary, keyPoints, wordCount, wasEnriched };
 }
@@ -128,19 +132,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }
 
-    console.log('Processing URL:', url);
+    debugLog('Processing URL:', url);
 
     const clientReference = buildClientReference(userId);
-    console.log('Using client reference:', clientReference);
+    debugLog('Using client reference:', clientReference);
 
     const urlFetcher = new URLFetcher();
-    const article = await urlFetcher.fetchArticle(url);
+    let article;
+    try {
+      article = await urlFetcher.fetchArticle(url);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to fetch article';
+      console.error('Article fetch error:', message);
+      return NextResponse.json({ error: message }, { status: 422 });
+    }
 
     if (!article || !article.content) {
       return NextResponse.json({ error: 'Failed to extract content from URL' }, { status: 400 });
     }
 
-    console.log('Article fetched:', {
+    debugLog('Article fetched:', {
       title: article.title,
       contentLength: article.content.length,
       author: article.author

@@ -19,11 +19,57 @@ from .db.storage import (
 # from .cortensor_api import router_info, router_status, _build_endpoint  # removed with /diag
 from .hashtags import suggest_hashtags
 from .link_fetch import parse_x_status_id, fetch_x_tweet_json, build_reply_context_from_x, fetch_x_tweet_json_from_text, build_basic_context_from_url
+from .rate_limiter import rate_limit_check, record_user_action
 
 logger = logging.getLogger(__name__)
 
-_TONES = ["concise", "informative", "persuasive", "technical", "conversational", "authoritative"]
+# Use tones from config (loaded from .env)
+_TONES = []  # Will be populated from config in _get_tones()
 _SESS: dict[str, dict] = {}
+
+# Session cleanup settings (configurable via env)
+def _get_int_env(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, str(default)))
+    except (ValueError, TypeError):
+        return default
+
+_SESSION_TTL_HOURS = _get_int_env('SESSION_TTL_HOURS', 24)
+_SESSION_CLEANUP_INTERVAL = _get_int_env('SESSION_CLEANUP_INTERVAL', 3600)
+_LAST_CLEANUP_TIME = 0
+
+def _cleanup_old_sessions():
+    """Remove sessions older than TTL to prevent memory leak"""
+    global _LAST_CLEANUP_TIME
+    import time
+    now = time.time()
+    
+    # Only run cleanup if enough time has passed
+    if now - _LAST_CLEANUP_TIME < _SESSION_CLEANUP_INTERVAL:
+        return
+    
+    _LAST_CLEANUP_TIME = now
+    ttl_seconds = _SESSION_TTL_HOURS * 3600
+    expired_uids = []
+    
+    for uid, sess in _SESS.items():
+        created_at = sess.get("_created_at", 0)
+        if created_at and (now - created_at) > ttl_seconds:
+            expired_uids.append(uid)
+    
+    for uid in expired_uids:
+        try:
+            del _SESS[uid]
+            logger.debug(f"Cleaned up expired session for user {uid}")
+        except Exception:
+            pass
+    
+    if expired_uids:
+        logger.info(f"Session cleanup: removed {len(expired_uids)} expired sessions")
+
+def _get_tones() -> list[str]:
+    """Get available tones from config (supports runtime changes)"""
+    return getattr(_cfg, 'AVAILABLE_TONES', ['concise', 'informative', 'persuasive', 'technical', 'conversational', 'authoritative'])
 
 _IP_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}")
 _HOST_FIELD_RE = re.compile(r"host='[^']+'", re.I)
@@ -50,16 +96,52 @@ def _audit(uid: str, event: str, **fields):
     except Exception:
         pass
 
+
+def _check_rate_limit(uid: str, update: Update, is_generation: bool = False) -> bool:
+    """
+    Check rate limit and send error message if exceeded.
+    Returns True if allowed, False if rate limited.
+    """
+    allowed, msg = rate_limit_check(uid, is_generation=is_generation)
+    if not allowed:
+        try:
+            update.message.reply_text(f"⏳ {msg}")
+        except Exception:
+            pass
+        _audit(uid, "rate_limited", is_generation=is_generation)
+        return False
+    return True
+
+
+def _check_rate_limit_callback(uid: str, query, is_generation: bool = False) -> bool:
+    """
+    Check rate limit for callback queries.
+    Returns True if allowed, False if rate limited.
+    """
+    allowed, msg = rate_limit_check(uid, is_generation=is_generation)
+    if not allowed:
+        try:
+            query.answer(f"⏳ {msg}", show_alert=True)
+        except Exception:
+            pass
+        _audit(uid, "rate_limited", is_generation=is_generation)
+        return False
+    return True
+
+
 def _sess(uid: str) -> dict:
+    # Run periodic cleanup to prevent memory leaks
+    _cleanup_old_sessions()
+    
     if uid in _SESS:
         return _SESS[uid]
     # Load defaults from DB if available
     db_defaults = load_user_defaults(uid) or {}
     env_defaults = {
-        "tone": os.getenv("DEFAULT_TONE", "concise"),
-        "length": "medium",
-        "n": 6,
-        "hashtags": os.getenv("DEFAULT_HASHTAGS", "").strip(),
+        "tone": getattr(_cfg, 'DEFAULT_TONE', 'concise'),
+        "length": getattr(_cfg, 'DEFAULT_LENGTH', 'medium'),
+        "n": getattr(_cfg, 'DEFAULT_THREAD_N', 6),
+        "hashtags": getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip(),
     }
     dfl = {**env_defaults, **db_defaults}
     _SESS[uid] = {
@@ -78,8 +160,12 @@ def _sess(uid: str) -> dict:
     "style_stats": False,
     "voice": None,
     "_uid": uid,
+    "char_limit": getattr(_cfg, 'TWEET_CHAR_LIMIT', 280),  # Per-user char limit (avoids race condition)
+    "_created_at": None,  # For session cleanup
         "defaults": dfl,
     }
+    import time
+    _SESS[uid]["_created_at"] = time.time()
     return _SESS[uid]
 
 
@@ -90,7 +176,7 @@ def _build_preview(sess: dict, max_len: int | None = None) -> str:
     if max_len is None:
         max_len = getattr(_cfg, 'PREVIEW_CHAR_LIMIT', 3900)
     mode = sess.get("mode", "thread")
-    tone = sess.get("tone", os.getenv("DEFAULT_TONE", "concise"))
+    tone = sess.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
     if mode == "tweet":
         header = (
             f"Tweet Preview\n"
@@ -152,12 +238,9 @@ def _send_thread_preview(context: CallbackContext, chat_id: int, sess: dict):
         pass
 
 
-_CHAR_LIMIT_PRESETS = [280, 400, 600, 800, 1000]
-
-
 def _next_char_limit(current: int) -> int:
     try:
-        arr = _CHAR_LIMIT_PRESETS
+        arr = getattr(_cfg, 'CHAR_LIMIT_PRESETS', [280, 400, 600, 800, 1000])
         if current not in arr:
             # find closest
             arr_sorted = sorted(arr)
@@ -173,12 +256,12 @@ def _next_char_limit(current: int) -> int:
 
 def _kb(sess: dict) -> InlineKeyboardMarkup:
     mode = sess.get("mode", "thread")
-    n = int(sess.get("n", 6))
-    tone = sess.get("tone", os.getenv("DEFAULT_TONE", "concise"))
+    n = int(sess.get("n", getattr(_cfg, 'DEFAULT_THREAD_N', 6)))
+    tone = sess.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
     tags_on = bool(sess.get("hashtags"))
     posts = sess.get("posts", []) or []
     # Build the X compose URL. For replies, prefer in_reply_to=<id> if we can extract one.
-    first_url = "https://x.com/intent/tweet"
+    first_url = getattr(_cfg, 'X_COMPOSE_URL', 'https://x.com/intent/tweet')
     reply_sid = None
     if mode == "reply":
         # Try to extract status id from stored context text
@@ -209,7 +292,7 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
         ])
         rows.append([
             InlineKeyboardButton(f"Length: {sess.get('length','medium')}", callback_data="thr|length|next"),
-            InlineKeyboardButton(f"Max: {getattr(_cfg,'TWEET_CHAR_LIMIT',280)}", callback_data="thr|climit|next"),
+            InlineKeyboardButton(f"Max: {sess.get('char_limit', getattr(_cfg,'TWEET_CHAR_LIMIT',280))}", callback_data="thr|climit|next"),
         ])
         rows.append([
             InlineKeyboardButton(f"CTA: {'ON' if sess.get('style_cta') else 'OFF'}", callback_data="thr|style|cta"),
@@ -236,7 +319,7 @@ def _kb(sess: dict) -> InlineKeyboardMarkup:
         rows.append([
             InlineKeyboardButton(f"Tone: {tone}", callback_data="thr|tone|next"),
             InlineKeyboardButton(f"Length: {sess.get('length','medium')}", callback_data="thr|length|next"),
-            InlineKeyboardButton(f"Max: {getattr(_cfg,'TWEET_CHAR_LIMIT',280)}", callback_data="thr|climit|next"),
+            InlineKeyboardButton(f"Max: {sess.get('char_limit', getattr(_cfg,'TWEET_CHAR_LIMIT',280))}", callback_data="thr|climit|next"),
         ])
         rows.append([
             InlineKeyboardButton(f"CTA: {'ON' if sess.get('style_cta') else 'OFF'}", callback_data="thr|style|cta"),
@@ -265,6 +348,7 @@ def _reply_kb(sess: dict | None = None) -> ReplyKeyboardMarkup:
     step = (sess or {}).get("wizard_step")
     rows: list[list[str]]
     mode = (sess or {}).get("mode", "thread")
+    tones = _get_tones()
     if step == "topic":
         switch_label = "Switch: Tweet" if mode == "thread" else "Switch: Thread"
         rows = [["/start"], [switch_label, "Switch: Reply"], ["Length: short", "Length: medium", "Length: long", "Length: auto"]]
@@ -273,8 +357,8 @@ def _reply_kb(sess: dict | None = None) -> ReplyKeyboardMarkup:
     elif step == "n":
         rows = [["5", "6", "8", "10"], ["Skip", "/start"]]
     elif step == "tone":
-        mid = (len(_TONES) + 1) // 2
-        rows = [_TONES[:mid], _TONES[mid:], ["Skip", "/start"]]
+        mid = (len(tones) + 1) // 2
+        rows = [tones[:mid], tones[mid:], ["Skip", "/start"]]
     elif step == "tags":
         rows = [["Use default", "No tags"], ["Skip", "/start"], ["Generate now", "Back"]]
     elif step == "reply_ctx":
@@ -287,6 +371,12 @@ def _reply_kb(sess: dict | None = None) -> ReplyKeyboardMarkup:
 
 
 def thread_command(update: Update, context: CallbackContext):
+    uid = str(update.effective_user.id)
+    
+    # Rate limit check for generation
+    if not _check_rate_limit(uid, update, is_generation=True):
+        return
+    
     text = update.message.text or ""
     parts = text.split(maxsplit=1)
     brief = parts[1].strip() if len(parts) > 1 else ""
@@ -309,6 +399,8 @@ def thread_command(update: Update, context: CallbackContext):
             pass
         loading_msg = update.message.reply_text("Generating thread… ⏳")
         posts = generate_thread(topic=topic, n_posts=n, tone=tone, hashtags=hashtags, instructions="", length="medium")
+        # Record successful generation for rate limiting
+        record_user_action(uid, is_generation=True)
     except Exception as e:
         try:
             if loading_msg:
@@ -324,13 +416,12 @@ def thread_command(update: Update, context: CallbackContext):
         except Exception:
             pass
 
-    uid = str(update.effective_user.id)
     sess = _sess(uid)
     sess.update({
         "mode": "thread",
         "topic": topic,
         "n": n,
-        "tone": tone or sess.get("tone", os.getenv("DEFAULT_TONE", "concise")),
+        "tone": tone or sess.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise')),
         "hashtags": hashtags,
         "posts": posts,
     })
@@ -364,17 +455,21 @@ def _thread_callback(update: Update, context: CallbackContext):
             pass
         q.answer("Closed"); return
     if act == "n":
+        max_posts = getattr(_cfg, 'MAX_THREAD_POSTS', 25)
+        min_posts = getattr(_cfg, 'MIN_THREAD_POSTS', 2)
+        default_n = getattr(_cfg, 'DEFAULT_THREAD_N', 6)
         if len(data) > 2 and data[2] == "inc":
-            sess["n"] = min(25, int(sess.get("n", 6)) + 1)
+            sess["n"] = min(max_posts, int(sess.get("n", default_n)) + 1)
         elif len(data) > 2 and data[2] == "dec":
-            sess["n"] = max(2, int(sess.get("n", 6)) - 1)
+            sess["n"] = max(min_posts, int(sess.get("n", default_n)) - 1)
     elif act == "tone":
-        cur = sess.get("tone", os.getenv("DEFAULT_TONE", "concise"))
+        tones = _get_tones()
+        cur = sess.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
         try:
-            idx = (_TONES.index(cur) + 1) % len(_TONES)
+            idx = (tones.index(cur) + 1) % len(tones)
         except ValueError:
             idx = 0
-        sess["tone"] = _TONES[idx]
+        sess["tone"] = tones[idx]
     elif act == "length":
         order = ["short", "medium", "long", "auto"]
         cur = (sess.get("length", "medium") or "medium").lower()
@@ -391,7 +486,7 @@ def _thread_callback(update: Update, context: CallbackContext):
     elif act == "tags":
         sub = data[2] if len(data) > 2 else "toggle"
         if sub == "toggle":
-            sess["hashtags"] = "" if sess.get("hashtags") else os.getenv("DEFAULT_HASHTAGS", "").strip()
+            sess["hashtags"] = "" if sess.get("hashtags") else getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip()
         elif sub == "suggest":
             topic = sess.get("topic", "")
             posts = sess.get("posts", []) or []
@@ -410,14 +505,10 @@ def _thread_callback(update: Update, context: CallbackContext):
                     context.bot.send_message(chat_id=q.message.chat_id, text=_build_preview(sess), reply_markup=_kb(sess))
                 return
     elif act == "climit":
-        # Cycle character limit for generation & editing; does not retro-trim existing posts
-        cur = getattr(_cfg, 'TWEET_CHAR_LIMIT', 280)
+        # Cycle character limit per-session (avoids race condition with global config)
+        cur = sess.get("char_limit", getattr(_cfg, 'TWEET_CHAR_LIMIT', 280))
         new_val = _next_char_limit(cur)
-        # Mutate module attribute so subsequent functions pick it up
-        try:
-            _cfg.TWEET_CHAR_LIMIT = new_val
-        except Exception:
-            pass
+        sess["char_limit"] = new_val
         try:
             q.answer(f"Max chars set: {new_val}")
         except Exception:
@@ -505,6 +596,10 @@ def _thread_callback(update: Update, context: CallbackContext):
             context.bot.send_message(chat_id=q.message.chat_id, text=msg)
         q.answer("Edit mode on"); return
     elif act == "regen":
+        # Rate limit check for regeneration
+        if not _check_rate_limit_callback(uid, q, is_generation=True):
+            return
+        
         loading_msg = None
         try:
             try:
@@ -557,6 +652,8 @@ def _thread_callback(update: Update, context: CallbackContext):
                     length=sess.get("length", "medium"),
                     offset=0,
                 )
+            # Record successful generation for rate limiting
+            record_user_action(uid, is_generation=True)
             _audit(uid, "regen_done", ok=bool(sess.get("posts")), count=len(sess.get("posts", [])))
             # If split send is enabled for threads, push a fresh preview instead of editing original message
             if mode == 'thread' and getattr(_cfg, 'THREAD_SPLIT_SEND', False):
@@ -577,6 +674,10 @@ def _thread_callback(update: Update, context: CallbackContext):
             except Exception:
                 pass
     elif act == "cont":
+        # Rate limit check for continue generation
+        if not _check_rate_limit_callback(uid, q, is_generation=True):
+            return
+        
         # Continue thread: generate next batch using offset = current length
         try:
             existing = sess.get("posts", []) or []
@@ -592,6 +693,8 @@ def _thread_callback(update: Update, context: CallbackContext):
                 offset=len(existing),
             )
             sess["posts"] = existing + new_posts
+            # Record successful generation for rate limiting
+            record_user_action(uid, is_generation=True)
             q.answer(f"Added {len(new_posts)} posts")
             if getattr(_cfg, 'THREAD_SPLIT_SEND', False):
                 _send_thread_preview(context, q.message.chat.id, sess)
@@ -599,20 +702,6 @@ def _thread_callback(update: Update, context: CallbackContext):
         except Exception as e:
             q.answer(f"Fail: {_friendly_error(e)}", show_alert=True)
             return
-        except Exception as e:
-            try:
-                if loading_msg:
-                    context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
-            except Exception:
-                pass
-            q.answer(f"Failed: {_friendly_error(e)}", show_alert=True)
-            return
-        finally:
-            try:
-                if loading_msg:
-                    context.bot.delete_message(chat_id=loading_msg.chat_id, message_id=loading_msg.message_id)
-            except Exception:
-                pass
     elif act == "rline":
         posts = sess.get("posts", []) or []
         if not posts:
@@ -690,10 +779,11 @@ def history_command(update: Update, context: CallbackContext):
 
 
 def _settings_kb(sess: dict | None = None) -> ReplyKeyboardMarkup:
+    tones = _get_tones()
     rows = [
         ["Done", "Cancel"],
-        _TONES[: (len(_TONES)+1)//2],
-        _TONES[(len(_TONES)+1)//2 :],
+        tones[: (len(tones)+1)//2],
+        tones[(len(tones)+1)//2 :],
         ["Length: short", "Length: medium", "Length: long", "Length: auto"],
         ["2", "3", "5", "6", "8", "10"],
         ["Use default tags", "No tags"],
@@ -709,9 +799,9 @@ def settings_command(update: Update, context: CallbackContext):
     _audit(uid, "settings_open")
     msg = (
         "Settings (defaults):\n"
-        f"- Tone: {d.get('tone','concise')}\n"
-        f"- Length: {d.get('length','medium')}\n"
-        f"- N (thread): {d.get('n',6)}\n"
+        f"- Tone: {d.get('tone', getattr(_cfg, 'DEFAULT_TONE', 'concise'))}\n"
+        f"- Length: {d.get('length', getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))}\n"
+        f"- N (thread): {d.get('n', getattr(_cfg, 'DEFAULT_THREAD_N', 6))}\n"
         f"- Tags: {d.get('hashtags','') or '(none)'}\n\n"
         "Pick a tone, set Length: <value>, send a number for N (2–25), or type tags.\n"
         "Tap Done to save."
@@ -721,8 +811,8 @@ def settings_command(update: Update, context: CallbackContext):
 
 
 def _build_help_text() -> str:
-    default_tone = os.getenv("DEFAULT_TONE", "concise").strip()
-    default_tags = os.getenv("DEFAULT_HASHTAGS", "").strip() or "(none)"
+    default_tone = getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
+    default_tags = getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip() or "(none)"
 
     return (
         "Help\n"
@@ -737,7 +827,7 @@ def _build_help_text() -> str:
 
 
 def _build_start_text() -> str:
-    default_tone = os.getenv("DEFAULT_TONE", "concise").strip()
+    default_tone = getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
     return (
     "Welcome to the Tweet/Thread Generator\n\n"
     "Getting started:\n"
@@ -814,8 +904,8 @@ def _cmd_callback(update: Update, context: CallbackContext):
         sess.clear(); sess['_uid'] = uid
         sess["wizard_step"] = "topic"; sess["mode"] = "tweet"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
         try:
             q.edit_message_text("Send a topic for your tweet.")
         except Exception:
@@ -829,8 +919,8 @@ def _cmd_callback(update: Update, context: CallbackContext):
         sess.clear(); sess['_uid'] = uid
         sess["wizard_step"] = "reply_ctx"; sess["mode"] = "reply"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
         try:
             q.edit_message_text("Send the X post text (or paste link and provide the text).")
         except Exception:
@@ -866,12 +956,13 @@ def handle_text_input(update: Update, context: CallbackContext):
 
     if sess.get("settings_mode"):
         d = sess.setdefault("defaults", {
-            "tone": os.getenv("DEFAULT_TONE", "concise"),
-            "length": "medium",
-            "n": 6,
-            "hashtags": os.getenv("DEFAULT_HASHTAGS", "").strip(),
+            "tone": getattr(_cfg, 'DEFAULT_TONE', 'concise'),
+            "length": getattr(_cfg, 'DEFAULT_LENGTH', 'medium'),
+            "n": getattr(_cfg, 'DEFAULT_THREAD_N', 6),
+            "hashtags": getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip(),
         })
         low = text.lower()
+        tones = _get_tones()
         if low in ("done", "exit", "cancel", "back"):
             sess.pop("settings_mode", None)
             # Persist user defaults
@@ -882,7 +973,7 @@ def handle_text_input(update: Update, context: CallbackContext):
             update.message.reply_text("Settings saved.", reply_markup=_reply_kb(sess))
             _audit(uid, "settings_saved", tone=d.get("tone"), length=d.get("length"), n=d.get("n"), tags=bool(d.get("hashtags")))
             return
-        if text in _TONES:
+        if text in tones:
             d["tone"] = text
             try:
                 save_user_defaults(uid, d)
@@ -904,7 +995,9 @@ def handle_text_input(update: Update, context: CallbackContext):
                 return
         if text.isdigit():
             v = int(text)
-            if 2 <= v <= 25:
+            min_n = getattr(_cfg, 'MIN_THREAD_POSTS', 2)
+            max_n = getattr(_cfg, 'MAX_THREAD_POSTS', 25)
+            if min_n <= v <= max_n:
                 d["n"] = v
                 try:
                     save_user_defaults(uid, d)
@@ -914,7 +1007,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                 _audit(uid, "settings_n", value=v)
                 return
         if low in ("use default tags", "use default"):
-            d["hashtags"] = os.getenv("DEFAULT_HASHTAGS", "").strip()
+            d["hashtags"] = getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip()
             try:
                 save_user_defaults(uid, d)
             except Exception:
@@ -940,7 +1033,9 @@ def handle_text_input(update: Update, context: CallbackContext):
             update.message.reply_text("Default tags updated.", reply_markup=_settings_kb(sess))
             _audit(uid, "settings_tags_set", value=text.strip())
             return
-        update.message.reply_text("Pick a tone, Length: <value>, a number for N (2-25), or type tags with #.", reply_markup=_settings_kb(sess))
+        min_n = getattr(_cfg, 'MIN_THREAD_POSTS', 2)
+        max_n = getattr(_cfg, 'MAX_THREAD_POSTS', 25)
+        update.message.reply_text(f"Pick a tone, Length: <value>, a number for N ({min_n}-{max_n}), or type tags with #.", reply_markup=_settings_kb(sess))
         return
 
     if sess.get("regen_line_mode"):
@@ -998,10 +1093,10 @@ def handle_text_input(update: Update, context: CallbackContext):
         sess["wizard_step"] = "topic"
         sess["mode"] = "thread"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
-        sess["n"] = int(d.get("n", 6))
-        sess["hashtags"] = d.get("hashtags", os.getenv("DEFAULT_HASHTAGS", "").strip())
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
+        sess["n"] = int(d.get("n", getattr(_cfg, 'DEFAULT_THREAD_N', 6)))
+        sess["hashtags"] = d.get("hashtags", getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip())
         update.message.reply_text("Send a topic for your thread (just text).", reply_markup=_reply_kb(sess))
         update.message.reply_text("Topic:", reply_markup=ForceReply(selective=True))
         _audit(uid, "wizard_thread_start")
@@ -1011,8 +1106,8 @@ def handle_text_input(update: Update, context: CallbackContext):
         sess["wizard_step"] = "topic"
         sess["mode"] = "tweet"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
         update.message.reply_text("Send a topic for your tweet (just text).", reply_markup=_reply_kb(sess))
         update.message.reply_text("Topic:", reply_markup=ForceReply(selective=True))
         _audit(uid, "wizard_tweet_start")
@@ -1022,8 +1117,8 @@ def handle_text_input(update: Update, context: CallbackContext):
         sess["wizard_step"] = "reply_ctx"
         sess["mode"] = "reply"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
         update.message.reply_text("Send the X post text (or paste a link).", reply_markup=_reply_kb(sess))
         update.message.reply_text("Paste here:", reply_markup=ForceReply(selective=True))
         _audit(uid, "wizard_reply_start")
@@ -1034,7 +1129,7 @@ def handle_text_input(update: Update, context: CallbackContext):
         if sess.get("wizard_step") == "length_pick":
             sess["wizard_step"] = "tone"
             update.message.reply_text(
-                f"Pick a tone (default {os.getenv('DEFAULT_TONE','concise')}).",
+                f"Pick a tone (default {getattr(_cfg, 'DEFAULT_TONE', 'concise')}).",
                 reply_markup=_reply_kb(sess)
             )
         else:
@@ -1090,8 +1185,8 @@ def handle_text_input(update: Update, context: CallbackContext):
         sess.clear()
         sess["mode"] = "reply"
         d = _sess(uid).get("defaults", {})
-        sess["tone"] = d.get("tone", os.getenv("DEFAULT_TONE", "concise"))
-        sess["length"] = d.get("length", "medium")
+        sess["tone"] = d.get("tone", getattr(_cfg, 'DEFAULT_TONE', 'concise'))
+        sess["length"] = d.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
         sess["reply_ctx"] = ctx_txt
         sess["wizard_step"] = "length_pick"
         _audit(uid, "reply_context_parsed", has=bool(data))
@@ -1161,7 +1256,7 @@ def handle_text_input(update: Update, context: CallbackContext):
         if sess.get("mode") == "tweet":
             sess["wizard_step"] = "tone"
             update.message.reply_text(
-                f"Pick a tone (default {os.getenv('DEFAULT_TONE','concise')}).",
+                f"Pick a tone (default {getattr(_cfg, 'DEFAULT_TONE', 'concise')}).",
                 reply_markup=_reply_kb(sess)
             )
         elif sess.get("mode") == "thread":
@@ -1200,7 +1295,7 @@ def handle_text_input(update: Update, context: CallbackContext):
                 )
                 return
         sess["wizard_step"] = "tone"
-        default_tone = os.getenv("DEFAULT_TONE", "concise").strip()
+        default_tone = getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
         update.message.reply_text(
             f"Pick a tone (default {default_tone}) or type your own.", reply_markup=_reply_kb(sess)
         )
@@ -1208,13 +1303,13 @@ def handle_text_input(update: Update, context: CallbackContext):
 
     if step == "tone":
         if text.lower() == "skip":
-            sess["tone"] = os.getenv("DEFAULT_TONE", "concise").strip()
+            sess["tone"] = getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
         else:
             sess["tone"] = text
         if sess.get("mode") == "tweet":
             topic = sess.get("topic", "")
-            tone = sess.get("tone") or os.getenv("DEFAULT_TONE", "concise").strip()
-            length = sess.get("length", "medium")
+            tone = sess.get("tone") or getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
+            length = sess.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
             # Build guidance from style/voice
             instr = (sess.get("instructions", "") or "").strip()
             hints = []
@@ -1271,8 +1366,8 @@ def handle_text_input(update: Update, context: CallbackContext):
             return
         elif sess.get("mode") == "reply":
             # On first tone selection in reply flow, generate immediately
-            tone = sess.get("tone") or os.getenv("DEFAULT_TONE", "concise").strip()
-            length = sess.get("length", "medium")
+            tone = sess.get("tone") or getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
+            length = sess.get("length", getattr(_cfg, 'DEFAULT_LENGTH', 'medium'))
             instr = (sess.get("instructions", "") or "").strip()
             hints = []
             if sess.get("style_cta"): hints.append("Include a clear call-to-action.")
@@ -1332,7 +1427,7 @@ def handle_text_input(update: Update, context: CallbackContext):
             return
         # Thread flow continues to tags
         sess["wizard_step"] = "tags"
-        default_tags = os.getenv("DEFAULT_HASHTAGS", "").strip() or "(none)"
+        default_tags = getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip() or "(none)"
         update.message.reply_text(
             f"Hashtags? Choose an option or type custom (e.g., #ai #dev). Default: {default_tags}",
             reply_markup=_reply_kb(sess)
@@ -1344,14 +1439,14 @@ def handle_text_input(update: Update, context: CallbackContext):
         if choice == "back":
             sess["wizard_step"] = "tone"
             update.message.reply_text(
-                f"Pick a tone (default {os.getenv('DEFAULT_TONE','concise')}).",
+                f"Pick a tone (default {getattr(_cfg, 'DEFAULT_TONE', 'concise')}).",
                 reply_markup=_reply_kb(sess)
             )
             return
         if choice == "generate now":
             topic = sess.get("topic", "")
-            n = int(sess.get("n", 6))
-            tone = sess.get("tone") or os.getenv("DEFAULT_TONE", "concise").strip()
+            n = int(sess.get("n", getattr(_cfg, 'DEFAULT_THREAD_N', 6)))
+            tone = sess.get("tone") or getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
             hashtags = sess.get("hashtags", "")
             loading_msg = None
             try:
@@ -1388,15 +1483,15 @@ def handle_text_input(update: Update, context: CallbackContext):
             update.message.reply_text(_build_preview(sess), reply_markup=_kb(sess))
             return
         if choice == "use default":
-            sess["hashtags"] = os.getenv("DEFAULT_HASHTAGS", "").strip()
+            sess["hashtags"] = getattr(_cfg, 'DEFAULT_HASHTAGS', '').strip()
         elif choice in ("no tags", "skip"):
             sess["hashtags"] = ""
         else:
             sess["hashtags"] = text
 
         topic = sess.get("topic", "")
-        n = int(sess.get("n", 6))
-        tone = sess.get("tone") or os.getenv("DEFAULT_TONE", "concise").strip()
+        n = int(sess.get("n", getattr(_cfg, 'DEFAULT_THREAD_N', 6)))
+        tone = sess.get("tone") or getattr(_cfg, 'DEFAULT_TONE', 'concise').strip()
         hashtags = sess.get("hashtags", "")
         loading_msg = None
         try:

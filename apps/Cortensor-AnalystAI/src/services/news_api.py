@@ -4,16 +4,24 @@ import logging
 import requests
 import yfinance as yf
 from thefuzz import fuzz
-from src.config import NEWS_API_KEY, FMP_API_KEY
+from src.config import (
+    NEWS_API_KEY, 
+    FMP_API_KEY, 
+    COINGECKO_API_URL, 
+    FMP_API_URL, 
+    NEWSAPI_URL,
+    DEFAULT_API_TIMEOUT,
+    FMP_PROFILE_TIMEOUT,
+    NEWS_LOOKBACK_DAYS,
+    NEWS_EXTENDED_LOOKBACK_DAYS,
+    NEWS_PAGE_SIZE,
+    NEWS_FUZZY_MATCH_THRESHOLD
+)
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
-# --- API URLs ---
-COINGECKO_API_URL = "https://api.coingecko.com/api/v3"
-FMP_API_URL = "https://financialmodelingprep.com/api/v3"
-
-def filter_news_by_topic(articles: list[dict], topic: str, symbol: str, min_score: int = 75) -> list[dict]: # Increased min_score
+def filter_news_by_topic(articles: list[dict], topic: str, symbol: str, min_score: int = NEWS_FUZZY_MATCH_THRESHOLD) -> list[dict]:
     """
     Filters a list of articles to include only those highly relevant to the topic/symbol,
     using fuzzy matching on title and description.
@@ -63,7 +71,7 @@ def filter_news_by_topic(articles: list[dict], topic: str, symbol: str, min_scor
     return relevant_articles
 
 
-def get_news_from_yahoo(topic: str, limit: int = 5) -> list[dict] | None:
+def get_news_from_yahoo(topic: str, limit: int = NEWS_PAGE_SIZE) -> list[dict] | None:
     """
     Fetches news from Yahoo Finance. Specifically for STOCKS.
     """
@@ -94,7 +102,7 @@ def get_news_from_yahoo(topic: str, limit: int = 5) -> list[dict] | None:
         logger.error(f"Error fetching from yfinance for '{topic}': {e}.")
         return []
 
-def get_crypto_news_from_newsapi(topic: str, symbol: str, limit: int = 5) -> list[dict]:
+def get_crypto_news_from_newsapi(topic: str, symbol: str, limit: int = NEWS_PAGE_SIZE) -> list[dict]:
     """
     Fetches crypto-focused news from NewsAPI.
     Uses both topic name and symbol in the query for better relevance.
@@ -108,15 +116,15 @@ def get_crypto_news_from_newsapi(topic: str, symbol: str, limit: int = 5) -> lis
     # Use a narrower date range to get fresher results.
     today = datetime.now()
     # NewsAPI 'from' parameter is date only.
-    from_date = (today - timedelta(days=2)).strftime('%Y-%m-%d') # Look back 2 days for fresher news
+    from_date = (today - timedelta(days=NEWS_LOOKBACK_DAYS)).strftime('%Y-%m-%d')
 
     query_specific = f'("{topic}" OR "{symbol}") AND (cryptocurrency OR crypto OR blockchain OR web3 OR coin)'
-    url_specific = f"https://newsapi.org/v2/everything?q={query_specific}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date}&apiKey={NEWS_API_KEY}"
+    url_specific = f"{NEWSAPI_URL}/everything?q={query_specific}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date}&apiKey={NEWS_API_KEY}"
     
     articles = []
     try:
         logger.info(f"Attempting crypto news fetch from NewsAPI with specific query: {query_specific} from {from_date}.")
-        response = requests.get(url_specific, timeout=10)
+        response = requests.get(url_specific, timeout=DEFAULT_API_TIMEOUT)
         logger.debug(f"NewsAPI (crypto specific) response status: {response.status_code}")
         response.raise_for_status()
         articles = response.json().get("articles", [])
@@ -124,10 +132,10 @@ def get_crypto_news_from_newsapi(topic: str, symbol: str, limit: int = 5) -> lis
 
         # If few or no specific articles are found within 2 days, try a slightly broader date range (e.g., 7 days)
         if not articles and limit > 0:
-            logger.warning(f"No specific crypto articles for '{topic}' in last 2 days. Trying last 7 days.")
-            from_date_7d = (today - timedelta(days=7)).strftime('%Y-%m-%d')
-            url_broad_7d = f"https://newsapi.org/v2/everything?q={query_specific}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date_7d}&apiKey={NEWS_API_KEY}"
-            response_broad_7d = requests.get(url_broad_7d, timeout=10)
+            logger.warning(f"No specific crypto articles for '{topic}' in last {NEWS_LOOKBACK_DAYS} days. Trying last {NEWS_EXTENDED_LOOKBACK_DAYS} days.")
+            from_date_7d = (today - timedelta(days=NEWS_EXTENDED_LOOKBACK_DAYS)).strftime('%Y-%m-%d')
+            url_broad_7d = f"{NEWSAPI_URL}/everything?q={query_specific}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date_7d}&apiKey={NEWS_API_KEY}"
+            response_broad_7d = requests.get(url_broad_7d, timeout=DEFAULT_API_TIMEOUT)
             logger.debug(f"NewsAPI (crypto 7-day broad) response status: {response_broad_7d.status_code}")
             response_broad_7d.raise_for_status()
             articles.extend(response_broad_7d.json().get("articles", [])) # Extend, don't overwrite
@@ -169,7 +177,7 @@ def get_crypto_news_from_newsapi(topic: str, symbol: str, limit: int = 5) -> lis
     logger.debug(f"NewsAPI formatted {len(formatted_articles)} valid articles after filtering.")
     return formatted_articles
 
-def get_stock_news_fallback(topic: str, symbol: str, limit: int = 5) -> list[dict]:
+def get_stock_news_fallback(topic: str, symbol: str, limit: int = NEWS_PAGE_SIZE) -> list[dict]:
     """
     Fallback for stock news if yfinance fails. Uses company name and symbol with NewsAPI.
     """
@@ -185,8 +193,12 @@ def get_stock_news_fallback(topic: str, symbol: str, limit: int = 5) -> list[dic
             # Try to get company name from FMP if topic is a symbol
             symbol_for_fmp = topic.upper().replace(".JK", "") # Clean for FMP (e.g., remove .JK for Indonesian stocks)
             logger.debug(f"Trying to get company profile from FMP for symbol: {symbol_for_fmp}")
-            url = f"https://financialmodelingprep.com/api/v3/profile/{symbol_for_fmp}?apikey={FMP_API_KEY}"
-            response = requests.get(url, timeout=5)
+            url = f"{FMP_API_URL}/profile"
+            response = requests.get(
+                url,
+                params={"symbol": symbol_for_fmp, "apikey": FMP_API_KEY},
+                timeout=FMP_PROFILE_TIMEOUT
+            )
             profile_data = response.json()
             if profile_data and profile_data[0].get('companyName'):
                 company_name = profile_data[0]['companyName']
@@ -196,14 +208,14 @@ def get_stock_news_fallback(topic: str, symbol: str, limit: int = 5) -> list[dic
 
     logger.info(f"Attempting general news fetch for '{company_name}' / '{resolved_symbol}' from NewsAPI (stock fallback).")
     today = datetime.now()
-    from_date = (today - timedelta(days=2)).strftime('%Y-%m-%d') # Look back 2 days for fresher news
+    from_date = (today - timedelta(days=NEWS_LOOKBACK_DAYS)).strftime('%Y-%m-%d')
     
     query_stock_fallback = f'("{company_name}" OR "{resolved_symbol}")'
-    url_stock_fallback = f"https://newsapi.org/v2/everything?q={query_stock_fallback}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date}&apiKey={NEWS_API_KEY}"
+    url_stock_fallback = f"{NEWSAPI_URL}/everything?q={query_stock_fallback}&language=en&pageSize={limit}&sortBy=relevancy&from={from_date}&apiKey={NEWS_API_KEY}"
     
     articles = []
     try:
-        response = requests.get(url_stock_fallback, timeout=10)
+        response = requests.get(url_stock_fallback, timeout=DEFAULT_API_TIMEOUT)
         logger.debug(f"NewsAPI (stock fallback) response status: {response.status_code}")
         response.raise_for_status()
         articles = response.json().get("articles", [])

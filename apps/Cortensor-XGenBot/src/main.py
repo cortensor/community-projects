@@ -19,10 +19,19 @@ def main():
         config = import_module("src.config")
         bot_module = import_module("src.bot")
         db_module = import_module("src.db.storage")
+        validators = import_module("src.validators")
     except Exception:
         from . import config as config  # type: ignore
         from . import bot as bot_module  # type: ignore
         from .db import storage as db_module  # type: ignore
+        from . import validators as validators  # type: ignore
+
+    # Run configuration validation on startup
+    try:
+        # Set strict=False to continue with warnings, strict=True to fail on errors
+        validators.run_startup_validation(strict=False)
+    except Exception as e:
+        logger.error(f"Config validation error: {e}")
 
     if not all([
         getattr(config, "TELEGRAM_BOT_TOKEN", None),

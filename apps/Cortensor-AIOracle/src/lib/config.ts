@@ -1,11 +1,17 @@
+const sessionIdEnv = process.env.NEXT_PUBLIC_OSS20B_SESSION_ID || process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID || '5'
+const parsedSessionId = Number.parseInt(sessionIdEnv, 10)
+const parsedTimeout = Number.parseInt(process.env.LLM_TIMEOUT || '300', 10)
+const parsedMaxTokens = Number.parseInt(process.env.LLM_MAX_TOKENS || '4096', 10)
+const parsedMaxInput = Number.parseInt(process.env.NEXT_PUBLIC_MAX_INPUT_LENGTH || '2000', 10)
+
 export const CORTENSOR_CONFIG = {
   ROUTER_URL: process.env.CORTENSOR_ROUTER_URL!,
   API_KEY: process.env.CORTENSOR_API_KEY!,
   COMPLETIONS_URL: process.env.NEXT_PUBLIC_CORTENSOR_COMPLETIONS_URL!,
-  SESSION_ID: parseInt(process.env.NEXT_PUBLIC_DEEPSEEK_SESSION_ID!),
-  TIMEOUT: parseInt(process.env.LLM_TIMEOUT!),
-  MAX_TOKENS: parseInt(process.env.LLM_MAX_TOKENS!),
-  MAX_INPUT_LENGTH: parseInt(process.env.NEXT_PUBLIC_MAX_INPUT_LENGTH!)
+  SESSION_ID: Number.isFinite(parsedSessionId) ? parsedSessionId : 5,
+  TIMEOUT: Number.isFinite(parsedTimeout) ? parsedTimeout : 300,
+  MAX_TOKENS: Number.isFinite(parsedMaxTokens) ? parsedMaxTokens : 4096,
+  MAX_INPUT_LENGTH: Number.isFinite(parsedMaxInput) ? parsedMaxInput : 2000
 }
 
 export const ORACLE_CONFIG = {

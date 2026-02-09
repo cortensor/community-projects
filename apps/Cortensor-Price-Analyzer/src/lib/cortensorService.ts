@@ -1,5 +1,6 @@
 import axios, { type AxiosError } from 'axios';
 import type { AIAnalysis, CatalystHighlight, MarketAnalysisContext, MarketNewsItem } from './marketTypes';
+import { marketCache } from './cacheService';
 
 interface CortensorChoiceResponse {
   text?: string;
@@ -12,14 +13,23 @@ interface CortensorApiResponse {
 
 const DEFAULT_CONFIDENCE = 'medium';
 
+interface RetryAttempt {
+  maxTokens: number;
+  timeout: number;
+  backoffMs: number;
+}
+
 export class CortensorService {
   private readonly apiKey: string;
   private readonly apiUrl: string;
   private readonly sessionId: number;
+  private readonly model: string;
   private readonly temperature: number;
   private readonly maxTokens: number;
   private readonly timeoutMs: number;
   private readonly retryTimeoutMs: number;
+  private readonly maxRetries: number;
+  private readonly enableCache: boolean;
 
   constructor() {
     this.apiKey = process.env.CORTENSOR_API_KEY ?? '';
@@ -27,30 +37,75 @@ export class CortensorService {
       throw new Error('CORTENSOR_API_KEY is required');
     }
 
-    const baseUrl = process.env.CORTENSOR_BASE_URL ?? 'http://69.164.253.134:5010';
     const explicitUrl = process.env.CORTENSOR_API_URL;
-    this.apiUrl = explicitUrl
-      ? explicitUrl.trim().replace(/\/$/, '')
-      : `${baseUrl.replace(/\/$/, '')}/api/v1/completions`;
+    const baseUrl = process.env.CORTENSOR_BASE_URL;
+    
+    if (explicitUrl) {
+      this.apiUrl = explicitUrl.trim().replace(/\/$/, '');
+    } else if (baseUrl) {
+      this.apiUrl = `${baseUrl.replace(/\/$/, '')}/api/v1/completions`;
+    } else {
+      throw new Error('CORTENSOR_API_URL or CORTENSOR_BASE_URL is required');
+    }
+
+    const modelEnv = process.env.CORTENSOR_MODEL?.trim();
+    this.model = modelEnv && modelEnv.length > 0 ? modelEnv : 'default';
 
     const sessionEnv =
       process.env.CORTENSOR_SESSION_ID ?? process.env.CORTENSOR_SESSION ?? process.env.CORTENSOR_SESSIONID ?? '6';
-  const parsedSession = Number.parseInt(sessionEnv, 10);
-  this.sessionId = Number.isFinite(parsedSession) ? parsedSession : 6;
+    const parsedSession = Number.parseInt(sessionEnv, 10);
+    this.sessionId = Number.isFinite(parsedSession) ? parsedSession : 6;
     this.temperature = Number.parseFloat(process.env.CORTENSOR_TEMPERATURE ?? '0.35');
     this.maxTokens = Number.parseInt(process.env.CORTENSOR_MAX_TOKENS ?? '2800', 10);
-    const timeoutSeconds = Number.parseInt(process.env.CORTENSOR_TIMEOUT ?? '45', 10);
-    this.timeoutMs = Number.isFinite(timeoutSeconds) ? timeoutSeconds * 1000 : 45_000;
-    const retrySeconds = Number.parseInt(process.env.CORTENSOR_RETRY_TIMEOUT ?? '20', 10);
-    this.retryTimeoutMs = Number.isFinite(retrySeconds) ? retrySeconds * 1000 : 20_000;
+    
+    // Default timeout is 300s (overridable via env)
+    const timeoutSeconds = Number.parseInt(process.env.CORTENSOR_TIMEOUT ?? '300', 10);
+    this.timeoutMs = Number.isFinite(timeoutSeconds) ? timeoutSeconds * 1000 : 300_000;
+    
+    const retrySeconds = Number.parseInt(process.env.CORTENSOR_RETRY_TIMEOUT ?? '45', 10);
+    this.retryTimeoutMs = Number.isFinite(retrySeconds) ? retrySeconds * 1000 : 45_000;
+    
+    // Configurable retry count (default: 3)
+    this.maxRetries = Number.parseInt(process.env.CORTENSOR_MAX_RETRIES ?? '3', 10);
+    
+    // Enable/disable caching (default: enabled)
+    this.enableCache = process.env.CORTENSOR_CACHE_ENABLED !== 'false';
   }
 
   async generatePriceAnalysis(context: MarketAnalysisContext): Promise<AIAnalysis> {
+    // Check cache first if enabled
+    if (this.enableCache) {
+      const cacheKey = marketCache.generateKey(
+        'ai-analysis',
+        context.snapshot.ticker,
+        context.snapshot.assetType,
+        context.horizon,
+      );
+      const cached = marketCache.get<AIAnalysis>(cacheKey);
+      if (cached) {
+        console.log(`[Cortensor] Cache hit for ${context.snapshot.ticker}`);
+        return cached;
+      }
+    }
+
     const prompt = this.buildPrompt(context);
 
     try {
       const raw = await this.requestWithRetry(prompt);
-      return this.parseResponse(raw, context);
+      const analysis = this.parseResponse(raw, context);
+      
+      // Cache successful result
+      if (this.enableCache) {
+        const cacheKey = marketCache.generateKey(
+          'ai-analysis',
+          context.snapshot.ticker,
+          context.snapshot.assetType,
+          context.horizon,
+        );
+        marketCache.set(cacheKey, analysis, 'ai');
+      }
+      
+      return analysis;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const descriptor = this.describeAxiosError(error);
@@ -65,19 +120,31 @@ export class CortensorService {
   }
 
   private async requestWithRetry(prompt: string): Promise<string> {
-    const attempts = [
-      { maxTokens: this.maxTokens, timeout: this.timeoutMs },
-      { maxTokens: Math.max(512, Math.round(this.maxTokens * 0.6)), timeout: this.retryTimeoutMs },
-    ];
+    // Progressive retry strategy with exponential backoff
+    const attempts: RetryAttempt[] = [
+      { maxTokens: this.maxTokens, timeout: this.timeoutMs, backoffMs: 0 },
+      { maxTokens: Math.max(1800, Math.round(this.maxTokens * 0.75)), timeout: this.timeoutMs, backoffMs: 2000 },
+      { maxTokens: Math.max(1200, Math.round(this.maxTokens * 0.5)), timeout: this.retryTimeoutMs, backoffMs: 4000 },
+    ].slice(0, this.maxRetries);
 
     let lastError: unknown;
     for (let index = 0; index < attempts.length; index += 1) {
       const attempt = attempts[index];
+      
+      // Apply exponential backoff before retry (not on first attempt)
+      if (index > 0 && attempt.backoffMs > 0) {
+        console.log(`[Cortensor] Waiting ${attempt.backoffMs}ms before retry ${index + 1}...`);
+        await this.delay(attempt.backoffMs);
+      }
+      
       try {
+        console.log(`[Cortensor] Attempt ${index + 1}/${attempts.length} (tokens: ${attempt.maxTokens}, timeout: ${attempt.timeout}ms)`);
+        
         const response = await axios.post<CortensorApiResponse>(
           this.apiUrl,
           {
             session_id: this.sessionId,
+            model: this.model,
             prompt,
             stream: false,
             temperature: this.temperature,
@@ -89,23 +156,40 @@ export class CortensorService {
               'Content-Type': 'application/json',
             },
             timeout: attempt.timeout,
+            // Additional axios options for better reliability
+            validateStatus: (status) => status >= 200 && status < 500,
           },
         );
+
+        // Handle non-2xx responses that aren't network errors
+        if (response.status >= 400) {
+          const errorMessage = (response.data as { error?: string })?.error || `HTTP ${response.status}`;
+          throw new Error(errorMessage);
+        }
 
         const raw = response.data?.choices?.[0]?.text ?? response.data?.text ?? '';
         if (raw.trim().length === 0) {
           throw new Error('Empty Cortensor response');
         }
+        
+        console.log(`[Cortensor] Success on attempt ${index + 1}`);
         return raw;
       } catch (error) {
         lastError = error;
-        if (!axios.isAxiosError(error) || !this.isRetriableError(error) || index === attempts.length - 1) {
+        
+        const isLastAttempt = index === attempts.length - 1;
+        const shouldRetry = !isLastAttempt && (
+          !axios.isAxiosError(error) || this.isRetriableError(error)
+        );
+
+        if (!shouldRetry) {
           throw error;
         }
 
-        const descriptor = this.describeAxiosError(error);
-        console.warn(`Cortensor request attempt ${index + 1} failed (${descriptor}); retrying with lighter payload.`);
-        await this.delay(1_000 * (index + 1));
+        const descriptor = axios.isAxiosError(error) 
+          ? this.describeAxiosError(error) 
+          : (error instanceof Error ? error.message : JSON.stringify(error));
+        console.warn(`[Cortensor] Attempt ${index + 1} failed (${descriptor}); will retry with reduced payload.`);
       }
     }
 
@@ -160,7 +244,7 @@ export class CortensorService {
           .join('\n')
       : 'No relevant headlines retrieved.';
 
-    return `You are an institutional-grade market strategist. Produce a concise but comprehensive price analysis using the provided market context.
+    return `You are GPT-OSS-20B operating as an institutional-grade market strategist. Produce a concise but comprehensive price analysis using the provided market context.
 
 Return ONLY valid JSON that conforms to this TypeScript type (do not include markdown fences):
 {
@@ -197,9 +281,9 @@ ${newsHighlights}
 
 GUIDELINES
 - Be decisive and avoid hedging language.
-- Quantify each insight with the data provided.
+- Quantify each insight with the data provided; keep bullets under 18 words.
 - Connect technical, fundamental, and news factors.
-- Emphasize what matters over the next ${horizon}.
+- Emphasize what matters over the next ${horizon}; ensure horizonNote mentions timing.
 - Output MUST be valid JSON.`;
   }
 
@@ -387,11 +471,30 @@ GUIDELINES
     if (!error) {
       return false;
     }
-    const retriableStatuses = new Set([408, 429, 502, 503, 504]);
+    // Extended list of retriable status codes (server errors)
+    const retriableStatuses = new Set([408, 425, 429, 500, 502, 503, 504, 507, 599]);
     if (error.response?.status && retriableStatuses.has(error.response.status)) {
       return true;
     }
-    return error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT';
+    // Network-level errors that are worth retrying
+    // NOTE: ECONNABORTED and ETIMEDOUT are NOT retried because for Cortensor,
+    // timeout usually means the task is still running on the router.
+    // Retrying would create duplicate tasks in the queue.
+    const retriableCodes = new Set([
+      'ECONNRESET',
+      'ENOTFOUND',
+      'ENETUNREACH',
+      'ECONNREFUSED',
+      'ERR_NETWORK',
+    ]);
+    
+    // Don't retry timeout errors - task is likely still running
+    if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
+      console.log(`[Cortensor] Timeout detected (${error.code}) - not retrying to avoid duplicate tasks`);
+      return false;
+    }
+    
+    return error.code ? retriableCodes.has(error.code) : false;
   }
 
   private delay(durationMs: number): Promise<void> {

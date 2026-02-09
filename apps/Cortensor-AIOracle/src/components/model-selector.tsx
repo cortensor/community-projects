@@ -1,5 +1,5 @@
 import React from 'react'
-import { Check, ChevronDown, Bot, Zap, Brain } from 'lucide-react'
+import { Check, ChevronDown, Bot, Brain } from 'lucide-react'
 import { ModelConfig } from '../lib/models'
 
 interface ModelSelectorProps {
@@ -13,8 +13,8 @@ const getModelIcon = (modelId: string) => {
   switch (modelId) {
     case 'llava-1.5':
       return <Bot className="w-4 h-4 text-blue-500" />
-    case 'deepseek-r1':
-      return <Brain className="w-4 h-4 text-purple-500" />
+    case 'gpt-oss-20b':
+      return <Brain className="w-4 h-4 text-emerald-600" />
     default:
       return <Bot className="w-4 h-4 text-gray-500" />
   }
@@ -24,8 +24,8 @@ const getModelBadgeColor = (modelId: string) => {
   switch (modelId) {
     case 'llava-1.5':
       return 'bg-blue-50 border-blue-200 text-blue-700'
-    case 'deepseek-r1':
-      return 'bg-purple-50 border-purple-200 text-purple-700'
+    case 'gpt-oss-20b':
+      return 'bg-emerald-50 border-emerald-200 text-emerald-700'
     default:
       return 'bg-gray-50 border-gray-200 text-gray-700'
   }
