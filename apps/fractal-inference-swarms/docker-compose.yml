@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fis-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - HOST=0.0.0.0
+      - CORS_ORIGIN=http://localhost:8080
+      - WS_PORT=3001
+      - WS_HEARTBEAT_INTERVAL=30000
+      - MAX_CONCURRENT_AGENTS=20
+      - DEFAULT_SWARM_SIZE=5
+      - AGENT_TIMEOUT_MS=30000
+      - TASK_SPLIT_STRATEGY=semantic
+      - SCORING_WEIGHT_CONFIDENCE=0.4
+      - SCORING_WEIGHT_SPEED=0.3
+      - SCORING_WEIGHT_RELIABILITY=0.3
+      - BASE_REWARD_TOKENS=100
+      - MIN_SCORE_THRESHOLD=0.3
+      - REWARD_POOL_SIZE=1000
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fis-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
