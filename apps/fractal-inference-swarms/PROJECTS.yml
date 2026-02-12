@@ -1,0 +1,16 @@
+- name: fractal-inference-swarms
+  category: apps
+  owner: "@your-github-username"
+  collaborators:
+    - "@your-discord#0001"
+  status: active
+  created: 2026-02-11
+  version: v0.1.0
+  tags:
+    - cortensor
+    - orchestration
+    - ai-swarms
+    - pouw
+    - validators
+    - x402
+    - observability
