@@ -1,0 +1,32 @@
+{
+  "name": "cortensor-judge-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Cortensor Judge - decentralized dispute resolution",
+  "scripts": {
+    "hardhat:node": "hardhat node",
+    "hardhat:deploy": "hardhat run hardhat-scripts/deploy.ts --network localhost",
+    "hardhat:deploy:base": "hardhat run hardhat-scripts/deploy.ts --network base",
+    "hardhat:deploy:arbitrum": "hardhat run hardhat-scripts/deploy.ts --network arbitrum",
+    "hardhat:test": "hardhat test",
+    "hardhat:compile": "hardhat compile",
+    "hardhat:clean": "hardhat clean",
+    "forge:build": "forge build",
+    "forge:test": "forge test",
+    "forge:deploy": "forge script script/Deploy.s.sol:DeployJudge --broadcast",
+    "dev": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@typechain/ethers-v6": "^0.5.1",
+    "ethers": "^6.10.0",
+    "hardhat": "^2.19.4",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5",
+    "dotenv": "^16.3.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}

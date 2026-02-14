@@ -1,0 +1,151 @@
+services:
+  # Redis - Optional, for production use
+  redis:
+    image: redis:latest
+    container_name: cortensor-redis
+    ports: 
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cortensor-network
+    profiles:
+      - redis # Only run with: docker-compose --profile redis up
+
+  # MongoDB - For data persistence
+  mongodb:
+    image: mongo:latest
+    container_name: cortensor-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: cortensor_judge
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cortensor-network
+
+  # Hardhat Blockchain - Local Ethereum (optional)
+  hardhat:
+    image: node:20-alpine
+    container_name: cortensor-hardhat
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    ports:
+      - '8545:8545'
+    volumes:
+      - ./contracts:/app
+    command: npm run hardhat:node
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8545"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cortensor-network
+    profiles:
+      - blockchain # Only run with: docker-compose --profile blockchain up
+
+  sentinel:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: cortensor-sentinel
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      # Server
+      PORT: 3001
+      NODE_ENV: production
+
+      # Blockchain
+      BLOCKCHAIN_RPC_URL: ${BLOCKCHAIN_RPC_URL:-http://127.0.0.1:8545}
+      JUSTICE_CONTRACT_ADDRESS: ${JUSTICE_CONTRACT_ADDRESS}
+      REPUTATION_REGISTRY_ADDRESS: ${REPUTATION_REGISTRY_ADDRESS}
+      COR_TOKEN_ADDRESS: ${COR_TOKEN_ADDRESS}
+      VALIDATOR_PRIVATE_KEY: ${VALIDATOR_PRIVATE_KEY}
+      VALIDATOR_ADDRESS: ${VALIDATOR_ADDRESS}
+      NETWORK: ${NETWORK:-localhost}
+
+      # Database
+      MONGODB_URL: ${MONGODB_URL:-mongodb://admin:password123@mongodb:27017/cortensor_judge?authSource=admin}
+
+      # Cortensor API
+      CORTENSOR_API_URL: ${CORTENSOR_API_URL}
+      CORTENSOR_API_KEY: ${CORTENSOR_API_KEY}
+
+      # Vector DB (Pinecone)
+      PINECONE_API_KEY: ${PINECONE_API_KEY}
+      PINECONE_ENVIRONMENT: ${PINECONE_ENVIRONMENT}
+      PINECONE_INDEX_NAME: cortensor-judge
+
+      # IPFS (Pinata)
+      PINATA_API_KEY: ${PINATA_API_KEY}
+      PINATA_API_SECRET: ${PINATA_API_SECRET}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+
+      # Queue (Optional - for production with Redis)
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PINATA_GATEWAY_URL: https://gateway.pinata.cloud
+
+      # Judge Configuration
+      CHALLENGE_WINDOW_DURATION: 300
+      MIN_SIMILARITY_THRESHOLD: 95
+      MIN_BOND_AMOUNT: '100000000000000000'
+      MAX_BOND_AMOUNT: '10000000000000000000'
+      SLASH_PERCENTAGE: 20
+      CHALLENGER_REWARD_PERCENTAGE: 50
+
+      # Monitoring
+      LOG_LEVEL: info
+      METRICS_ENABLED: 'true'
+
+      # Security
+      CORS_ORIGIN: '*'
+      API_RATE_LIMIT: 100
+
+      # Testing
+      USE_MOCK_IPFS: 'false'
+
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - cortensor-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3001/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mongodb-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  cortensor-network:
+    driver: bridge
