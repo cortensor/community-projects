@@ -1,0 +1,9 @@
+{
+  "sourceRepository": "https://github.com/Ezejaemmanuel/cortigpt-monorepo.git",
+  "lastSync": "2025-08-30T14:12:01.368Z",
+  "syncedBy": "HP",
+  "projectName": "cortigpt-monorepo",
+  "version": "2.0.0",
+  "syncTool": "Node.js",
+  "nodeVersion": "v22.14.0"
+}

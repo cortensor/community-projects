@@ -1,0 +1,68 @@
+{
+  "name": "CortiGPT - The Decentralized Perplexity",
+  "short_name": "CortiGPT",
+  "description": "Experience the future of AI-powered search with CortiGPT - where Perplexity meets Decentralization. Get verifiable, trustless intelligence from multiple specialized AI agents.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0066ff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": [
+    "productivity",
+    "utilities",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/cortigpt-4.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/cortigpt-4.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/cortigpt-4.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "CortiGPT Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chat with AI",
+      "short_name": "Chat",
+      "description": "Start a conversation with CortiGPT",
+      "url": "/cortensorChat",
+      "icons": [
+        {
+          "src": "/cortigpt-4.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Extension Install",
+      "short_name": "Extension",
+      "description": "Install CortiGPT browser extension",
+      "url": "/extension-install",
+      "icons": [
+        {
+          "src": "/cortigpt-4.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

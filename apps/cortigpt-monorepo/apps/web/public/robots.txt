@@ -1,0 +1,34 @@
+# Robots.txt for CortiGPT - The Decentralized Perplexity
+# https://cortigpt.jatique.dev/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://cortigpt.jatique.dev/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow sensitive areas (if any)
+# Disallow: /api/
+# Disallow: /admin/
+
+# Allow important pages
+Allow: /choose-mode
+Allow: /cortensorChat
+Allow: /extension-install
+
+# SEO optimizations
+# Allow CSS and JS files for better rendering
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Host directive (optional)
+Host: https://cortigpt.jatique.dev
