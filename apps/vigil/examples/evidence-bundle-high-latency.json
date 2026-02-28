@@ -1,0 +1,130 @@
+{
+  "incidentId": "incident_1709012400000",
+  "timestamp": 1709012400000,
+  "metrics": {
+    "timestamp": 1709012400000,
+    "latency": 342.5,
+    "errorRate": 0.012,
+    "validatorScore": 0.891,
+    "uptime": 99.9,
+    "requestCount": 1047
+  },
+  "analysis": {
+    "sessionIds": [
+      "session_1709012401234_gpt4",
+      "session_1709012401567_claude3",
+      "session_1709012401890_geminipro"
+    ],
+    "modelOutputs": [
+      {
+        "model": "gpt-4",
+        "output": "{\"isAnomaly\":true,\"confidence\":0.87,\"reasoning\":\"Latency shows significant deviation from baseline of 100ms. Current value of 342.5ms represents a 3.4x increase, indicating potential network congestion or router performance degradation.\"}",
+        "isAnomaly": true,
+        "confidence": 0.87,
+        "validatorScore": 0.923
+      },
+      {
+        "model": "claude-3",
+        "output": "{\"isAnomaly\":true,\"confidence\":0.91,\"reasoning\":\"Analysis confirms anomalous latency pattern. The 342.5ms response time exceeds acceptable thresholds and correlates with slight error rate increase, suggesting systemic issue requiring immediate attention.\"}",
+        "isAnomaly": true,
+        "confidence": 0.91,
+        "validatorScore": 0.918
+      },
+      {
+        "model": "gemini-pro",
+        "output": "{\"isAnomaly\":true,\"confidence\":0.84,\"reasoning\":\"Detected high latency event. Metrics indicate performance degradation beyond normal variance. Validator score remains stable, suggesting issue is network-layer rather than consensus-layer.\"}",
+        "isAnomaly": true,
+        "confidence": 0.84,
+        "validatorScore": 0.915
+      }
+    ],
+    "consensus": true,
+    "confidence": 0.873,
+    "validatorScores": [0.923, 0.918, 0.915],
+    "timestamp": 1709012402000
+  },
+  "actions": [
+    {
+      "type": "github_issue",
+      "status": "executed",
+      "timestamp": 1709012403000,
+      "result": {
+        "issueUrl": "https://github.com/cortensor/network/issues/42",
+        "issueNumber": 42
+      }
+    },
+    {
+      "type": "discord_alert",
+      "status": "executed",
+      "timestamp": 1709012403500,
+      "result": {
+        "sent": true,
+        "webhookId": "1234567890"
+      }
+    },
+    {
+      "type": "log",
+      "status": "executed",
+      "timestamp": 1709012404000,
+      "result": {
+        "logged": true
+      }
+    }
+  ],
+  "timeline": [
+    {
+      "timestamp": 1709012400000,
+      "event": "Incident Detected",
+      "details": {
+        "type": "high_latency",
+        "severity": "high"
+      }
+    },
+    {
+      "timestamp": 1709012402000,
+      "event": "Analysis Completed",
+      "details": {
+        "consensus": true,
+        "confidence": 0.873,
+        "models": 3
+      }
+    },
+    {
+      "timestamp": 1709012403000,
+      "event": "Action: github_issue",
+      "details": {
+        "status": "executed",
+        "result": {
+          "issueUrl": "https://github.com/cortensor/network/issues/42"
+        }
+      }
+    },
+    {
+      "timestamp": 1709012403500,
+      "event": "Action: discord_alert",
+      "details": {
+        "status": "executed",
+        "result": {
+          "sent": true
+        }
+      }
+    },
+    {
+      "timestamp": 1709012404000,
+      "event": "Action: log",
+      "details": {
+        "status": "executed",
+        "result": {
+          "logged": true
+        }
+      }
+    },
+    {
+      "timestamp": 1709012405000,
+      "event": "Incident Resolved",
+      "details": {
+        "duration": 5000
+      }
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+import axios from 'axios';
+import type { Action, Incident } from '../types/index.js';
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
+const GITHUB_REPO = process.env.GITHUB_REPO || '';
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || '';
+const DRY_RUN = process.env.DRY_RUN === 'true';
+
+export class ActionExecutor {
+  private rateLimits: Map<string, number> = new Map();
+  private readonly RATE_LIMIT_WINDOW = 5 * 60 * 1000; // 5 minutes
+
+  async executeActions(incident: Incident): Promise<Action[]> {
+    const actions: Action[] = [];
+
+    // Check rate limit
+    if (this.isRateLimited(incident.type)) {
+      console.log(`Rate limited for incident type: ${incident.type}`);
+      return actions;
+    }
+
+    // Create GitHub issue
+    if (incident.severity === 'high' || incident.severity === 'critical') {
+      actions.push(await this.createGitHubIssue(incident));
+    }
+
+    // Send Discord alert
+    actions.push(await this.sendDiscordAlert(incident));
+
+    // Log action
+    actions.push(this.logIncident(incident));
+
+    // Update rate limit
+    this.rateLimits.set(incident.type, Date.now());
+
+    return actions;
+  }
+
+  private async createGitHubIssue(incident: Incident): Promise<Action> {
+    const action: Action = {
+      type: 'github_issue',
+      status: 'pending',
+      timestamp: Date.now()
+    };
+
+    if (DRY_RUN) {
+      action.status = 'executed';
+      action.result = { dryRun: true, message: 'Would create GitHub issue' };
+      return action;
+    }
+
+    try {
+      const title = `[Incident] ${incident.type.replace(/_/g, ' ').toUpperCase()}`;
+      const body = this.generateIssueBody(incident);
+
+      if (GITHUB_TOKEN && GITHUB_REPO) {
+        const response = await axios.post(
+          `https://api.github.com/repos/${GITHUB_REPO}/issues`,
+          { title, body, labels: ['incident', incident.severity] },
+          { headers: { Authorization: `token ${GITHUB_TOKEN}` } }
+        );
+        action.status = 'executed';
+        action.result = { issueUrl: response.data.html_url };
+      } else {
+        action.status = 'executed';
+        action.result = { mock: true, title, body };
+      }
+    } catch (error: any) {
+      action.status = 'failed';
+      action.error = error.message;
+    }
+
+    return action;
+  }
+
+  private async sendDiscordAlert(incident: Incident): Promise<Action> {
+    const action: Action = {
+      type: 'discord_alert',
+      status: 'pending',
+      timestamp: Date.now()
+    };
+
+    if (DRY_RUN) {
+      action.status = 'executed';
+      action.result = { dryRun: true, message: 'Would send Discord alert' };
+      return action;
+    }
+
+    try {
+      const embed = {
+        title: `🚨 Incident Detected: ${incident.type.replace(/_/g, ' ')}`,
+        color: this.getSeverityColor(incident.severity),
+        fields: [
+          { name: 'Severity', value: incident.severity.toUpperCase(), inline: true },
+          { name: 'Status', value: incident.status, inline: true },
+          { name: 'Latency', value: `${incident.metrics.latency.toFixed(2)}ms`, inline: true },
+          { name: 'Error Rate', value: `${(incident.metrics.errorRate * 100).toFixed(2)}%`, inline: true },
+          { name: 'Validator Score', value: incident.metrics.validatorScore.toFixed(3), inline: true }
+        ],
+        timestamp: new Date(incident.detectedAt).toISOString()
+      };
+
+      if (DISCORD_WEBHOOK_URL) {
+        await axios.post(DISCORD_WEBHOOK_URL, { embeds: [embed] });
+        action.status = 'executed';
+        action.result = { sent: true };
+      } else {
+        action.status = 'executed';
+        action.result = { mock: true, embed };
+      }
+    } catch (error: any) {
+      action.status = 'failed';
+      action.error = error.message;
+    }
+
+    return action;
+  }
+
+  private logIncident(incident: Incident): Action {
+    console.log(`[INCIDENT] ${incident.id} - ${incident.type} - ${incident.severity}`);
+    return {
+      type: 'log',
+      status: 'executed',
+      timestamp: Date.now(),
+      result: { logged: true }
+    };
+  }
+
+  private generateIssueBody(incident: Incident): string {
+    return `## Incident Details
+
+**Type:** ${incident.type}
+**Severity:** ${incident.severity}
+**Detected At:** ${new Date(incident.detectedAt).toISOString()}
+
+### Metrics
+- **Latency:** ${incident.metrics.latency.toFixed(2)}ms
+- **Error Rate:** ${(incident.metrics.errorRate * 100).toFixed(2)}%
+- **Validator Score:** ${incident.metrics.validatorScore.toFixed(3)}
+- **Uptime:** ${incident.metrics.uptime}%
+
+### Analysis
+${incident.analysis ? `
+- **Consensus:** ${incident.analysis.consensus ? '✅ Yes' : '❌ No'}
+- **Confidence:** ${(incident.analysis.confidence * 100).toFixed(1)}%
+- **Models Analyzed:** ${incident.analysis.modelOutputs.length}
+- **Session IDs:** ${incident.analysis.sessionIds.join(', ')}
+` : 'Analysis pending...'}
+
+---
+*Generated by Vigil Agent*`;
+  }
+
+  private getSeverityColor(severity: string): number {
+    const colors = {
+      low: 0x3498db,
+      medium: 0xf39c12,
+      high: 0xe67e22,
+      critical: 0xe74c3c
+    };
+    return colors[severity as keyof typeof colors] || 0x95a5a6;
+  }
+
+  private isRateLimited(type: string): boolean {
+    const lastAction = this.rateLimits.get(type);
+    if (!lastAction) return false;
+    return Date.now() - lastAction < this.RATE_LIMIT_WINDOW;
+  }
+}
+
+export const actionExecutor = new ActionExecutor();

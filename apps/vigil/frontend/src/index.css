@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap');
+
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Colors - Nu White Theme */
+  --color-app-bg: #FCFCFD;
+  --color-app-surface: #FFFFFF;
+  --color-app-card: #FFFFFF;
+  --color-app-border: #E5E7EB;
+  --color-app-hover: #F9FAFB;
+  
+  /* Accents */
+  --color-accent-indigo: #4F46E5;
+  --color-accent-indigo-hover: #4338CA;
+  --color-accent-gold: #D97706;
+  --color-accent-gold-hover: #B45309;
+  --color-accent-emerald: #059669;
+  
+  /* Text */
+  --color-text-main: #111827;
+  --color-text-dim: #4B5563;
+  --color-text-pale: #9CA3AF;
+
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-display: 'Syne', sans-serif;
+
+  /* Shadows - Soft & Premium */
+  --shadow-premium: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-floating: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-glow-indigo: 0 0 20px rgba(79, 70, 229, 0.1);
+
+  /* Animations */
+  --animate-reveal: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-soft-pulse: softPulse 3s ease-in-out infinite;
+}
+
+@keyframes reveal {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-app-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Grid Background - Subtle */
+.grid-subtle {
+  background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Custom Scrollbar */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-app-bg);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-app-border);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-pale);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply px-8 py-3.5 bg-accent-indigo text-white font-semibold rounded-full transition-all duration-300 hover:bg-accent-indigo-hover hover:shadow-floating active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-secondary {
+  @apply px-8 py-3.5 bg-white text-accent-indigo border border-app-border font-semibold rounded-full transition-all duration-300 hover:bg-app-hover hover:shadow-premium active:scale-95 disabled:opacity-50;
+}
+
+.btn-ghost {
+  @apply px-4 py-2.5 text-text-dim hover:text-accent-indigo hover:bg-app-hover rounded-xl transition-all duration-200;
+}
+
+/* Cards */
+.card-premium {
+  @apply bg-white border border-app-border rounded-3xl p-8 transition-all duration-500 hover:shadow-floating hover:border-accent-indigo/20;
+}
+
+/* Form Elements */
+.input-premium {
+  @apply w-full px-5 py-4 bg-white border border-app-border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-indigo/10 focus:border-accent-indigo transition-all duration-200 placeholder:text-text-pale text-text-main font-medium;
+}
+
+/* Animations Helpers */
+.stagger-reveal > * {
+  opacity: 0;
+  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent-indigo);
+  outline-offset: 2px;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--color-accent-indigo);
+}
