@@ -83,7 +83,8 @@ main <- dev-userid <- dev-userid-feature1
 4. **Test thoroughly** to ensure your project works as expected
 
 5. **Merge your feature branch** back to your developer branch:
-   ```bash
+   ```
+bash
    git checkout dev-{userid}
    git merge dev-{userid}-{featurename}
    ```
