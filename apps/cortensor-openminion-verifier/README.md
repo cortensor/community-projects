@@ -1,5 +1,6 @@
 # Cortensor OpenMinion 0.1 Redundant Consensus Verifier & Building-Block Probe Suite
 
+[![CI](https://github.com/huadeng408/cortensor-openminion-verifier/actions/workflows/ci.yml/badge.svg)](https://github.com/huadeng408/cortensor-openminion-verifier/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![OpenMinion SDK](https://img.shields.io/badge/openminion-0.1.21-0ea5e9.svg)
 ![Version](https://img.shields.io/badge/version-v0.1.2-22c55e.svg)
@@ -144,6 +145,7 @@ All probe and audit figures below are captured directly in [`fixtures/calibrated
 
 - **License**: [`LICENSE`](LICENSE) (**`MIT` License**, matching `cortensor/community-projects/apps/*` requirements)
 - **Community Project Metadata**: [`PROJECTS.yml`](PROJECTS.yml) · [`STATUS.md`](STATUS.md) · [`RELEASE.md`](RELEASE.md)
+- **Cortensor Portal & `Gemma4` Live Integration (`https://api.cortensor.app/v1`)**: [`docs/CORTENSOR_PORTAL_AND_GEMMA4_REPORT.md`](docs/CORTENSOR_PORTAL_AND_GEMMA4_REPORT.md) & [`fixtures/live_cortensor_portal_gemma4.json`](fixtures/live_cortensor_portal_gemma4.json) — live alias sweep (`gemma4` `21.5s`, `oss-20b` `39.7s`, `qwen`, `oss-120b`), end-to-end `APIRuntime.submit_turn(stream=True)` SSE streaming `PASS` on both **`gemma4`** (`2,108/82` tokens, `72.7s`) and **`oss-20b`** (`1,870/37` tokens, `77.7s`), live Portal reproduction of `openminion#773`, and 6 gateway request IDs (`gw-166b6f5a-...`, `gw-8126efdb-...`, etc.) diagnosing `HTTP 502` tool-argument schema rejection and Router V4 `HTTP 500` compounding.
 - **Upstream `openminion/openminion` Bonus Drafts**: [`docs/UPSTREAM_OPENMINION_BONUS_DRAFTS.md`](docs/UPSTREAM_OPENMINION_BONUS_DRAFTS.md) — upstream bug reports & minimal patch drafts (`daemon.py:549-555`, `handoff.py:168-170`, `task_context.py:173-191`), with **maintainer-confirmed** upstream filings:
   - [`openminion/openminion#773`](https://github.com/openminion/openminion/issues/773) + substantive fix PR [`openminion/openminion#775`](https://github.com/openminion/openminion/pull/775) (`TurnResponse.telemetry` token accounting from authoritative `RunStats`, accepted by maintainer)
   - [`openminion/openminion#774`](https://github.com/openminion/openminion/issues/774) + substantive fix PR [`openminion/openminion#776`](https://github.com/openminion/openminion/pull/776) (`Handoff` per-delegation `timeout_seconds` & `approval_callback` forwarding)

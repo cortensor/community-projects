@@ -1,12 +1,13 @@
 # PROJECT STATUS
 
 **Project:** `cortensor-openminion-verifier` (`v0.1.2`)
-**Date:** 2026-11-15
+**Date:** 2026-11-16
 **Maintainer:** `@huadeng408`
 
 ## Current Status
 
-- **Active & Ready for Upstream Submission**: Re-licensed under the standard `MIT License` with `openminion==0.1.21` pinned deterministically in `pyproject.toml`.
+- **Active & Submitted (`cortensor/community-projects#91` + DoraHacks `#51230`)**: Re-licensed under the standard `MIT License` with `openminion==0.1.21` pinned deterministically in `pyproject.toml` and automated Linux/Windows GitHub Actions CI (`.github/workflows/ci.yml`).
+- **Live Cortensor Portal & `Gemma4` Tested (`https://api.cortensor.app/v1`)**: Verified `--preset cortensor-portal` live against hosted **`gemma4`** (`Gemma 4 E4B`) and **`oss-20b`** (`OSS 20B`), passing end-to-end `APIRuntime.submit_turn(stream=True)` SSE streaming and documenting Router V4 / gateway tool-schema diagnostics with concrete `gw-*` request IDs in [`docs/CORTENSOR_PORTAL_AND_GEMMA4_REPORT.md`](docs/CORTENSOR_PORTAL_AND_GEMMA4_REPORT.md).
 - **Multi-Pass Consensus Auditor**: Dual-perspective `subagent()` passes (`corroborator` and `skeptic`) run in isolated `APIRuntime` workspaces using `READ_ONLY` `Scoped Evidence Toolset` bindings (`load_delphi_market_fixture`, `search_public_evidence`, `fetch_source_excerpt`, and SSRF-guarded `fetch_public_url_excerpt`), synthesizing typed `ConsensusVerdict` bundles with portable `MemoryBundle` persistence and fail-closed `Handoff` publication gating.
 - **10-Module SDK Probe Suite**: `BuildingBlockProbeRunner` exercises all 10 core `openminion==0.1.21` primitives and exports sanitized empirical reports (`docs/BUILDING_BLOCKS_TESTED.md`, `docs/WHAT_WE_LEARNED.md`) with zero plaintext credential persistence.
 - **Verification Coverage**: All loopback integration suites execute against real `openminion==0.1.21` runtime primitives over deterministic local HTTP stubs.

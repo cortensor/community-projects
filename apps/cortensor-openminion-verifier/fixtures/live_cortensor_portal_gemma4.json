@@ -1,0 +1,167 @@
+{
+  "recorded_at_utc": "2026-11-16T17:06:33Z",
+  "gateway_base_url": "https://api.cortensor.app/v1",
+  "preset": "cortensor-portal",
+  "openminion_version": "0.1.21",
+  "portal_alias_matrix": [
+    {
+      "alias": "gemma4",
+      "http_status": 200,
+      "ok": true,
+      "latency_ms": 21511.61,
+      "response_model": "gemma4",
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 28,
+        "total_tokens": 72
+      },
+      "content_preview": "CORTENSOR_PORTAL_LIVE"
+    },
+    {
+      "alias": "oss-20b",
+      "http_status": 200,
+      "ok": true,
+      "latency_ms": 39666.73,
+      "response_model": "oss-20b",
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 104,
+        "prompt_tokens": 78,
+        "total_tokens": 182
+      },
+      "content_preview": "CORTENSOR_PORTAL_LIVE"
+    },
+    {
+      "alias": "qwen",
+      "http_status": null,
+      "ok": false,
+      "latency_ms": 45769.91,
+      "error": {
+        "message": "The read operation timed out"
+      }
+    },
+    {
+      "alias": "oss-120b",
+      "http_status": 502,
+      "ok": false,
+      "latency_ms": 2446.01,
+      "error": {
+        "error": {
+          "message": "Router pool returned an error.",
+          "type": "server_error",
+          "param": null,
+          "code": "router_error"
+        }
+      }
+    }
+  ],
+  "gemma4_openminion_sdk_probes": {
+    "model": "gemma4",
+    "tool_and_pydantic_native": {
+      "ok": false,
+      "strategy": "native",
+      "latency_ms": 240052.63,
+      "tool_invocations": [],
+      "error_type": "TurnTimeoutError",
+      "error": "Turn execution timed out after 240.00 seconds."
+    },
+    "tool_and_pydantic_hybrid": {
+      "ok": false,
+      "strategy": "hybrid",
+      "latency_ms": 69366.71,
+      "tool_invocations": [],
+      "error_type": "ProviderError",
+      "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 500: Router V4 request failed before model completion.). Please retry or switch models. Provider request ID: gw-8126efdb-f745-4940-9dfb-358de6eae395."
+    },
+    "submit_turn_sse_stream": {
+      "ok": true,
+      "latency_ms": 72659.01,
+      "chunk_count": 12,
+      "chunk_kinds": [
+        "status",
+        "final_text"
+      ],
+      "final_text": "verifier: CORTENSOR_STREAM_VERIFIED",
+      "stats": {
+        "input_tokens": 2108,
+        "output_tokens": 82,
+        "cache_read_tokens": 0,
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "duration_ms": 72420
+      },
+      "telemetry": {
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "duration_ms": 72655
+      },
+      "llm_usage_coverage": "{\"cache_metric_events\": 0, \"cache_read_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"cache_write_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"context_manifest_events\": 0, \"failed_llm_call_events\": 0, \"input_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"llm_call_events\": 1, \"llm_call_id_present_events\": 1, \"model_identified_llm_call_events\": 1, \"observed_llm_call_events\": 1, \"output_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"provider_identified_llm_call_events\": 1, \"reasoning_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"run_id_present_events\": 1, \"total_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"trace_id_present_events\": 1, \"unmetered_llm_call_events\": 0}",
+      "errors": []
+    },
+    "agent_run_no_tools": {
+      "ok": false,
+      "latency_ms": 113618.71,
+      "error_type": "ProviderError",
+      "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 500: Router V4 request failed before model completion.). Please retry or switch models. Provider request ID: gw-3e2068a0-4717-40b1-aa33-847dc57e19f2."
+    }
+  },
+  "oss20b_openminion_sdk_probes": {
+    "model": "oss-20b",
+    "tool_and_pydantic_native": {
+      "ok": false,
+      "strategy": "native",
+      "latency_ms": 62765.31,
+      "tool_invocations": [],
+      "error_type": "ProviderError",
+      "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 502: Model tool arguments do not match the advertised schema.). Please retry or switch models. Provider request ID: gw-166b6f5a-6c9d-4458-8611-824a3d93c55e."
+    },
+    "tool_and_pydantic_hybrid": {
+      "ok": false,
+      "strategy": "hybrid",
+      "latency_ms": 178396.28,
+      "tool_invocations": [],
+      "error_type": "ProviderError",
+      "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 500: Router V4 request failed before model completion.). Please retry or switch models. Provider request ID: gw-83684e89-808d-4b58-af3f-2529ab52f732."
+    },
+    "submit_turn_sse_stream": {
+      "ok": true,
+      "latency_ms": 77733.23,
+      "chunk_count": 12,
+      "chunk_kinds": [
+        "status",
+        "final_text"
+      ],
+      "final_text": "verifier: CORTENSOR_STREAM_VERIFIED",
+      "stats": {
+        "input_tokens": 1870,
+        "output_tokens": 37,
+        "cache_read_tokens": 0,
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "duration_ms": 77586
+      },
+      "telemetry": {
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "duration_ms": 77719
+      },
+      "llm_usage_coverage": "{\"cache_metric_events\": 0, \"cache_read_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"cache_write_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"context_manifest_events\": 0, \"failed_llm_call_events\": 0, \"input_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"llm_call_events\": 1, \"llm_call_id_present_events\": 1, \"model_identified_llm_call_events\": 1, \"observed_llm_call_events\": 1, \"output_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"provider_identified_llm_call_events\": 1, \"reasoning_tokens\": {\"invalid\": 0, \"missing\": 1, \"reported\": 0}, \"run_id_present_events\": 1, \"total_tokens\": {\"invalid\": 0, \"missing\": 0, \"reported\": 1}, \"trace_id_present_events\": 1, \"unmetered_llm_call_events\": 0}",
+      "errors": []
+    },
+    "agent_run_no_tools": {
+      "ok": false,
+      "latency_ms": 137635.39,
+      "error_type": "ProviderError",
+      "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 500: Router V4 request failed before model completion.). Please retry or switch models. Provider request ID: gw-cccd5a65-0601-4d8e-9cf1-999dfb73f802."
+    }
+  },
+  "oss20b_single_pass_audit": {
+    "ok": false,
+    "wall_ms": 172057.65,
+    "error_type": "ProviderError",
+    "error": "PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 502: Model tool arguments do not match the advertised schema.). Please retry or switch models. Provider request ID: gw-70cbf7a3-5eee-4a04-820d-5a6771687f70."
+  }
+}
