@@ -9,8 +9,9 @@
 - **Draft 1 (`TurnResponse.telemetry` token totals)** — **Acknowledged & Confirmed in Scope by Maintainer (`@wireindevice`)**:
   - Upstream Issue: [`openminion/openminion#773`](https://github.com/openminion/openminion/issues/773)
   - Substantive Fix PR (targeting `dev`): [`openminion/openminion#775`](https://github.com/openminion/openminion/pull/775)
-- **Draft 2 (`Handoff` target `timeout_seconds` & `approval_callback` forwarding)** — **Acknowledged & Confirmed in Scope by Maintainer (`@wireindevice`)**:
+- **Draft 2 (`Handoff` target `timeout_seconds` & `approval_callback` forwarding)** — **Acknowledged & Approved in Scope by Maintainer (`@wireindevice`)**:
   - Upstream Issue + Concrete Design Proposal: [`openminion/openminion#774`](https://github.com/openminion/openminion/issues/774)
+  - Substantive Fix PR (targeting `dev`): [`openminion/openminion#776`](https://github.com/openminion/openminion/pull/776)
 
 ---
 

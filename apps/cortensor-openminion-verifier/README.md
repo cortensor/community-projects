@@ -145,8 +145,8 @@ All probe and audit figures below are captured directly in [`fixtures/calibrated
 - **License**: [`LICENSE`](LICENSE) (**`MIT` License**, matching `cortensor/community-projects/apps/*` requirements)
 - **Community Project Metadata**: [`PROJECTS.yml`](PROJECTS.yml) · [`STATUS.md`](STATUS.md) · [`RELEASE.md`](RELEASE.md)
 - **Upstream `openminion/openminion` Bonus Drafts**: [`docs/UPSTREAM_OPENMINION_BONUS_DRAFTS.md`](docs/UPSTREAM_OPENMINION_BONUS_DRAFTS.md) — upstream bug reports & minimal patch drafts (`daemon.py:549-555`, `handoff.py:168-170`, `task_context.py:173-191`), with **maintainer-confirmed** upstream filings:
-  - [`openminion/openminion#773`](https://github.com/openminion/openminion/issues/773) + substantive fix PR [`openminion/openminion#775`](https://github.com/openminion/openminion/pull/775) (`TurnResponse.telemetry` token accounting from authoritative `RunStats`)
-  - [`openminion/openminion#774`](https://github.com/openminion/openminion/issues/774) (`Handoff` per-delegation `timeout_seconds` & `approval_callback` proposal)
+  - [`openminion/openminion#773`](https://github.com/openminion/openminion/issues/773) + substantive fix PR [`openminion/openminion#775`](https://github.com/openminion/openminion/pull/775) (`TurnResponse.telemetry` token accounting from authoritative `RunStats`, accepted by maintainer)
+  - [`openminion/openminion#774`](https://github.com/openminion/openminion/issues/774) + substantive fix PR [`openminion/openminion#776`](https://github.com/openminion/openminion/pull/776) (`Handoff` per-delegation `timeout_seconds` & `approval_callback` forwarding)
 - **DoraHacks Hackathon #5 (`#2418`) BUIDL**: https://dorahacks.io/build/51230
 
 ---

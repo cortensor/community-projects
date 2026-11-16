@@ -82,8 +82,8 @@ cortensor-verifier render-demo --sample-json fixtures/calibrated_sample_run.json
 - **Building Blocks Matrix (`10/10`)**: https://github.com/huadeng408/cortensor-openminion-verifier/blob/main/docs/BUILDING_BLOCKS_TESTED.md
 - **Empirical DX Report (`What We Learned`)**: https://github.com/huadeng408/cortensor-openminion-verifier/blob/main/docs/WHAT_WE_LEARNED.md
 - **Upstream OpenMinion Bug & Patch Drafts (Bonus Track)**: https://github.com/huadeng408/cortensor-openminion-verifier/blob/main/docs/UPSTREAM_OPENMINION_BONUS_DRAFTS.md
-  - Maintainer-confirmed Issue [#773](https://github.com/openminion/openminion/issues/773) + Substantive Fix PR [#775](https://github.com/openminion/openminion/pull/775) (`TurnResponse.telemetry` token totals from `RunStats`)
-  - Maintainer-confirmed Issue [#774](https://github.com/openminion/openminion/issues/774) (`Handoff` per-target `timeout_seconds` & `approval_callback` concrete proposal)
+  - Maintainer-confirmed Issue [#773](https://github.com/openminion/openminion/issues/773) + Substantive Fix PR [#775](https://github.com/openminion/openminion/pull/775) (`TurnResponse.telemetry` token totals from `RunStats`, accepted by `@wireindevice`)
+  - Maintainer-confirmed Issue [#774](https://github.com/openminion/openminion/issues/774) + Substantive Fix PR [#776](https://github.com/openminion/openminion/pull/776) (`Handoff` per-target `timeout_seconds` & `approval_callback` forwarding)
 - **DoraHacks BUIDL (`#51230`)**: https://dorahacks.io/build/51230
 - **Calibrated Sample Fixture**: https://github.com/huadeng408/cortensor-openminion-verifier/blob/main/fixtures/calibrated_sample_run.json
 - **Demo Video (`4:06`, `1920x1080`, narrated, real live run)**: https://github.com/huadeng408/cortensor-openminion-verifier/releases/download/v0.1.2/cortensor_hackathon5_demo.mp4
