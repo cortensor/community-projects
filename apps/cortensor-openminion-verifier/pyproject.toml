@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cortensor-openminion-verifier"
+version = "0.1.2"
+description = "Redundant verifiable claim & market evidence consensus auditor built on OpenMinion 0.1 Python SDK"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "openminion==0.1.21",
+  "pydantic>=2.0",
+  "httpx>=0.27,<1",
+  "pillow>=10.0",
+  "imageio[ffmpeg]>=2.34",
+  "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0,<9",
+]
+
+[project.scripts]
+cortensor-verifier = "cortensor_verifier.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+testpaths = ["tests"]

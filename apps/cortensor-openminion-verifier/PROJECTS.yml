@@ -1,0 +1,15 @@
+- name: cortensor-openminion-verifier
+  category: apps
+  owner: "@huadeng408"
+  collaborators:
+    - "@huadeng408"
+  status: active
+  created: 2026-11-14
+  version: v0.1.2
+  tags:
+    - python
+    - openminion
+    - cortensor
+    - consensus
+    - verification
+    - agent
