@@ -1,0 +1,10 @@
+- name: hackathon-scout
+  category: apps
+  owner: "@emilpz320-a11y"
+  collaborators: []
+  status: active
+  created: 2026-11-15
+  version: v0.1.0
+  tags: [openminion, agent, hackathon, research, human-in-the-loop]
+  repo: https://github.com/emilpz320-a11y/hackathon-scout
+  dorahacks: https://dorahacks.io/build/51207

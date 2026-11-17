@@ -1,0 +1,25 @@
+=== https://superteam.fun/api/listings/details/build-an-autonomous-capital-agent-on-solana-and-compete-for-dollar500-in-rewards
+  [approval call_139] auto-approved save_checklist(build-an-autonomous-capital-agent-on-solana-and-compete-for-dollar500-in-rewards)
+Build an Autonomous Capital Agent on Solana and Compete for $500 in Rewards | deadline: Unknown
+prizes: $500 in rewards
+  deliverable: Deployed autonomous capital agent on Solana
+  deliverable: Verified on-chain activity including trading volume and token launch volume via Steve Capital / Steve Launchpad
+  blocker: Fund your agent wallet with at least 20 USDC or equivalent value in SOL
+  blocker: Verify platform records and eligibility through Multihopper and Steve Capital
+effort: ~10h | SKIP - requires the builder's own capital: Fund your agent wallet with at least 20 USDC or equivalent value in SOL
+run=2a7ddd732598464c8abdb02b273a5ee6 session=scout-c511488847e0 stats={'input_tokens': 33368, 'output_tokens': 2060, 'cache_read_tokens': 4032, 'llm_calls': 9, 'tool_calls': 4, 'tool_errors': 1, 'duration_ms': 13539}
+=== https://redditgameofday2026.devpost.com/
+  [approval call_554] auto-approved save_checklist(redditgameofday2026)
+  [backoff] provider 429, waiting 16s (retry 1/6)
+Reddit Game of the Day 2026 | deadline: December 8, 2026
+prizes: $35,000 in prizes
+  deliverable: Project repository link
+  deliverable: Demo video showcasing gameplay and daily loop
+  deliverable: Submission form on Devpost
+  blocker: Must have access to Devvit Developer Platform and be compliant with Devvit Rules
+  blocker: Need a working game built on Devvit Web and Interactive Posts
+effort: ~40h | GO - Recommended for solo builders and indie game developers familiar with web technologies or game engines who want to build for Reddit's ecosystem.
+run=8375490e7395441180e572a6a2edca8c session=scout-cdff08fac039 stats={'input_tokens': 22239, 'output_tokens': 1103, 'cache_read_tokens': 2014, 'llm_calls': 7, 'tool_calls': 3, 'tool_errors': 0, 'duration_ms': 25947}
+=== ranking (GO first, then least effort)
+1. Reddit Game of the Day 2026: GO - Recommended for solo builders and indie game developers familiar with web technologies or game engines who want to build for Reddit's ecosystem. (~40h)
+2. Build an Autonomous Capital Agent on Solana and Compete for $500 in Rewards: SKIP - requires the builder's own capital: Fund your agent wallet with at least 20 USDC or equivalent value in SOL (~10h)
