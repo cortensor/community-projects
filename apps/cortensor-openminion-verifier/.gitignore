@@ -1,0 +1,14 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+.openminion/
+.openminion-state/
+artifacts/
+.scratch/
+*.egg-info/
+dist/
+build/

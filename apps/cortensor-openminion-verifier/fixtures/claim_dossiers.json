@@ -1,0 +1,123 @@
+{
+  "dossiers": [
+    {
+      "claim_id": "delphi-btc-etf-2024",
+      "title": "US Spot Bitcoin ETP Approval (January 2024)",
+      "claim": "The U.S. SEC approved the listing and trading of multiple spot Bitcoin exchange-traded products on January 10, 2024.",
+      "market_question": "Did the U.S. SEC approve spot Bitcoin ETPs on January 10, 2024?",
+      "resolution_criteria": "Resolve SUPPORTED only if official SEC approval orders or Chair statement confirm approval dated 2024-01-10.",
+      "source_hints": [
+        "sec-spot-btc-2024-01-10",
+        "federal-register-34-99306"
+      ],
+      "tags": [
+        "delphi",
+        "regulation",
+        "crypto-market"
+      ],
+      "metadata": {
+        "market_id": "delphi-mkt-2024-001",
+        "category": "regulatory-milestone"
+      }
+    },
+    {
+      "claim_id": "delphi-eth-dencun-blobs",
+      "title": "Ethereum Dencun EIP-4844 Activation",
+      "claim": "Ethereum mainnet activated the Dencun upgrade including EIP-4844 proto-danksharding blob transactions on March 13, 2024.",
+      "market_question": "Did Ethereum mainnet activate EIP-4844 blob transactions in March 2024?",
+      "resolution_criteria": "Resolve SUPPORTED if Ethereum Foundation release notes and epoch 269568 timestamp verify activation on 2024-03-13 UTC.",
+      "source_hints": [
+        "eth-dencun-epoch-269568"
+      ],
+      "tags": [
+        "delphi",
+        "ethereum",
+        "protocol-upgrade"
+      ],
+      "metadata": {
+        "market_id": "delphi-mkt-2024-002",
+        "category": "protocol-upgrade"
+      }
+    },
+    {
+      "claim_id": "delphi-falsified-quantum-rsa2048",
+      "title": "Unverified RSA-2048 Quantum Factorization Claim",
+      "claim": "NIST confirmed that an unassisted 100-qubit NISQ processor factored RSA-2048 keys in public production in 2024.",
+      "market_question": "Did NIST confirm RSA-2048 was factored by a 100-qubit NISQ processor in 2024?",
+      "resolution_criteria": "Resolve REFUTED if authoritative cryptography standards bodies and published benchmarks contradict practical RSA-2048 factoring at 100 qubits.",
+      "source_hints": [
+        "nist-fips-203-204-205-2024"
+      ],
+      "tags": [
+        "delphi",
+        "cryptography",
+        "fact-check"
+      ],
+      "metadata": {
+        "market_id": "delphi-mkt-2024-003",
+        "category": "security-fact-check"
+      }
+    }
+  ],
+  "evidence_sources": [
+    {
+      "source_id": "sec-spot-btc-2024-01-10",
+      "title": "Statement on the Approval of Spot Bitcoin Exchange-Traded Products",
+      "url": "https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023",
+      "published_at": "2024-01-10",
+      "keywords": [
+        "sec",
+        "spot bitcoin",
+        "etp",
+        "etf",
+        "approval",
+        "january 10, 2024"
+      ],
+      "excerpt": "Today, the Commission approved the listing and trading of a number of spot bitcoin exchange-traded product (ETP) shares on January 10, 2024."
+    },
+    {
+      "source_id": "federal-register-34-99306",
+      "title": "SEC Release No. 34-99306 Self-Regulatory Organizations Order",
+      "url": "https://www.sec.gov/files/rules/sro/nysearca/2024/34-99306.pdf",
+      "published_at": "2024-01-10",
+      "keywords": [
+        "34-99306",
+        "sec",
+        "spot bitcoin",
+        "exchange-traded",
+        "approval order"
+      ],
+      "excerpt": "Order Granting Accelerated Approval of Proposed Rule Changes to List and Trade Shares of Bitcoin-Based Commodity-Based Trust Shares dated January 10, 2024."
+    },
+    {
+      "source_id": "eth-dencun-epoch-269568",
+      "title": "Ethereum Foundation Dencun Mainnet Announcement",
+      "url": "https://blog.ethereum.org/2024/02/27/dencun-mainnet-announcement",
+      "published_at": "2024-03-13",
+      "keywords": [
+        "ethereum",
+        "dencun",
+        "eip-4844",
+        "blobs",
+        "269568",
+        "march 13, 2024"
+      ],
+      "excerpt": "Dencun activated on Ethereum mainnet at epoch 269568 on March 13, 2024 at 13:55 UTC, introducing EIP-4844 temporary data blobs."
+    },
+    {
+      "source_id": "nist-fips-203-204-205-2024",
+      "title": "NIST Releases First 3 Finalized Post-Quantum Encryption Standards",
+      "url": "https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards",
+      "published_at": "2024-08-13",
+      "keywords": [
+        "nist",
+        "rsa-2048",
+        "quantum",
+        "100-qubit",
+        "post-quantum",
+        "fips"
+      ],
+      "excerpt": "NIST released FIPS 203, 204, and 205 in August 2024 as proactive post-quantum migration standards; no 100-qubit NISQ device has factored RSA-2048, which requires millions of physical qubits under fault-tolerant Shor's algorithm."
+    }
+  ]
+}

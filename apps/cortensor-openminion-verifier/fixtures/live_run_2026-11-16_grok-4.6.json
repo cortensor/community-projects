@@ -1,0 +1,229 @@
+{
+  "claim_id": "delphi-btc-etf-2024",
+  "preset": "openai-compatible",
+  "dossier": {
+    "claim_id": "delphi-btc-etf-2024",
+    "title": "US Spot Bitcoin ETP Approval (January 2024)",
+    "claim": "The U.S. SEC approved the listing and trading of multiple spot Bitcoin exchange-traded products on January 10, 2024.",
+    "market_question": "Did the U.S. SEC approve spot Bitcoin ETPs on January 10, 2024?",
+    "resolution_criteria": "Resolve SUPPORTED only if official SEC approval orders or Chair statement confirm approval dated 2024-01-10.",
+    "source_hints": [
+      "sec-spot-btc-2024-01-10",
+      "federal-register-34-99306"
+    ],
+    "tags": [
+      "delphi",
+      "regulation",
+      "crypto-market"
+    ],
+    "metadata": {
+      "market_id": "delphi-mkt-2024-001",
+      "category": "regulatory-milestone"
+    }
+  },
+  "consensus": {
+    "claim_id": "delphi-btc-etf-2024",
+    "final_verdict": "SUPPORTED",
+    "agreement_score": 0.975,
+    "mean_confidence": 0.925,
+    "disagreement_summary": "Corroborator and skeptic agreed on SUPPORTED (confidence gap 0.05).",
+    "passes": [
+      {
+        "verdict": "SUPPORTED",
+        "confidence": 0.95,
+        "rationale": "Official SEC Chair statement dated 2024-01-10 states the Commission approved listing and trading of multiple spot bitcoin ETP shares that day, corroborated by SEC Release No. 34-99306 granting accelerated approval of proposed rule changes to list and trade Bitcoin-based ETP shares dated January 10, 2024.",
+        "citations": [
+          {
+            "source_id": "sec-spot-btc-2024-01-10",
+            "title": "Statement on the Approval of Spot Bitcoin Exchange-Traded Products",
+            "url": "https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023",
+            "excerpt": "Today, the Commission approved the listing and trading of a number of spot bitcoin exchange-traded product (ETP) shares on January 10, 2024.",
+            "published_at": "2024-01-10"
+          },
+          {
+            "source_id": "federal-register-34-99306",
+            "title": "SEC Release No. 34-99306 Self-Regulatory Organizations Order",
+            "url": "https://www.sec.gov/files/rules/sro/nysearca/2024/34-99306.pdf",
+            "excerpt": "Order Granting Accelerated Approval of Proposed Rule Changes to List and Trade Shares of Bitcoin-Based Commodity-Based Trust Shares dated January 10, 2024.",
+            "published_at": "2024-01-10"
+          }
+        ],
+        "pass_role": "corroborator"
+      },
+      {
+        "verdict": "SUPPORTED",
+        "confidence": 0.9,
+        "rationale": "Official records independently confirm the claim. Chair Gensler’s 2024-01-10 statement says the Commission approved listing and trading of a number of spot bitcoin ETP shares on January 10, 2024. SEC Release No. 34-99306 is an order granting accelerated approval of proposed rule changes to list and trade Bitcoin-based commodity-based trust shares, also dated January 10, 2024. Public-evidence search returned no contrary official denial or competing approval date. Direct live fetch of sec.gov was blocked, so verification rests on these curated official excerpts rather than a fresh page scrape; that residual access gap, plus the statement URL slug 011023, keeps confidence below 1.0 but does not refute the dated approval text.",
+        "citations": [
+          {
+            "source_id": "sec-spot-btc-2024-01-10",
+            "title": "Statement on the Approval of Spot Bitcoin Exchange-Traded Products",
+            "url": "https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023",
+            "excerpt": "Today, the Commission approved the listing and trading of a number of spot bitcoin exchange-traded product (ETP) shares on January 10, 2024.",
+            "published_at": "2024-01-10"
+          },
+          {
+            "source_id": "federal-register-34-99306",
+            "title": "SEC Release No. 34-99306 Self-Regulatory Organizations Order",
+            "url": "https://www.sec.gov/files/rules/sro/nysearca/2024/34-99306.pdf",
+            "excerpt": "Order Granting Accelerated Approval of Proposed Rule Changes to List and Trade Shares of Bitcoin-Based Commodity-Based Trust Shares dated January 10, 2024.",
+            "published_at": "2024-01-10"
+          }
+        ],
+        "pass_role": "skeptic"
+      }
+    ],
+    "requires_human_review": false
+  },
+  "tool_calls": [
+    "load_delphi_market_fixture",
+    "fetch_source_excerpt",
+    "fetch_public_url_excerpt",
+    "search_public_evidence"
+  ],
+  "run_id": "66a16ef11be749248c466b13faf200b7",
+  "session_id": "demo-live-1116",
+  "publication": {
+    "requested": true,
+    "published": true,
+    "publication_status": "published",
+    "claim_id": "delphi-btc-etf-2024",
+    "final_verdict": "SUPPORTED",
+    "approval_mode": "allow_once",
+    "thread_id": "demo-live-1116:publish:85f7fc6b:68f64857c80e4f5ea49dec204dc2d881",
+    "approval_id": "appr-f7e85e4211d4",
+    "confirmation_prompt": "",
+    "denial_reason": "",
+    "handoff_target": "publisher",
+    "log_path": "artifacts/published_verdicts.jsonl",
+    "run_id": "5a57e2abd7074ba5b93b3d27eadd0a53"
+  },
+  "metadata": {
+    "run_state": "completed",
+    "stats": {
+      "input_tokens": 54890,
+      "output_tokens": 13436,
+      "cache_read_tokens": 1152,
+      "llm_calls": 9,
+      "tool_calls": 5,
+      "tool_errors": 1,
+      "duration_ms": 185989
+    },
+    "per_pass_stats": {
+      "corroborator": {
+        "input_tokens": 45723,
+        "output_tokens": 8538,
+        "cache_read_tokens": 6528,
+        "llm_calls": 8,
+        "tool_calls": 5,
+        "tool_errors": 1,
+        "duration_ms": 119568
+      },
+      "skeptic": {
+        "input_tokens": 54890,
+        "output_tokens": 13436,
+        "cache_read_tokens": 1152,
+        "llm_calls": 9,
+        "tool_calls": 5,
+        "tool_errors": 1,
+        "duration_ms": 185989
+      },
+      "publication": {
+        "input_tokens": 18429,
+        "output_tokens": 5839,
+        "cache_read_tokens": 768,
+        "llm_calls": 6,
+        "tool_calls": 1,
+        "tool_errors": 0,
+        "duration_ms": 133802
+      }
+    },
+    "session_memory": {
+      "session_id": "demo-live-1116",
+      "item_count": 1
+    },
+    "telemetry": {
+      "requests": 23,
+      "prompt_tokens": 119042,
+      "completion_tokens": 27813,
+      "total_tokens": 146855,
+      "total_latency_ms": 439359,
+      "per_pass": {
+        "corroborator": {
+          "pass_role": "corroborator",
+          "requests": 8,
+          "prompt_tokens": 45723,
+          "completion_tokens": 8538,
+          "total_tokens": 54261,
+          "latency_ms": 119568,
+          "tool_calls": 5,
+          "tool_errors": 1
+        },
+        "skeptic": {
+          "pass_role": "skeptic",
+          "requests": 9,
+          "prompt_tokens": 54890,
+          "completion_tokens": 13436,
+          "total_tokens": 68326,
+          "latency_ms": 185989,
+          "tool_calls": 5,
+          "tool_errors": 1
+        },
+        "publication": {
+          "pass_role": "publication",
+          "requests": 6,
+          "prompt_tokens": 18429,
+          "completion_tokens": 5839,
+          "total_tokens": 24268,
+          "latency_ms": 133802,
+          "tool_calls": 1,
+          "tool_errors": 0
+        }
+      },
+      "turn_telemetries": [
+        {
+          "pass_role": "corroborator",
+          "tokens_in": 45723,
+          "tokens_out": 8538,
+          "duration_ms": 119568,
+          "retries": 0,
+          "queue_wait_ms": 0
+        },
+        {
+          "pass_role": "skeptic",
+          "tokens_in": 54890,
+          "tokens_out": 13436,
+          "duration_ms": 185989,
+          "retries": 0,
+          "queue_wait_ms": 0
+        },
+        {
+          "pass_role": "publication",
+          "tokens_in": 18429,
+          "tokens_out": 5839,
+          "duration_ms": 133802,
+          "retries": 0,
+          "queue_wait_ms": 0
+        }
+      ]
+    },
+    "calibration_status": "[Live LLM Calibrated]",
+    "calibrated_model": "grok-4.6",
+    "endpoint_host": "https://<configured-openai-compatible-relay>/v1",
+    "publication": {
+      "requested": true,
+      "published": true,
+      "publication_status": "published",
+      "claim_id": "delphi-btc-etf-2024",
+      "final_verdict": "SUPPORTED",
+      "approval_mode": "allow_once",
+      "thread_id": "demo-live-1116:publish:85f7fc6b:68f64857c80e4f5ea49dec204dc2d881",
+      "approval_id": "appr-f7e85e4211d4",
+      "confirmation_prompt": "",
+      "denial_reason": "",
+      "handoff_target": "publisher",
+      "log_path": "artifacts/published_verdicts.jsonl",
+      "run_id": "5a57e2abd7074ba5b93b3d27eadd0a53"
+    }
+  }
+}
