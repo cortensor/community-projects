@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cortensor-openminion-sentinel"
+version = "0.1.0"
+description = "Verifiable multi-agent DeFi & proxy control-plane risk sentinel built on Cortensor + OpenMinion 0.1 SDK"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "random-solver" }]
+requires-python = ">=3.11"
+dependencies = [
+    "openminion==0.1.23",
+]
+
+[project.scripts]
+cortensor-sentinel = "sentinel.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["sentinel*"]
