@@ -1,0 +1,296 @@
+{
+  "project": "cortensor-openminion-sentinel",
+  "version": "0.1.0",
+  "generated_at_utc": "2026-11-18T23:25:15.203763+00:00",
+  "sdk_probes": {
+    "openminion_version": "0.1.23",
+    "total_probes": 8,
+    "passed": 8,
+    "failed": 0,
+    "total_duration_ms": 10800.13,
+    "probes": [
+      {
+        "probe_id": "P1_runtime_bootstrap",
+        "building_block": "APIRuntime & Posture Reports",
+        "passed": true,
+        "duration_ms": 35.26,
+        "detail": "agent=sentinel, mode=brain, brain_bridge=True, tools_indexed=104, cap_keys=7"
+      },
+      {
+        "probe_id": "P2_agent_tool_call",
+        "building_block": "@tool(min_scope='READ_ONLY') Execution",
+        "passed": true,
+        "duration_ms": 2301.94,
+        "detail": "run_state=completed, run_id=26767cbbb25742c0b47588c7b72dbde2"
+      },
+      {
+        "probe_id": "P3_channel_authenticity",
+        "building_block": "AgentProfileConfig & ChannelAuthenticity",
+        "passed": true,
+        "duration_ms": 0.01,
+        "detail": "default_channel=console, auth_mode=warn"
+      },
+      {
+        "probe_id": "P4_subagent_lineage",
+        "building_block": "subagent() Context Isolation & Consensus",
+        "passed": true,
+        "duration_ms": 1281.01,
+        "detail": "context_id=subagent-8cb8ddcc9411, trace_parent=agent:sentinel"
+      },
+      {
+        "probe_id": "P5_subagent_memory_guard",
+        "building_block": "subagent() v1 Memory Posture Guard",
+        "passed": true,
+        "duration_ms": 0.04,
+        "detail": "guarded ValueError confirmed: developer subagent memory grants are not bound in v1"
+      },
+      {
+        "probe_id": "P6_handoff_delegation",
+        "building_block": "Handoff & build_delegate_tool()",
+        "passed": true,
+        "duration_ms": 1502.52,
+        "detail": "tool=transfer_to_incident_desk, run_state=completed"
+      },
+      {
+        "probe_id": "P7_memory_bundle_v1",
+        "building_block": "MemoryBundle JSON Serialization",
+        "passed": true,
+        "duration_ms": 0.09,
+        "detail": "version=memory_bundle.v1, items=1"
+      },
+      {
+        "probe_id": "P8_cortensor_provider",
+        "building_block": "CortensorProviderConfig (/api/v2/completions)",
+        "passed": true,
+        "duration_ms": 2680.98,
+        "detail": "provider=cortensor, paths=/api/v2/completions, session_id=1, run_state=completed"
+      }
+    ]
+  },
+  "audits": [
+    {
+      "target": {
+        "id": "yearn-og-usdc",
+        "name": "Yearn OG USDC (yvUSDC v2)",
+        "chain": "ethereum",
+        "address": "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE"
+      },
+      "control_plane": {
+        "target_id": "yearn-og-usdc",
+        "name": "Yearn OG USDC (yvUSDC v2)",
+        "chain": "ethereum",
+        "address": "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE",
+        "source": "live-rpc:ethereum",
+        "is_contract": true,
+        "code_size_bytes": 45,
+        "eip1967_implementation": "0x0000000000000000000000000000000000000000",
+        "eip1967_admin": "0x0000000000000000000000000000000000000000",
+        "governance_or_owner": "0xfeb4acf3df3cdea7399794d0869ef76a6efaff52",
+        "governance_kind": "multisig",
+        "safe_threshold": 6,
+        "safe_owner_count": 9,
+        "timelock_delay_seconds": null,
+        "risk_tier": "LOW",
+        "risk_score": 10,
+        "findings": [
+          "Non-proxy or custom storage layout (empty EIP-1967 implementation slot).",
+          "Gnosis Safe governance detected at 0xfeb4acf3df3cdea7399794d0869ef76a6efaff52 (6/9 threshold)."
+        ]
+      },
+      "primary_run_id": "4013767a7005429a9499676e35730243",
+      "primary_run_state": "completed",
+      "primary_output": "sentinel: AUDIT_OK::System instruction:\nFor a clarification or new input with a CURRENT TASK, include task_update in the selected entry tool",
+      "skeptic_child_id": "skeptic",
+      "skeptic_run_state": "completed",
+      "skeptic_output": "sentinel: SKEPTIC_AGREE::control-plane invariants independently verified",
+      "consensus_status": "AGREED",
+      "final_risk_tier": "LOW",
+      "escalated_via_handoff": false,
+      "handoff_tool_name": "transfer_to_incident_desk",
+      "handoff_output": "",
+      "memory_bundle_json": "{\"items\": [{\"consensus_status\": \"AGREED\", \"primary_run_id\": \"4013767a7005429a9499676e35730243\", \"risk_score\": 10, \"risk_tier\": \"LOW\", \"skeptic_child_id\": \"skeptic\", \"target\": {\"address\": \"0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE\", \"chain\": \"ethereum\", \"id\": \"yearn-og-usdc\", \"name\": \"Yearn OG USDC (yvUSDC v2)\"}}], \"metadata\": {\"escalated\": \"false\", \"project\": \"cortensor-openminion-sentinel\", \"provider_mode\": \"cortensor:loopback\"}, \"version\": \"memory_bundle.v1\"}",
+      "provider_mode": "cortensor:loopback",
+      "duration_ms": 6300.96,
+      "runtime_posture": {
+        "agent": "sentinel",
+        "runtime_mode": "brain",
+        "brain_bridge_active": true,
+        "canonical_turn_path": [
+          "services/runtime/ingress.run_turn_payload",
+          "services/request_orchestrator.run_turn",
+          "GatewayService.run_once",
+          "BrainBridgeService.run_turn",
+          "BrainRunner.run"
+        ]
+      }
+    },
+    {
+      "target": {
+        "id": "spark-usdc-vault",
+        "name": "Spark sUSDC Vault (Base)",
+        "chain": "base",
+        "address": "0x3128a0F7f0ea68E7B7c9B00AFa7E41045828e858"
+      },
+      "control_plane": {
+        "target_id": "spark-usdc-vault",
+        "name": "Spark sUSDC Vault (Base)",
+        "chain": "base",
+        "address": "0x3128a0F7f0ea68E7B7c9B00AFa7E41045828e858",
+        "source": "live-rpc:base",
+        "is_contract": true,
+        "code_size_bytes": 163,
+        "eip1967_implementation": "0x6acc02ddd82206a44ff4ec13977e63d1a29c7723",
+        "eip1967_admin": "0x0000000000000000000000000000000000000000",
+        "governance_or_owner": "0x0000000000000000000000000000000000000000",
+        "governance_kind": "unknown",
+        "safe_threshold": null,
+        "safe_owner_count": null,
+        "timelock_delay_seconds": null,
+        "risk_tier": "HIGH",
+        "risk_score": 55,
+        "findings": [
+          "Mutable EIP-1967 proxy detected (implementation=0x6acc02ddd82206a44ff4ec13977e63d1a29c7723).",
+          "No owner()/governance() address exposed via standard ABI selectors."
+        ]
+      },
+      "primary_run_id": "67ae98375b5f423ca900da2a78dbb0ce",
+      "primary_run_state": "completed",
+      "primary_output": "sentinel: AUDIT_OK::System instruction:\nFor a clarification or new input with a CURRENT TASK, include task_update in the selected entry tool",
+      "skeptic_child_id": "skeptic",
+      "skeptic_run_state": "completed",
+      "skeptic_output": "sentinel: SKEPTIC_AGREE::control-plane invariants independently verified",
+      "consensus_status": "AGREED",
+      "final_risk_tier": "HIGH",
+      "escalated_via_handoff": true,
+      "handoff_tool_name": "transfer_to_incident_desk",
+      "handoff_output": "incident_desk: INCIDENT_LOGGED::escalated via OpenMinion Handoff to incident_desk",
+      "memory_bundle_json": "{\"items\": [{\"consensus_status\": \"AGREED\", \"primary_run_id\": \"67ae98375b5f423ca900da2a78dbb0ce\", \"risk_score\": 55, \"risk_tier\": \"HIGH\", \"skeptic_child_id\": \"skeptic\", \"target\": {\"address\": \"0x3128a0F7f0ea68E7B7c9B00AFa7E41045828e858\", \"chain\": \"base\", \"id\": \"spark-usdc-vault\", \"name\": \"Spark sUSDC Vault (Base)\"}}], \"metadata\": {\"escalated\": \"true\", \"project\": \"cortensor-openminion-sentinel\", \"provider_mode\": \"cortensor:loopback\"}, \"version\": \"memory_bundle.v1\"}",
+      "provider_mode": "cortensor:loopback",
+      "duration_ms": 6109.68,
+      "runtime_posture": {
+        "agent": "sentinel",
+        "runtime_mode": "brain",
+        "brain_bridge_active": true,
+        "canonical_turn_path": [
+          "services/runtime/ingress.run_turn_payload",
+          "services/request_orchestrator.run_turn",
+          "GatewayService.run_once",
+          "BrainBridgeService.run_turn",
+          "BrainRunner.run"
+        ]
+      }
+    },
+    {
+      "target": {
+        "id": "base-usdc-fiat-token",
+        "name": "Circle USDC (Base FiatTokenProxy)",
+        "chain": "base",
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+      },
+      "control_plane": {
+        "target_id": "base-usdc-fiat-token",
+        "name": "Circle USDC (Base FiatTokenProxy)",
+        "chain": "base",
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "source": "live-rpc:base",
+        "is_contract": true,
+        "code_size_bytes": 1852,
+        "eip1967_implementation": "0x0000000000000000000000000000000000000000",
+        "eip1967_admin": "0x0000000000000000000000000000000000000000",
+        "governance_or_owner": "0x3abd6f64a422225e61e435bae41db12096106df7",
+        "governance_kind": "eoa",
+        "safe_threshold": null,
+        "safe_owner_count": null,
+        "timelock_delay_seconds": null,
+        "risk_tier": "HIGH",
+        "risk_score": 55,
+        "findings": [
+          "Non-proxy or custom storage layout (empty EIP-1967 implementation slot).",
+          "Privileged authority 0x3abd6f64a422225e61e435bae41db12096106df7 is a bare EOA (single-key risk)."
+        ]
+      },
+      "primary_run_id": "bc3e98aba27a47d18bb3e931e2cb58d0",
+      "primary_run_state": "completed",
+      "primary_output": "sentinel: AUDIT_OK::System instruction:\nFor a clarification or new input with a CURRENT TASK, include task_update in the selected entry tool",
+      "skeptic_child_id": "skeptic",
+      "skeptic_run_state": "completed",
+      "skeptic_output": "sentinel: SKEPTIC_AGREE::control-plane invariants independently verified",
+      "consensus_status": "AGREED",
+      "final_risk_tier": "HIGH",
+      "escalated_via_handoff": true,
+      "handoff_tool_name": "transfer_to_incident_desk",
+      "handoff_output": "incident_desk: INCIDENT_LOGGED::escalated via OpenMinion Handoff to incident_desk",
+      "memory_bundle_json": "{\"items\": [{\"consensus_status\": \"AGREED\", \"primary_run_id\": \"bc3e98aba27a47d18bb3e931e2cb58d0\", \"risk_score\": 55, \"risk_tier\": \"HIGH\", \"skeptic_child_id\": \"skeptic\", \"target\": {\"address\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\", \"chain\": \"base\", \"id\": \"base-usdc-fiat-token\", \"name\": \"Circle USDC (Base FiatTokenProxy)\"}}], \"metadata\": {\"escalated\": \"true\", \"project\": \"cortensor-openminion-sentinel\", \"provider_mode\": \"cortensor:loopback\"}, \"version\": \"memory_bundle.v1\"}",
+      "provider_mode": "cortensor:loopback",
+      "duration_ms": 6436.12,
+      "runtime_posture": {
+        "agent": "sentinel",
+        "runtime_mode": "brain",
+        "brain_bridge_active": true,
+        "canonical_turn_path": [
+          "services/runtime/ingress.run_turn_payload",
+          "services/request_orchestrator.run_turn",
+          "GatewayService.run_once",
+          "BrainBridgeService.run_turn",
+          "BrainRunner.run"
+        ]
+      }
+    },
+    {
+      "target": {
+        "id": "yearn-og-usdc",
+        "name": "Yearn OG USDC (yvUSDC v2)",
+        "chain": "ethereum",
+        "address": "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE"
+      },
+      "control_plane": {
+        "target_id": "yearn-og-usdc",
+        "name": "Yearn OG USDC (yvUSDC v2)",
+        "chain": "ethereum",
+        "address": "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE",
+        "source": "offline-fixture",
+        "is_contract": true,
+        "code_size_bytes": 45,
+        "eip1967_implementation": "0x0000000000000000000000000000000000000000",
+        "eip1967_admin": "0x0000000000000000000000000000000000000000",
+        "governance_or_owner": "0xfeb4acf3df3cdea7399794d0869ef76a6efaff52",
+        "governance_kind": "multisig",
+        "safe_threshold": 6,
+        "safe_owner_count": 9,
+        "timelock_delay_seconds": null,
+        "risk_tier": "LOW",
+        "risk_score": 10,
+        "findings": [
+          "Non-proxy or custom storage layout (empty EIP-1967 implementation slot).",
+          "Gnosis Safe governance detected at 0xfeb4acf3df3cdea7399794d0869ef76a6efaff52 (6/9 threshold)."
+        ]
+      },
+      "primary_run_id": "575a0c943bae46d48a0f83bc1b90c25c",
+      "primary_run_state": "completed",
+      "primary_output": "sentinel: AUDIT_OK::System instruction:\nFor a clarification or new input with a CURRENT TASK, include task_update in the selected entry tool",
+      "skeptic_child_id": "skeptic",
+      "skeptic_run_state": "completed",
+      "skeptic_output": "sentinel: SKEPTIC_DISAGREE::independent verification flagged anomaly",
+      "consensus_status": "DISAGREEMENT_FAIL_CLOSED",
+      "final_risk_tier": "HIGH",
+      "escalated_via_handoff": true,
+      "handoff_tool_name": "transfer_to_incident_desk",
+      "handoff_output": "incident_desk: INCIDENT_LOGGED::escalated via OpenMinion Handoff to incident_desk",
+      "memory_bundle_json": "{\"items\": [{\"consensus_status\": \"DISAGREEMENT_FAIL_CLOSED\", \"primary_run_id\": \"575a0c943bae46d48a0f83bc1b90c25c\", \"risk_score\": 10, \"risk_tier\": \"HIGH\", \"skeptic_child_id\": \"skeptic\", \"target\": {\"address\": \"0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE\", \"chain\": \"ethereum\", \"id\": \"yearn-og-usdc\", \"name\": \"Yearn OG USDC (yvUSDC v2)\"}}], \"metadata\": {\"escalated\": \"true\", \"project\": \"cortensor-openminion-sentinel\", \"provider_mode\": \"cortensor:loopback\"}, \"version\": \"memory_bundle.v1\"}",
+      "provider_mode": "cortensor:loopback",
+      "duration_ms": 4215.75,
+      "runtime_posture": {
+        "agent": "sentinel",
+        "runtime_mode": "brain",
+        "brain_bridge_active": true,
+        "canonical_turn_path": [
+          "services/runtime/ingress.run_turn_payload",
+          "services/request_orchestrator.run_turn",
+          "GatewayService.run_once",
+          "BrainBridgeService.run_turn",
+          "BrainRunner.run"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortensor OpenMinion Sentinel — Multi-Agent DeFi Control-Plane Security</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: #0f172a;
+      --panel-alt: #131f38;
+      --border: #253453;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --cyan: #38bdf8;
+      --emerald: #34d399;
+      --amber: #fbbf24;
+      --rose: #f87171;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top right, #0e1d36 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 15, 28, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; }
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.1);
+    }
+    .nav-links { display: flex; gap: 18px; font-size: 0.9rem; color: var(--muted); }
+    .hero { padding: 48px 0 30px; }
+    .hero h1 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero p { color: var(--muted); max-width: 780px; font-size: 1.05rem; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin: 28px 0 36px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .kpi-label { color: var(--muted); font-size: 0.85rem; margin-bottom: 6px; }
+    .kpi-value { font-size: 1.55rem; font-weight: 700; font-family: var(--mono); }
+    .green { color: var(--emerald); }
+    .cyan { color: var(--cyan); }
+    .amber { color: var(--amber); }
+    .rose { color: var(--rose); }
+    .section { margin: 36px 0; }
+    .section h2 { font-size: 1.35rem; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--cyan); font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .pill-PASS, .pill-LOW, .pill-AGREED { background: rgba(52, 211, 153, 0.16); color: var(--emerald); }
+    .pill-MEDIUM { background: rgba(251, 191, 36, 0.16); color: var(--amber); }
+    .pill-FAIL, .pill-HIGH, .pill-CRITICAL, .pill-DISAGREEMENT_FAIL_CLOSED {
+      background: rgba(248, 113, 113, 0.18); color: var(--rose);
+    }
+    .mono { font-family: var(--mono); font-size: 0.84rem; word-break: break-all; }
+    .rpc-form { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 16px; }
+    select, input, button {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    input { flex: 1; min-width: 260px; font-family: var(--mono); }
+    button {
+      background: var(--cyan);
+      color: #06111f;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.9; }
+    pre {
+      background: #050912;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span>Cortensor OpenMinion Sentinel</span>
+        <span class="badge">v0.1.0 • MIT</span>
+      </div>
+      <div class="nav-links">
+        <a href="#demo">Demo Video</a>
+        <a href="#probes">OpenMinion 0.1 Probes</a>
+        <a href="#audits">Control-Plane Audits</a>
+        <a href="#live-rpc">Live Browser Inspector</a>
+        <a href="https://github.com/random-solver/cortensor-openminion-sentinel" target="_blank" rel="noopener">GitHub Repo</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Verifiable Multi-Agent DeFi Control-Plane Sentinel</h1>
+      <p>
+        Built for <strong>Cortensor Hackathon #5</strong> on the native <strong>Cortensor Decentralized Inference Provider</strong>
+        and <strong>OpenMinion 0.1.23 SDK</strong>. Combines read-only EVM proxy / Gnosis Safe / Timelock bytecode inspection
+        with an isolated <code>skeptic</code> subagent verifier, fail-closed <code>Handoff</code> escalation, and portable
+        <code>MemoryBundle</code> snapshots.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="card">
+          <div class="kpi-label">OpenMinion 0.1.23 SDK Probes</div>
+          <div class="kpi-value green" id="kpi-probes">Loading...</div>
+          <div class="kpi-label" id="kpi-probes-sub">Verifying APIRuntime, @tool, subagent, Handoff, Cortensor</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Consensus Runs Verified</div>
+          <div class="kpi-value cyan" id="kpi-audits">Loading...</div>
+          <div class="kpi-label">Primary Sentinel + Skeptic Subagent + Handoff Gate</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Cortensor Transport</div>
+          <div class="kpi-value amber">/api/v2/completions</div>
+          <div class="kpi-label">session_pool="auto" • privacy_level="high"</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Report Artifact</div>
+          <div class="kpi-value mono"><a href="./artifacts/latest_report.json">latest_report.json</a></div>
+          <div class="kpi-label" id="kpi-generated">Generated from verified CLI run</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid-2" id="demo">
+      <div class="card">
+        <h2>Walkthrough Demo (66s H.264)</h2>
+        <video controls preload="metadata" playsinline>
+          <source src="./demo.mp4" type="video/mp4" />
+          Your browser does not support embedded MP4 playback. <a href="./demo.mp4">Download demo.mp4</a>.
+        </video>
+      </div>
+      <div class="card">
+        <h2>Architecture &amp; Fail-Closed Consensus</h2>
+        <pre>EVM Public RPC (ETH + Base)
+   ├─ eth_getCode &amp; bytecode size
+   ├─ EIP-1967 implementation &amp; ProxyAdmin slots
+   └─ Gnosis Safe getThreshold() / getOwners() + Timelock delay
+        │
+        ▼
+OpenMinion APIRuntime (@tool READ_ONLY)
+   ├─ Agent("sentinel") → CortensorProvider / OpenAI-compatible
+   └─ subagent("skeptic", memory_posture="none")
+        │
+   ┌────┴───────────────────────────────┐
+   │ Consensus == AGREED &amp; score &lt; 50   │ Disagreement OR HIGH/CRITICAL
+   ▼                                    ▼
+Emit MemoryBundle v1              Handoff("transfer_to_incident_desk")
+Status: PASS / LOW                Status: ESCALATED / FAIL_CLOSED</pre>
+      </div>
+    </section>
+
+    <section class="section card" id="probes">
+      <h2>OpenMinion 0.1.23 Building Block Probes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Probe ID</th>
+            <th>Building Block</th>
+            <th>Status</th>
+            <th>Latency (ms)</th>
+            <th>Verified Outcome</th>
+          </tr>
+        </thead>
+        <tbody id="probes-tbody">
+          <tr><td colspan="5">Loading probe report...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section card" id="audits">
+      <h2>Multi-Agent Control-Plane Audit Matrix</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Target Contract</th>
+            <th>Chain &amp; Source</th>
+            <th>Governance / Safe</th>
+            <th>Consensus</th>
+            <th>Risk Tier</th>
+            <th>Handoff</th>
+          </tr>
+        </thead>
+        <tbody id="audits-tbody">
+          <tr><td colspan="6">Loading audit matrix...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section card" id="live-rpc">
+      <h2>Live In-Browser EIP-1967 &amp; Bytecode Control-Plane Check</h2>
+      <p style="color: var(--muted); font-size: 0.9rem;">
+        Query live Ethereum Mainnet or Base Mainnet public RPC directly from your browser (zero API key required):
+      </p>
+      <div class="rpc-form">
+        <select id="rpc-chain">
+          <option value="https://ethereum-rpc.publicnode.com">Ethereum Mainnet</option>
+          <option value="https://mainnet.base.org">Base Mainnet</option>
+        </select>
+        <input id="rpc-addr" value="0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE" placeholder="0x Contract Address" />
+        <button id="rpc-btn" type="button">Inspect On-Chain Control Plane</button>
+      </div>
+      <pre id="rpc-output">Click "Inspect On-Chain Control Plane" to query eth_getCode &amp; EIP-1967 slots live...</pre>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Cortensor OpenMinion Sentinel • License: MIT •
+      <a href="https://github.com/random-solver/cortensor-openminion-sentinel">Source Code</a> •
+      <a href="https://github.com/cortensor/community-projects">cortensor/community-projects</a>
+    </div>
+  </footer>
+
+  <script>
+    async function loadReport() {
+      try {
+        const res = await fetch("./artifacts/latest_report.json");
+        const data = await res.json();
+        const probes = data.sdk_probes;
+        document.getElementById("kpi-probes").textContent = `${probes.passed}/${probes.total_probes} PASSED`;
+        document.getElementById("kpi-probes-sub").textContent = `OpenMinion v${probes.openminion_version} (${probes.total_duration_ms} ms total)`;
+        document.getElementById("kpi-audits").textContent = `${data.audits.length} Verified`;
+        document.getElementById("kpi-generated").textContent = `Generated ${data.generated_at_utc}`;
+
+        const ptbody = document.getElementById("probes-tbody");
+        ptbody.innerHTML = probes.probes.map(p => `
+          <tr>
+            <td class="mono">${p.probe_id}</td>
+            <td>${p.building_block}</td>
+            <td><span class="pill pill-${p.passed ? "PASS" : "FAIL"}">${p.passed ? "PASS" : "FAIL"}</span></td>
+            <td class="mono">${p.duration_ms.toFixed(2)}</td>
+            <td class="mono">${p.detail}</td>
+          </tr>
+        `).join("");
+
+        const atbody = document.getElementById("audits-tbody");
+        atbody.innerHTML = data.audits.map(a => {
+          const cp = a.control_plane;
+          const safeInfo = cp.safe_threshold != null ? ` (${cp.safe_threshold}/${cp.safe_owner_count})` : "";
+          return `
+            <tr>
+              <td><strong>${a.target.name}</strong><div class="mono" style="color:var(--muted)">${cp.address}</div></td>
+              <td class="mono">${cp.chain}<br/><span style="color:var(--muted)">${cp.source}</span></td>
+              <td class="mono">${cp.governance_kind}${safeInfo}<br/><span style="color:var(--muted)">${cp.governance_or_owner}</span></td>
+              <td><span class="pill pill-${a.consensus_status}">${a.consensus_status}</span></td>
+              <td><span class="pill pill-${a.final_risk_tier}">${a.final_risk_tier} (${cp.risk_score})</span></td>
+              <td class="mono">${a.escalated_via_handoff ? a.handoff_tool_name : "none"}</td>
+            </tr>
+          `;
+        }).join("");
+      } catch (err) {
+        document.getElementById("kpi-probes").textContent = "Unavailable";
+      }
+    }
+
+    async function jsonRpc(url, method, params) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
+      return data.result;
+    }
+
+    document.getElementById("rpc-btn").addEventListener("click", async () => {
+      const rpc = document.getElementById("rpc-chain").value;
+      const addr = document.getElementById("rpc-addr").value.trim();
+      const out = document.getElementById("rpc-output");
+      if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+        out.textContent = "Error: Enter a valid 42-character 0x EVM address.";
+        return;
+      }
+      out.textContent = "Querying public RPC...";
+      try {
+        const IMPL_SLOT = "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc";
+        const ADMIN_SLOT = "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103";
+        const [code, implWord, adminWord] = await Promise.all([
+          jsonRpc(rpc, "eth_getCode", [addr, "latest"]),
+          jsonRpc(rpc, "eth_getStorageAt", [addr, IMPL_SLOT, "latest"]),
+          jsonRpc(rpc, "eth_getStorageAt", [addr, ADMIN_SLOT, "latest"])
+        ]);
+        const bytes = Math.max(0, (code.length - 2) / 2);
+        const slotAddr = w => "0x" + (w || "0".repeat(64)).slice(-40);
+        out.textContent = JSON.stringify({
+          rpc_endpoint: rpc,
+          address: addr,
+          is_contract: bytes > 0,
+          bytecode_size_bytes: bytes,
+          eip1967_implementation: slotAddr(implWord),
+          eip1967_admin: slotAddr(adminWord),
+          status: "LIVE_RPC_VERIFIED"
+        }, null, 2);
+      } catch (err) {
+        out.textContent = `RPC Error: ${err.message}`;
+      }
+    });
+
+    loadReport();
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+- name: cortensor-openminion-sentinel
+  category: apps
+  owner: "@random-solver"
+  status: active
+  created: 2026-11-19
+  version: v0.1.0
+  tags:
+    - cortensor
+    - openminion
+    - security
+    - defi
+    - multi-agent
+    - verification
