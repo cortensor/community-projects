@@ -28,8 +28,8 @@ Findings below are directly observed from running `openminion==0.1.23` on Window
 
 ## 5. Multi-step `submit_output` overhead per `Agent.run()` turn
 
-- **Observed behavior:** A single tool-using turn triggers extra LLM round-trips for internal `submit_output` calls (`FinalizationStatus` and `ClosureJudgment`) after the assistant reply.
-- **Impact for Cortensor inference:** On decentralized routers or rate-limited Portal endpoints, those two extra structured calls multiply latency and token consumption by 2x to 3x per turn.
+- **Observed behavior:** A single tool-using turn triggers extra LLM round-trips for internal `submit_output` calls (`FinalizationStatus` and `ClosureJudgment`) after the assistant reply (`session_continuity_turns` averaged `4.4s` per turn even on local loopback).
+- **Impact for Cortensor inference:** On decentralized routers or rate-limited Portal endpoints, those extra structured calls multiply latency and token consumption by 2x to 3x per turn.
 - **Suggested SDK improvement:** Provide a lightweight `Agent(..., verification_mode="minimal")` option for deterministic or single-shot tool pipelines.
 
 ## 6. `CortensorProvider._complete_via_openai_chat_mode()` omits `http_client`
@@ -41,3 +41,13 @@ Findings below are directly observed from running `openminion==0.1.23` on Window
 
 - **Observed behavior:** `Agent(...)` accepts `forced_tools=[...]`, but calling `subagent(parent, ..., forced_tools=[...])` raises `TypeError: subagent() got an unexpected keyword argument 'forced_tools'`.
 - **Suggested SDK improvement:** Forward `forced_tools: Sequence[str] = ()` in `openminion/api/handoff.py` (`subagent()`) to the child `Agent(...)` constructor so single-purpose audit subagents can deterministically require tool invocation.
+
+## 8. `APIRuntime.tool_schema_report()` requires keyword-only `tool_name` and omits agent-local `@tool` functions
+
+- **Observed behavior:** Calling `runtime.tool_schema_report()` without arguments raises `TypeError: APIRuntime.tool_schema_report() missing 1 required keyword-only argument: 'tool_name'`. Passing `tool_name="scan_docs_tool"` (an agent-local `@tool` passed to `Agent(tools=[...])`) returns `None`.
+- **Suggested SDK improvement:** Index agent-registered `@tool` schemas in the runtime schema registry alongside built-in registrar tools, or allow `tool_schema_report(tool_name: str | None = None)` to summarize all registered schemas.
+
+## 9. `subagent(..., memory_posture="read_only_bounded")` raises a v1 boundary error when called directly
+
+- **Observed behavior:** Passing `memory_posture="read_only_bounded"` to `subagent(...)` raises `ValueError: developer subagent memory grants are not bound in v1` in `openminion/api/handoff.py` unless a `DelegatedMemoryReadRequest` object is materialized internally.
+- **Workaround used:** Keep `memory_posture="none"` on child subagents and pass prior blockers across runs via `MemoryBundle` snapshots.

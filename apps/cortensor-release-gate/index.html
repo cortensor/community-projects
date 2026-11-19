@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cortensor Release Gate — Audit &amp; OpenMinion 0.1.23 Probe Report</title>
+    <style>
+      :root {
+        --bg: #0f1419;
+        --surface: #171e26;
+        --surface-alt: #1f2833;
+        --border: #313d4d;
+        --ink: #f1f5f9;
+        --muted: #9fb0c4;
+        --signal: #10b981;
+        --signal-bg: #0f2e25;
+        --accent: #38bdf8;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 28px 20px 48px;
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 18px;
+        margin-bottom: 24px;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 1.65rem;
+        letter-spacing: -0.02em;
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 1px solid var(--signal);
+        background: var(--signal-bg);
+        color: #6ee7b7;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .k {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 1.35rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        font-variant-numeric: tabular-nums;
+      }
+      th, td {
+        text-align: left;
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+      .num { text-align: right; }
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        background: var(--signal-bg);
+        color: #6ee7b7;
+        border: 1px solid var(--signal);
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.84em;
+        background: var(--surface-alt);
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: var(--accent);
+      }
+      ul { margin: 0; padding-left: 18px; color: var(--ink); }
+      li { margin-bottom: 8px; font-size: 0.9rem; }
+      .muted { color: var(--muted); }
+      @media (max-width: 640px) {
+        .hide-sm { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Cortensor Release Gate</h1>
+          <p class="sub">
+            OpenMinion <code>0.1.23</code> Multi-Subagent QA Gate &amp; 10-Probe Telemetry Snapshot
+          </p>
+        </div>
+        <div class="badge" id="verdict-badge">VERDICT: READY</div>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <div class="k">Release Decision</div>
+          <div class="v" id="stat-decision">READY</div>
+        </div>
+        <div class="card">
+          <div class="k">Blockers / Warnings</div>
+          <div class="v" id="stat-issues">0 / 0</div>
+        </div>
+        <div class="card">
+          <div class="k">OpenMinion Probes</div>
+          <div class="v" id="stat-probes">10 / 10 PASS</div>
+        </div>
+        <div class="card">
+          <div class="k">Total Probe Latency</div>
+          <div class="v" id="stat-latency">22,586.74 ms</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>OpenMinion 0.1.23 Building-Block Probe Matrix</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Probe ID</th>
+              <th>Status</th>
+              <th class="num">Latency (ms)</th>
+              <th class="hide-sm">Observed Details</th>
+            </tr>
+          </thead>
+          <tbody id="probe-rows"></tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Top OpenMinion 0.1.23 &amp; Cortensor Engineering Findings</h2>
+        <ul>
+          <li><code>Agent._build_payload()</code> omits <code>"channel"</code>, triggering <code>invalid_channel</code> even when <code>ChannelAuthenticityConfig(mode="warn")</code> is set (worked around via <code>default_channel="console"</code>).</li>
+          <li><code>Handoff</code> tools default to <code>min_scope_default="WRITE_SAFE"</code>, blocking read-only delegation unless explicitly permitted in <code>approval_callback</code>.</li>
+          <li><code>CortensorProvider._complete_via_openai_chat_mode()</code> omits <code>http_client</code> compared to <code>_complete_via_completion_mode()</code>.</li>
+          <li>Internal <code>submit_output</code> steps (<code>FinalizationStatus</code> &amp; <code>ClosureJudgment</code>) add 2 extra LLM round-trips per tool turn.</li>
+          <li><code>subagent()</code> omits <code>forced_tools</code> forwarding, and <code>memory_posture="read_only_bounded"</code> raises a v1 guard error unless using <code>MemoryBundle</code> snapshots.</li>
+          <li><code>APIRuntime.tool_schema_report(tool_name=...)</code> requires keyword-only <code>tool_name</code> and returns <code>None</code> for agent-local <code>@tool</code> functions.</li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      const FALLBACK_PROBE = {
+        checks: [
+          { block_name: "runtime_diagnostics", passed: true, duration_ms: 33.72, details: { tools_count: "104", posture_keys: "9", self_model_keys: "11" } },
+          { block_name: "agent_tool_and_output_type", passed: true, duration_ms: 4843.67, details: { run_state: "completed", files_scanned: "29" } },
+          { block_name: "subagent_isolation", passed: true, duration_ms: 1508.47, details: { present_files: "5" } },
+          { block_name: "handoff_delegation", passed: true, duration_ms: 2327.09, details: { decision: "CHANGES_REQUIRED", actions_count: "1" } },
+          { block_name: "approval_callback_gate", passed: true, duration_ms: 1763.85, details: { approvals_triggered: "1", report_written: "True" } },
+          { block_name: "memory_bundle_portability", passed: true, duration_ms: 8.14, details: { bundle_exists: "True", loaded_blockers: "0" } },
+          { block_name: "cortensor_completion_mode", passed: true, duration_ms: 1314.17, details: { mode: "cortensor_completion", ok: "True" } },
+          { block_name: "subagent_memory_guard", passed: true, duration_ms: 0.02, details: { guard_raised: "True" } },
+          { block_name: "forced_tools_and_capabilities", passed: true, duration_ms: 1908.68, details: { capability_keys: "7", custom_tool_schema_found: "False" } },
+          { block_name: "session_continuity_turns", passed: true, duration_ms: 8878.93, details: { session_id: "probe-continuity-1", turns_matched: "True" } }
+        ]
+      };
+
+      function renderProbes(data) {
+        const tbody = document.getElementById("probe-rows");
+        tbody.innerHTML = "";
+        let total = 0;
+        let passedCount = 0;
+        (data.checks || []).forEach((c, idx) => {
+          total += Number(c.duration_ms || 0);
+          if (c.passed) passedCount += 1;
+          const tr = document.createElement("tr");
+          const detailsStr = Object.entries(c.details || {}).map(([k, v]) => `${k}=${v}`).join(", ");
+          tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td><code>${c.block_name}</code></td>
+            <td><span class="pill">${c.passed ? "PASS" : "FAIL"}</span></td>
+            <td class="num">${Number(c.duration_ms).toFixed(2)}</td>
+            <td class="hide-sm muted">${detailsStr}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+        document.getElementById("stat-probes").textContent = `${passedCount} / ${(data.checks || []).length} PASS`;
+        document.getElementById("stat-latency").textContent = `${total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ms`;
+      }
+
+      renderProbes(FALLBACK_PROBE);
+      fetch("./artifacts/probe_matrix.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((json) => { if (json && json.checks) renderProbes(json); })
+        .catch(() => {});
+      fetch("./artifacts/release-gate-summary.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((json) => {
+          if (!json) return;
+          document.getElementById("stat-decision").textContent = json.decision;
+          document.getElementById("verdict-badge").textContent = `VERDICT: ${json.decision}`;
+          document.getElementById("stat-issues").textContent = `${(json.blockers || []).length} / ${(json.warnings || []).length}`;
+        })
+        .catch(() => {});
+    </script>
+  </body>
+</html>

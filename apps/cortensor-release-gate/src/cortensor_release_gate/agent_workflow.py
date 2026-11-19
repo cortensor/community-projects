@@ -574,6 +574,69 @@ def run_building_block_probes(
                     comp_runtime.close()
 
             checks.append(_timed_probe("cortensor_completion_mode", _probe_cortensor_completion_mode))
+
+            def _probe_subagent_memory_guard() -> dict[str, str]:
+                try:
+                    subagent(
+                        coordinator,
+                        name="probe_guarded_child",
+                        memory_posture="read_only_bounded",
+                    )
+                except ValueError as exc:
+                    return {
+                        "guard_raised": "True",
+                        "message": str(exc),
+                    }
+                raise RuntimeError("Expected ValueError for read_only_bounded subagent posture")
+
+            checks.append(_timed_probe("subagent_memory_guard", _probe_subagent_memory_guard))
+
+            def _probe_forced_tools_and_capabilities() -> dict[str, str]:
+                forced_agent: Agent[str, DocsAuditReport] = Agent(
+                    name="probe_forced_docs",
+                    runtime=runtime,
+                    tools=[scan_docs_tool],
+                    forced_tools=["scan_docs_tool"],
+                    output_type=DocsAuditReport,
+                )
+                res = forced_agent.run(f"DOCS_AUDIT TARGET_DIR={resolved_target}")
+                cap_report = runtime.capability_report()
+                custom_schema = runtime.tool_schema_report(tool_name="scan_docs_tool")
+                return {
+                    "present_files": str(len(res.output.present_files)),
+                    "capability_keys": str(len(cap_report)),
+                    "custom_tool_schema_found": str(custom_schema is not None),
+                }
+
+            checks.append(
+                _timed_probe(
+                    "forced_tools_and_capabilities",
+                    _probe_forced_tools_and_capabilities,
+                )
+            )
+
+            def _probe_session_continuity() -> dict[str, str]:
+                sess_agent: Agent[str, SecurityAuditReport] = Agent(
+                    name="probe_session_agent",
+                    runtime=runtime,
+                    tools=[scan_security_tool],
+                    output_type=SecurityAuditReport,
+                )
+                first = sess_agent.run(
+                    f"SECURITY_AUDIT TARGET_DIR={resolved_target}",
+                    session_id="probe-continuity-1",
+                )
+                second = sess_agent.run(
+                    f"SECURITY_AUDIT TARGET_DIR={resolved_target}",
+                    session_id="probe-continuity-1",
+                )
+                return {
+                    "session_id": str(second.session_id or ""),
+                    "turns_matched": str(first.session_id == second.session_id),
+                    "second_files_scanned": str(second.output.files_scanned),
+                }
+
+            checks.append(_timed_probe("session_continuity_turns", _probe_session_continuity))
         finally:
             runtime.close()
 

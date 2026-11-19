@@ -98,7 +98,7 @@ def test_building_block_probes_all_pass(tmp_path: Path) -> None:
         state_root=tmp_path / "probe_state",
     )
     assert report.all_passed is True
-    assert len(report.checks) == 7
+    assert len(report.checks) == 10
     assert {c.block_name for c in report.checks} == {
         "runtime_diagnostics",
         "agent_tool_and_output_type",
@@ -107,6 +107,9 @@ def test_building_block_probes_all_pass(tmp_path: Path) -> None:
         "approval_callback_gate",
         "memory_bundle_portability",
         "cortensor_completion_mode",
+        "subagent_memory_guard",
+        "forced_tools_and_capabilities",
+        "session_continuity_turns",
     }
 
 
