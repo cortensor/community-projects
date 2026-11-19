@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.openminion/
+dist/
+build/
+*.egg-info/
+.env
+out/
+RELEASE_GATE_REPORT.md
+release-gate-summary.json
+audit_memory.json
