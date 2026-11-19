@@ -10,6 +10,6 @@ build/
 *.egg-info/
 .env
 out/
-RELEASE_GATE_REPORT.md
-release-gate-summary.json
-audit_memory.json
+/RELEASE_GATE_REPORT.md
+/release-gate-summary.json
+/audit_memory.json
