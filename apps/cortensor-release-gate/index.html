@@ -188,6 +188,37 @@
       </section>
 
       <section>
+        <h2>Live Cortensor Portal (<code>gemma4</code>) Execution Evidence</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Endpoint &amp; Model</th>
+              <th>Outcome</th>
+              <th class="num">Latency (ms)</th>
+              <th class="hide-sm">Reference ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Single-turn <code>Agent.run()</code></td>
+              <td><code>https://api.cortensor.app/v1</code> (<code>gemma4</code>)</td>
+              <td><span class="pill">COMPLETED</span></td>
+              <td class="num">161,451.52</td>
+              <td class="hide-sm muted">run_id=c9eca6b0b22a458481e0d27b66fdc857</td>
+            </tr>
+            <tr>
+              <td><code>@tool</code> + <code>SecurityAuditReport</code></td>
+              <td><code>https://api.cortensor.app/v1</code> (<code>gemma4</code>)</td>
+              <td class="muted"><strong>4 steps -&gt; HTTP 502</strong></td>
+              <td class="num">367,262.14</td>
+              <td class="hide-sm muted">gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
         <h2>Top OpenMinion 0.1.23 &amp; Cortensor Engineering Findings</h2>
         <ul>
           <li><code>Agent._build_payload()</code> omits <code>"channel"</code>, triggering <code>invalid_channel</code> even when <code>ChannelAuthenticityConfig(mode="warn")</code> is set (worked around via <code>default_channel="console"</code>).</li>

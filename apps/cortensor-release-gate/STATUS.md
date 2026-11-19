@@ -12,8 +12,9 @@
 - Dual `subagent()` worker passes, `Handoff` triage planning, `approval_callback` report export gating, and `MemoryBundle` cross-run blocker diffing.
 - 10-check `probe` matrix exercising `openminion==0.1.23` primitives with measured latencies saved in `artifacts/probe_matrix.json`.
 - Committed sample audit artifacts (`artifacts/RELEASE_GATE_REPORT.md`, `artifacts/release-gate-summary.json`) and standalone visual report viewer (`index.html`).
+- Verified live Cortensor Portal (`https://api.cortensor.app/v1`, `gemma4`) execution (`artifacts/live_cortensor_portal_run.json`, `run_id=c9eca6b0b22a458481e0d27b66fdc857`, `161,451.52 ms`) and captured tool-loop `HTTP 502` diagnostics (`artifacts/live_cortensor_tool_run.json`).
 - Recorded walkthrough demo: https://youtu.be/Gxa6wyOMosc
 
 ## Next Steps
 
-- Optional live Cortensor Portal (`gemma4` / `gpt-oss-20b`) regression pass when Portal API key is configured in local `.env`.
+- Optional live run against a local Cortensor Router V2 node (`/api/v2/completions`) when running full node infrastructure.

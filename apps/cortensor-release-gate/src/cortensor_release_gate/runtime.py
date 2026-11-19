@@ -25,6 +25,20 @@ class RuntimeSettings:
     session_id: int = 1
 
 
+def _load_dotenv_if_present(dotenv_path: Path | None = None) -> None:
+    candidate = dotenv_path or (Path.cwd() / ".env")
+    if not candidate.is_file():
+        return
+    for raw_line in candidate.read_text(encoding="utf-8-sig").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        clean_key = key.strip()
+        if clean_key and clean_key not in os.environ:
+            os.environ[clean_key] = value.strip().strip('"').strip("'")
+
+
 def resolve_live_settings(
     *,
     provider: ProviderKind | None = None,
@@ -32,6 +46,7 @@ def resolve_live_settings(
     base_url: str | None = None,
 ) -> RuntimeSettings:
     """Resolve Cortensor Portal/Router or OpenAI-compatible credentials from env."""
+    _load_dotenv_if_present()
     chosen: ProviderKind = provider or (
         "cortensor" if os.getenv("CORTENSOR_API_KEY") else "openai"
     )
@@ -80,7 +95,7 @@ def build_config_payload(settings: RuntimeSettings, workspace_dir: Path) -> dict
             "api_mode": settings.api_mode,
             "session_id": settings.session_id,
             "tool_call_strategy": "hybrid",
-            "timeout_seconds": 60,
+            "timeout_seconds": 180,
             "result_wait_attempts": 1,
             "result_wait_interval_seconds": 0.0,
         }
@@ -90,7 +105,7 @@ def build_config_payload(settings: RuntimeSettings, workspace_dir: Path) -> dict
             "base_url": settings.base_url,
             "api_key": settings.api_key,
             "tool_call_strategy": "hybrid",
-            "timeout_seconds": 60,
+            "timeout_seconds": 180,
         }
 
     return {

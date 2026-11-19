@@ -12,6 +12,7 @@ from cortensor_release_gate.agent_workflow import (
     run_release_gate,
 )
 from cortensor_release_gate.cli import app
+from cortensor_release_gate.runtime import _load_dotenv_if_present
 
 
 def _seed_compliant_repo(root: Path) -> None:
@@ -145,3 +146,19 @@ def test_cli_probe_and_audit_smoke(tmp_path: Path) -> None:
     audit_payload = json.loads(audit_res.output)
     assert audit_payload["decision"] == "READY"
     assert audit_payload["report_written"] is True
+
+
+def test_load_dotenv_if_present_handles_bom_and_preserves_env(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    env_file = tmp_path / ".env"
+    env_file.write_text("\ufeffCORTENSOR_TEST_PORTAL_URL=https://api.cortensor.app/v1\n", encoding="utf-8")
+    del monkeypatch
+    import os
+
+    os.environ.pop("CORTENSOR_TEST_PORTAL_URL", None)
+    try:
+        _load_dotenv_if_present(env_file)
+        assert os.environ.get("CORTENSOR_TEST_PORTAL_URL") == "https://api.cortensor.app/v1"
+    finally:
+        os.environ.pop("CORTENSOR_TEST_PORTAL_URL", None)

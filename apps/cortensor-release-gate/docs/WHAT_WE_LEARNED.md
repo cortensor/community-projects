@@ -51,3 +51,11 @@ Findings below are directly observed from running `openminion==0.1.23` on Window
 
 - **Observed behavior:** Passing `memory_posture="read_only_bounded"` to `subagent(...)` raises `ValueError: developer subagent memory grants are not bound in v1` in `openminion/api/handoff.py` unless a `DelegatedMemoryReadRequest` object is materialized internally.
 - **Workaround used:** Keep `memory_posture="none"` on child subagents and pass prior blockers across runs via `MemoryBundle` snapshots.
+
+## 10. Live Cortensor Portal (`gemma4`): Multi-Turn Amplification & Single-Attempt `HTTP 502` Termination
+
+- **Live verification (`https://api.cortensor.app/v1`, model `gemma4`):**
+  - **Single-turn `Agent.run()` (`artifacts/live_cortensor_portal_run.json`):** Completed cleanly (`run_id=c9eca6b0b22a458481e0d27b66fdc857`, `session_id=1a2852560b4e489bba10f808e7936146`, `run_state=completed`) in **`161,451.52 ms`**, executing 2 sequential context composition cycles (`raw_chars=4269`) for one prompt.
+  - **Tool + `output_type` `Agent.run()` (`artifacts/live_cortensor_tool_run.json`):** Executed 4 successive round-trips (`45s`–`56s` each) before hitting `HTTP 502` (`router_error`, `gateway_request_id=gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb`) at **`367,262.14 ms`**.
+- **Root cause:** `openminion` logged `Completion attempt failed for provider cortensor (attempt 1)` and raised `RuntimeError` immediately after 1 failed attempt on `HTTP 502`, discarding all prior tool progress.
+- **Suggested SDK improvement:** Add configurable exponential backoff retries on transient `502`/`503` `router_error` responses in `CortensorProvider` and offer a 1-shot `output_type` fast path to avoid compounding 4–5 Portal calls per single `@tool` execution.
