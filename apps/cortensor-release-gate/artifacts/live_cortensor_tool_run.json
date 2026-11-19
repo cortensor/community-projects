@@ -1,0 +1,9 @@
+{
+  "provider": "cortensor",
+  "endpoint": "https://api.cortensor.app/v1",
+  "model": "gemma4",
+  "openminion_version": "0.1.23",
+  "elapsed_ms": 367262.14,
+  "error_type": "RuntimeError",
+  "error": "completion provider failed: cortensor completion failed with status 502: {\"error\":{\"code\":\"router_error\",\"message\":\"Router pool returned an error.\",\"type\":\"server_error\",\"gateway_request_id\":\"gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb\"}}"
+}
