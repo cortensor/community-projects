@@ -6,7 +6,7 @@ During development of **`cortensor-release-gate` (`v0.1.0`)** for **Cortensor Ha
 
 - **Test Suite (`pytest`):** `9 passed` (`test_memory_store.py`, `test_openminion_integration.py`, `test_scanners.py`)
 - **Static Checks:** `ruff check .` (`0` errors), `mypy --strict src` (`0` errors across `9` source files)
-- **Live Cortensor Portal (`https://api.cortensor.app/v1`, `gemma4`):** Executed real Portal runs (`artifacts/live_cortensor_portal_run.json`, `run_id=c9eca6b0b22a458481e0d27b66fdc857`, `completed` in `161,451.52 ms`) and captured tool-loop `HTTP 502` telemetry (`artifacts/live_cortensor_tool_run.json`, `gateway_request_id=gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb`)
+- **Live Cortensor Portal (`https://api.cortensor.app/v1`, `gemma4`):** Executed real Portal runs (`artifacts/live_cortensor_portal_run.json`, `run_id=c9eca6b0b22a458481e0d27b66fdc857`, `completed` in `161,451.52 ms`) and captured tool-loop compounding latency / `TurnTimeoutError` telemetry (`artifacts/live_cortensor_tool_run.json`, `elapsed_ms=335,029.55`, `run_id=1bf9ec11b5df42c88ebb4c31a577d0f9`)
 - **Self-Audit Verdict (`cortensor-release-gate audit . --demo-local --write-report -y`):** **`READY`** (`0` blockers, `0` warnings)
 
 ---
@@ -16,7 +16,7 @@ During development of **`cortensor-release-gate` (`v0.1.0`)** for **Cortensor Ha
 | Scenario | Endpoint & Model | Outcome | Latency (ms) | Reference ID |
 |---|---|---|---:|---|
 | Single-turn `Agent.run()` | `https://api.cortensor.app/v1` (`gemma4`) | **COMPLETED** | `161,451.52` | `run_id=c9eca6b0b22a458481e0d27b66fdc857` |
-| `@tool` + `SecurityAuditReport` | `https://api.cortensor.app/v1` (`gemma4`) | **4 steps -> 502** | `367,262.14` | `gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb` |
+| `@tool` + `SecurityAuditReport` | `https://api.cortensor.app/v1` (`gemma4`) | **3+ steps -> TurnTimeout** | `335,029.55` | `run_id=1bf9ec11b5df42c88ebb4c31a577d0f9` |
 
 ---
 
@@ -61,5 +61,5 @@ Full root-cause notes and SDK source locations are documented in [docs/WHAT_WE_L
    - Direct use raises `ValueError: developer subagent memory grants are not bound in v1` (verified in Probe #8); `MemoryBundle` snapshots fill the cross-run state gap reliably (`8.14 ms` round-trip).
 9. **`save_bundle(bundle, path)` argument ordering & `import_bundle()` return shape:**
    - `save_bundle` takes `(bundle, path)` and `import_bundle` returns summary metadata rather than `items`, requiring callers to read `bundle.items` after validation.
-10. **Live Cortensor Portal (`gemma4`) single-attempt `502 router_error` termination & multi-call amplification:**
-   - A single `Agent.run()` turn executed 2 round-trips (`161.45s`), and a `@tool` + `output_type` turn compounded into 5 round-trips before `CortensorProvider` aborted after attempt 1 on `HTTP 502` (`gw-7a61b5cf-e7e1-44fe-ad84-45f12883c6eb`). Retrying transient `502 router_error` responses with backoff and offering a 1-shot structured mode would raise Portal tool completion rates substantially.
+10. **Live Cortensor Portal (`gemma4`) multi-call amplification & `TurnTimeoutError` on tool + `output_type` turns:**
+   - A single `Agent.run()` turn executed 2 round-trips (`161.45s`), while a `@tool` + `output_type` turn compounded multiple `~55s` context cycles until hitting OpenMinion's `335.00s` `TurnTimeoutError` (`artifacts/live_cortensor_tool_run.json`). Offering a 1-shot structured mode in OpenMinion would cut multi-round Portal overhead by ~2x–4x.
