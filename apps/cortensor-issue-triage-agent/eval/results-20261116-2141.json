@@ -1,0 +1,269 @@
+{
+  "repo": "openminion/openminion",
+  "limit": 10,
+  "mode": "label-blind",
+  "skipped_unlabelled_or_ambiguous": 0,
+  "records": [
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 780,
+      "title": "plugins: enabled external plugins never activate on the one-shot CLI run path (hooks silently skipped, no error)",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.7,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:runtime",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 30377
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 779,
+      "title": "self_improvement: max_applied_notes and min_token_overlap are accepted, persisted and never enforced",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.8,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:config",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 121470
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 778,
+      "title": "brain: completion still rests on confidence — unverified closes pass, and two of three closure gates stop blocking at budget exhaustion",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 55811
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 774,
+      "title": "[0.1.22] Handoff cannot bound or approve the delegated target run: build_delegate_tool calls target.run(message) with no timeout or approval_callback",
+      "ground_truth": "feature",
+      "predicted": "feature",
+      "severity": "medium",
+      "confidence": 0.6,
+      "correct": true,
+      "maintainer_labels": [
+        "enhancement",
+        "area:sdk",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 52759
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 770,
+      "title": "[0.1.22] Agent.run(timeout_seconds=...) cannot extend the 300 s brain turn budget, and the budget stop is returned as a normal reply",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 59035
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 769,
+      "title": "[0.1.22] Runtime bootstrap fails on Windows (WinError 206) because browser-playwright artifact dirs are created under the CWD even when no browser tool is used",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.7,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:tools",
+        "platform:windows",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 52402
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 766,
+      "title": "storage: empty storage.path (\"\") in agents.json resolves to data_root directory and fails with sqlite3.OperationalError",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 54568
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 759,
+      "title": "llm: add a provider cooldown registry and honour Retry-After instead of a constant retry backoff",
+      "ground_truth": "feature",
+      "predicted": "feature",
+      "severity": "medium",
+      "confidence": 0.7,
+      "correct": true,
+      "maintainer_labels": [
+        "enhancement",
+        "area:providers",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 123260
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 757,
+      "title": "turn-input: an accepted `steer_current` is never applied or retired when its turn ends, and 20 of them wedge the session queue (QUEUE_FULL)",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:runtime",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 61064
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 754,
+      "title": "cli: `mcp import --from` reports a missing or malformed source file as an internal error",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:mcp",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 53502
+    }
+  ],
+  "errors": [
+    {
+      "issue_number": 777,
+      "title": "llm: measured redundant calls per turn (reflect on no-work turns, duplicate freshness classify, judge on plain answers)",
+      "ground_truth": "feature",
+      "error": "RuntimeError: provider HTTP 400: {\"success\":false,\"error\":{\"message\":\"400 Bad Request: unexpected tokens remaining in message header: Some(\\\"<|constrain|>commentary\\\")\",\"code\":\"BAD_REQUEST\",\"timestamp\":\"2026-11-16T21:29:09.349Z\",\"details\":{\"name\":\"UpstreamError\",\"upstreamStatus\":400,\"upstreamHost\":\"portkey.myceli"
+    },
+    {
+      "issue_number": 773,
+      "title": "[0.1.22] TurnResponse.telemetry reports 0 tokens when usage_*_tokens metadata keys are absent (no in-tree producer)",
+      "ground_truth": "bug",
+      "error": "RuntimeError: provider HTTP 400: {\"success\":false,\"error\":{\"message\":\"400 Bad Request: unexpected tokens remaining in message header: Some(\\\"<|constrain|>commentary\\\")\",\"code\":\"BAD_REQUEST\",\"timestamp\":\"2026-11-16T21:32:19.797Z\",\"details\":{\"name\":\"UpstreamError\",\"upstreamStatus\":400,\"upstreamHost\":\"portkey.myceli"
+    },
+    {
+      "issue_number": 767,
+      "title": "cli: add `config diff` so an import can be previewed before it overwrites the config",
+      "ground_truth": "feature",
+      "error": "VerdictParseError: no channel produced a valid TriageVerdict: text channel: 1 validation error for TriageVerdict\nissue_type\n  Input should be 'bug', 'feature', 'question', 'docs', 'chore' or 'duplicate' [type=literal_error, input_value='enhancement', input_type=str]\n    For further information visit https://errors.pyd"
+    }
+  ],
+  "metrics": {
+    "n": 10,
+    "accuracy": 1.0,
+    "per_class": {
+      "bug": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 8,
+        "tp": 8,
+        "fp": 0,
+        "fn": 0
+      },
+      "feature": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "chore": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "duplicate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "calibration": {
+      "mean_confidence_correct": 0.815,
+      "mean_confidence_wrong": null,
+      "buckets": {
+        ">=0.8": {
+          "n": 6,
+          "accuracy": 1.0
+        },
+        "0.5-0.8": {
+          "n": 4,
+          "accuracy": 1.0
+        },
+        "<0.5": {
+          "n": 0,
+          "accuracy": null
+        }
+      }
+    }
+  },
+  "llm_calls": 18
+}

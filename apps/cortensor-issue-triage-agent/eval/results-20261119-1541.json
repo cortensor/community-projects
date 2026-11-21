@@ -1,0 +1,204 @@
+{
+  "repo": "openminion/openminion",
+  "limit": 10,
+  "mode": "label-blind",
+  "skipped_unlabelled_or_ambiguous": 7,
+  "records": [
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 752,
+      "title": "cli: bare `openminion replay` crashes with AttributeError instead of usage",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:runtime",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 7695
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 751,
+      "title": "cli: `openminion time <subcommand>` fails with tool_not_found on the default daemon route",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.8,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:tools",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 51207
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 745,
+      "title": "README `Agent` + `@tool` snippet stops at a policy confirmation: its bare `lookup_order` is the #464 pattern, and the `@tool` risk options are undocumented",
+      "ground_truth": "docs",
+      "predicted": "bug",
+      "severity": "low",
+      "confidence": 0.95,
+      "correct": false,
+      "maintainer_labels": [
+        "documentation",
+        "area:sdk",
+        "area:tools",
+        "area:approvals",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 50154
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 720,
+      "title": "Closure judge can replace a valid output_type answer with a truncated copy, raising AgentOutputValidationError",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.85,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 49787
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 719,
+      "title": "An invalid optional task_update on a first turn ends it with \"Please restate the current task\"",
+      "ground_truth": "question",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.7,
+      "correct": false,
+      "maintainer_labels": [
+        "question",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 50310
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 718,
+      "title": "Groq: freshness classifier enum and required task_update fail as HTTP 400 tool_use_failed and end or burn the turn",
+      "ground_truth": "question",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.85,
+      "correct": false,
+      "maintainer_labels": [
+        "question",
+        "area:providers",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 50496
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 717,
+      "title": "Provider retry ignores Retry-After on 429, so a per-minute rate limit always ends the turn",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.8,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:providers",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 50108
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "n": 7,
+    "accuracy": 0.571,
+    "per_class": {
+      "bug": {
+        "precision": 0.571,
+        "recall": 1.0,
+        "f1": 0.727,
+        "support": 4,
+        "tp": 4,
+        "fp": 3,
+        "fn": 0
+      },
+      "feature": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2
+      },
+      "docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1
+      },
+      "chore": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "duplicate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "calibration": {
+      "mean_confidence_correct": 0.85,
+      "mean_confidence_wrong": 0.833,
+      "buckets": {
+        ">=0.8": {
+          "n": 6,
+          "accuracy": 0.667
+        },
+        "0.5-0.8": {
+          "n": 1,
+          "accuracy": 0.0
+        },
+        "<0.5": {
+          "n": 0,
+          "accuracy": null
+        }
+      }
+    }
+  },
+  "llm_calls": 7
+}

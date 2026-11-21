@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Cortensor Agent 试用页</title>
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]), textarea { min-height: 2.25rem; }
+      :root{
+        --bg:#f4f6f5; --surface:#ffffff; --surface2:#ecefec; --ink:#17201c; --ink2:#4c5a53;
+        --line:#d5dcd8; --accent:#0e6b4f; --accent-ink:#ffffff; --accent-soft:#e0efe9;
+        --amber-bg:#fdf3e0; --amber-ink:#7a5200; --amber-line:#e8cf9a;
+        --red-bg:#fdeceb; --red-ink:#8c2b21; --red-line:#efc4bf;
+        --blue-bg:#e8effa; --blue-ink:#274b7a;
+        --code-bg:#14201b; --code-ink:#d9e8df;
+        --radius:10px;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#101512; --surface:#1a211d; --surface2:#232c27; --ink:#e6ede9; --ink2:#a7b5ad;
+          --line:#33413a; --accent:#3cb68d; --accent-ink:#0b1512; --accent-soft:#1d322a;
+          --amber-bg:#3a2f14; --amber-ink:#f0cd7e; --amber-line:#6b5722;
+          --red-bg:#3d201c; --red-ink:#f2a79d; --red-line:#6e3a33;
+          --blue-bg:#1e2c42; --blue-ink:#a9c4ec;
+          --code-bg:#0b100d; --code-ink:#cfe0d6;
+        }
+      }
+      *{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;background:var(--bg);color:var(--ink);
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+        font-size:16px;line-height:1.65}
+      a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+      .wrap{max-width:1060px;margin:0 auto;padding:20px 16px 48px}
+      header.top{padding:10px 0 4px}
+      h1{font-size:clamp(26px,5vw,38px);line-height:1.25;margin:0 0 8px;letter-spacing:.01em}
+      h1 .thin{font-weight:400;color:var(--ink2)}
+      .lede{color:var(--ink2);max-width:46em;margin:0 0 14px}
+      .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+      .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);
+        background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--ink2)}
+      .chip strong{color:var(--ink);font-weight:600}
+      .chip.warn{border-color:var(--amber-line);background:var(--amber-bg);color:var(--amber-ink)}
+      /* tabs */
+      .tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;
+        display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+      .tab{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+        border-radius:999px;padding:9px 16px;font-size:15px;font-weight:600;cursor:pointer;min-height:44px}
+      .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+      .tab .n{opacity:.65;font-weight:400;margin-right:4px}
+      section.panel{display:none;padding-top:20px}
+      section.panel.active{display:block}
+      h2{font-size:22px;margin:0 0 6px;line-height:1.35}
+      h3{font-size:17px;margin:22px 0 8px}
+      p{margin:0 0 12px}
+      .sub{color:var(--ink2);max-width:48em}
+      .repo-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 18px}
+      .repo-bar a.repo{font-weight:600;word-break:break-all}
+      code.cmd{display:block;background:var(--code-bg);color:var(--code-ink);border-radius:var(--radius);
+        padding:12px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+        font-size:13.5px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 14px}
+      .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 16px}
+      .card h3:first-child{margin-top:0}
+      label.flabel{display:block;font-weight:600;font-size:14.5px;margin:14px 0 6px}
+      label.flabel:first-of-type{margin-top:0}
+      input[type="text"],textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;
+        background:var(--surface);color:var(--ink);padding:10px 12px;font:inherit;font-size:15px}
+      textarea{line-height:1.55;resize:vertical}
+      .btn{appearance:none;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);
+        border-radius:8px;padding:10px 20px;font-size:15.5px;font-weight:600;cursor:pointer;min-height:44px}
+      .btn:disabled{opacity:.55;cursor:wait}
+      .btn.ghost{background:transparent;color:var(--accent)}
+      .btn.small{padding:6px 14px;font-size:14px;min-height:38px}
+      .btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+      .status{font-size:14.5px;color:var(--ink2)}
+      .status.err{color:var(--red-ink)}
+      .notice{border-radius:var(--radius);padding:12px 14px;font-size:14.5px;margin:0 0 14px;border:1px solid}
+      .notice.amber{background:var(--amber-bg);color:var(--amber-ink);border-color:var(--amber-line)}
+      .notice.red{background:var(--red-bg);color:var(--red-ink);border-color:var(--red-line)}
+      .notice.plain{background:var(--surface2);color:var(--ink2);border-color:var(--line)}
+      .notice p:last-child{margin-bottom:0}
+      /* verdict grid */
+      .verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 12px}
+      .verdict .cell{background:var(--surface2);border-radius:8px;padding:10px 12px}
+      .verdict .k{font-size:12.5px;color:var(--ink2);letter-spacing:.04em}
+      .verdict .v{font-size:17px;font-weight:700;word-break:break-word}
+      .verdict .v .confbar{display:block;height:6px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}
+      .verdict .v .confbar i{display:block;height:100%;background:var(--accent)}
+      .tag{display:inline-block;background:var(--accent-soft);color:var(--ink);border-radius:6px;
+        padding:2px 9px;font-size:13.5px;margin:0 6px 6px 0;font-family:ui-monospace,Menlo,monospace}
+      blockquote.draft{margin:0;padding:12px 14px;background:var(--surface2);border-radius:8px;
+        font-size:15px;white-space:pre-wrap;word-break:break-word}
+      .rawout{white-space:pre-wrap;word-break:break-word;background:var(--code-bg);color:var(--code-ink);
+        border-radius:8px;padding:12px 14px;font-size:13px;max-height:320px;overflow:auto}
+      /* deadlines */
+      .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+      .filters .grow{flex:1 1 220px}
+      .filters select{flex:0 1 150px}
+      table.dl{width:100%;border-collapse:collapse;background:var(--surface);
+        border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14.5px}
+      table.dl th,table.dl td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+      table.dl th{background:var(--surface2);font-size:13px;color:var(--ink2);white-space:nowrap}
+      table.dl tr:last-child td{border-bottom:none}
+      table.dl td.date{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+      table.dl td.abbr{font-weight:700;white-space:nowrap}
+      .badge{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12.5px;font-weight:600;white-space:nowrap}
+      .badge.ok{background:var(--accent-soft);color:var(--accent)}
+      .badge.pending{background:var(--amber-bg);color:var(--amber-ink)}
+      .badge.grade{background:var(--blue-bg);color:var(--blue-ink)}
+      .dlcards{display:none}
+      @media (max-width:719px){
+        table.dl{display:none}
+        .dlcards{display:block}
+        .dlcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+          padding:12px 14px;margin:0 0 10px}
+        .dlcard .row1{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+        .dlcard .abbr{font-weight:700;font-size:16px}
+        .dlcard .date{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+        .dlcard .full{color:var(--ink2);font-size:14px;margin:2px 0 8px}
+        .dlcard .row2{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13.5px;color:var(--ink2)}
+      }
+      .topicchips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+      .topicchips button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+        border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;min-height:38px}
+      .brief-out{white-space:pre-wrap;font-size:15.5px}
+      .src-tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;border-radius:6px;padding:2px 8px;vertical-align:2px}
+      .src-tag.model{background:var(--accent-soft);color:var(--accent)}
+      .src-tag.template{background:var(--amber-bg);color:var(--amber-ink)}
+      /* stats */
+      .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:0 0 16px}
+      .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+      .stat .num{font-size:28px;font-weight:800;line-height:1.15}
+      .stat .lab{color:var(--ink2);font-size:13.5px}
+      ul.tight{margin:0 0 12px;padding-left:1.25em}
+      ul.tight li{margin-bottom:6px}
+      /* build texts */
+      .buildfield{margin:0 0 14px}
+      .buildfield .fk{font-size:13px;font-weight:700;color:var(--ink2);letter-spacing:.04em;margin-bottom:4px;
+        display:flex;justify-content:space-between;align-items:center;gap:10px}
+      .buildfield .fv{background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:14.5px;
+        white-space:pre-wrap;word-break:break-word}
+      .copybtn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--accent);
+        border-radius:6px;padding:4px 12px;font-size:13px;font-weight:600;cursor:pointer;min-height:32px}
+      .copybtn.done{color:var(--ink2)}
+      footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;color:var(--ink2);font-size:14px}
+      footer p{margin-bottom:8px}
+      .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <h1>Cortensor 三个 Agent <span class="thin">· 试用台</span></h1>
+        <p class="lede">Cortensor Hackathon #5 的三个参赛作品，都能在这里直接试：Issue 分流和论文简报是浏览器里实时调用免费模型跑的，黑客松追踪是 2026-11-17 的真实跑测记录。第四个页签是三个 DoraHacks Build 的提交文字，逐项可复制。</p>
+        <div class="meta-row">
+          <span class="chip">全部 <strong>$0</strong> · 无需登录 · 无需 key</span>
+          <span class="chip">模型：Pollinations 免费端点</span>
+          <span class="chip">提交截止 <strong>2026-12-19 15:59</strong>（北京时间）<span id="countdown"></span></span>
+          <span class="chip warn">免费层限速：每 IP 每 45 秒 1 次回复，太快会返回 HTTP 402</span>
+        </div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Agent 页签">
+        <button class="tab" role="tab" id="tabbtn-1" aria-selected="true" aria-controls="panel-1" data-tab="1"><span class="n">①</span>Issue 分流</button>
+        <button class="tab" role="tab" id="tabbtn-2" aria-selected="false" aria-controls="panel-2" data-tab="2"><span class="n">②</span>论文截稿</button>
+        <button class="tab" role="tab" id="tabbtn-3" aria-selected="false" aria-controls="panel-3" data-tab="3"><span class="n">③</span>黑客松追踪</button>
+        <button class="tab" role="tab" id="tabbtn-4" aria-selected="false" aria-controls="panel-4" data-tab="4"><span class="n">④</span>Build texts (EN)</button>
+      </nav>
+
+      <!-- ============ PANEL 1 : ISSUE TRIAGE ============ -->
+      <section class="panel active" id="panel-1" role="tabpanel" aria-labelledby="tabbtn-1">
+        <h2>Issue 分流 Agent</h2>
+        <p class="sub">给它一个 issue，它读完后告诉你：这是什么问题、多严重、归哪个模块、该进哪个队列——带置信度和理由。单 issue 深挖，不是批量浅分；页面上什么都不会发出去。</p>
+        <div class="repo-bar">
+          <a class="repo" href="https://github.com/ValeriaWong/cortensor-issue-triage-agent" target="_blank" rel="noopener">github.com/ValeriaWong/cortensor-issue-triage-agent</a>
+        </div>
+        <code class="cmd">python3 -m venv .venv &amp;&amp; .venv/bin/pip install -e .
+issue-triage triage --repo openminion/openminion --issue 778</code>
+
+        <div class="card">
+          <h3>现在就试（实时调模型）</h3>
+          <p class="sub" style="margin-bottom:4px">已预填真实案例 openminion/openminion#778，可以直接点「开始分流」，也可以改成你自己的 issue。一次调用约 20–90 秒。</p>
+          <label class="flabel" for="issueTitle">Issue 标题</label>
+          <input type="text" id="issueTitle" value="brain: completion still rests on confidence — unverified closes pass, and two of three closure gates stop blocking at budget exhaustion" />
+          <label class="flabel" for="issueBody">Issue 正文</label>
+          <textarea id="issueBody" rows="12"></textarea>
+          <div class="btnrow">
+            <button class="btn" id="triageBtn" type="button">开始分流</button>
+            <button class="btn ghost" id="triageReset" type="button">恢复 #778 原文</button>
+            <span class="status" id="triageStatus" role="status"></span>
+          </div>
+          <div id="triageResult" style="margin-top:16px"></div>
+        </div>
+
+        <div class="card">
+          <h3>真实跑过的 #778（CLI 结果，2026-11-17）</h3>
+          <p>这组标签与维护者实际打的标签<strong>完全一致</strong>（标签可见模式下的结果；标签盲测时 #778 仍判为 bug，置信度 0.90）。10 条真实 issue 评估：标签盲测准确率 <strong>1.0（10/10）</strong>，标签可见基线 0.9（bug 精确率 0.857 / 召回 1.0，feature 精确率 1.0 / 召回 0.75）；106 个测试全过；探针 8 通过 / 3 部分 / 0 失败。</p>
+          <div class="verdict">
+            <div class="cell"><div class="k">类型 TYPE</div><div class="v">bug</div></div>
+            <div class="cell"><div class="k">严重度 SEVERITY</div><div class="v">high</div></div>
+            <div class="cell"><div class="k">模块 COMPONENT</div><div class="v">brain</div></div>
+            <div class="cell"><div class="k">路由 ROUTE</div><div class="v">needs-maintainer</div></div>
+            <div class="cell"><div class="k">置信度 CONFIDENCE</div><div class="v">0.80<span class="confbar"><i style="width:80%"></i></span></div></div>
+          </div>
+          <p style="margin-bottom:6px"><span class="tag">area:brain</span><span class="tag">bug</span><span class="tag">status:maintainer-investigation</span></p>
+          <p><strong>理由：</strong>The issue describes a functional defect in the brain module's closure logic, with evidence from measurements and code references. The problem could lead to incorrect completions, warranting investigation by maintainers.</p>
+          <p style="margin-bottom:6px"><strong>草稿回复（CLI 生成，未经人工批准不会发出）：</strong></p>
+          <blockquote class="draft">Hi @faust-dark, Thanks for reporting this. It looks like a high-severity bug in the brain module's closure logic that needs maintainer investigation. Could you share a minimal reproducible example or a specific commit where the issue appears? That will help us reproduce and fix it.</blockquote>
+        </div>
+
+        <div class="notice plain">
+          <p><strong>页面版和 CLI 版的区别，说清楚：</strong>页面跑的是与 CLI 相同的模型、同一套分类提示词；CLI 另外还会拉评论、关联 PR、CODEOWNERS 和历史记忆，并且有人工审批门——分流结果先存为待审批快照，只有人批准后才会打标签、发评论，快照一次有效防重复。页面什么都不发。</p>
+        </div>
+      </section>
+
+      <!-- ============ PANEL 2 : PAPER DEADLINES ============ -->
+      <section class="panel" id="panel-2" role="tabpanel" aria-labelledby="tabbtn-2">
+        <h2>论文截稿 / 研究简报 Agent</h2>
+        <p class="sub">提醒，不评判。核心是确定性查表：682 个 CCF venue、390 个会议的截稿表，2026-11-16 逐官网核实；模型只负责把查到的行写成简报。每条日期都带验证状态，绝不编造 venue 或日期。</p>
+        <div class="repo-bar">
+          <a class="repo" href="https://github.com/ValeriaWong/cortensor-paper-deadline-agent" target="_blank" rel="noopener">github.com/ValeriaWong/cortensor-paper-deadline-agent</a>
+        </div>
+        <code class="cmd">python3 -m venv .venv &amp;&amp; .venv/bin/pip install -e .
+paper-watch deadlines --within-days 120
+paper-watch brief --topic 人工智能</code>
+
+        <div class="card">
+          <h3>120 天窗口内的截稿（2026-11-17 至 2027-03-17，共 48 条）</h3>
+          <p class="sub">47 条 verified + 1 条 cycle_not_announced（SIGGRAPH，日期为往年周期推算、以官网为准）。期刊与法律类是滚动投稿、窗口内无固定截稿，所以不在这张表里——不是漏了。</p>
+          <div class="filters">
+            <input type="text" id="dlSearch" class="grow" placeholder="按名称 / 全名搜索，如 ICML、security、数据库…" aria-label="搜索截稿" />
+            <select id="dlGrade" aria-label="按级别过滤">
+              <option value="">全部级别</option><option value="A">CCF A</option><option value="B">CCF B</option><option value="C">CCF C</option>
+            </select>
+            <select id="dlWhat" aria-label="按类型过滤">
+              <option value="">全文 + 摘要</option><option value="full">仅全文</option><option value="abstract">仅摘要</option>
+            </select>
+          </div>
+          <p class="status" id="dlCount" role="status"></p>
+          <table class="dl" id="dlTable">
+            <thead><tr><th>日期</th><th>简称</th><th>全名</th><th>级别</th><th>类型</th><th>验证状态</th><th>来源</th></tr></thead>
+            <tbody id="dlBody"></tbody>
+          </table>
+          <div class="dlcards" id="dlCards"></div>
+          <p class="status" id="dlEmpty" style="display:none">没有匹配的截稿。换个关键词试试。</p>
+        </div>
+
+        <div class="card">
+          <h3>生成研究简报（实时）</h3>
+          <p class="sub" style="margin-bottom:4px">先在上面 48 条里按中英文关键词匹配相关 venue，再让模型只根据匹配到的行写 2–3 段中文概述。模型调用失败时自动改出确定性模板简报，并如实标注。</p>
+          <label class="flabel" for="briefTopic">主题</label>
+          <input type="text" id="briefTopic" value="人工智能" />
+          <div class="topicchips" aria-label="常用主题">
+            <button type="button" data-topic="人工智能">人工智能</button>
+            <button type="button" data-topic="安全与隐私">安全与隐私</button>
+            <button type="button" data-topic="数据库">数据库</button>
+            <button type="button" data-topic="多媒体与视觉">多媒体与视觉</button>
+            <button type="button" data-topic="软件工程">软件工程</button>
+            <button type="button" data-topic="人机交互">人机交互</button>
+          </div>
+          <div class="btnrow">
+            <button class="btn" id="briefBtn" type="button">生成简报</button>
+            <span class="status" id="briefStatus" role="status"></span>
+          </div>
+          <div id="briefResult" style="margin-top:16px"></div>
+        </div>
+
+        <div class="notice plain">
+          <p><strong>实测记录：</strong>41 个测试全过；真模型简报跑通过（主题“人工智能”，最近的是 CVPR，2026-11-16，verified）。探针 5/10——结构化输出和子代理在免费层上很脆（模型答散文不答 JSON、子代理会失败），简报靠主合成 agent 自己重新查工具兜底，失败时退回标注过的模板简报。提醒规则：提前 120 天，提醒过的不重复报，记忆可导出/导入。</p>
+        </div>
+      </section>
+
+      <!-- ============ PANEL 3 : HACKATHON WATCH ============ -->
+      <section class="panel" id="panel-3" role="tabpanel" aria-labelledby="tabbtn-3">
+        <h2>黑客松追踪提醒 Agent</h2>
+        <p class="sub">盯着公开的黑客松列表页，发现新比赛就按你的画像给一个初步合适度判断并提醒。只提醒、不报名、不登录、不付费。</p>
+        <div class="repo-bar">
+          <a class="repo" href="https://github.com/ValeriaWong/cortensor-hackathon-watch-agent" target="_blank" rel="noopener">github.com/ValeriaWong/cortensor-hackathon-watch-agent</a>
+        </div>
+        <code class="cmd">python3 -m venv .venv &amp;&amp; .venv/bin/pip install -e .
+hackathon-watch check                    # 规则筛查，0 次模型调用
+hackathon-watch check --live-classify    # 只对判不定的条目调模型</code>
+
+        <div class="notice amber">
+          <p><strong>这个页签是实测记录，不能点按钮重跑。</strong>列表页在浏览器里抓不到（CORS / JS 渲染 / 验证码墙），实时检查请用上面的 CLI。以下是 2026-11-17 在本机真实跑出的结果，数字照抄运行记录。</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="num">170</div><div class="lab">基线条数（2026-11-16 跟踪表）</div></div>
+          <div class="stat"><div class="num">33</div><div class="lab">新发现：DoraHacks 5 + Devfolio 28</div></div>
+          <div class="stat"><div class="num">0</div><div class="lab">规则筛查阶段的模型调用</div></div>
+          <div class="stat"><div class="num">3 次 / 1,691</div><div class="lab">加模型分类：3 次调用、1,691 tokens、$0</div></div>
+          <div class="stat"><div class="num">46</div><div class="lab">测试全过</div></div>
+          <div class="stat"><div class="num">5 / 5 / 0</div><div class="lab">探针：通过 / 部分 / 失败</div></div>
+        </div>
+
+        <div class="card">
+          <h3>这次跑测提醒了什么</h3>
+          <ul class="tight">
+            <li><strong>AgentVerse</strong>（Devfolio）——初步合适，值得去官网看。<em>初步判断、须到官网确认。</em></li>
+            <li><strong>Build And Brew</strong>——模型判不合适。</li>
+            <li>其余两条判不定的，模型看完仍为不确定，没有硬凑结论。</li>
+            <li><strong>Kaggle 不可用</strong>：列表页是 reCAPTCHA 墙，如实记录为 unavailable，没有伪造数据。</li>
+            <li>第二遍再跑：<strong>0 条新发现、无重复提醒</strong>（提醒过的绝不重复报，记忆可导出/导入）。</li>
+          </ul>
+          <h3>筛选画像</h3>
+          <p><span class="tag">只免费</span><span class="tag">线上优先</span><span class="tag">非学生成年人</span><span class="tag">LLM / Agent / AI 应用 / 法律 AI</span><span class="tag">常驻新加坡 / 美国</span></p>
+          <p class="sub" style="margin-bottom:0">抓取、解析、去重、规则筛查全程不碰模型；只有规则判不定的才花模型调用，每次运行最多 5 次、每条 1 次短调用。DoraHacks 列表页是 JS 渲染，静态抓取只能看到 5 个精选链接（名字按 slug 推导并标注）；Devfolio 列表页没有截稿/奖金字段，空着不猜。探针的部分项都是原生 SDK 回合被 Pollinations 免费层 402 限速墙挡住，主路径因此用 pacing 直连客户端。</p>
+        </div>
+      </section>
+
+      <!-- ============ PANEL 4 : BUILD TEXTS ============ -->
+      <section class="panel" id="panel-4" role="tabpanel" aria-labelledby="tabbtn-4">
+        <h2>Build submission texts — all three, in English</h2>
+        <p class="sub">Paste these straight into the DoraHacks Build form. Every field has its own copy button, and there is a copy-all button per Build. Demo videos for all three are “to be recorded” (1–5 min, scripts ready). Submission deadline: 2026-12-19 15:59 (Beijing time).</p>
+        <div id="buildList"></div>
+      </section>
+
+      <footer>
+        <p>全部 $0、无需登录、无需 key；模型默认 Pollinations 免费端点（无 key）。免费层限速：每 IP 每 45 秒 1 次回复，调用太快返回 HTTP 402，等 45 秒再试即可。</p>
+        <p>数据核实于 2026-11-16 / 17。比赛：Cortensor Hackathon #5，提交截止 2026-12-19 15:59（北京时间）。三个仓库：<a href="https://github.com/ValeriaWong/cortensor-issue-triage-agent" target="_blank" rel="noopener">Issue 分流</a> · <a href="https://github.com/ValeriaWong/cortensor-paper-deadline-agent" target="_blank" rel="noopener">论文截稿</a> · <a href="https://github.com/ValeriaWong/cortensor-hackathon-watch-agent" target="_blank" rel="noopener">黑客松追踪</a></p>
+      </footer>
+    </div>
+
+    <script type="text/plain" id="issueBodySrc">Probe: make reflection goal-aware in the core runtime, tighten its triggers, and make completion depend on
+verification rather than model confidence. Measured against dev `e0aa4b8d`; the table is deterministic and comes
+from calling the closure owners directly, not from a language model's judgement.
+
+## What already exists
+
+- The judge receives the goal (`ClosureGateContext.closure_goal`) and returns `satisfied`, `next_action`
+  (`close|continue|replan`), optional `final_answer`, plus `verification` / `review` / `plan_reconciliation` facts
+  (`modules/brain/schemas/closure.py:53-65`).
+- Structural guards (`modules/brain/execution/runtime/closure/evaluator.py:449-487`) force `continue` when the
+  judgment is self-contradictory: unsatisfied-but-close, a `finalization_status` conflict, or
+  `mutation_claimed` without successful mutation tool evidence. The last one is the precedent for this proposal.
+- Three runtime probes, all evidence-conditional (`evaluator.py:521-555`): plan reconciliation from `active_plan`,
+  verification from `tool_results`, review from `tool_results`.
+
+## Measured closure behaviour
+
+Input in every row: `satisfied=True`, `next_action=close`, `final_answer="Done. All tests pass."`
+
+| verification state | budget | satisfied | next_action | final answer kept |
+|---|---|---|---|---|
+| none ran (default `VerificationFact()`) | remains | **True** | **close** | **yes** |
+| `signal="unavailable", ok=True` | remains | True | close | yes |
+| `signal="tests", ok=True, exit 0` | remains | True | close | yes |
+| `signal="tests", ok=False, exit 1` | remains | False | continue | no |
+| `signal="tests", ok=False, exit 1` | **exhausted** | **True** | **close** | **yes** |
+
+## Findings
+
+**1. "Verification never ran" is indistinguishable from "verification passed".** `VerificationFact` defaults to
+`signal="unavailable", ok=True`, and `is_verification_failed` returns `False` for that pair
+(`runtime/verification/probe.py:107-112`). So a close backed only by the model's confidence passes the guard
+untouched, and the recorded fact carries no signal that nothing was verified. Any turn that never invoked a
+verification tool therefore completes on confidence alone — which is the common case, since verification facts are
+only mined from tool results (`probe.py:75-93`).
+
+**2. Two of the three gates stop blocking when the budget is exhausted.** Verification
+(`probe.py:126-129`) and review (`runtime/review/observation.py:80-83`) demote from "block the close" to "annotate
+the reason" as soon as `has_continuation_budget(state)` is false — which is exactly when the turn is closest to
+running out of room. The measured row above is the consequence: a failed test run still closes. Plan reconciliation
+does the opposite and blocks unconditionally (`runtime/reconciliation.py:52-72`). Three gates, two different
+answers to the same question.
+
+**3. Goal comparison exists only when there is an explicit plan.** Plan reconciliation is the only gate that
+compares intent against progress, and it reads `active_plan` (`evaluator.py:528`, `:550`). An ordinary turn with
+no plan object gets no goal comparison at all: the judge is told the goal, but nothing checks the answer against it
+other than the judge's own text.
+
+**4. Reflection is not goal-aware and does not run mid-run.** There are two unrelated layers: post-hoc
+success-memory extraction (`runtime/memory/reflection.py`, which `#777` shows also fires on turns that executed no
+work), and the phase reflection calls (`loop/tools/phases/observe.py:304` and `:374`, `eval.py:255`,
+`refine.py:311`). Neither compares "what the goal required" to "what has been achieved so far"; the only such
+comparison happens once, at closure. There is therefore no point in the loop where weak or partial work is detected
+and turned into a `continue`/`replan` before the judge sees the final answer.
+
+## Bounded proposals, in order
+
+1. **Treat "verifiable claim, no verification" as a blocking state**, mirroring the existing `mutation_claimed`
+   guard: when the answer asserts a verifiable outcome (tests/build/run) and no verification signal exists, force
+   `continue` (or return a stated-incomplete answer). The policy question is which claims count; the mechanism is
+   the guard shape that already exists.
+2. **Make the failed-verification and blocking-review guards budget-independent.** A failed verification must not
+   close because the budget ran out; the open decision is what the turn returns instead (a degraded/completion-coded
+   answer with the failure in facts), not whether the gate holds.
+3. **Give ordinary turns a goal contract.** Derive success criteria from the closure goal at entry (the judge
+   already receives it) and use the existing reconciliation shape against those criteria, so a turn without a plan
+   object still gets a progress comparison.
+4. **Move reflection to the loop, triggered by evidence**: after a batch of tool work, on a failed
+   verification/review, or when reconciliation is incomplete — reusing `continue`/`replan` rather than adding a
+   second decision path. Keep post-hoc memory extraction out of this path.
+
+Controls for each: the two existing closure fixtures (mission and plain answer), a failed-verification fixture with
+and without budget, a claimed-verification-without-evidence fixture, and a reconciliation-incomplete fixture; plus
+one control asserting a genuinely verified success still closes. No new gate framework, no second judge, and no
+change to the budget arithmetic.
+
+## Not claimed
+
+- Unit-level deterministic measurement of the closure owners; no live provider, no production turn, and the CLI
+  turn metadata does not expose the judgment, so this is a contract probe rather than an end-to-end one.
+- No reflection-policy or quality claim: the proposals are about *when* the existing gates act, not about how well
+  any model reflects.</script>
+
+    <script>
+    (function(){
+      "use strict";
+      var API = "https://text.pollinations.ai/openai/v1/chat/completions";
+
+      /* ---------- tabs ---------- */
+      var tabs = document.querySelectorAll(".tab");
+      tabs.forEach(function(btn){
+        btn.addEventListener("click", function(){
+          tabs.forEach(function(b){ b.setAttribute("aria-selected","false"); });
+          btn.setAttribute("aria-selected","true");
+          document.querySelectorAll("section.panel").forEach(function(p){ p.classList.remove("active"); });
+          document.getElementById("panel-" + btn.getAttribute("data-tab")).classList.add("active");
+          window.scrollTo({top:0, behavior:"smooth"});
+        });
+      });
+
+      /* ---------- countdown (display only) ---------- */
+      try{
+        var end = new Date("2026-12-19T15:59:00+08:00").getTime();
+        var days = Math.ceil((end - Date.now()) / 86400000);
+        if (days > 0) document.getElementById("countdown").textContent = "· 还剩约 " + days + " 天";
+        else if (days === 0) document.getElementById("countdown").textContent = "· 今天截止";
+      }catch(e){}
+
+      /* ---------- shared model call ----------
+         jsonMode=true sends response_format json_object (triage: strict JSON
+         expected). The brief call leaves it off (prose expected).
+         Per-attempt timeout 105 s (audit). On HTTP 402 the Retry-After
+         header (if any) is attached to the error so the caller can wait
+         max(47 s, Retry-After) before the one bounded retry. */
+      var COOLDOWN_KEY = "cortensor-triage-next-allowed";
+      function callModel(messages, maxTokens, jsonMode){
+        var ctrl = ("AbortController" in window) ? new AbortController() : null;
+        var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 105000) : null;
+        var body = {model:"openai", messages:messages, reasoning_effort:"low", max_tokens:maxTokens || 800};
+        if (jsonMode) body.response_format = {type:"json_object"};
+        return fetch(API, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(body),
+          signal: ctrl ? ctrl.signal : undefined
+        }).then(function(res){
+          if (timer) clearTimeout(timer);
+          return res.text().then(function(txt){
+            if (res.status === 402) {
+              var e402 = new Error("rate402"); e402.code = 402;
+              var ra = 0;
+              try { ra = parseInt(res.headers.get("Retry-After") || "0", 10) || 0; } catch(e){}
+              e402.retryAfter = ra;
+              throw e402;
+            }
+            if (!res.ok) { var e = new Error("HTTP " + res.status); e.code = res.status; e.raw = txt; throw e; }
+            var data;
+            try { data = JSON.parse(txt); } catch(pe){ var e2 = new Error("badjson"); e2.raw = txt; throw e2; }
+            var msg = data && data.choices && data.choices[0] && data.choices[0].message;
+            /* Envelope: prefer plain content; fall back to the first
+               tool_call's arguments (some free-tier replies come back
+               as a tool call instead of content). */
+            var content = msg && msg.content;
+            if (!content && msg && msg.tool_calls && msg.tool_calls[0] &&
+                msg.tool_calls[0].function && msg.tool_calls[0].function.arguments) {
+              content = msg.tool_calls[0].function.arguments;
+            }
+            if (!content) { var e3 = new Error("empty"); e3.raw = txt; throw e3; }
+            return content;
+          });
+        }).catch(function(err){
+          if (timer) clearTimeout(timer);
+          if (err && err.name === "AbortError") { var et = new Error("timeout"); et.code = "timeout"; throw et; }
+          throw err;
+        });
+      }
+      function esc(s){ return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+      function extractJSON(text){
+        var t = String(text).trim();
+        t = t.replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/,"");
+        var a = t.indexOf("{"), b = t.lastIndexOf("}");
+        if (a >= 0 && b > a) t = t.slice(a, b + 1);
+        return JSON.parse(t);
+      }
+      function rateLimitHTML(){
+        return '<div class="notice red"><p><strong>免费层限速（HTTP 402）。</strong>Pollinations 免费端点每 IP 每 45 秒只给 1 次回复，刚才这次被挡下了。等 45 秒后点下面的按钮重试。</p></div>' +
+               '<div class="btnrow"><button class="btn" type="button" data-retry="1">等 45 秒后重试</button></div>';
+      }
+
+      /* ---------- Panel 1: issue triage ---------- */
+      var bodySrc = document.getElementById("issueBodySrc").textContent.replace(/^\n+/, "").replace(/\s+$/, "");
+      var bodyEl = document.getElementById("issueBody");
+      bodyEl.value = bodySrc;
+      var titleEl = document.getElementById("issueTitle");
+      var defaultTitle = titleEl.value;
+      document.getElementById("triageReset").addEventListener("click", function(){
+        titleEl.value = defaultTitle; bodyEl.value = bodySrc;
+        document.getElementById("triageStatus").textContent = "已恢复 #778 原文。";
+      });
+
+      var triageBtn = document.getElementById("triageBtn");
+      var triageStatus = document.getElementById("triageStatus");
+      var triageResult = document.getElementById("triageResult");
+
+      /* The repo's real label list (openminion/openminion, from
+         fixtures/openminion-issue-778.json _repo_labels). Suggested labels
+         are filtered against it exactly like the CLI does: invented labels
+         are dropped and the drop is shown, never silently kept. */
+      var REPO_LABELS = ["area:approvals","area:artifacts","area:brain","area:config","area:identity","area:mcp","area:providers","area:runtime","area:scheduling","area:sdk","area:sessions","area:skills","area:tools","bug","dependencies","documentation","duplicate","enhancement","fixed-in:0.1.10","fixed-in:0.1.5","github_actions","good first issue","help wanted","invalid","platform:windows","question","status:awaiting-contributor","status:awaiting-release","status:contributor-in-progress","status:maintainer-investigation","wontfix"];
+      var TRIAGE_TYPES = ["bug","feature","question","docs","chore","duplicate"];
+      var TRIAGE_SEVERITIES = ["critical","high","medium","low"];
+      var TRIAGE_ROUTES = ["ready-to-fix","needs-info","good-first-issue","needs-maintainer","needs-design","duplicate","wontfix-candidate"];
+      var triageRetried = false; /* one bounded auto-retry per manual Start */
+      var triageCooldownTimer = null;
+
+      function cooldownRemainingMs(){
+        try {
+          var v = parseInt(window.localStorage.getItem(COOLDOWN_KEY) || "0", 10) || 0;
+          return Math.max(0, v - Date.now());
+        } catch(e){ return 0; }
+      }
+      function rememberCooldown(seconds){
+        try { window.localStorage.setItem(COOLDOWN_KEY, String(Date.now() + seconds * 1000)); } catch(e){}
+      }
+      function enumVal(val, allowed){ return allowed.indexOf(val) >= 0 ? val : null; }
+
+      function runTriage(isRetry){
+        var title = titleEl.value.trim(), body = bodyEl.value.trim();
+        if (!title && !body) { triageStatus.textContent = "先填标题或正文。"; triageStatus.className = "status err"; return; }
+        if (!isRetry) {
+          triageRetried = false;
+          var waitMs = cooldownRemainingMs();
+          if (waitMs > 0) {
+            /* Cooldown remembered across refreshes/tabs (localStorage):
+               the free tier allows 1 reply / 45 s / IP. */
+            var waitS = Math.ceil(waitMs / 1000);
+            triageBtn.disabled = true;
+            triageStatus.className = "status";
+            triageStatus.textContent = "免费层限速：还需等 " + waitS + " 秒再试（上次调用未满 45 秒）。";
+            if (triageCooldownTimer) clearTimeout(triageCooldownTimer);
+            triageCooldownTimer = setTimeout(function(){ triageBtn.disabled = false; triageStatus.textContent = "可以再试了。"; }, waitMs);
+            return;
+          }
+        }
+        triageBtn.disabled = true;
+        triageStatus.className = "status";
+        triageStatus.textContent = "正在调用免费模型分流…（约 20–90 秒，别关页面）";
+        triageResult.innerHTML = "";
+        var sys = "You are an issue triage classifier for a GitHub repository. Read the issue and reply with STRICT JSON ONLY (no markdown, no prose) with exactly these keys: " +
+          '{"issue_type": one of "bug"|"feature"|"question"|"docs"|"chore"|"duplicate", ' +
+          '"severity": one of "critical"|"high"|"medium"|"low", ' +
+          '"component": short module name as a plain string, ' +
+          '"suggested_labels": array of up to 4 label strings, ' +
+          '"route": one of "ready-to-fix"|"needs-info"|"good-first-issue"|"needs-maintainer"|"needs-design"|"duplicate"|"wontfix-candidate", ' +
+          '"confidence": number between 0 and 1, ' +
+          '"rationale": 1-3 sentences explaining the verdict with evidence from the issue}';
+        var user = "Issue title: " + title + "\n\nIssue body:\n" + body.slice(0, 6000);
+        rememberCooldown(45);
+        callModel([{role:"system", content:sys},{role:"user", content:user}], 800, true).then(function(content){
+          triageBtn.disabled = false;
+          triageStatus.textContent = "分流完成（模型实时结果）。";
+          var v;
+          try { v = extractJSON(content); }
+          catch(pe){
+            triageResult.innerHTML = '<div class="notice amber"><p><strong>模型这次没按 JSON 格式回。</strong>原文如下，可以直接重试。</p></div><div class="rawout">' + esc(content) + '</div>' +
+              '<div class="btnrow"><button class="btn" type="button" data-retry="1">重新分流</button></div>';
+            bindRetry(triageResult, runTriage);
+            return;
+          }
+          /* Validate against the repo's real vocab, like the CLI does. */
+          var notes = [];
+          var labels = Array.isArray(v.suggested_labels) ? v.suggested_labels : [];
+          var kept = labels.filter(function(l){ return REPO_LABELS.indexOf(l) >= 0; });
+          if (kept.length < labels.length) notes.push("已按仓库真实标签表过滤掉 " + (labels.length - kept.length) + " 个不在表里的标签（与 CLI 行为一致）");
+          labels = kept;
+          var typeV = enumVal(v.issue_type, TRIAGE_TYPES);
+          var sevV = enumVal(v.severity, TRIAGE_SEVERITIES);
+          var routeV = enumVal(v.route, TRIAGE_ROUTES);
+          if (typeV === null || sevV === null || routeV === null) notes.push("模型返回了不在枚举里的取值，已略去（显示为 —）");
+          var conf = (typeof v.confidence === "number" && v.confidence >= 0 && v.confidence <= 1) ? v.confidence : null;
+          if (v.confidence != null && conf === null) notes.push("模型返回的置信度不在 0–1 内，已略去");
+          var html = '<div class="verdict">' +
+            cell("类型 TYPE", typeV) + cell("严重度 SEVERITY", sevV) +
+            cell("模块 COMPONENT", v.component) + cell("路由 ROUTE", routeV) +
+            '<div class="cell"><div class="k">置信度 CONFIDENCE</div><div class="v">' +
+              (conf === null ? "—" : conf.toFixed(2)) +
+              (conf === null ? "" : '<span class="confbar"><i style="width:' + Math.round(conf*100) + '%"></i></span>') +
+            '</div></div></div>';
+          if (labels.length) html += '<p style="margin-bottom:6px">' + labels.map(function(l){ return '<span class="tag">' + esc(l) + '</span>'; }).join("") + '</p>';
+          if (v.rationale) html += '<p style="margin-bottom:0"><strong>理由：</strong>' + esc(v.rationale) + '</p>';
+          if (notes.length) html += '<p class="status" style="margin-top:10px">' + esc(notes.join("；")) + '。</p>';
+          html += '<p class="status" style="margin-top:10px">这是页面实时结果：简化版预览，只做分类一步，没有拉评论 / 关联 PR / CODEOWNERS，也没有生成待审批快照和起草回复——那些是 CLI 版做的。页面什么都不会发到 GitHub。</p>';
+          triageResult.innerHTML = html;
+        }).catch(function(err){
+          triageBtn.disabled = false;
+          if (err && err.code === 402) {
+            var wait = Math.max(47, (err.retryAfter || 0));
+            rememberCooldown(wait);
+            if (!triageRetried) {
+              /* One bounded auto-retry after max(47 s, Retry-After), with a countdown. */
+              triageRetried = true;
+              var left = wait;
+              triageBtn.disabled = true;
+              triageStatus.className = "status";
+              triageStatus.textContent = "免费层限速（HTTP 402），" + left + " 秒后自动重试一次…";
+              var iv = setInterval(function(){
+                left -= 1;
+                if (left <= 0) {
+                  clearInterval(iv);
+                  triageStatus.textContent = "正在重试…";
+                  runTriage(true);
+                } else {
+                  triageStatus.textContent = "免费层限速（HTTP 402），" + left + " 秒后自动重试一次…";
+                }
+              }, 1000);
+            } else {
+              triageStatus.textContent = "";
+              triageResult.innerHTML = rateLimitHTML();
+              bindRetry(triageResult, runTriage);
+            }
+          } else if (err && err.code === "timeout") {
+            triageStatus.className = "status err";
+            triageStatus.textContent = "等了 105 秒还没回（免费层慢或正忙）。稍后再点一次。";
+          } else {
+            triageStatus.className = "status err";
+            triageStatus.textContent = "调用失败（" + esc(err && err.message ? err.message : "网络错误") + "）。免费端点偶尔不稳，稍后重试；持续失败就用 CLI 版。";
+            if (err && err.raw) triageResult.innerHTML = '<div class="rawout">' + esc(String(err.raw).slice(0, 2000)) + '</div>';
+          }
+        });
+      }
+      function cell(k, v){ return '<div class="cell"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v == null || v === "" ? "—" : v) + '</div></div>'; }
+      function bindRetry(container, fn){
+        var b = container.querySelector("[data-retry]");
+        if (b) b.addEventListener("click", fn);
+      }
+      triageBtn.addEventListener("click", runTriage);
+
+      /* ---------- Panel 2: deadlines ---------- */
+      var DEADLINES = [{"name":"S&P","full":"IEEE Symposium on Security and Privacy","grade":"A","what":"full","date":"2026-11-17","status":"verified","url":"https://sp2027.ieee-security.org/cfpapers.html"},{"name":"DAC","full":"Design Automation Conference","grade":"A","what":"full","date":"2026-11-18","status":"verified","url":"https://dac.com"},{"name":"ICPC","full":"IEEE International Conference on Program Comprehension","grade":"B","what":"abstract","date":"2026-11-19","status":"verified","url":"https://conf.researchr.org/home/icpc-2027"},{"name":"PAKDD","full":"Pacific-Asia Conference on Knowledge Discovery and Data Mining","grade":"C","what":"full","date":"2026-11-20","status":"verified","url":"https://pakdd2027.org/"},{"name":"VTS","full":"IEEE VLSI Test Symposium","grade":"C","what":"full","date":"2026-11-20","status":"verified","url":"https://tttc-vts.org/"},{"name":"CCGRID","full":"IEEE/ACM International Symposium on Cluster, Cloud and Grid Computing","grade":"C","what":"abstract","date":"2026-11-24","status":"verified","url":"https://hpcclab.org/ccgrid27/"},{"name":"VLDB","full":"International Conference on Very Large Data Bases","grade":"A","what":"abstract","date":"2026-11-25","status":"verified","url":"https://vldb.org/2027/"},{"name":"DSN","full":"International Conference on Dependable Systems and Networks","grade":"B","what":"full","date":"2026-11-25","status":"verified","url":"https://dsn2027-berlin.github.io/"},{"name":"EuroS&P","full":"IEEE European Symposium on Security and Privacy","grade":"C","what":"abstract","date":"2026-11-25","status":"verified","url":"https://eurosp2027.ieee-security.org/cfp.html"},{"name":"HiPEAC","full":"International Conference on High Performance and Embedded Architectures and Compilers","grade":"B","what":"full","date":"2026-11-27","status":"verified","url":"https://www.hipeac.net/2027/glasgow/"},{"name":"DATE","full":"Design, Automation & Test in Europe","grade":"B","what":"full","date":"2026-11-29","status":"verified","url":"https://www.date-conference.com/"},{"name":"CODASPY","full":"Conference on Data and Application Security and Privacy","grade":"C","what":"abstract","date":"2026-11-30","status":"verified","url":"https://www.codaspy.org/2027/"},{"name":"WiSec","full":"ACM Conference on Security and Privacy in Wireless and Mobile Networks","grade":"C","what":"full","date":"2026-11-30","status":"verified","url":"https://ntu-dtc.github.io/wisec2027/"},{"name":"OSDI","full":"USENIX Symposium on Operating Systems Design and Implementation","grade":"A","what":"abstract","date":"2026-12-01","status":"verified","url":"https://www.usenix.org/conference/osdi27"},{"name":"ICS","full":"International Conference on Supercomputing","grade":"B","what":"abstract","date":"2026-12-01","status":"verified","url":"https://klab-ai3.github.io/ics2027/calls-cfp.html"},{"name":"FSE","full":"Fast Software Encryption","grade":"B","what":"full","date":"2026-12-01","status":"verified","url":"https://tosc.iacr.org/"},{"name":"CHI","full":"ACM Conference on Human Factors in Computing Systems","grade":"A","what":"full","date":"2026-12-03","status":"verified","url":"https://chi2027.acm.org/"},{"name":"PODS","full":"ACM SIGMOD Conference on Principles of Database Systems","grade":"B","what":"abstract","date":"2026-12-03","status":"verified","url":"https://2027.sigmod.org/"},{"name":"CC","full":"International Conference on Compiler Construction","grade":"B","what":"full","date":"2026-12-03","status":"verified","url":"https://conf.researchr.org/home/CC-2027"},{"name":"DIMVA","full":"Conference on Detection of Intrusions and Malware & Vulnerability Assessment","grade":"C","what":"abstract","date":"2026-12-03","status":"verified","url":"http://www.dimva.org/dimva2027/"},{"name":"ISCA","full":"International Symposium on Computer Architecture","grade":"A","what":"abstract","date":"2026-12-06","status":"verified","url":"https://iscaconf.org/isca2027/"},{"name":"ESWC","full":"Extended Semantic Web Conference","grade":"C","what":"abstract","date":"2026-12-10","status":"verified","url":"https://2027.eswc-conferences.org/"},{"name":"AsiaCCS","full":"ACM Asia Conference on Computer and Communications Security","grade":"C","what":"full","date":"2026-12-11","status":"verified","url":"https://asiaccs2027.cityu.edu.mo/call-for-papers/index.html"},{"name":"COLING","full":"International Conference on Computational Linguistics","grade":"B","what":"full","date":"2026-12-23","status":"verified","url":"https://2027.coling-iccl.org"},{"name":"NAACL","full":"North American Chapter of the Association for Computational Linguistics","grade":"B","what":"full","date":"2026-12-23","status":"verified","url":"https://2027.naacl.org"},{"name":"ICME","full":"IEEE International Conference on Multimedia & Expo","grade":"B","what":"full","date":"2026-12-30","status":"verified","url":"https://2027.ieeeicme.org/"},{"name":"ACL","full":"Annual Meeting of the Association for Computational Linguistics (ACL 2027)","grade":"A","what":"full","date":"2027-01-04","status":"verified","url":"https://2027.aclweb.org"},{"name":"ISSTA","full":"ACM SIGSOFT International Symposium on Software Testing and Analysis","grade":"A","what":"abstract","date":"2027-01-08","status":"verified","url":"https://conf.researchr.org/home/issta-2027"},{"name":"DIS","full":"ACM SIGCHI Conference on Designing Interactive Systems","grade":"C","what":"abstract","date":"2027-01-11","status":"verified","url":"https://dis.acm.org/2027/"},{"name":"ICML","full":"International Conference on Machine Learning","grade":"A","what":"abstract","date":"2027-01-14","status":"verified","url":"https://icml.cc/Conferences/2027"},{"name":"SIGIR","full":"ACM SIGIR Conference on Research and Development in Information Retrieval","grade":"A","what":"abstract","date":"2027-01-14","status":"verified","url":"https://sigir2027.org/"},{"name":"LICS","full":"ACM/IEEE Symposium on Logic in Computer Science","grade":"A","what":"abstract","date":"2027-01-14","status":"verified","url":"https://lics.siglog.org/lics27/"},{"name":"ISMB","full":"International conference on Intelligent Systems for Molecular Biology","grade":"B","what":"full","date":"2027-01-14","status":"verified","url":"https://www.iscb.org/ismbeccb2027"},{"name":"ICWSM","full":"The International AAAI Conference on Web and Social Media","grade":"B","what":"full","date":"2027-01-15","status":"verified","url":"https://www.icwsm.org"},{"name":"USENIX Security","full":"USENIX Security Symposium","grade":"A","what":"abstract","date":"2027-01-19","status":"verified","url":"https://www.usenix.org/conference/usenixsecurity27"},{"name":"ACM SIGOPS ATC","full":"ACM SIGOPS Annual Technical Conference","grade":"A","what":"full","date":"2027-01-19","status":"verified","url":"https://atc.sigops.org"},{"name":"SIGGRAPH","full":"ACM SIGGRAPH Conference on Computer Graphics and Interactive Techniques","grade":"A","what":"full","date":"2027-01-19","status":"cycle_not_announced","url":"https://s2027.siggraph.org"},{"name":"CAV","full":"International Conference on Computer-Aided Verification","grade":"A","what":"full","date":"2027-01-20","status":"verified","url":"https://conferences.i-cav.org/2027/"},{"name":"ACNS","full":"International Conference on Applied Cryptography and Network Security","grade":"C","what":"full","date":"2027-01-21","status":"verified","url":"https://acns2027.isg.rhul.ac.uk"},{"name":"SPAA","full":"ACM Symposium on Parallelism in Algorithms and Architectures","grade":"B","what":"abstract","date":"2027-01-22","status":"verified","url":"https://spaa.acm.org/"},{"name":"CSFW","full":"IEEE Computer Security Foundations Workshop","grade":"B","what":"full","date":"2027-01-28","status":"verified","url":"https://csf2027.ieee-security.org/cfp.html"},{"name":"ICMR","full":"ACM SIGMM International Conference on Multimedia Retrieval","grade":"B","what":"full","date":"2027-01-31","status":"verified","url":"https://www.icmr2027.org"},{"name":"HotOS","full":"USENIX Workshop on Hot Topics in Operating Systems","grade":"B","what":"full","date":"2027-02-01","status":"verified","url":"https://sigops.org/s/conferences/hotos/2027/"},{"name":"SIGCOMM","full":"Annual Conference of the ACM Special Interest Group on Data Communication","grade":"A","what":"full","date":"2027-02-02","status":"verified","url":"https://conferences.sigcomm.org/sigcomm/2027/submission/"},{"name":"MobileHCI","full":"ACM International Conference on Mobile Human-Computer Interaction","grade":"B","what":"abstract","date":"2027-02-10","status":"verified","url":"https://mobilehci.acm.org/2027/"},{"name":"ICPR","full":"International Conference on Pattern Recognition","grade":"C","what":"abstract","date":"2027-02-22","status":"verified","url":"https://www.icpr2027.com"},{"name":"SMI","full":"Shape Modeling International","grade":"C","what":"abstract","date":"2027-03-01","status":"verified","url":"https://smiconf.github.io/2027/"},{"name":"RE","full":"IEEE International Requirements Engineering Conference","grade":"B","what":"abstract","date":"2027-03-12","status":"verified","url":"https://conf.researchr.org/home/RE-2027"}];
+
+      var dlBody = document.getElementById("dlBody"), dlCards = document.getElementById("dlCards");
+      var dlSearch = document.getElementById("dlSearch"), dlGrade = document.getElementById("dlGrade"), dlWhat = document.getElementById("dlWhat");
+      var dlCount = document.getElementById("dlCount"), dlEmpty = document.getElementById("dlEmpty");
+      function statusBadge(s){ return s === "verified" ? '<span class="badge ok">verified 已核实</span>' : '<span class="badge pending">cycle_not_announced 周期未公布</span>'; }
+      function whatText(w){ return w === "full" ? "全文" : "摘要"; }
+      function filteredDeadlines(){
+        var q = dlSearch.value.trim().toLowerCase(), g = dlGrade.value, w = dlWhat.value;
+        return DEADLINES.filter(function(d){
+          if (g && d.grade !== g) return false;
+          if (w && d.what !== w) return false;
+          if (q && (d.name + " " + d.full).toLowerCase().indexOf(q) < 0) return false;
+          return true;
+        });
+      }
+      function renderDeadlines(){
+        var rows = filteredDeadlines();
+        dlCount.textContent = "显示 " + rows.length + " / 48 条";
+        dlEmpty.style.display = rows.length ? "none" : "block";
+        dlBody.innerHTML = rows.map(function(d){
+          return '<tr><td class="date">' + esc(d.date) + '</td><td class="abbr">' + esc(d.name) + '</td><td>' + esc(d.full) + '</td>' +
+            '<td><span class="badge grade">CCF ' + esc(d.grade) + '</span></td><td>' + whatText(d.what) + '</td><td>' + statusBadge(d.status) + '</td>' +
+            '<td><a href="' + esc(d.url) + '" target="_blank" rel="noopener">官网</a></td></tr>';
+        }).join("");
+        dlCards.innerHTML = rows.map(function(d){
+          return '<div class="dlcard"><div class="row1"><span class="abbr">' + esc(d.name) + '</span><span class="date">' + esc(d.date) + '</span></div>' +
+            '<div class="full">' + esc(d.full) + '</div><div class="row2"><span class="badge grade">CCF ' + esc(d.grade) + '</span><span>' + whatText(d.what) + '截稿</span>' +
+            statusBadge(d.status) + '<a href="' + esc(d.url) + '" target="_blank" rel="noopener">官网</a></div></div>';
+        }).join("");
+      }
+      [dlSearch, dlGrade, dlWhat].forEach(function(el){
+        el.addEventListener("input", renderDeadlines); el.addEventListener("change", renderDeadlines);
+      });
+      renderDeadlines();
+
+      /* ---------- brief ---------- */
+      var SYN = {
+        "人工智能":["machine learning","computational linguistics","multimedia","pattern recognition","information retrieval","web and social media"],
+        "机器学习":["machine learning","computational linguistics","information retrieval"],
+        "自然语言":["computational linguistics","linguistics"],
+        "nlp":["computational linguistics"],
+        "安全":["security","privacy","cryptography","encryption","intrusions"],
+        "隐私":["security","privacy"],
+        "数据库":["data bases","database","data communication"],
+        "多媒体":["multimedia","graphics","pattern recognition","shape modeling"],
+        "视觉":["graphics","pattern recognition","multimedia","mobile human-computer"],
+        "图形":["graphics","shape modeling"],
+        "软件工程":["software","compiler","program comprehension","requirements engineering"],
+        "软件":["software","compiler","program comprehension","requirements engineering"],
+        "人机交互":["human factors","interactive systems","mobile human-computer"],
+        "交互":["human factors","interactive systems","mobile human-computer"],
+        "系统":["operating systems","supercomputing","computer architecture","technical conference"],
+        "网络":["data communication","wireless","mobile networks","security"],
+        "理论":["logic in computer science","computer-aided verification","parallelism"],
+        "生物":["molecular biology"]
+      };
+      function matchTopic(topic){
+        var t = topic.trim().toLowerCase();
+        if (!t) return [];
+        var keys = [];
+        Object.keys(SYN).forEach(function(k){ if (t.indexOf(k) >= 0) keys = keys.concat(SYN[k]); });
+        var terms = t.split(/[\s,，、\/]+/).filter(function(x){ return x.length >= 2; });
+        keys = keys.concat(terms);
+        if (!keys.length) keys = [t];
+        var seen = {}, out = [];
+        DEADLINES.forEach(function(d){
+          var hay = (d.name + " " + d.full).toLowerCase();
+          for (var i = 0; i < keys.length; i++){
+            if (hay.indexOf(keys[i]) >= 0) { if (!seen[d.name]) { seen[d.name] = 1; out.push(d); } break; }
+          }
+        });
+        return out;
+      }
+      function templateBrief(topic, rows){
+        if (!rows.length) return "主题「" + topic + "」在 120 天窗口的 48 条会议截稿里没有匹配到 venue。换个说法试试（例如：人工智能、安全与隐私、数据库、多媒体与视觉、软件工程、人机交互），或直接看上面的全表。";
+        var lines = rows.map(function(d){ return "· " + d.name + "（" + d.full + "，CCF " + d.grade + "）：" + (d.what === "full" ? "全文" : "摘要") + "截稿 " + d.date + "，验证状态 " + d.status + "。"; });
+        return "主题「" + topic + "」在 120 天窗口内匹配到 " + rows.length + " 个 venue，按截稿日期先后：\n\n" + lines.join("\n") +
+          "\n\n最近的一个是 " + rows[0].name + "，" + rows[0].date + " 截稿（" + rows[0].status + "）。每条日期都带验证状态、原样来自已核实表格；投稿前请再到官网确认一次。";
+      }
+      var briefBtn = document.getElementById("briefBtn"), briefStatus = document.getElementById("briefStatus"), briefResult = document.getElementById("briefResult");
+      var briefTopicEl = document.getElementById("briefTopic");
+      document.querySelectorAll(".topicchips button").forEach(function(b){
+        b.addEventListener("click", function(){ briefTopicEl.value = b.getAttribute("data-topic"); });
+      });
+      function showTemplate(topic, rows, why){
+        briefResult.innerHTML = '<p><span class="src-tag template">模板简报</span> <span class="status">' + esc(why) + '</span></p><div class="brief-out">' + esc(templateBrief(topic, rows)) + '</div>';
+      }
+      function runBrief(){
+        var topic = briefTopicEl.value.trim();
+        if (!topic) { briefStatus.textContent = "先填一个主题。"; briefStatus.className = "status err"; return; }
+        var rows = matchTopic(topic);
+        briefBtn.disabled = true;
+        briefStatus.className = "status";
+        briefResult.innerHTML = "";
+        if (!rows.length) {
+          briefBtn.disabled = false;
+          briefStatus.textContent = "";
+          showTemplate(topic, rows, "没有匹配到 venue，以下为模板结果。");
+          return;
+        }
+        briefStatus.textContent = "已匹配 " + rows.length + " 个 venue，正在让模型写简报…（约 20–90 秒）";
+        var facts = rows.map(function(d){ return "- " + d.name + " | " + d.full + " | CCF " + d.grade + " | " + (d.what === "full" ? "全文" : "摘要") + "截稿 " + d.date + " | 验证状态 " + d.status; }).join("\n");
+        var sys = "You write short Chinese research-deadline briefs. Use ONLY the venue rows provided by the user. Never invent a venue, a date, or a verification status. Copy every date and status verbatim. Write 2-3 short paragraphs in Chinese, plain text, no markdown headings.";
+        var user = "主题：" + topic + "\n\n已核实的截稿行（只能用这些）：\n" + facts + "\n\n请写一段简报：先说这个主题在窗口内最近的截稿是哪几个，再说整体节奏，最后提醒每条日期的验证状态。";
+        callModel([{role:"system", content:sys},{role:"user", content:user}], 900).then(function(content){
+          briefBtn.disabled = false;
+          briefStatus.textContent = "";
+          briefResult.innerHTML = '<p><span class="src-tag model">模型生成</span> <span class="status">只根据下面匹配到的 ' + rows.length + ' 行表格生成；日期请对照上表复核。</span></p><div class="brief-out">' + esc(content.trim()) + '</div>' +
+            '<p class="status" style="margin-top:10px">匹配到的行：' + rows.map(function(d){ return esc(d.name) + " " + esc(d.date) + "（" + esc(d.status) + "）"; }).join("；") + '</p>';
+        }).catch(function(err){
+          briefBtn.disabled = false;
+          briefStatus.textContent = "";
+          var why = (err && err.code === 402) ? "模型调用被免费层限速（HTTP 402），已自动改出模板简报；等 45 秒后可再试模型版。"
+            : (err && err.code === "timeout") ? "模型 90 秒没回，已改出模板简报。"
+            : "模型调用失败，已改出模板简报。";
+          showTemplate(topic, rows, why);
+          var rb = document.createElement("div");
+          rb.className = "btnrow";
+          rb.innerHTML = '<button class="btn ghost" type="button">重试模型版</button>';
+          rb.querySelector("button").addEventListener("click", runBrief);
+          briefResult.appendChild(rb);
+        });
+      }
+      briefBtn.addEventListener("click", runBrief);
+
+      /* ---------- Panel 4: build texts ---------- */
+      var BUILDS = [
+        {
+          name: "Issue Triage Agent — single-issue deep triage + routing",
+          brief: "Give it an issue number and it reads the issue, its comments, and linked PRs, then routes it: what it is, how bad it is, which component it belongs to, who should own it, and which queue it goes to — with a confidence score and reasons, plus a draft first reply. Nothing is ever posted without a human saying yes. Plus a real-repo evaluation: label-blind 10/10 against maintainer labels (label-aware baseline 9/10).",
+          desc: "- Single-issue deep dive, not batch shallow classification. Every other triage entry in this hackathon is a batch classifier that reads 20 issues and suggests labels. This agent's main mode is the opposite: --issue N, one issue read in full.\n- The verdict covers type, severity, component, suggested labels (filtered in code against the repo's real label list — invented labels are dropped), suggested assignee (CODEOWNERS / contributors / history), a route enum (ready-to-fix, needs-info, good-first-issue, needs-maintainer, …), confidence 0–1, rationale, and evidence quotes.\n- Fail-closed approval gate. Triage results are saved as a pending snapshot. Only a human approval applies labels and posts the draft comment, and a snapshot is single-use — a second approve is refused. Without a GitHub token, approve prints the exact gh api commands for a human to run instead of pretending it succeeded.\n- Verified on real data: 106 tests pass; evaluation on 10 real openminion issues: label-blind accuracy 1.0 (10/10; bug P 1.0 / R 1.0, feature P 1.0 / R 1.0) with the labels hidden from the model, label-aware baseline 0.9 (bug P 0.857 / R 1.0, feature P 1.0 / R 0.75); the verdict on openminion/openminion#778 is bug at confidence 0.90 even with the labels hidden, and its label-aware run exactly matched the maintainer's actual labels. Building-block probes: 8 pass / 3 partial / 0 fail (11 probes; the partials are the three blocks needing a live native SDK turn, all blocked by the same Pollinations 402 rate-limit wall on this run).\n- $0 throughout. The default model is the Pollinations free endpoint (no key). The main path uses a paced direct HTTP client — one call per step, ≥45 s apart, honouring Retry-After — because one native SDK turn fires several consecutive model calls and the free tier allows 1 reply / 45 s / IP (HTTP 402), while the SDK's retry backoff is hardcoded to 300 ms and ignores Retry-After. The draft step can run through a real OpenMinion Agent.run turn (--via-sdk); classify stays on the direct client because the SDK has no response_format support. Those findings are documented in What We Learned, with the measurements behind them.",
+          repo: "https://github.com/ValeriaWong/cortensor-issue-triage-agent",
+          video: "To be recorded (1–5 min)"
+        },
+        {
+          name: "Paper Deadline Watch — reminders + multi-source research briefs",
+          brief: "A deadline reminder + research-brief agent for CCF venues. Give it a topic and it tells you which venues are due, when, and how sure we are about each date — then writes a short brief from those facts. It never invents a venue or a date. Plus a live model brief that actually ran, $0.",
+          desc: "- Remind, don't judge. The core is deterministic lookup over verified tables (682 CCF venues, 390 conferences, checked against official sites on 2026-11-16). The model's job is only to turn the matched rows into 2–3 paragraphs of prose.\n- Every date carries its verification status (verified / cycle_not_announced / not_found / date_unclear), copied verbatim from the tables. Rows with no future parsable date are counted and reported, never listed as dated deadlines. A dedicated probe (verification_honesty) checks this on every run.\n- Reminder memory: 120-day window, monthly re-check; items already reminded are not reported twice. Memory exports and imports as JSON or as an OpenMinion MemoryBundle.\n- Verified on real data: 41 tests pass; a real model brief ran on the Pollinations free endpoint ($0, topic \"artificial intelligence\", nearest venue CVPR, 2026-11-16, verified). Building-block probes: 5/10 — structured output and subagents are fragile on the free tier (the model answers prose instead of JSON, subagents fail), so the brief is assembled by the main synthesis agent re-querying the tools itself, falling back to a labelled template brief. All of that is documented honestly in What We Learned.\n- $0 throughout. The default model is the Pollinations free endpoint (no key). The deterministic commands (deadline lookup, template brief, model-free probes) need no model at all.",
+          repo: "https://github.com/ValeriaWong/cortensor-paper-deadline-agent",
+          video: "To be recorded (1–5 min)"
+        },
+        {
+          name: "Hackathon Watch — new-event alerts with a preliminary suitability call",
+          brief: "Watches public hackathon list pages, spots newly listed events, and gives a preliminary suitability call against one person's profile — free-only, online-first, non-student adult, LLM / Agent / AI-app / legal-AI, resident in Singapore / US. It only alerts; it never registers, logs in, or pays for anything.",
+          desc: "- Deterministic first. Fetching, parsing, normalising, deduping, and the rule screen never touch the model. The model only classifies entries the rules left unsure — one short call each, capped per run (default 5). A normal check costs 0–5 calls and a few thousand tokens.\n- Every alert carries its source link, discovery time, and a \"preliminary, confirm on the official page\" label. Nothing is reported twice. Memory exports and imports as JSON or as an OpenMinion MemoryBundle.\n- Verified on a real run (2026-11-17): baseline 170 entries; rules-only check found 33 new (DoraHacks 5 + Devfolio 28); Kaggle was unavailable (reCAPTCHA wall — recorded as unavailable, never faked); live classify took 3 calls / 1,691 tokens / $0 and alerted on AgentVerse (Devfolio, preliminary-suitable). 46 tests pass. Building-block probes: 5 pass / 5 partial / 0 fail — the partials are the blocks that need a live native SDK turn, all blocked by the same Pollinations 402 rate-limit wall, recorded instead of hidden.\n- Honest limits, stated in the README: DoraHacks list pages are JS-rendered, so static fetch sees only 5 featured links (names are slug-derived placeholders, marked as such); Devfolio list pages carry no deadline or prize, so those fields stay empty, never guessed; a preliminary verdict is a list-page-text judgement, not an official eligibility check.\n- $0 throughout. The default model is the Pollinations free endpoint (no key).",
+          repo: "https://github.com/ValeriaWong/cortensor-hackathon-watch-agent",
+          video: "To be recorded (1–5 min)"
+        }
+      ];
+      function copyText(text, btn){
+        function done(){ var old = btn.textContent; btn.textContent = "Copied ✓"; btn.classList.add("done"); setTimeout(function(){ btn.textContent = old; btn.classList.remove("done"); }, 1600); }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); });
+        } else fallback();
+        function fallback(){
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); done(); } catch(e){ btn.textContent = "Copy failed — long-press to select the text"; }
+          document.body.removeChild(ta);
+        }
+      }
+      var buildList = document.getElementById("buildList");
+      BUILDS.forEach(function(b, i){
+        var card = document.createElement("div");
+        card.className = "card";
+        var fields = [
+          ["Name", b.name], ["Brief description", b.brief], ["Description", b.desc],
+          ["GitHub Repository", b.repo], ["Demo video", b.video]
+        ];
+        var html = '<h3>Build ' + (i + 1) + '</h3>';
+        fields.forEach(function(f, j){
+          html += '<div class="buildfield"><div class="fk"><span>' + esc(f[0]) + '</span><button class="copybtn" type="button" data-b="' + i + '" data-f="' + j + '">Copy</button></div><div class="fv">' + esc(f[1]) + '</div></div>';
+        });
+        html += '<div class="btnrow"><button class="btn small" type="button" data-all="' + i + '">Copy whole Build ' + (i + 1) + '</button></div>';
+        card.innerHTML = html;
+        buildList.appendChild(card);
+        card.querySelectorAll("[data-f]").forEach(function(btn){
+          btn.addEventListener("click", function(){
+            copyText(fields[Number(btn.getAttribute("data-f"))][1], btn);
+          });
+        });
+        card.querySelector("[data-all]").addEventListener("click", function(){
+          var all = fields.map(function(f){ return f[0] + ":\n" + f[1]; }).join("\n\n");
+          copyText(all, this);
+        });
+      });
+    })();
+    </script>
+  </body>
+</html>

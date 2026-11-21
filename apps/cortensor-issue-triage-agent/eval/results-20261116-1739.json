@@ -1,0 +1,249 @@
+{
+  "repo": "openminion/openminion",
+  "limit": 10,
+  "skipped_unlabelled_or_ambiguous": 0,
+  "records": [
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 778,
+      "title": "brain: completion still rests on confidence — unverified closes pass, and two of three closure gates stop blocking at budget exhaustion",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 16845
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 777,
+      "title": "llm: measured redundant calls per turn (reflect on no-work turns, duplicate freshness classify, judge on plain answers)",
+      "ground_truth": "feature",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.7,
+      "correct": false,
+      "maintainer_labels": [
+        "enhancement",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 117511
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 774,
+      "title": "[0.1.22] Handoff cannot bound or approve the delegated target run: build_delegate_tool calls target.run(message) with no timeout or approval_callback",
+      "ground_truth": "feature",
+      "predicted": "feature",
+      "severity": "medium",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "enhancement",
+        "area:sdk",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 56251
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 773,
+      "title": "[0.1.22] TurnResponse.telemetry reports 0 tokens when usage_*_tokens metadata keys are absent (no in-tree producer)",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.8,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:runtime",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 73671
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 770,
+      "title": "[0.1.22] Agent.run(timeout_seconds=...) cannot extend the 300 s brain turn budget, and the budget stop is returned as a normal reply",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.75,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 54841
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 769,
+      "title": "[0.1.22] Runtime bootstrap fails on Windows (WinError 206) because browser-playwright artifact dirs are created under the CWD even when no browser tool is used",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:tools",
+        "platform:windows",
+        "status:contributor-in-progress"
+      ],
+      "latency_ms": 55967
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 767,
+      "title": "cli: add `config diff` so an import can be previewed before it overwrites the config",
+      "ground_truth": "feature",
+      "predicted": "feature",
+      "severity": "medium",
+      "confidence": 0.7,
+      "correct": true,
+      "maintainer_labels": [
+        "enhancement",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 125474
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 766,
+      "title": "storage: empty storage.path (\"\") in agents.json resolves to data_root directory and fails with sqlite3.OperationalError",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 68318
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 759,
+      "title": "llm: add a provider cooldown registry and honour Retry-After instead of a constant retry backoff",
+      "ground_truth": "feature",
+      "predicted": "feature",
+      "severity": "low",
+      "confidence": 0.7,
+      "correct": true,
+      "maintainer_labels": [
+        "enhancement",
+        "area:providers",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 55383
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 757,
+      "title": "turn-input: an accepted `steer_current` is never applied or retired when its turn ends, and 20 of them wedge the session queue (QUEUE_FULL)",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "high",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "area:runtime",
+        "status:maintainer-investigation"
+      ],
+      "latency_ms": 57823
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "n": 10,
+    "accuracy": 0.9,
+    "per_class": {
+      "bug": {
+        "precision": 0.857,
+        "recall": 1.0,
+        "f1": 0.923,
+        "support": 6,
+        "tp": 6,
+        "fp": 1,
+        "fn": 0
+      },
+      "feature": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.857,
+        "support": 4,
+        "tp": 3,
+        "fp": 0,
+        "fn": 1
+      },
+      "question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "chore": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "duplicate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "calibration": {
+      "mean_confidence_correct": 0.839,
+      "mean_confidence_wrong": 0.7,
+      "buckets": {
+        ">=0.8": {
+          "n": 6,
+          "accuracy": 1.0
+        },
+        "0.5-0.8": {
+          "n": 4,
+          "accuracy": 0.75
+        },
+        "<0.5": {
+          "n": 0,
+          "accuracy": null
+        }
+      }
+    }
+  },
+  "llm_calls": 12
+}

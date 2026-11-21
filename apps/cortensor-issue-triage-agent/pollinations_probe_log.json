@@ -1,0 +1,64 @@
+[
+  {
+    "test": "GET /models",
+    "status": 200,
+    "seconds": 0.41,
+    "models": [
+      "openai-fast"
+    ]
+  },
+  {
+    "test": "a_plain_json",
+    "attempt": 1,
+    "status": 200,
+    "seconds": 6.35,
+    "model": "gpt-oss-20b",
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 333,
+      "completion_tokens": 88,
+      "total_tokens": 421
+    },
+    "content": "{\"label\": \"bug\", \"confidence\": 0.9}",
+    "tool_calls": []
+  },
+  {
+    "test": "b_tool_call",
+    "attempt": 1,
+    "status": 200,
+    "seconds": 9.44,
+    "model": "gpt-oss-20b",
+    "finish_reason": "tool_calls",
+    "usage": {
+      "prompt_tokens": 386,
+      "completion_tokens": 33,
+      "total_tokens": 419
+    },
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "chatcmpl-tool-849415c8217f2470",
+        "type": "function",
+        "function": {
+          "name": "lookup_issue",
+          "arguments": "{\"number\": 12}"
+        }
+      }
+    ]
+  },
+  {
+    "test": "c_response_format_json_object",
+    "attempt": 1,
+    "status": 200,
+    "seconds": 12.14,
+    "model": "gpt-oss-20b",
+    "finish_reason": "stop",
+    "usage": {
+      "prompt_tokens": 324,
+      "completion_tokens": 170,
+      "total_tokens": 494
+    },
+    "content": "{\"label\":\"failure\",\"confidence\":0.92}",
+    "tool_calls": []
+  }
+]
