@@ -1,0 +1,9 @@
+{
+  "provider": "cortensor",
+  "endpoint": "https://api.cortensor.app/v1",
+  "model": "gemma4",
+  "openminion_version": "0.1.23",
+  "elapsed_ms": 335029.55,
+  "error_type": "TurnTimeoutError",
+  "error": "Turn execution timed out after 335.00 seconds."
+}

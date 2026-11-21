@@ -1,0 +1,111 @@
+﻿{
+  "openminion_version": "0.1.23",
+  "provider_mode": "cortensor-loopback",
+  "checks": [
+    {
+      "block_name": "runtime_diagnostics",
+      "passed": true,
+      "duration_ms": 33.72,
+      "details": {
+        "tools_count": "104",
+        "posture_keys": "9",
+        "self_model_keys": "11"
+      },
+      "error": null
+    },
+    {
+      "block_name": "agent_tool_and_output_type",
+      "passed": true,
+      "duration_ms": 4843.67,
+      "details": {
+        "run_id": "0a857acd8d9c4d5daf4f11e78f96eb0f",
+        "run_state": "completed",
+        "files_scanned": "29"
+      },
+      "error": null
+    },
+    {
+      "block_name": "subagent_isolation",
+      "passed": true,
+      "duration_ms": 1508.47,
+      "details": {
+        "subagent_session_id": "7d74897a37c04c279371da63257f71ed",
+        "present_files": "5"
+      },
+      "error": null
+    },
+    {
+      "block_name": "handoff_delegation",
+      "passed": true,
+      "duration_ms": 2327.09,
+      "details": {
+        "decision": "CHANGES_REQUIRED",
+        "actions_count": "1"
+      },
+      "error": null
+    },
+    {
+      "block_name": "approval_callback_gate",
+      "passed": true,
+      "duration_ms": 1763.85,
+      "details": {
+        "approvals_triggered": "1",
+        "report_written": "True"
+      },
+      "error": null
+    },
+    {
+      "block_name": "memory_bundle_portability",
+      "passed": true,
+      "duration_ms": 8.14,
+      "details": {
+        "bundle_exists": "True",
+        "loaded_blockers": "0"
+      },
+      "error": null
+    },
+    {
+      "block_name": "cortensor_completion_mode",
+      "passed": true,
+      "duration_ms": 1314.17,
+      "details": {
+        "mode": "cortensor_completion",
+        "ok": "True"
+      },
+      "error": null
+    },
+    {
+      "block_name": "subagent_memory_guard",
+      "passed": true,
+      "duration_ms": 0.02,
+      "details": {
+        "guard_raised": "True",
+        "message": "developer subagent memory grants are not bound in v1"
+      },
+      "error": null
+    },
+    {
+      "block_name": "forced_tools_and_capabilities",
+      "passed": true,
+      "duration_ms": 1908.68,
+      "details": {
+        "present_files": "5",
+        "capability_keys": "7",
+        "custom_tool_schema_found": "False"
+      },
+      "error": null
+    },
+    {
+      "block_name": "session_continuity_turns",
+      "passed": true,
+      "duration_ms": 8878.93,
+      "details": {
+        "session_id": "probe-continuity-1",
+        "turns_matched": "True",
+        "second_files_scanned": "29"
+      },
+      "error": null
+    }
+  ],
+  "all_passed": true
+}

@@ -1,0 +1,12 @@
+{
+  "blockers": [],
+  "decision": "READY",
+  "persistent_from_last_run": [],
+  "report_path": "D:\\cache\\bounty_hunt\\cortensor_agent\\artifacts\\RELEASE_GATE_REPORT.md",
+  "report_written": true,
+  "resolved_since_last_run": [],
+  "summary": "Decision READY: 0 blocker(s), 0 warning(s).",
+  "target_path": "D:\\cache\\bounty_hunt\\cortensor_agent",
+  "triage_plan": null,
+  "warnings": []
+}

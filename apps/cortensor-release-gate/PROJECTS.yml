@@ -1,0 +1,14 @@
+- name: cortensor-release-gate
+  category: apps
+  owner: "@dev-shiki"
+  collaborators: []
+  status: active
+  created: 2026-11-18
+  version: v0.1.0
+  tags:
+    - python
+    - openminion
+    - cortensor
+    - release-gate
+    - qa
+    - agent
