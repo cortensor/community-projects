@@ -1,0 +1,197 @@
+{
+  "generated_at_utc": "2026-11-21T12:29:55.300208+00:00",
+  "provider": "gemini",
+  "model": "gemini-flash-lite-latest",
+  "openminion_version": "0.1.23",
+  "total_probes": 10,
+  "passed_probes": 8,
+  "total_elapsed_ms": 208127.16,
+  "probes": [
+    {
+      "probe_id": "probe_01_runtime",
+      "building_block": "APIRuntime Diagnostics",
+      "status": "pass",
+      "elapsed_ms": 25.97,
+      "attempts": 1,
+      "run_id": null,
+      "run_state": "ready",
+      "session_id": null,
+      "summary": "Inspected APIRuntime capability_report, runtime_posture, and model_connection_catalog.",
+      "evidence": {
+        "capability_keys": [
+          "agent",
+          "mcp",
+          "modes",
+          "plugins",
+          "providers",
+          "thinking",
+          "tools"
+        ],
+        "posture_keys": [
+          "agent",
+          "brain_bridge_active",
+          "bridge_diagnostics",
+          "canonical_turn_path",
+          "canonical_turn_path_ref",
+          "capability_layering",
+          "execution_boundary_policy",
+          "fallback_reason",
+          "runtime_mode"
+        ],
+        "catalog_count": 1
+      }
+    },
+    {
+      "probe_id": "probe_02_single_turn",
+      "building_block": "Agent.run (Single Turn)",
+      "status": "fail",
+      "elapsed_ms": 12578.63,
+      "attempts": 1,
+      "run_id": "f0701fd2b12f4f058ba025551ae7b61c",
+      "run_state": "completed",
+      "session_id": "db4e111bafba4fbcab911b5e41980095",
+      "summary": "Single-turn Agent.run() hit OpenMinion runtime guard: INVALID_TASK_CONTEXT_UPDATE.",
+      "evidence": {
+        "interception": "INVALID_TASK_CONTEXT_UPDATE",
+        "reply_preview": "openminion: I could not safely update the task conditions. Please restate the current task and its required conditions.",
+        "stats": {
+          "input_tokens": 12737,
+          "output_tokens": 160,
+          "cache_read_tokens": 0,
+          "llm_calls": 2,
+          "tool_calls": 0,
+          "tool_errors": 0,
+          "duration_ms": 12106
+        }
+      }
+    },
+    {
+      "probe_id": "probe_03_stream",
+      "building_block": "Agent.run_stream (Delta Callbacks)",
+      "status": "pass",
+      "elapsed_ms": 12953.74,
+      "attempts": 1,
+      "run_id": "c9a625f0850e43a08e1d86b379101e7b",
+      "run_state": "completed",
+      "session_id": "f9c906c4d2a54abdb3bb0921186a0868",
+      "summary": "Agent.run_stream() emitted 9 progress events.",
+      "evidence": {
+        "event_count": 9,
+        "event_types": [
+          "PhaseStatus"
+        ]
+      }
+    },
+    {
+      "probe_id": "probe_04_read_tool",
+      "building_block": "@tool(READ_ONLY) + forced_tools",
+      "status": "pass",
+      "elapsed_ms": 29579.27,
+      "attempts": 1,
+      "run_id": "74bc40681f3249088907b7b6408a1421",
+      "run_state": "completed",
+      "session_id": "39ca891b36264b2da18033ac1a7f3d36",
+      "summary": "@tool(min_scope='READ_ONLY') + forced_tools executed with live model synthesis.",
+      "evidence": {
+        "reply_preview": "openminion: ```json\n{\n\"tool_calls\": [\n{\n\"name\": \"inspect_provider_profile\",\narguments: {\n\"provider_id\": \"gemini\",\n\"task_update\": {\n\"expected_revision\": 0,\n\"objective\": \"Inspect pro"
+      }
+    },
+    {
+      "probe_id": "probe_05_schema_ok",
+      "building_block": "Pydantic output_type (Schema Prompt)",
+      "status": "pass",
+      "elapsed_ms": 39136.84,
+      "attempts": 1,
+      "run_id": "7f2c8f2e73694bb1aaf7a83c9e0905d0",
+      "run_state": "completed",
+      "session_id": "ccbfb1897217475eb49f8c6e0a27f794",
+      "summary": "Validated Pydantic output natively: status='ok', sdk='0.1.23'.",
+      "evidence": {
+        "output": {
+          "status": "ok",
+          "sdk_version": "0.1.23",
+          "finding": "Successfully inspected OpenMinion runtime snapshot."
+        }
+      }
+    },
+    {
+      "probe_id": "probe_06_schema_err",
+      "building_block": "AgentOutputValidationError Guard",
+      "status": "expected_error",
+      "elapsed_ms": 7986.14,
+      "attempts": 1,
+      "run_id": null,
+      "run_state": "validation_error",
+      "session_id": "2fc7fc4f3f1641438116730c88c60f13",
+      "summary": "Verified fail-closed AgentOutputValidationError raised with raw_text preserved.",
+      "evidence": {
+        "raw_text_preview": "openminion: I could not safely update the task conditions. Please restate the current task and its required conditions."
+      }
+    },
+    {
+      "probe_id": "probe_07_session",
+      "building_block": "Session & Thread Continuity",
+      "status": "fail",
+      "elapsed_ms": 18611.21,
+      "attempts": 2,
+      "run_id": "a61a8c6c51314fb49f109f1846cae636",
+      "run_state": "completed",
+      "session_id": "route-bench-eadcf181",
+      "summary": "Session recall missed token COR-D8ECE9 (INVALID_TASK_CONTEXT_UPDATE).",
+      "evidence": {
+        "expected_token": "COR-D8ECE9",
+        "recalled": false,
+        "interception": "INVALID_TASK_CONTEXT_UPDATE",
+        "reply": "openminion: I could not safely update the task conditions. Please restate the current task and its required conditions."
+      }
+    },
+    {
+      "probe_id": "probe_08_subagent",
+      "building_block": "subagent() + DelegatedMemoryReadRequest",
+      "status": "pass",
+      "elapsed_ms": 35255.77,
+      "attempts": 1,
+      "run_id": "989348870890478b9794521b1bd3c831",
+      "run_state": "completed",
+      "session_id": "ed51394193604e20a4af3a7d9fd7cfb9",
+      "summary": "Executed isolated child subagent() with DelegatedMemoryReadRequest grant lifecycle.",
+      "evidence": {
+        "child_agent_id": "bounded_analyst",
+        "parent_transcript_inherited": false,
+        "memory_posture": "read_only_bounded",
+        "reply_preview": "openminion: The cortensor-portal provider operates as a standard text-in/text-out OpenAI-compatible gateway without native tool calling support. Fallback routin"
+      }
+    },
+    {
+      "probe_id": "probe_09_handoff",
+      "building_block": "Handoff Delegation (transfer_to_*)",
+      "status": "pass",
+      "elapsed_ms": 22600.29,
+      "attempts": 1,
+      "run_id": "19a9ddbaead14bd2bb85bfc8456d8447",
+      "run_state": "completed",
+      "session_id": "865b0a221c044d66aedb64e3fc665aa5",
+      "summary": "Handoff compiled transfer_to_cortensor_specialist and completed peer delegation cleanly.",
+      "evidence": {
+        "reply_preview": "openminion: Cortensor Portal is compatible with modern web browsers, major operating systems, and decentralized nodes."
+      }
+    },
+    {
+      "probe_id": "probe_10_memory_ingress",
+      "building_block": "MemoryBundle & APIRuntime.submit_turn",
+      "status": "pass",
+      "elapsed_ms": 5236.63,
+      "attempts": 1,
+      "run_id": "1bfe0b8f412540908a87de5e7866cf7d",
+      "run_state": "completed",
+      "session_id": null,
+      "summary": "Verified MemoryBundle round-trip serialization and APIRuntime.submit_turn().result().",
+      "evidence": {
+        "memory_bundle_items": 1,
+        "handle_type": "RuntimeTurnHandle",
+        "trace_id": "1bfe0b8f412540908a87de5e7866cf7d",
+        "reply_preview": ""
+      }
+    }
+  ]
+}
