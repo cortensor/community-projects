@@ -1,0 +1,15 @@
+- name: cortensor-hackathon-watch-agent
+  category: apps
+  owner: "@ValeriaWong"
+  collaborators:
+    - "@ValeriaWong"
+  status: active
+  created: 2026-11-16
+  version: v0.1.0
+  tags:
+    - python
+    - openminion
+    - cortensor
+    - hackathon
+    - watch
+    - agent
