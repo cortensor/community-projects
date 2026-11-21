@@ -1,0 +1,151 @@
+{
+  "schema_version": "openminion-triage.v1",
+  "generated_at": "2026-11-21T14:58:09.829202+00:00",
+  "kind": "issue",
+  "repo": "example/project",
+  "subject": "#42 Crash when importing a SQLite file with duplicate columns",
+  "source_url": "https://github.com/example/project/issues/42",
+  "issue": {
+    "severity": "high",
+    "confidence": 0.9,
+    "categories": [
+      "data",
+      "install",
+      "reliability"
+    ],
+    "repro_score": 100,
+    "missing_repro_fields": [],
+    "risk_flags": [
+      "data-integrity-sensitive",
+      "regression"
+    ],
+    "rationale": [
+      "label 'bug' maps to medium severity",
+      "label 'regression' maps to high severity",
+      "text contains 'crash'",
+      "text contains 'error'"
+    ]
+  },
+  "release": null,
+  "model_notes": "The primary risk is a high‑severity crash that can corrupt or block users’ data imports, undermining reliability of the installation process. The most useful missing evidence is a minimal reproducible SQLite file (or sample) that triggers the crash, along with the associated error logs or stack trace.",
+  "diagnostics": {
+    "session_id": "eff6cf452e094a9d9ceafaf7753ab5e5",
+    "trace_id": "issue-42-ec7b5c803f",
+    "task_state": {
+      "plan_id": "github-issue-42",
+      "step_id": "classify-and-check-reproduction",
+      "retry_count": 0,
+      "verification_mode": "rule_based",
+      "budget_tier": "normal",
+      "invariants": [
+        "severity is derived from visible facts",
+        "report is valid JSON"
+      ],
+      "retrieve_only_if_good": false
+    },
+    "phase_statuses": [
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "issue-42-ec7b5c803f",
+        "status_key": "analyzing",
+        "label": "Analyzing issue",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": false,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "issue-42-ec7b5c803f",
+          "status_key": "analyzing",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": false
+        }
+      },
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "issue-42-ec7b5c803f",
+        "status_key": "completed",
+        "label": "Issue triage complete",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": true,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "issue-42-ec7b5c803f",
+          "status_key": "completed",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": true
+        }
+      }
+    ],
+    "event_count": 3,
+    "event_types": [
+      "agent.bound",
+      "triage.issue.loaded",
+      "triage.tool.completed"
+    ]
+  }
+}

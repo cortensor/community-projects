@@ -1,0 +1,153 @@
+{
+  "schema_version": "openminion-triage.v1",
+  "generated_at": "2026-11-21T14:58:12.407757+00:00",
+  "kind": "issue",
+  "repo": "openminion/openminion",
+  "subject": "#236 [0.1.3] Path re-prefixing on absolute reads, sandbox exec unusable after approval, and canonical event conflict on turn.outcome",
+  "source_url": "https://github.com/openminion/openminion/issues/236",
+  "issue": {
+    "severity": "medium",
+    "confidence": 0.74,
+    "categories": [
+      "approvals",
+      "data",
+      "install",
+      "runtime",
+      "tools"
+    ],
+    "repro_score": 70,
+    "missing_repro_fields": [
+      "actual",
+      "logs"
+    ],
+    "risk_flags": [
+      "data-integrity-sensitive"
+    ],
+    "rationale": [
+      "label 'bug' maps to medium severity",
+      "text contains 'fails'"
+    ]
+  },
+  "release": null,
+  "model_notes": "The biggest risk is that sandbox execution becomes unusable after an approval, potentially breaking CI pipelines and downstream tooling. The most useful missing evidence is the concrete “actual” output and accompanying logs that reproduce the failure.",
+  "diagnostics": {
+    "session_id": "085ad5ec6f2d4139a774048c57e919da",
+    "trace_id": "issue-236-498e498ca4",
+    "task_state": {
+      "plan_id": "github-issue-236",
+      "step_id": "classify-and-check-reproduction",
+      "retry_count": 0,
+      "verification_mode": "rule_based",
+      "budget_tier": "normal",
+      "invariants": [
+        "severity is derived from visible facts",
+        "report is valid JSON"
+      ],
+      "retrieve_only_if_good": false
+    },
+    "phase_statuses": [
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "issue-236-498e498ca4",
+        "status_key": "analyzing",
+        "label": "Analyzing issue",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": false,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "issue-236-498e498ca4",
+          "status_key": "analyzing",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": false
+        }
+      },
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "issue-236-498e498ca4",
+        "status_key": "completed",
+        "label": "Issue triage complete",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": true,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "issue-236-498e498ca4",
+          "status_key": "completed",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": true
+        }
+      }
+    ],
+    "event_count": 3,
+    "event_types": [
+      "agent.bound",
+      "triage.issue.loaded",
+      "triage.tool.completed"
+    ]
+  }
+}

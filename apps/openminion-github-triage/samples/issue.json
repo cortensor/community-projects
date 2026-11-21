@@ -1,0 +1,15 @@
+{
+  "number": 42,
+  "title": "Crash when importing a SQLite file with duplicate columns",
+  "body": "## Steps to reproduce\n1. Run the import command on the attached file.\n2. Observe the crash.\n\n## Expected behavior\nThe import should report a validation error.\n\n## Actual behavior\nThe process raises an exception and exits.\n\n## Environment\nPython 3.13 on macOS\n\n```\nTraceback: sqlite3.OperationalError\n```",
+  "state": "open",
+  "labels": [
+    {"name": "bug"},
+    {"name": "regression"}
+  ],
+  "html_url": "https://github.com/example/project/issues/42",
+  "user": {"login": "reporter"},
+  "created_at": "2026-11-20T10:00:00Z",
+  "updated_at": "2026-11-21T08:00:00Z"
+}
+

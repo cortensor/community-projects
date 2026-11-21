@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenMinion GitHub Triage Agent | Cortensor Hackathon #5</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --surface: #121826;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --err: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+    }
+    p.sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 780px;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #06121f;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    section {
+      margin-top: 32px;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 0 0 14px;
+      letter-spacing: -0.01em;
+    }
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      background: #000;
+      display: block;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-right: 6px;
+    }
+    .pill.high { background: rgba(239, 68, 68, 0.16); color: #fca5a5; }
+    .pill.med { background: rgba(245, 158, 11, 0.16); color: #fcd34d; }
+    .pill.ok { background: rgba(34, 197, 94, 0.16); color: #86efac; }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px;
+      background: #080c13;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      color: #cbd5e1;
+      margin-top: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: #0f1522;
+    }
+    footer {
+      margin-top: 44px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="tag">Cortensor Hackathon #5 | OpenMinion 0.1.24</div>
+      <h1>OpenMinion GitHub Issue &amp; Release Triage Agent</h1>
+      <p class="sub">
+        Deterministic GitHub QA triage agent built on the OpenMinion 0.1.24 Python SDK (`@tool`, `derive_tool_specs`, `ToolRegistry.execute_calls`, `SQLiteSessionStore`, `TaskState`, and `PhaseStatus`) with optional live OpenAI-compatible review notes (`openai/gpt-oss-120b`).
+      </p>
+      <div class="links">
+        <a class="btn primary" href="./demo.mp4">Watch Direct MP4</a>
+        <a class="btn" href="https://github.com/princejain756/openminion-github-triage">GitHub Repository</a>
+        <a class="btn" href="./docs/BUILDING_BLOCKS_TESTED.md">Building Blocks Tested</a>
+        <a class="btn" href="./docs/WHAT_WE_LEARNED.md">What We Learned</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Demo Walkthrough (1920x1080)</h2>
+      <div class="video-card">
+        <video controls playsinline preload="metadata" src="./demo.mp4"></video>
+      </div>
+    </section>
+
+    <section>
+      <h2>Verified Live &amp; Fixture Triage Reports</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Fixture Issue #42</h3>
+          <span class="pill high">Severity: high</span>
+          <span class="pill ok">Repro: 100/100</span>
+          <div class="mono">"The primary risk is a high-severity crash that can corrupt or block users' data imports, undermining reliability of the installation process. The most useful missing evidence is a minimal reproducible SQLite file (or sample) that triggers the crash, along with the associated error logs or stack trace."</div>
+        </div>
+
+        <div class="card">
+          <h3>Live GitHub Issue: openminion/openminion#236</h3>
+          <span class="pill med">Severity: medium</span>
+          <span class="pill ok">Repro: 70/100</span>
+          <div class="mono">"The biggest risk is that sandbox execution becomes unusable after an approval, potentially breaking CI pipelines and downstream tooling. The most useful missing evidence is the concrete actual output and accompanying logs that reproduce the failure."</div>
+        </div>
+
+        <div class="card">
+          <h3>Release QA Gate: v1.4.0</h3>
+          <span class="pill high">Verdict: hold</span>
+          <span class="pill ok">Pytest: 11 passed (1.06s)</span>
+          <div class="mono">blockers: ["unchecked release item: Migration notes reviewed"]
+checked_items: 2 | unchecked_items: 1 | assets: 1
+events: ["agent.bound", "triage.release.loaded", "triage.tool.completed"]</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>OpenMinion 0.1.24 SDK Blocks Exercised</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Block</th>
+            <th>API / Symbol</th>
+            <th>Observed Behavior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Decorated Tools</td>
+            <td><code>openminion.tools.tool</code></td>
+            <td>Declares <code>READ_ONLY</code> idempotent triage tools with generated Pydantic validation.</td>
+          </tr>
+          <tr>
+            <td>Tool Registry</td>
+            <td><code>derive_tool_specs</code> + <code>ToolRegistry.execute_calls</code></td>
+            <td>Executes <code>ProviderToolCall</code> with <code>ToolExecutionContext</code> and returns <code>ok=True, verified=True</code>.</td>
+          </tr>
+          <tr>
+            <td>Session Persistence</td>
+            <td><code>SQLiteSessionStore</code></td>
+            <td>Persisted 3 sessions, 12 <code>session_events</code> rows, and 3 final assistant turns in SQLite.</td>
+          </tr>
+          <tr>
+            <td>Task &amp; Phase Telemetry</td>
+            <td><code>TaskState</code> + <code>PhaseStatus</code></td>
+            <td>Tracks plan steps, invariants, and <code>analyzing</code>/<code>verifying</code> to <code>completed</code> transitions.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      Author: Prince Jain | MIT License | Built on OpenMinion 0.1.24 commit <code>a52088443c67a47c8fbf660f47ec6f748b3247f3</code>
+    </footer>
+  </div>
+</body>
+</html>

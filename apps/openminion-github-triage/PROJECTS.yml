@@ -1,0 +1,9 @@
+- name: openminion-github-triage
+  category: apps
+  owner: "@princejain756"
+  collaborators: []
+  status: active
+  created: 2026-11-21
+  version: v0.1.0
+  tags: [openminion, hackathon-5, github, triage, diagnostics, sqlite]
+  description: Deterministic GitHub issue and release triage agent built on the OpenMinion 0.1.24 Python SDK with SQLite session persistence and optional OpenAI-compatible review notes.
