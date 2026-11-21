@@ -1,0 +1,159 @@
+{
+  "schema_version": "openminion-triage.v1",
+  "generated_at": "2026-11-21T14:58:13.445340+00:00",
+  "kind": "release",
+  "repo": "example/project",
+  "subject": "v1.4.0",
+  "source_url": "https://github.com/example/project/releases/tag/v1.4.0",
+  "issue": null,
+  "release": {
+    "verdict": "hold",
+    "version": "v1.4.0",
+    "prerelease": false,
+    "blockers": [
+      "unchecked release item: Migration notes reviewed"
+    ],
+    "warnings": [],
+    "checklist": [
+      {
+        "label": "Tests pass",
+        "checked": true,
+        "line_number": 2
+      },
+      {
+        "label": "Changelog updated",
+        "checked": true,
+        "line_number": 3
+      },
+      {
+        "label": "Migration notes reviewed",
+        "checked": false,
+        "line_number": 4
+      }
+    ],
+    "checked_count": 2,
+    "unchecked_count": 1,
+    "asset_count": 1
+  },
+  "model_notes": null,
+  "diagnostics": {
+    "session_id": "88cb97a5b5494d829432d9dc1df71d67",
+    "trace_id": "release-163efe13f9",
+    "task_state": {
+      "plan_id": "github-release-v1.4.0",
+      "step_id": "validate-version-checklist-and-assets",
+      "retry_count": 0,
+      "verification_mode": "rule_based",
+      "budget_tier": "normal",
+      "invariants": [
+        "unchecked checklist wins over release claims",
+        "draft releases are blocked"
+      ],
+      "retrieve_only_if_good": false
+    },
+    "phase_statuses": [
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "release-163efe13f9",
+        "status_key": "verifying",
+        "label": "Verifying release",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": false,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "release-163efe13f9",
+          "status_key": "verifying",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": false
+        }
+      },
+      {
+        "schema_version": "openminion.phase-status.v1",
+        "trace_id": "release-163efe13f9",
+        "status_key": "completed",
+        "label": "Release QA complete",
+        "source_phase": null,
+        "source_event": null,
+        "route": null,
+        "mode_state": null,
+        "mode_label": null,
+        "step_index": null,
+        "step_total": null,
+        "mode_step_index": null,
+        "mode_step_total": null,
+        "llm_call_count": null,
+        "llm_call_limit": null,
+        "total_input_tokens_used": null,
+        "total_output_tokens_used": null,
+        "total_tokens_used": null,
+        "token_usage_estimated": false,
+        "tool_name": null,
+        "progress_phase": null,
+        "detail_code": null,
+        "detail_text": null,
+        "terminal": true,
+        "facts": {
+          "schema_version": "openminion.phase-status.v1",
+          "trace_id": "release-163efe13f9",
+          "status_key": "completed",
+          "source_phase": null,
+          "source_event": null,
+          "route": null,
+          "mode_state": null,
+          "step_index": null,
+          "step_total": null,
+          "mode_step_index": null,
+          "mode_step_total": null,
+          "llm_call_count": null,
+          "llm_call_limit": null,
+          "total_input_tokens_used": null,
+          "total_output_tokens_used": null,
+          "total_tokens_used": null,
+          "token_usage_estimated": false,
+          "tool_name": null,
+          "detail_code": null,
+          "terminal": true
+        }
+      }
+    ],
+    "event_count": 3,
+    "event_types": [
+      "agent.bound",
+      "triage.release.loaded",
+      "triage.tool.completed"
+    ]
+  }
+}
