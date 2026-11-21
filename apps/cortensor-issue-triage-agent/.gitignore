@@ -1,0 +1,13 @@
+.venv/
+.venv
+__pycache__/
+.pytest_cache/
+*.pyc
+.openminion/
+.issue-triage/
+state/
+*.egg-info/
+build/
+dist/
+.env
+eval/*.tmp.json

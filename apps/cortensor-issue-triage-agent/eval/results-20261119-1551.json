@@ -1,0 +1,131 @@
+{
+  "repo": "openminion/openminion",
+  "limit": 3,
+  "mode": "label-blind",
+  "skipped_unlabelled_or_ambiguous": 13,
+  "records": [
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 663,
+      "title": "Reject malformed RPC nonce values during blockchain preparation and send checks",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.95,
+      "correct": true,
+      "maintainer_labels": [
+        "bug",
+        "status:awaiting-release"
+      ],
+      "latency_ms": 5436
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 661,
+      "title": "Final judge can replace an answer using a task that omits current-turn steering",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.85,
+      "correct": true,
+      "maintainer_labels": [
+        "bug"
+      ],
+      "latency_ms": 52346
+    },
+    {
+      "repo": "openminion/openminion",
+      "issue_number": 660,
+      "title": "Repeated-tool answer-only closeouts omit current-turn user steering",
+      "ground_truth": "bug",
+      "predicted": "bug",
+      "severity": "medium",
+      "confidence": 0.9,
+      "correct": true,
+      "maintainer_labels": [
+        "bug"
+      ],
+      "latency_ms": 50278
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "n": 3,
+    "accuracy": 1.0,
+    "per_class": {
+      "bug": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3,
+        "tp": 3,
+        "fp": 0,
+        "fn": 0
+      },
+      "feature": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "chore": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "duplicate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "calibration": {
+      "mean_confidence_correct": 0.9,
+      "mean_confidence_wrong": null,
+      "buckets": {
+        ">=0.8": {
+          "n": 3,
+          "accuracy": 1.0
+        },
+        "0.5-0.8": {
+          "n": 0,
+          "accuracy": null
+        },
+        "<0.5": {
+          "n": 0,
+          "accuracy": null
+        }
+      }
+    }
+  },
+  "llm_calls": 3
+}
