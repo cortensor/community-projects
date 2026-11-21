@@ -1,0 +1,9 @@
+- name: cortensor-route-bench
+  category: apps
+  owner: "@ixroo"
+  collaborators: []
+  status: active
+  created: 2026-11-21
+  version: v0.1.0
+  tags: [openminion, hackathon-5, diagnostics, multi-agent, consensus, sdk]
+  description: OpenMinion 0.1.23 building-block probe harness, Cortensor route preflight inspector, and multi-agent consensus verifier.

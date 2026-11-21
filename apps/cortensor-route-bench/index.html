@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cortensor Route Bench — OpenMinion 0.1 Dashboard</title>
+<style>
+  :root {
+    --bg: #070b12;
+    --card: #0e1624;
+    --border: rgba(148, 163, 184, 0.18);
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --green: #3bf89a;
+    --cyan: #38bdf8;
+    --amber: #facc15;
+    --red: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(900px 500px at 15% 0%, rgba(59, 248, 154, 0.1), transparent 60%), var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 32px 24px 64px;
+    line-height: 1.5;
+  }
+  .container { max-width: 1120px; margin: 0 auto; }
+  header {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px;
+  }
+  .badge {
+    display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+    background: rgba(59, 248, 154, 0.12); border: 1px solid rgba(59, 248, 154, 0.35); color: var(--green);
+    text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 8px;
+  }
+  h1 { font-size: 28px; font-weight: 800; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+  .load-btn {
+    background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.4); color: var(--cyan);
+    padding: 9px 15px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 13.5px;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 24px;
+  }
+  .stat-card, .panel {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px;
+  }
+  .stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); }
+  .stat-val { font-size: 24px; font-weight: 800; margin-top: 6px; color: var(--green); }
+  .panel { margin-bottom: 22px; }
+  .panel h2 { font-size: 18px; margin-bottom: 14px; color: #fff; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(148, 163, 184, 0.1); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .status-pill {
+    display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700;
+  }
+  .st-pass, .st-ready { background: rgba(59, 248, 154, 0.14); color: var(--green); }
+  .st-expected_error, .st-workaround, .st-warn { background: rgba(250, 204, 21, 0.14); color: var(--amber); }
+  .st-fail, .st-blocked { background: rgba(248, 113, 113, 0.15); color: var(--red); }
+  ul { padding-left: 18px; color: #cbd5e1; }
+  li { margin-bottom: 6px; }
+  code { font-family: Consolas, monospace; color: var(--cyan); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <div class="badge">Cortensor Hackathon #5 • OpenMinion 0.1.23</div>
+      <h1>Cortensor Route Bench</h1>
+      <p class="subtitle" id="meta-line">Loading artifacts/route_bench_summary.json ...</p>
+    </div>
+    <label class="load-btn">
+      Load JSON Artifact
+      <input type="file" id="file-input" accept=".json" style="display:none" />
+    </label>
+  </header>
+
+  <div class="stats-grid" id="stats-grid"></div>
+
+  <div class="panel">
+    <h2>OpenMinion 0.1 Building-Block Probe Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Probe ID</th>
+          <th>Building Block</th>
+          <th>Status</th>
+          <th>Latency</th>
+          <th>Attempts</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody id="probe-body"></tbody>
+    </table>
+  </div>
+
+  <div class="panel" id="consensus-panel">
+    <h2>Multi-Agent Consensus Verdict</h2>
+    <div id="consensus-body" style="color: var(--muted);">No consensus run loaded yet.</div>
+  </div>
+</div>
+
+<script>
+function badgeClass(val) {
+  const s = String(val || "").toLowerCase();
+  if (s === "pass" || s === "ready") return "st-pass";
+  if (s === "expected_error" || s === "workaround" || s === "warn" || s === "degraded") return "st-warn";
+  return "st-fail";
+}
+
+function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function renderSummary(data) {
+  const benchModel = data.telemetry?.bench_model;
+  const modelLabel = benchModel && benchModel !== data.model ? `${data.model} (bench: ${benchModel})` : data.model;
+  document.getElementById("meta-line").textContent =
+    `Provider: ${data.provider} • Model: ${modelLabel} • OpenMinion ${data.openminion_version} • ${data.generated_at_utc}`;
+
+  const pm = data.probe_matrix;
+  const cv = data.consensus_verdict;
+  const stats = [
+    { label: "Preflight Status", val: (data.preflight?.overall_status || "-").toUpperCase() },
+    { label: "SDK Probes Passed", val: pm ? `${pm.passed_probes} / ${pm.total_probes}` : "-" },
+    { label: "Probe Suite Latency", val: pm ? `${pm.total_elapsed_ms.toFixed(0)} ms` : "-" },
+    { label: "Consensus Agreement", val: cv ? `${(cv.agreement_score * 100).toFixed(0)}% (${cv.decision})` : "-" },
+  ];
+  document.getElementById("stats-grid").innerHTML = stats.map(s =>
+    `<div class="stat-card"><div class="stat-label">${escapeHtml(s.label)}</div><div class="stat-val">${escapeHtml(s.val)}</div></div>`
+  ).join("");
+
+  const tbody = document.getElementById("probe-body");
+  tbody.innerHTML = (pm?.probes || []).map(p => `
+    <tr>
+      <td><code>${escapeHtml(p.probe_id)}</code></td>
+      <td>${escapeHtml(p.building_block)}</td>
+      <td><span class="status-pill ${badgeClass(p.status)}">${escapeHtml(p.status)}</span></td>
+      <td>${Number(p.elapsed_ms).toFixed(1)} ms</td>
+      <td>${escapeHtml(p.attempts)}</td>
+      <td>${escapeHtml(p.summary)}</td>
+    </tr>
+  `).join("") || `<tr><td colspan="6" style="color:var(--muted)">No probes in artifact.</td></tr>`;
+
+  const cBody = document.getElementById("consensus-body");
+  if (cv) {
+    cBody.innerHTML = `
+      <p style="margin-bottom:10px;"><strong>Task:</strong> ${escapeHtml(cv.task)}</p>
+      <p style="margin-bottom:12px;"><strong>Synthesis:</strong> ${escapeHtml(cv.final_summary)}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><h3 style="font-size:14px;color:var(--green);margin-bottom:8px;">Worker Summaries</h3>
+          <ul>${(cv.worker_summaries || []).map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </div>
+        <div><h3 style="font-size:14px;color:var(--cyan);margin-bottom:8px;">Recommendations</h3>
+          <ul>${(cv.recommendations || []).map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </div>
+      </div>`;
+  }
+}
+
+fetch("artifacts/route_bench_summary.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(renderSummary)
+  .catch(() => {
+    document.getElementById("meta-line").textContent =
+      "Serve over local HTTP (python -m http.server) or click 'Load JSON Artifact' to open artifacts/route_bench_summary.json.";
+  });
+
+document.getElementById("file-input").addEventListener("change", (ev) => {
+  const file = ev.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { renderSummary(JSON.parse(String(reader.result))); }
+    catch (err) { alert("Invalid JSON artifact: " + err); }
+  };
+  reader.readAsText(file);
+});
+</script>
+</body>
+</html>

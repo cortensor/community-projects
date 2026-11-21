@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "2026-11-21T12:52:09.839051+00:00",
+  "provider": "gemini",
+  "model": "gemini-flash-lite-latest",
+  "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+  "supports_native_tool_calling": true,
+  "credential_configured": true,
+  "openminion_version": "0.1.23",
+  "checks": [
+    {
+      "check_id": "sdk.version",
+      "status": "pass",
+      "summary": "OpenMinion 0.1.23 imported successfully.",
+      "details": {
+        "openminion_version": "0.1.23"
+      }
+    },
+    {
+      "check_id": "provider.credentials",
+      "status": "pass",
+      "summary": "Credential environment variable GEMINI_API_KEY is configured.",
+      "details": {
+        "credential_env": "GEMINI_API_KEY",
+        "configured": true
+      }
+    },
+    {
+      "check_id": "provider.tool_calling_posture",
+      "status": "pass",
+      "summary": "Native OpenAI tool calling supported.",
+      "details": {
+        "supports_native_tool_calling": true,
+        "transport_kind": "openai_compatible"
+      }
+    },
+    {
+      "check_id": "provider.preset_model_override",
+      "status": "pass",
+      "summary": "Using live model 'gemini-flash-lite-latest' instead of stale preset recommendation (gemini-3.6-flash (timed out at 15s on free-tier chat completions; light variants respond reliably)).",
+      "details": {
+        "selected_model": "gemini-flash-lite-latest"
+      }
+    },
+    {
+      "check_id": "config.file_presence",
+      "status": "pass",
+      "summary": "OpenMinion config path: .openminion\\config.yaml",
+      "details": {
+        "exists": true
+      }
+    }
+  ],
+  "overall_status": "ready"
+}
