@@ -50,6 +50,8 @@ cortensor-route-bench --provider gemini --model gemini-flash-lite-latest --pace-
 - **SDK Probe Matrix (`artifacts/probe_matrix.json`):** `8/10` probes passed in `208,127.16 ms` (`probe_01`–`probe_10`, accurately flagging `INVALID_TASK_CONTEXT_UPDATE` on toolless/session-turn-2 prompts `probe_02` and `probe_07` alongside clean passes on `Agent.run_stream`, `@tool`, Pydantic `output_type`, `subagent()` + `DelegatedMemoryReadRequest`, `Handoff`, and `APIRuntime.submit_turn`).
 - **Multi-Agent PoI-Style Consensus (`artifacts/live_consensus_run.json`):** Decision **`READY`** (`agreement_score = 0.95`) synthesized in `119,199.13 ms` across independent `transport_analyst` + `reliability_verifier` `subagent()` workers and Coordinator `Handoff` delegation.
 - **Reports & SDK Feedback:** See [BENCHMARK_REPORT.md](artifacts/BENCHMARK_REPORT.md), [BUILDING_BLOCKS_TESTED.md](docs/BUILDING_BLOCKS_TESTED.md), [WHAT_WE_LEARNED.md](docs/WHAT_WE_LEARNED.md), and [FEEDBACK.md](FEEDBACK.md).
+- **Demo Video (~74s):** https://www.youtube.com/watch?v=10P-WjQlCkw
+- **Hackathon #5 PR:** https://github.com/cortensor/community-projects/pull/98
 
 ![Cortensor Route Bench Live Dashboard](docs/dashboard_preview.png)
 
