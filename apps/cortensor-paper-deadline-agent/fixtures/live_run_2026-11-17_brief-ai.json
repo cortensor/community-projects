@@ -1,0 +1,18 @@
+{
+  "preset": "openai-compatible",
+  "model": "openai",
+  "topic": "人工智能",
+  "subagents": [
+    {
+      "source": "conferences",
+      "seconds": 219.8
+    },
+    {
+      "source": "journals and law",
+      "error": "ProviderError('PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 402: Free limit reached: 1 reply every 45 seconds per IP. Retry after 24s, or get unlimited replies with a pollen key at https://enter.pollinatio...). Please retry or switch models.')"
+    }
+  ],
+  "path": "template",
+  "fallback_reason": "agent run failed: ProviderError('PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 402: Free limit reached: 1 reply every 45 seconds per IP. Retry after 10s, or get unlimited replies with a pollen key at https://enter.pollinatio...). Please retry or switch models.')",
+  "total_seconds": 632.6
+}

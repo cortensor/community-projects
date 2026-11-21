@@ -1,0 +1,133 @@
+# Paper Deadline Watch
+
+> **Remind, don't judge.** A deadline reminder + multi-source research-brief
+> agent for CCF venues, built for **Cortensor Hackathon #5** with
+> `openminion==0.1.21`. Free tier only: the default model is Pollinations
+> (no key, $0).
+
+Give it a topic and it tells you **which venues are due, when, and how sure
+we are about each date** — then writes a short brief from those facts. It
+never invents a venue or a date, never scores or verifies a claim, and never
+publishes anything without a human.
+
+## Why this, not another verifier
+
+Seven of this hackathon's entries are PoI/PoUW verifiers. This one is a
+different shape on purpose:
+
+| | Verifier family | Paper Deadline Watch |
+|---|---|---|
+| Core question | Is this claim true? | What is due soon, and how sure are we? |
+| Source of truth | Model debate + evidence | Deterministic lookup over verified CSV tables |
+| Model's job | Decide / score | Write 2–3 paragraphs of prose from table rows |
+| Failure mode | Wrong verdict | Falls back to a labelled template brief |
+| Honesty mechanism | Consensus | Every date carries its verification status, always |
+
+## Install
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -e .
+```
+
+Requirements: Python ≥ 3.11, `openminion==0.1.21` (pinned), pydantic,
+httpx, typer, pytest.
+
+## Quickstart
+
+```bash
+# Deadlines in the next 120 days (new reminders only; then marks them reminded)
+paper-watch deadlines --within-days 120
+
+# Run it again: 0 new reminders (memory dedup)
+paper-watch deadlines --within-days 120
+paper-watch deadlines --within-days 120 --include-reminded   # see old ones too
+
+# Research brief for a topic (Chinese or English)
+paper-watch brief --topic 人工智能
+paper-watch brief --topic vision --no-model   # template only, no model call
+
+# Building-block probes (only blocks this agent actually uses)
+paper-watch probe --export-docs docs/BUILDING_BLOCKS_TESTED.md
+paper-watch probe --skip-model   # the 4 model-free probes only
+
+# Reminder memory
+paper-watch memory list
+paper-watch memory export --to reminded.json
+paper-watch memory import --from reminded.json
+```
+
+Or run the whole demo: `./demo/run_demo.sh` (uses a throwaway memory file).
+
+## How it works
+
+```
+data/*.csv (verified 2026-11-16, checksums in data/README.md)
+        │  dates.py: robust parse of dirty free-text cells
+        ▼  store.py: one unified deadline list, status carried verbatim
+┌───────────────┐
+│ CLI deadlines │  window filter + reminded-set memory (local JSON)
+└───────────────┘
+┌───────────────┐
+│ CLI brief     │  topics.py: CN/EN keyword match (no invented venues)
+│               │  agent.py: 2 subagents (conferences / journals+law)
+│               │  → brief-writer agent (tools + forced lookup, handoff
+│               │    to reminder-formatter) → BriefSynthesis JSON
+│               │  → any failure: deterministic template brief, labelled
+└───────────────┘
+```
+
+**Verification status is the honesty core.** Every rendered date carries
+one of `verified` / `cycle_not_announced` / `not_found` / `date_unclear`,
+copied verbatim from the tables. Rows with no future parsable date are
+`date_unclear`: counted and reported, never listed as dated deadlines.
+The `verification_honesty` probe checks this on every run.
+
+**Reminder rule** (set by the user): 120 days ahead, monthly re-check.
+Memory key: `abbreviation|YYYY-MM-DD|deadline_kind`.
+
+## Provider presets
+
+Switching presets needs no code change (`--preset` / `PAPER_WATCH_PRESET`):
+
+| Preset | Endpoint | Key |
+|--------|----------|-----|
+| `openai-compatible` (default) | Pollinations `https://text.pollinations.ai/openai/v1`, model `openai` | none ($0) |
+| `cortensor-portal` | `CORTENSOR_PORTAL_BASE_URL` | `CORTENSOR_PORTAL_API_KEY` if set |
+| `cortensor-router` | `CORTENSOR_ROUTER_BASE_URL` | `CORTENSOR_ROUTER_API_KEY` if set |
+
+Portal access is pending official coordination; the preset reports itself
+unavailable (and the brief falls back to template) instead of blocking.
+OpenRouter `:free` models work through the `openai-compatible` preset with
+`OPENAI_BASE_URL` / `OPENAI_MODEL` / `OPENAI_API_KEY` — the key must come
+from the user; this repo never stores one.
+
+Free-tier realities (measured, see `docs/WHAT_WE_LEARNED.md`): Pollinations
+allows ~1 reply per 45 s per IP, so model calls are paced 50 s apart;
+prompts are kept short; timeouts are generous. The deterministic commands
+(`deadlines`, `--no-model` brief, `--skip-model` probe) need no model at all.
+
+## Tests
+
+```bash
+.venv/bin/python -m pytest tests/ -q   # 41 tests, zero LLM cost
+```
+
+The suite covers date parsing (multi-track cells, English month names,
+TBD/rolling), window filtering, memory dedup + export/import, topic
+matching, template honesty, reply JSON extraction, probe structure, and a
+loopback-stub test that runs a real SDK `Agent` against a local fake
+OpenAI endpoint.
+
+## Docs
+
+- `docs/BUILDING_BLOCKS_TESTED.md` — auto-generated by `paper-watch probe`
+- `docs/WHAT_WE_LEARNED.md` — findings from actually running it (including
+  two real SDK/environment findings with reproductions)
+- `data/README.md` — table provenance, status definitions, checksums
+
+## What this agent does NOT do
+
+- No verdicts, scores, or claim verification (that is the crowded lane).
+- No registration, login, or payment on anyone's behalf; no keys in the repo.
+- No invented dates: if the table has no future date, it says so.
