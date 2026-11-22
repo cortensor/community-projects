@@ -1,0 +1,16 @@
+{
+  "default_agent": "guardian-ollama",
+  "action_policy": {
+    "mode": "auto",
+    "default_action": "require_confirm",
+    "allow_read_only_without_prompt": true
+  },
+  "agents": {
+    "guardian-ollama": {
+      "provider": "ollama",
+      "model": "qwen2.5:1.5b",
+      "base_url": "http://127.0.0.1:11434",
+      "default_channel": "cli"
+    }
+  }
+}
