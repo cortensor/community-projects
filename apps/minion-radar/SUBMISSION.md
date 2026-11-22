@@ -30,7 +30,7 @@ Deadline: **19 Dec 2026, 07:59 UTC** (19 Dec 2026, 8:59 AM WAT). DoraHacks is th
 
 **Tagline:** An OpenMinion agent that tells a builder what changed in a GitHub repo since they last looked.
 
-**Demo video:** PLACEHOLDER (local file: `demo/minion-radar-demo.mp4`;  the 4 minute hosted model wait is cut and labelled)
+**Demo video:** https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
 
 **Repository:** https://github.com/ajahelube/minion-radar
 
@@ -75,7 +75,7 @@ python -m minion_radar --repo openminion/openminion --film --out samples
 Real Cortensor Portal oss-20b run, 22 Nov 2026, 9:35:24 AM to 9:39:34 AM WAT (Africa/Lagos), 4 minutes 10 seconds, origin model_generated, checkpoint auto approved.
 Notes: samples/portal-oss-20b-film-2026-11-22.md
 Brief: samples/openminion__openminion_20261122_093933.md
-Demo video (wait cut): demo/minion-radar-demo.mp4
+Demo video (voiced, wait cut): https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
 
 ## Building Blocks Tested
 See README.md and docs/BUILDING_BLOCKS_TESTED.md.
@@ -96,6 +96,6 @@ Actionable feedback already visible in the 22 Nov brief: OpenMinion issue 446 (s
 - [ ] Official Hackathon #5 PR repo URL (not published as of 22 Nov 2026)
 - [ ] Working Discord invite (official link invalid as of 22 Nov 2026)
 - [ ] Public GitHub repository (needs Ajah's yes to push)
-- [ ] Demo video uploaded to a public host
+- [x] Voiced demo published: https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
 - [ ] Pull request to the official (or confirmed) submission repo (needs Ajah's yes, and the repo URL)
 - [ ] DoraHacks BUIDL submitted (needs Ajah's yes)

@@ -7,7 +7,7 @@ Default target: `openminion/openminion`, so Cortensor and OpenMinion builders ca
 Built for **Cortensor Hackathon #5** with the **OpenMinion 0.1 Python SDK** (`openminion==0.1.23`).
 
 - Standalone public repository: https://github.com/ajahelube/minion-radar
-- Demo video (voiced): PLACEHOLDER
+- Demo video (voiced): https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
 
 ## What the OpenMinion workflow does
 
@@ -27,7 +27,7 @@ python -m minion_radar --repo openminion/openminion --film --out samples
 
 A real Cortensor Portal `oss-20b` run on 22 Nov 2026, 9:35:24 AM to 9:39:34 AM WAT (Africa/Lagos), finished in 4 minutes 10 seconds, exit 0, origin `model_generated`. The snapshot found 1 new release and 8 new issues. The model wrote a brief about OpenMinion 0.1.24 (multimodal input and stronger provider retry), flagged issues [#446](https://github.com/openminion/openminion/issues/446) and [#717](https://github.com/openminion/openminion/issues/717), and the checkpoint was auto approved. Full notes: [`samples/portal-oss-20b-film-2026-11-22.md`](samples/portal-oss-20b-film-2026-11-22.md). Printed brief: [`samples/openminion__openminion_20261122_093933.md`](samples/openminion__openminion_20261122_093933.md).
 
-Demo video (the 4 minute model wait is cut and labelled): [`demo/minion-radar-demo.mp4`](demo/minion-radar-demo.mp4). Voice-over: [`demo/VOICEOVER.md`](demo/VOICEOVER.md).
+The primary demo is the voiced recording at https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4 (2 minutes 38 seconds; the 4 minute model wait is cut and labelled). Voice-over script: [`demo/VOICEOVER.md`](demo/VOICEOVER.md).
 
 Headline from that run:
 
