@@ -1,0 +1,48 @@
+{
+  "agent_id": "ollama-live",
+  "endpoint_base_url": "http://127.0.0.1:11434/v1",
+  "final_text": "ollama-live: The tool call has been confirmed to have executed successfully. Here is the result:\n\n```json\n{\n\"package_name\": \"minionbench-ops\",\n\"secret_hygiene_ok\": true\n}\n```\n\nollama-live: The tool execution was successful, with 14 Python files scanned for risks. There were no sibling import violations or import statements from forbidden modules or test client imports.\n\nollama-live: The tool call for the context task was successfully executed, as indicated by the \"tool_name\" evidence with status \"ok\". The request was to call check_cortensor_config_posture with the specified profile_mode and an endpoint.",
+  "hosted_probe_note": "Gemini preflight caught PROVIDER_ERROR (PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 400: HTTP 400). Plea); executed live neural fallback on local Ollama qwen2.5:1.5b via /v1 OpenAI transport.",
+  "latency_ms": 197460.22,
+  "live_neural_model": true,
+  "model_id": "qwen2.5:1.5b",
+  "openminion_version": "0.1.24",
+  "provider_transport": "openai (Ollama /v1 neural runtime)",
+  "recorded_at_utc": "2026-11-21T15:46:12Z",
+  "run_id": "876ce6c009614c8f8cd6fa8f7028d8cd",
+  "run_state": "completed",
+  "sanitized": true,
+  "session_id": "cortensor-release-triage-01-ollama-s3a1",
+  "tool_invocations": [
+    {
+      "arguments": {
+        "workspace_rel_dir": "."
+      },
+      "idempotent": true,
+      "invoked_at_utc": "2026-11-21T15:43:14Z",
+      "min_scope": "READ_ONLY",
+      "result_preview": "{\"committed_env_files\": [], \"gitignore_guards\": [\".venv/\", \".openminion_runtime/\", \"__pycache__/\", \".pytest_cache/\", \".DS_Store\", \"*.pyc\"], \"inspected_dir\": \".\", \"project\": {\"dependencies\": [\"openminion>=0.1.24\", \"pytest>=8.0.0\"], \"name\": \"minionbench-ops\", \"requires_python\": \">=",
+      "tool_name": "inspect_workspace_manifest"
+    },
+    {
+      "arguments": {
+        "target_subpath": "src"
+      },
+      "idempotent": true,
+      "invoked_at_utc": "2026-11-21T15:44:13Z",
+      "min_scope": "READ_ONLY",
+      "result_preview": "{\"architecture_clean\": true, \"forbidden_mock_or_testclient_imports\": [], \"python_files_scanned\": 14, \"scanned_subpath\": \"src\", \"sibling_import_violations\": []}",
+      "tool_name": "audit_python_module_risks"
+    },
+    {
+      "arguments": {
+        "profile_mode": "cortensor-portal"
+      },
+      "idempotent": true,
+      "invoked_at_utc": "2026-11-21T15:45:09Z",
+      "min_scope": "READ_ONLY",
+      "result_preview": "{\"agents_json_note\": \"Always set agents.<id>.default_channel='console' and omit mismatched human display names in agents.<id>.name to avoid inbound_authenticity invalid_channel and UnknownProfileError.\", \"requested_profile\": \"cortensor-portal\", \"selected_posture\": {\"agents_json_p",
+      "tool_name": "check_cortensor_config_posture"
+    }
+  ]
+}
