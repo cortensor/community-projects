@@ -1,2 +1,0 @@
-[console_scripts]
-release-guardian = release_guardian.cli:main
