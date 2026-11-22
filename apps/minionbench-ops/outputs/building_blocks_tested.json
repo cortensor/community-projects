@@ -1,0 +1,274 @@
+{
+  "cortensor_posture": {
+    "cortensor_portal_retry_disabled_reason": "cortensor_portal_no_idempotency",
+    "openminion_version": "0.1.24",
+    "profiles": {
+      "cortensor_portal": {
+        "agents_json_provider": "openai",
+        "api_turn_timeout_floor_seconds": 45.0,
+        "base_url": "https://api.cortensor.app/v1",
+        "credential_env": "CORTENSOR_API_KEY",
+        "max_retries": 0,
+        "recommended_model": "oss-20b",
+        "retry_disabled_reason": "cortensor_portal_no_idempotency",
+        "setup_catalog_id": "cortensor-portal"
+      },
+      "cortensor_router": {
+        "agents_json_provider": "cortensor",
+        "api_turn_timeout_floor_seconds": 455.0,
+        "base_url": "http://127.0.0.1:8080/api/v2/completions",
+        "credential_env": "CORTENSOR_API_KEY",
+        "max_retries": 0,
+        "recommended_model": "gpt-oss-20b",
+        "retry_disabled_reason": "cortensor_direct_single_attempt",
+        "setup_catalog_id": "cortensor-router"
+      },
+      "gemini_openai_bridge": {
+        "agents_json_provider": "openai",
+        "api_turn_timeout_floor_seconds": 45.0,
+        "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+        "credential_env": "GEMINI_API_KEY",
+        "max_retries": 2,
+        "recommended_model": "gemini-2.5-flash",
+        "retry_disabled_reason": null,
+        "setup_catalog_id": "gemini"
+      },
+      "ollama_openai_bridge": {
+        "agents_json_provider": "openai",
+        "api_turn_timeout_floor_seconds": 45.0,
+        "base_url": "http://127.0.0.1:11434/v1",
+        "credential_env": "MINIONBENCH_OLLAMA_KEY",
+        "max_retries": 2,
+        "recommended_model": "qwen2.5:1.5b",
+        "retry_disabled_reason": null,
+        "setup_catalog_id": "ollama"
+      }
+    },
+    "supported_agents_json_providers": [
+      "anthropic",
+      "cerebras",
+      "claude",
+      "cortensor",
+      "echo",
+      "groq",
+      "ollama",
+      "openai",
+      "openrouter"
+    ]
+  },
+  "generated_at_utc": "2026-11-21T15:46:22Z",
+  "learned_findings": [
+    {
+      "component": "openminion/services/gateway/security.py:132 & base/config/core.py:124",
+      "id": "OM-FINDING-01",
+      "observed": "Writing a custom agents.<id> entry without 'default_channel': 'console' (matching README.md lines 192-199) leaves AgentProfileConfig.default_channel='' and raises RuntimeError('inbound authenticity denied (reason=invalid_channel, mode=warn)').",
+      "recommendation": "Default Agent._build_payload or AgentProfileConfig.default_channel to 'console' for embedded Python SDK calls so minimal agents.json profiles run out of the box.",
+      "severity": "HIGH",
+      "title": "Minimal agents.<id> block omits default_channel and fails inbound authenticity in warn mode"
+    },
+    {
+      "component": "openminion/services/runtime/ingress/timeout.py:54 & base/config/core.py:407",
+      "id": "OM-FINDING-02",
+      "observed": "Configuring 'agents': {'gemini-live': {'name': 'Gemini Live', ...}} causes runtime profile lookup during timeout calculation to pass display name 'Gemini Live' instead of key 'gemini-live', raising UnknownProfileError.",
+      "recommendation": "Separate immutable profile_id (dict key) from human display_name in AgentProfileConfig and resolve_runtime_profile.",
+      "severity": "MEDIUM",
+      "title": "Setting human display string in agents.<id>.name triggers UnknownProfileError"
+    },
+    {
+      "component": "examples/sdk/sessions.py:18-19 & openminion/api/agent.py:167-170",
+      "id": "OM-FINDING-03",
+      "observed": "Calling second = agent.run(...) on the same Agent(session_id='shared') without thread_id=first.thread_id sets thread_decision_action='fork_thread' (settled_without_resume) and session_history_available='false', hiding prior turn messages until thread_id is supplied.",
+      "recommendation": "Either auto-carry last_thread_id inside stateful Agent instances when session_id matches, or update examples/sdk/sessions.py to pass thread_id=first.thread_id explicitly.",
+      "severity": "MEDIUM",
+      "title": "Sequential Agent.run calls on one session_id fork threads unless thread_id is passed"
+    },
+    {
+      "component": "openminion setup --list-providers vs modules/llm/providers/factory.py:28",
+      "id": "OM-FINDING-04",
+      "observed": "CLI setup lists 20 catalog IDs ('gemini', 'cortensor-portal', 'cortensor-router'), while SUPPORTED_PROVIDERS in agents.json only accepts 9 transport keys ('openai', 'cortensor', etc.). Cortensor Portal uses 'openai' with max_retries=0 (cortensor_portal_no_idempotency).",
+      "recommendation": "Accept catalog aliases in OpenMinionConfig.from_dict and normalize them to transport + base_url overrides automatically, or surface the canonical agents.json snippet in setup --list-providers --json.",
+      "severity": "MEDIUM",
+      "title": "Setup catalog provider IDs differ from agents.json SUPPORTED_PROVIDERS keys"
+    },
+    {
+      "component": "modules/brain/loop & base/config/providers.py:85",
+      "id": "OM-FINDING-05",
+      "observed": "Telemetry metadata ('llm_call_counts_by_purpose') records 7 LLM calls (entry=1, freshness_classify=1, act=3, reflect=1, judge=1; ~16.4k input tokens) for 1 tool call, multiplying decentralized Cortensor router latency ~7x.",
+      "recommendation": "Add a 'fast_single_pass' profile skipping post-turn reflect/judge/freshness calls on bounded SDK tool workflows, and switch OllamaProviderConfig.tool_call_strategy default to 'hybrid'.",
+      "severity": "LOW",
+      "title": "Single tool turn triggers 7 internal LLM calls and Ollama defaults to fallback tool parsing"
+    }
+  ],
+  "live_receipt": {
+    "agent_id": "ollama-live",
+    "endpoint_base_url": "http://127.0.0.1:11434/v1",
+    "final_text": "ollama-live: The tool call has been confirmed to have executed successfully. Here is the result:\n\n```json\n{\n\"package_name\": \"minionbench-ops\",\n\"secret_hygiene_ok\": true\n}\n```\n\nollama-live: The tool execution was successful, with 14 Python files scanned for risks. There were no sibling import violations or import statements from forbidden modules or test client imports.\n\nollama-live: The tool call for the context task was successfully executed, as indicated by the \"tool_name\" evidence with status \"ok\". The request was to call check_cortensor_config_posture with the specified profile_mode and an endpoint.",
+    "hosted_probe_note": "Gemini preflight caught PROVIDER_ERROR (PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 400: HTTP 400). Plea); executed live neural fallback on local Ollama qwen2.5:1.5b via /v1 OpenAI transport.",
+    "latency_ms": 197460.22,
+    "live_neural_model": true,
+    "model_id": "qwen2.5:1.5b",
+    "openminion_version": "0.1.24",
+    "provider_transport": "openai (Ollama /v1 neural runtime)",
+    "recorded_at_utc": "2026-11-21T15:46:12Z",
+    "run_id": "876ce6c009614c8f8cd6fa8f7028d8cd",
+    "run_state": "completed",
+    "sanitized": true,
+    "session_id": "cortensor-release-triage-01-ollama-s3a1",
+    "tool_invocations": [
+      {
+        "arguments": {
+          "workspace_rel_dir": "."
+        },
+        "idempotent": true,
+        "invoked_at_utc": "2026-11-21T15:43:14Z",
+        "min_scope": "READ_ONLY",
+        "result_preview": "{\"committed_env_files\": [], \"gitignore_guards\": [\".venv/\", \".openminion_runtime/\", \"__pycache__/\", \".pytest_cache/\", \".DS_Store\", \"*.pyc\"], \"inspected_dir\": \".\", \"project\": {\"dependencies\": [\"openminion>=0.1.24\", \"pytest>=8.0.0\"], \"name\": \"minionbench-ops\", \"requires_python\": \">=",
+        "tool_name": "inspect_workspace_manifest"
+      },
+      {
+        "arguments": {
+          "target_subpath": "src"
+        },
+        "idempotent": true,
+        "invoked_at_utc": "2026-11-21T15:44:13Z",
+        "min_scope": "READ_ONLY",
+        "result_preview": "{\"architecture_clean\": true, \"forbidden_mock_or_testclient_imports\": [], \"python_files_scanned\": 14, \"scanned_subpath\": \"src\", \"sibling_import_violations\": []}",
+        "tool_name": "audit_python_module_risks"
+      },
+      {
+        "arguments": {
+          "profile_mode": "cortensor-portal"
+        },
+        "idempotent": true,
+        "invoked_at_utc": "2026-11-21T15:45:09Z",
+        "min_scope": "READ_ONLY",
+        "result_preview": "{\"agents_json_note\": \"Always set agents.<id>.default_channel='console' and omit mismatched human display names in agents.<id>.name to avoid inbound_authenticity invalid_channel and UnknownProfileError.\", \"requested_profile\": \"cortensor-portal\", \"selected_posture\": {\"agents_json_p",
+        "tool_name": "check_cortensor_config_posture"
+      }
+    ]
+  },
+  "openminion_version": "0.1.24",
+  "probes": [
+    {
+      "evidence": {
+        "pause_respond_kind": "policy_confirmation_prompt",
+        "read_only_executions": 1,
+        "write_runs_after_allow": 1,
+        "write_runs_after_deny": 0,
+        "write_runs_at_pause": 0
+      },
+      "latency_ms": 2548.0,
+      "passed": true,
+      "probe_id": "probe-01-tool-scope-policy",
+      "product_feedback": "Expose min_scope='WRITE_WORKSPACE' on @tool so workspace-scoped staging tools can participate in '/permissions Workspace auto' alongside built-in file.write.",
+      "sdk_surface": "@tool(min_scope='READ_ONLY', idempotent=True) vs @tool + approval_callback",
+      "summary": "READ_ONLY idempotent tools run without operator friction; bare @tool pauses at policy_confirmation_prompt, blocks on callback False, and executes once on True.",
+      "title": "Tool Scope & Action-Policy Confirmation Boundary"
+    },
+    {
+      "evidence": {
+        "isolated_reply": "diag-agent: Token absent from session context",
+        "resumed_history_available": "true",
+        "resumed_reply": "diag-agent: Recalled CORTENSOR_EPOCH_88",
+        "shared_session_id": "probe-02-shared",
+        "with_thread_id_action": "resume_thread",
+        "without_thread_id_action": "fork_thread"
+      },
+      "latency_ms": 822.42,
+      "passed": true,
+      "probe_id": "probe-02-durable-session-continuity",
+      "product_feedback": "Update examples/sdk/sessions.py to pass thread_id=first.thread_id (or default Agent to resume its own active thread within a context manager block).",
+      "sdk_surface": "Agent(session_id=...) + Agent.run(..., thread_id=...)",
+      "summary": "Passing thread_id=first.thread_id resumes SQLite conversation state (session_history_available='true'), whereas omitting thread_id forks a new settled thread.",
+      "title": "Durable Session Continuity & Thread Resume Semantics"
+    },
+    {
+      "evidence": {
+        "validated_model": {
+          "openminion_sdk": "0.1.24",
+          "project_slug": "minionbench-ops",
+          "ready_to_ship": true,
+          "risk_score": 0.04
+        },
+        "validation_error_raw_text": "diag-agent: Malformed non-JSON prose output."
+      },
+      "latency_ms": 367.06,
+      "passed": true,
+      "probe_id": "probe-03-structured-output-validation",
+      "product_feedback": "Pass output_type.model_json_schema() via response_format={'type': 'json_schema'} on providers supporting structured outputs to prevent avoidable parse failures.",
+      "sdk_surface": "Agent(output_type=ReleaseVerdictSchema) & AgentOutputValidationError",
+      "summary": "OpenMinion extracts schema-valid JSON even when prefixed with '<agent_id>: ', and raises AgentOutputValidationError carrying raw_text when JSON coercion fails.",
+      "title": "Pydantic output_type Extraction & AgentOutputValidationError"
+    },
+    {
+      "evidence": {
+        "provider_error_code": "PROVIDER_ERROR",
+        "turn_timeout_error": "Turn execution timed out after 0.25 seconds."
+      },
+      "latency_ms": 4750.85,
+      "passed": true,
+      "probe_id": "probe-04-provider-and-timeout-errors",
+      "product_feedback": "Populate ProviderError.details with HTTP status_code and upstream request_id so Cortensor Portal callers can distinguish 401 auth errors from 429 capacity limits.",
+      "sdk_surface": "ProviderError (HTTP 503) & TurnTimeoutError (timeout_seconds=0.25)",
+      "summary": "Upstream HTTP 503 failures surface cleanly as ProviderError after bounded retries, and slow turns cancel cleanly with TurnTimeoutError.",
+      "title": "ProviderError & TurnTimeoutError Fault Isolation"
+    },
+    {
+      "evidence": {
+        "agents_json_supported_providers": [
+          "anthropic",
+          "cerebras",
+          "claude",
+          "cortensor",
+          "echo",
+          "groq",
+          "ollama",
+          "openai",
+          "openrouter"
+        ],
+        "cortensor_presets_present": [
+          "cortensor-portal",
+          "cortensor-router",
+          "gemini"
+        ],
+        "cortensor_router_timeout_floor_s": 455.0,
+        "echo_readiness_excerpt": "status readiness: overall=blocked checks=8 blocked=1\n- provider: blocked -- Echo provider is demo-only. Use `openminion --demo` or rerun `openminion setup` to pick a real provider.\n  next: openminion setup\n- search_fetch: available -- Searc",
+        "echo_readiness_exit_code": 0,
+        "setup_catalog_count": 20
+      },
+      "latency_ms": 675.84,
+      "passed": true,
+      "probe_id": "probe-05-cli-readiness-and-config-parity",
+      "product_feedback": "Include 'agents_json_provider' and 'provider_config_overrides' examples directly in `openminion setup --list-providers --json` output.",
+      "sdk_surface": "openminion setup --list-providers --json & status readiness",
+      "summary": "Setup catalog exposes 20 provider presets (including gemini, cortensor-portal, cortensor-router) mapping onto 9 core transport drivers, with Cortensor Portal retries disabled (max_retries=0) and Router timeout floored at 455s.",
+      "title": "CLI Provider Catalog, Readiness & Cortensor Retry/Timeout Posture"
+    },
+    {
+      "evidence": {
+        "display_name_profile_error": "Unknown agent profile 'Custom Echo Display Name'. Valid profiles: 'custom-echo'.",
+        "missing_default_channel_error": "inbound authenticity denied (reason=invalid_channel, mode=warn)",
+        "synthesized_finding_ids": [
+          "OM-FINDING-01",
+          "OM-FINDING-02",
+          "OM-FINDING-03",
+          "OM-FINDING-04",
+          "OM-FINDING-05"
+        ]
+      },
+      "latency_ms": 438.2,
+      "passed": true,
+      "probe_id": "probe-06-config-tripwires-and-feedback",
+      "product_feedback": "Validate agents.<id>.default_channel and decouple display name from profile lookup key at config load time with actionable remediation hints.",
+      "sdk_surface": "GatewaySecurity.enforce_inbound_authenticity & resolve_agent_config",
+      "summary": "Reproduced both 0.1.24 config edge cases (empty default_channel RuntimeError in warn mode and agents.<id>.name UnknownProfileError) and synthesized 5 upstream engineering recommendations.",
+      "title": "Reproducible Config Tripwires & Actionable Feedback Synthesis"
+    }
+  ],
+  "target": {
+    "hackathon_id": 2418,
+    "openminion_version": "0.1.24",
+    "project_slug": "minionbench-ops",
+    "workspace_root": "."
+  }
+}

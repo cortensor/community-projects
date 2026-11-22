@@ -1,0 +1,22 @@
+{
+  "hackathon_id": 2418,
+  "hackathon_title": "Cortensor Hackathon #5",
+  "track_id": 4697,
+  "track_name": "Default Track",
+  "project_name": "Minionbench Ops",
+  "tagline": "OpenMinion 0.1.24 Release Triage Guard & 6-Probe Empirical Runtime Diagnostic Workbench for Cortensor Builders",
+  "prior_submissions": 0,
+  "github_url": "https://github.com/HindsightWise/minionbench-ops-openminion",
+  "video_url": "https://github.com/HindsightWise/minionbench-ops-openminion/raw/main/outputs/demo_walkthrough.mp4",
+  "ecosystem_tags": ["openminion", "cortensor", "python-sdk", "agent-diagnostics", "release-triage"],
+  "body_markdown_path": "submission/BUIDL_DRAFT.md",
+  "deliverables": [
+    "README.md",
+    "BUILDING_BLOCKS_TESTED.md",
+    "WHAT_WE_LEARNED.md",
+    "outputs/live_model_run_receipt.json",
+    "outputs/building_blocks_tested.json",
+    "outputs/triage_readiness_brief.md",
+    "web/diagnostic_console.html"
+  ]
+}
