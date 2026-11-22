@@ -1,0 +1,27 @@
+09:35:27 Minion Radar film mode: compact snapshot first, then one model call.
+09:35:27 OpenMinion film config: memory off, short loop.
+09:35:27 OpenMinion 0.1.23 has no public switch to skip the judge phase.
+09:35:29 [tool] radar_snapshot: 1 new releases, 8 new issues
+09:39:33 [approval] auto approved radar_save_checkpoint (--yes)
+09:39:33 # Builder Brief: openminion/openminion
+09:39:33 
+09:39:33 > MODEL GENERATED: compact live snapshot, real model brief, checkpoint auto approved.
+09:39:33 
+09:39:33 **OpenMinion 0.1.24 adds multimodal input (image/screenshot) and strengthens provider retry behavior while addressing storage migration issues**
+09:39:33 
+09:39:33 ## Releases
+09:39:33 - [LOW] [v0.1.24: 0.1.24](https://github.com/openminion/openminion/releases/tag/v0.1.24): OpenMinion 0.1.24 adds multimodal input and strengthens tool, memory, provider, and remote-execution behavior.
+09:39:33 
+09:39:33 ## Issues to watch
+09:39:33 - [MEDIUM] [446](https://github.com/openminion/openminion/issues/446): PostgreSQL storage migrate modules share one alembic_version causing runtime storage failures on sessions
+09:39:33 - [MEDIUM] [717](https://github.com/openminion/openminion/issues/717): Provider retry ignores Retry‑After on HTTP 429 causing turns to terminate prematurely
+09:39:33 
+09:39:33 ## Actions
+09:39:33 - Deploy release v0.1.24
+09:39:33 - Verify provider retry logic honors Retry‑After
+09:39:33 - Apply fix for shared alembic_version in storage migration
+09:39:33 - Monitor the open issues 446 and 717 after deployment
+09:39:33 
+09:39:33 <sub>origin=model_generated run_id=None session=minion-radar:openminion__openminion-film2 state=model_generated</sub>
+09:39:33 
+09:39:33 saved samples/openminion__openminion_20261122_093933.md
