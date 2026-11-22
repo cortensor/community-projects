@@ -14,7 +14,7 @@
 
 - Standalone public repository: https://github.com/ajahelube/minion-radar
 - Voiced demo: https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
-- Open the Hackathon #5 pull request against cortensor/community-projects.
+- Pull request: https://github.com/cortensor/community-projects/pull/100
 
 ## Known Issues
 

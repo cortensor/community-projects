@@ -34,6 +34,8 @@ Deadline: **19 Dec 2026, 07:59 UTC** (19 Dec 2026, 8:59 AM WAT). DoraHacks is th
 
 **Repository:** https://github.com/ajahelube/minion-radar
 
+**Pull request:** https://github.com/cortensor/community-projects/pull/100
+
 **Website / live demo:** none. The CLI, the 22 Nov 2026 Portal brief, and the terminal video are the working demo.
 
 **Tech stack:** Python 3, OpenMinion 0.1.23 Python SDK, Cortensor Portal (`oss-20b`), GitHub REST API, Pydantic.
@@ -97,5 +99,5 @@ Actionable feedback already visible in the 22 Nov brief: OpenMinion issue 446 (s
 - [ ] Working Discord invite (official link invalid as of 22 Nov 2026)
 - [ ] Public GitHub repository (needs Ajah's yes to push)
 - [x] Voiced demo published: https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
-- [ ] Pull request to the official (or confirmed) submission repo (needs Ajah's yes, and the repo URL)
+- [x] Pull request: https://github.com/cortensor/community-projects/pull/100
 - [ ] DoraHacks BUIDL submitted (needs Ajah's yes)

@@ -7,6 +7,7 @@ Default target: `openminion/openminion`, so Cortensor and OpenMinion builders ca
 Built for **Cortensor Hackathon #5** with the **OpenMinion 0.1 Python SDK** (`openminion==0.1.23`).
 
 - Standalone public repository: https://github.com/ajahelube/minion-radar
+- Hackathon #5 pull request: https://github.com/cortensor/community-projects/pull/100 (cortensor/community-projects; official dedicated repo still unpublished, UNVERIFIED)
 - Demo video (voiced): https://github.com/ajahelube/minion-radar/blob/main/demo/minion-radar-demo-vo.mp4
 
 ## What the OpenMinion workflow does
