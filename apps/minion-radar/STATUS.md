@@ -12,8 +12,8 @@
 
 ## Next Steps
 
-- Publish the standalone public repository and the voiced demo video, then replace the placeholders in the README.
-- Open the Hackathon #5 pull request once those links are live.
+- Standalone public repository: https://github.com/ajahelube/minion-radar
+- Replace the demo video placeholder in the README once the voiced version is published, then open the Hackathon #5 pull request.
 
 ## Known Issues
 

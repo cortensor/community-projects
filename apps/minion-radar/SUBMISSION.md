@@ -32,7 +32,7 @@ Deadline: **19 Dec 2026, 07:59 UTC** (19 Dec 2026, 8:59 AM WAT). DoraHacks is th
 
 **Demo video:** PLACEHOLDER (local file: `demo/minion-radar-demo.mp4`;  the 4 minute hosted model wait is cut and labelled)
 
-**Repository:** PLACEHOLDER (local project: `/workspace/cortensor-entry`; do not push until Ajah says yes)
+**Repository:** https://github.com/ajahelube/minion-radar
 
 **Website / live demo:** none. The CLI, the 22 Nov 2026 Portal brief, and the terminal video are the working demo.
 
@@ -62,7 +62,7 @@ Minion Radar is a small OpenMinion 0.1 agent that writes a Builder Brief for a G
 Default target is openminion/openminion.
 
 ## Public source and setup
-Public repo: PLACEHOLDER
+Public repo: https://github.com/ajahelube/minion-radar
 Setup and run: see README.md (venv, openminion setup, CORTENSOR_API_KEY or another provider).
 
 ## OpenMinion SDK workflow
