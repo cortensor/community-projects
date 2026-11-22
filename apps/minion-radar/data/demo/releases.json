@@ -1,0 +1,4 @@
+[
+ {"id": 9001, "tag": "v9.9.1", "name": "SIMULATED release: breaking change to tool registry", "published_at": "2026-11-20T10:00:00Z", "url": "https://example.invalid/simulated/v9.9.1", "body": "SIMULATED. Breaking: tool names renamed. Migration guide included.", "prerelease": false},
+ {"id": 9000, "tag": "v9.9.0", "name": "SIMULATED release: faster sessions", "published_at": "2026-11-10T10:00:00Z", "url": "https://example.invalid/simulated/v9.9.0", "body": "SIMULATED. Session load is faster.", "prerelease": false}
+]

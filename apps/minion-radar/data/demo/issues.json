@@ -1,0 +1,5 @@
+[
+ {"id": 7001, "number": 101, "title": "SIMULATED: streaming tool call drops arguments", "kind": "issue", "state": "open", "labels": ["bug"], "updated_at": "2026-11-20T09:00:00Z", "url": "https://example.invalid/simulated/101", "body": "SIMULATED"},
+ {"id": 7002, "number": 102, "title": "SIMULATED: docs typo", "kind": "pr", "state": "closed", "labels": ["docs"], "updated_at": "2026-11-19T09:00:00Z", "url": "https://example.invalid/simulated/102", "body": "SIMULATED"},
+ {"id": 7003, "number": 103, "title": "SIMULATED: deprecate legacy provider id", "kind": "pr", "state": "open", "labels": [], "updated_at": "2026-11-18T09:00:00Z", "url": "https://example.invalid/simulated/103", "body": "SIMULATED"}
+]

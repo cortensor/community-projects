@@ -1,0 +1,9 @@
+- name: minion-radar
+  category: apps
+  owner: "@ajahelube"
+  collaborators: []
+  status: active
+  created: 2026-11-21
+  version: v0.1.0
+  tags: [openminion, hackathon-5, github, portal, builder-brief, agent]
+  description: OpenMinion 0.1 agent that writes a Builder Brief for a GitHub repo, with a local checkpoint so the next run only shows newer items.
