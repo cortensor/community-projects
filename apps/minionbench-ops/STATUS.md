@@ -3,6 +3,7 @@
 **Maintainer:** `@HindsightWise`  
 **Current Version:** `v0.1.0`  
 **Status:** Active (Cortensor Hackathon #5)  
+**DoraHacks Build:** https://dorahacks.io/build/51656  
 **Standalone Repo:** https://github.com/HindsightWise/minionbench-ops-openminion  
 **Demo Video:** https://github.com/HindsightWise/minionbench-ops-openminion/raw/main/outputs/demo_walkthrough.mp4  
 
@@ -23,5 +24,5 @@
 
 ## Next Steps
 
-- Attach the live DoraHacks Hackathon #5 Build link and open the upstream PR on `cortensor/community-projects`.
+- Track review on the upstream `cortensor/community-projects` PR and DoraHacks Build `#51656` (`https://dorahacks.io/build/51656`).
 - Run hosted Cortensor Portal (`oss-20b`) and Gemma4 latency benchmarks upon cohort credential provisioning.

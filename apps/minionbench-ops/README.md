@@ -1,6 +1,6 @@
 # Minionbench Ops — OpenMinion 0.1.24 Release & Triage Guard + Runtime Diagnostic Workbench
 
-Built for **Cortensor Hackathon #5** ([DoraHacks #2418](https://dorahacks.io/hackathon/2418/detail)). Minionbench Ops embeds the official [`openminion`](https://github.com/openminion/openminion) `0.1.24` Python SDK inside a strict vertical-slice architecture (`Invariants -> Schema -> Ledger -> State Engine -> Pipe -> Paint`) to execute repeatable Cortensor builder release-and-triage audits alongside a 6-probe empirical SDK diagnostic suite.
+Built for **Cortensor Hackathon #5** ([DoraHacks #2418](https://dorahacks.io/hackathon/2418/detail), live Build: [`#51656`](https://dorahacks.io/build/51656)). Minionbench Ops embeds the official [`openminion`](https://github.com/openminion/openminion) `0.1.24` Python SDK inside a strict vertical-slice architecture (`Invariants -> Schema -> Ledger -> State Engine -> Pipe -> Paint`) to execute repeatable Cortensor builder release-and-triage audits alongside a 6-probe empirical SDK diagnostic suite.
 
 ## Why Minionbench Ops Matters for Cortensor Builders
 
