@@ -1,0 +1,14 @@
+- name: fixbrief-agent
+  category: apps
+  owner: "@emiliotecnologias"
+  status: active
+  created: 2026-11-22
+  version: v0.1.0
+  tags: [openminion, agent, python, multilingual, repair, hackathon-5]
+  description: >-
+    Multilingual (EN/ES/PT/AR) phone-repair brief agent built on the
+    OpenMinion 0.1.24 Python SDK. Deterministic tools collect facts;
+    the model returns a schema-validated brief. Free local demo via
+    Ollama (qwen2.5:1.5b).
+  repository: https://github.com/emiliotecnologias/cortensor-agent
+  hackathon: Cortensor Hackathon #5 (DoraHacks #2418)

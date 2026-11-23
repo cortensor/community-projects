@@ -1,0 +1,14 @@
+.venv/
+.tmp/
+.fixbrief-home/
+.openminion-home/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+outputs/*.db
+.env
+outputs/demo_frames/
+outputs/llama-server*.log
+outputs/model-brief-run*.log
+outputs/record-demo-run.log
