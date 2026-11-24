@@ -1,0 +1,65 @@
+== doctor ==================================================
+
+========================================================================
+Repo Triager 0.1.0 — diagnostics
+========================================================================
+python            : 3.12.16
+openminion        : 0.1.24
+openminion home   : /workspace/hackathons/cortensor-triager/var/openminion-home
+provider mode     : scripted
+tools registered  : 106
+memory tools      : memory.forget, memory.search, memory.write, task.consolidate_memory
+skill tools       : skill.get, skill.ingest, skill.ingest_url, skill.inspect, skill.list, skill.remove
+self-model health : unavailable
+doctor: OK (ok=23 warn=3 fail=0)
+[WARN] identity.bundle: Identity profile is missing in IdentityCtl for agent 'openminion'.
+[WARN] security.untrusted_content.boundary_posture: External content surfaces are enabled and require explicit boundary wrappers.
+[WARN] security.validate.summary: Security validate summary: critical=0, warn=1, info=14
+
+full diagnostics written to /workspace/hackathons/cortensor-triager/var/artifacts/doctor.json and /workspace/hackathons/cortensor-triager/var/artifacts/openminion-doctor.log
+
+== demo ====================================================
+
+========================================================================
+Repo Triager demo — scripted model, real OpenMinion runtime
+========================================================================
+repository : openminion/openminion (offline snapshot of 44 open issues)
+issues     : #859, #853, #857
+provider   : scripted
+
+── step 1/4  analyse with read-only tools + structured output
+   #859 → S2 area:tools (12 LLM calls, 3 tool calls)
+   tools used: ['triage_precheck', 'get_issue', 'search_duplicate_issues']
+
+── step 2/4  delegate duplicate analysis to a bounded subagent
+   subagent verdict: no duplicates confirmed
+
+── step 3/4  stage the approved plan (policy confirmation)
+   policy events: [{"tool": "stage_triage", "args_preview": "{\"component\": \"area:tools\", \"duplicate_of\": [], \"issue_number\": 859, \"labels\": [\"bug\", \"area:tools\"], \"next_action\": \"ready-to-label\", \"reply_draft\": \"Thanks for the precise report — the contract-version check should reject an explicit but …", "decision": "allow", "policy": "operator-flag: auto (non-interactive)", "approval_id": "call_stage_triage_0", "at": "2026-11-24T12:57:57+00:00"}]
+   outbox: ['/workspace/hackathons/cortensor-triager/var/outbox/openminion_openminion/0859.md', '/workspace/hackathons/cortensor-triager/var/outbox/openminion_openminion/0859.json']
+
+── step 3b/4 the same gate, refused for #853
+   applied=False events=[{"tool": "stage_triage", "args_preview": "{\"component\": \"area:sdk\", \"duplicate_of\": [], \"issue_number\": 853, \"labels\": [\"bug\", \"area:sdk\"], \"next_action\": \"ready-to-label\", \"reply_draft\": \"Confirmed on 0.1.24: `Agent(output_type=Model)` validates the reply but the turn never tells \u2026", "decision": "deny", "policy": "operator-flag: deny", "approval_id": "call_stage_triage_0", "at": "2026-11-24T12:58:09+00:00"}]
+
+── step 4/4  write the decision to OpenMinion memory
+   Remembered the triage decision for #859.
+
+report: /workspace/hackathons/cortensor-triager/var/runs/20261124T125734Z-openminion_openminion/report.md
+json  : /workspace/hackathons/cortensor-triager/var/runs/20261124T125734Z-openminion_openminion/report.json
+
+== staged plan =============================================
+--- var/outbox/openminion_openminion/0859.md
+# Triage plan — #859 Reject malformed explicit plugin contract versions before loading
+
+- Repository issue: https://github.com/openminion/openminion/issues/859
+- Severity: **S2** (A malformed plugin contract version is accepted instead of rejected, so a broken plugin loads and fails later.)
+- Component: `area:tools`
+- Type: `bug`
+- Labels to add: `bug`, `area:tools`
+- Possible duplicates: none
+- Confidence: 0.78
+- Next action: `ready-to-label`
+- Mode: **dry run** — staged locally, nothing was written to GitHub
+
+## Reply draft
+

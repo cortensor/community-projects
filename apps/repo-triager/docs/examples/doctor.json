@@ -1,0 +1,111 @@
+{
+  "repo_triager_version": "0.1.0",
+  "openminion_version": "0.1.24",
+  "python": "3.12.16",
+  "tool_count": 106,
+  "memory_tools": [
+    "memory.forget",
+    "memory.search",
+    "memory.write",
+    "task.consolidate_memory"
+  ],
+  "skill_tools": [
+    "skill.get",
+    "skill.ingest",
+    "skill.ingest_url",
+    "skill.inspect",
+    "skill.list",
+    "skill.remove"
+  ],
+  "task_tools": [
+    "task.cancel",
+    "task.delegate",
+    "task.delete_history",
+    "task.list",
+    "task.pause",
+    "task.resume",
+    "task.run_now",
+    "task.schedule",
+    "task.scheduler_pause",
+    "task.scheduler_resume",
+    "task.scheduler_status",
+    "task.show",
+    "task.update",
+    "task.watch"
+  ],
+  "openminion_home": "/workspace/hackathons/cortensor-triager/var/openminion-home",
+  "capability_report": {
+    "agent": "openminion",
+    "providers": {
+      "selected": "openai",
+      "source_layer": "agent_runtime",
+      "effective_enabled": [],
+      "provider_order": [],
+      "system_default_provider": "",
+      "agent_default_provider": "openai",
+      "invocation_requested_provider": "",
+      "items": [
+        {
+          "name": "anthropic",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "cerebras",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "cortensor",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "echo",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "groq",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "ollama",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "openai",
+          "enabled": false,
+          "selected": true,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        },
+        {
+          "name": "openrouter",
+          "enabled": false,
+          "selected": false,
+          "blocked_reason": "blocked by the effective provider allowlist"
+        }
+      ]
+    }
+  },
+  "runtime_posture": {
+    "agent": "openminion",
+    "runtime_mode": "brain",
+    "brain_bridge_active": true,
+    "canonical_turn_path": [
+      "services/runtime/ingress.run_turn_payload",
+      "services/request_orchestrator.run_turn",
+      "GatewayService.run_once",
+      "BrainBridgeService.run_turn",
+      "BrainRunner.run"
+    ]
+  }
+}

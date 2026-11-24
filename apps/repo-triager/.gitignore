@@ -1,0 +1,27 @@
+# runtime state and artifacts
+var/
+.om-home/
+*.sqlite
+*.db
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# scratch from manual exploration
+.om-home/
+.openminion/
+data/
+
+# demo video build products (frames, tts cache, verification output)
+demo/build/

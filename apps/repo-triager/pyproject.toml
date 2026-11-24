@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repo-triager"
+version = "0.1.0"
+description = "Repeatable GitHub issue triage agent built on the OpenMinion 0.1 Python SDK"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "dorithesky" }]
+dependencies = [
+  "openminion>=0.1.24,<0.2",
+  "pydantic>=2.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+repo-triager = "repo_triager.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+repo_triager = ["skills/**/*", "fixtures/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+  "integration: exercises the real OpenMinion runtime with a scripted provider",
+]

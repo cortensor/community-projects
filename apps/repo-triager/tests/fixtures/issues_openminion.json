@@ -1,0 +1,793 @@
+{
+  "repo": "openminion/openminion",
+  "captured_at": "2026-11-24T20:50:00+09:00",
+  "source": "GitHub REST API, read-only snapshot of public issues",
+  "labels": [
+    {
+      "name": "area:approvals",
+      "description": "Policy confirmation, approval delivery, decisions, and replay"
+    },
+    {
+      "name": "area:artifacts",
+      "description": "Artifact storage, references, lifecycle, and runtime scope"
+    },
+    {
+      "name": "area:brain",
+      "description": "Agent planning, execution reasoning, and completion judgment"
+    },
+    {
+      "name": "area:config",
+      "description": "Configuration validation, defaults, and configuration scope"
+    },
+    {
+      "name": "area:identity",
+      "description": "Identity profiles, rendering, and identity storage scope"
+    },
+    {
+      "name": "area:mcp",
+      "description": "Model Context Protocol servers and tool integration"
+    },
+    {
+      "name": "area:providers",
+      "description": "Model provider adapters, transport, and provider error handling"
+    },
+    {
+      "name": "area:runtime",
+      "description": "Turn lifecycle, execution, cancellation, and persisted outcomes"
+    },
+    {
+      "name": "area:scheduling",
+      "description": "Scheduled tasks, cron validation, and scheduler operations"
+    },
+    {
+      "name": "area:sdk",
+      "description": "Python SDK, public API, and SDK examples"
+    },
+    {
+      "name": "area:sessions",
+      "description": "Session ownership, continuity, routing, and replay"
+    },
+    {
+      "name": "area:skills",
+      "description": "Skill authoring, ingestion, admission, and catalog operations"
+    },
+    {
+      "name": "area:tools",
+      "description": "Tool registration, exposure, invocation, and results"
+    },
+    {
+      "name": "bug",
+      "description": "Something isn't working"
+    },
+    {
+      "name": "dependencies",
+      "description": "Pull requests that update a dependency file"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request"
+    },
+    {
+      "name": "fixed-in:0.1.10",
+      "description": "Fix shipped and issue-specific verification reviewed for OpenMinion 0.1.10"
+    },
+    {
+      "name": "fixed-in:0.1.5",
+      "description": "Reported defect verified resolved in the published 0.1.5 Python package"
+    },
+    {
+      "name": "github_actions",
+      "description": "Pull requests that update GitHub Actions code"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right"
+    },
+    {
+      "name": "platform:windows",
+      "description": "Windows-specific installation or runtime behavior"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested"
+    },
+    {
+      "name": "status:awaiting-contributor",
+      "description": "Triaged; contributor fix invited before maintainer implementation"
+    },
+    {
+      "name": "status:awaiting-release",
+      "description": "Fix merged to dev; keep open until published-package verification"
+    },
+    {
+      "name": "status:contributor-in-progress",
+      "description": "Contributor has claimed the fix and provided an ETA; coordinate before duplicating work"
+    },
+    {
+      "name": "status:maintainer-investigation",
+      "description": "Maintainer-owned evidence, contract, or root-cause investigation"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on"
+    }
+  ],
+  "issues": [
+    {
+      "number": 859,
+      "title": "Reject malformed explicit plugin contract versions before loading",
+      "body": "Outside-merge audit of #848, head `0fb99a0d39ea3b30cab5c4e6fa1ba6a62254937a`, surviving unchanged on dev `aa7d5b6b6dab5cb351991bfbc1b3e92a5ccca12e`.\n\n`API_COMPATIBILITY.md` promises that omitted `contract_version` defaults to version 1, while another value fails discovery before plugin code loads. `validate_plugin_manifest` instead applies `_optional_string(...) or PLUGIN_MANIFEST_CONTRACT_VERSION`; explicit invalid values become the same default as omission.\n\nIndependent controls used the existing extension-plugin fixture, valid required manifest fields, actual `discover_plugin_manifests`, and `load_plugin_module`. Omission and string `\"1\"` are admitted as intended; string `\"2\"` is rejected. Integer `2`, `null`, `false`, `{}`, `[]`, and `\"\"` are all admitted as version `\"1\"`, and their plugin module loads. This is a local synthetic contract-boundary result, not evidence that policy, approvals or capability checks were bypassed.\n\nPlease distinguish absence from a supplied value in the existing manifest validator: retain the documented omission compatibility, validate supplied versions against the supported contract, and reject unsupported/malformed declarations before module loading. Add focused actual-discovery controls for these values and preserve valid-version and omitted-version neighbors. Reuse the existing error owner; no coercion fallback, extra registry or duplicate validation layer is needed.\n\nCurrent-dev focused gateway/SDK/plugin tests: 116 passed; critical: 559 passed/4 existing skips; repository Ruff check/format and make lint passed. The existing mismatch test covers only string `\"2\"`. Refs #848.\n",
+      "labels": [
+        "bug",
+        "area:tools",
+        "status:maintainer-investigation"
+      ],
+      "comments": 0,
+      "created_at": "2026-11-23T02:16:55Z",
+      "updated_at": "2026-11-23T02:16:56Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/859"
+    },
+    {
+      "number": 858,
+      "title": "Completed gateway receipts conflict after request-hash upgrade",
+      "body": "Outside-merge audit of #848, head `0fb99a0d39ea3b30cab5c4e6fa1ba6a62254937a`, merge `ab5d1827c7a8bca818774d7a6a83e31205773ea5`. The relevant files survive unchanged on current dev `aa7d5b6b6dab5cb351991bfbc1b3e92a5ccca12e`.\n\nThe new request hash adds agent/request/delivery/history/tool/capability fields, and `_completed_idempotent_message` now checks that new hash before returning a completed receipt. Persisted receipts have no hash-format version or migration. An identical request completed under the previous hash therefore conflicts after upgrading, instead of replaying its retained response.\n\nIndependent reproduction used the existing real GatewayService/SQLite fixture: complete a request with the exact pre-#848 `_request_hash` function, close and reopen SQLite, then submit the identical request through current `GatewayService.handle_message`. It raises `ValueError(\"idempotency key conflicts with an earlier request\")`. The completed receipt is unchanged and there are zero additional provider calls. A newly created current-format receipt replays successfully; changing its body is correctly rejected. The old gateway hash file is byte-identical to the file in the digest-verified official 0.1.24 wheel. This is controlled source/SQLite upgrade evidence, not an observed production incident or an installed-package reproduction; no deleted data or repeated effect was observed.\n\nPlease propose the smallest compatibility/recovery contract in the existing gateway and receipt owners. Preserve the new changed-request and cross-agent protections. Do not blindly accept the old hash (it omitted those identity/control fields), discard receipts, or recommend retrying uncertain effects with a new key. Establish which retained facts can safely identify and retrieve an old completed response, and explicitly document any legacy boundary that cannot be proven. Add an old-format persisted/reopened receipt control plus new-format exact replay, changed-body, changed-agent and changed-control neighbors before implementation acceptance. Avoid a second receipt store or generic retry layer.\n\nCurrent-dev focused gateway/SDK/plugin tests: 116 passed; critical: 559 passed/4 existing skips; r",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:maintainer-investigation"
+      ],
+      "comments": 0,
+      "created_at": "2026-11-23T02:16:39Z",
+      "updated_at": "2026-11-23T02:16:40Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/858"
+    },
+    {
+      "number": 857,
+      "title": "session: SQLiteSessionStore(\":memory:\").close() leaks temporary storage directory on disk",
+      "body": "When instantiating `SQLiteSessionStore(\":memory:\")` in `src/openminion/modules/session/storage/store.py`, `_build_default_hybrid_store` creates a temporary directory (`tempfile.mkdtemp(prefix=\"openminion-session-store-\")`) at lines 163-166 and saves it as `self._temp_root`.\n\nCalling `store.close()` (lines 470-479) closes the SQLite connection and any owned `artifactctl`, but never removes `self._temp_root`. In addition, if initialization fails in `_migrate()`, `_finalize_module_metadata()`, or `_initialize_store_components()` (lines 285-287) after `_init_hybrid_store_and_temp_root()` runs, both `self._temp_root` and `self._record_store` remain open/uncleaned.\n\nEvery `:memory:` session store instantiated across test suites or ephemeral runtime checks leaves an `openminion-session-store-*` directory behind on disk.\n\nMinimal repro (verified on `origin/main` `9204d66a`):\n\n```python\nfrom openminion.modules.session.storage.store import SQLiteSessionStore\n\nstore = SQLiteSessionStore(\":memory:\")\ntemp_root = store._temp_root\nprint(\"before close:\", temp_root.exists(), temp_root.name.startswith(\"openminion-session-store-\"))\nstore.close()\nprint(\"after close:\", temp_root.exists())\n```\n\nOutput:\n```text\nbefore close: True True\nafter close: True\n```\n\nExpected behavior: `store.close()` should remove `self._temp_root` (clearing the reference so repeated `close()` calls are idempotent), and failed `__init__()` attempts after `_init_hybrid_store_and_temp_root()` should run `close()` cleanup before re-raising.\n\nI have a scoped fix and regression tests ready on `princejain756/openminion` (`fix/session-memory-temp-root-cleanup`) if you confirm this is in scope for a PR.\n",
+      "labels": [],
+      "comments": 0,
+      "created_at": "2026-11-22T20:57:40Z",
+      "updated_at": "2026-11-22T20:57:40Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/857"
+    },
+    {
+      "number": 856,
+      "title": "diagnostics: coerce_phase_status and normalize_phase_status crash with ValidationError on negative counters and fallback drops valid status_key",
+      "body": "I hit a few coercion bugs in `openminion.modules.brain.diagnostics.status` (`src/openminion/modules/brain/diagnostics/status.py`) while building and testing an app on `openminion==0.1.24` (`a5208844`), and confirmed the same code is still on `dev` (`aa7d5b6b`, Python 3.13.18 on macOS).\n\nFour defects in `status.py`:\n\n1. `coerce_phase_status` fallback crashes on negative token counts (`lines 172-194`): when `PhaseStatus.model_validate(payload)` fails and enters the `except ValidationError:` fallback, it passes `_coerce_int(...)` for `total_input_tokens_used`, `total_output_tokens_used`, and `total_tokens_used` straight into `PhaseStatus(...)` (`ge=0`). Because `_coerce_int` (`lines 304-310`) returns negative integers such as `-1`, the fallback itself raises an uncaught `ValidationError`.\n2. `normalize_phase_status` crashes on negative, boolean, or non-finite payload counters (`lines 304-310`, `525-619`): `_coerce_int` allows negative numbers, converts booleans (`True` -> `1`, `False` -> `0`), and does not catch `OverflowError` (for example `float(\"inf\")`). Any negative counter in `payload` (`step_index`, `step_total`, `cursor`, `total_steps`, `mode_step_index`, `mode_step_total`, `turn.llm_call_count`, `turn.llm_call_limit`, or token counts) causes `PhaseStatus(...)` to raise `ValidationError`.\n3. Whitespace around `status_key` gets downgraded to `\"working\"` (`lines 167-169`): `raw_status_key` is stripped before checking `_STATUS_LABELS`, but the stripped value is not written back to `payload[\"status_key\"]`. Input like `{\"trace_id\": \"t1\", \"status_key\": \" completed \"}` fails `PhaseStatus.model_validate`, falls into the `except ValidationError:` block, and comes back as `\"working\"`.\n4. Fallback overwrites valid `status_key` and misparses string booleans (`lines 174-194`): when validation fails on an optional field such as `step_index: -1`, the fallback hardcodes `status_key=\"working\"` (dropping a valid `status_key` like `\"completed\"`) and passes `terminal` / `token_usage_estimated` through Python `bool(...)`, which turns `\"false\"` or `\"0\"` into `True`.\n\nReproduction:\n\n```python\nfrom openminion.modules.brain.diagnostics.status import (\n    coerce_phase_status,\n    no",
+      "labels": [],
+      "comments": 0,
+      "created_at": "2026-11-22T20:16:06Z",
+      "updated_at": "2026-11-22T20:16:06Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/856"
+    },
+    {
+      "number": 854,
+      "title": "blockchain: a write's native value has no per-transaction cap",
+      "body": "`BlockchainToolRuntimeConfig` bounds gas with `max_total_fee_wei`, but nothing bounds the native `value_wei` a single write may carry. For an unattended agent the only limits are the approval preview and the funded wallet.\n\nRequested shape, matching the fee cap:\n\n- a per-transaction native-value cap on the configured and resolved prepare and send paths, with one owner for both;\n- empty means unbounded, preserving current behaviour, and `\"0\"` permits only zero-value calls;\n- canonical base-unit decimal only, rejecting negatives, fractions, hex, exponent and spaced forms;\n- refused at prepare before any secret read or RPC, and at send before signing or broadcast.\n\nThe implementation is in #851. This issue stays open for published-package acceptance; the PR references it non-closing.\n",
+      "labels": [
+        "enhancement",
+        "area:tools",
+        "status:contributor-in-progress"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-22T11:34:03Z",
+      "updated_at": "2026-11-22T13:19:05Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/854"
+    },
+    {
+      "number": 853,
+      "title": "`Agent(output_type=Model)` does not tell the model the schema, so replies fail validation",
+      "body": "## Summary\n`output_type` only parses the final reply as JSON (`Agent._coerce_output`). The schema is not shown to the model, so a model that is not told the format answers in prose and validation fails.\n\nEnvironment: OpenMinion 0.1.24, Python 3.14.0, Windows 11, Gemini preset (`gemini-3.1-flash-lite`).\n\n## Steps to reproduce\n```python\nfrom pydantic import BaseModel\nfrom openminion import Agent\n\nclass Out(BaseModel):\n    answer: str\n\nwith Agent(instructions=\"Reply with answer=hello.\", output_type=Out) as a:\n    a.run(\"Go.\", timeout_seconds=80)\n```\n\n## Expected\nThe model is given `Out`'s JSON schema, or the docs say the schema must be written in `instructions`.\n\n## Actual\n`AgentOutputValidationError: Reply did not validate against Out: ... Invalid JSON ... input_value='default: hello'`.\nReplies also carry a `default: ` agent-id prefix, so they are never valid JSON on their own and rely on the JSON-extraction fallback.\n\n## Workaround\nPut `json.dumps(Out.model_json_schema())` in `instructions` and ask for \"ONLY a JSON object\". The model still sometimes ends a tool-using turn with prose.\n\n## Suggested fix\nInject the schema into the prompt when `output_type` is a Pydantic model, and strip the `<agent>: ` prefix before parsing. Found while building a project for Cortensor Hackathon #5. Happy to send a PR once the direction is confirmed.",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "status:maintainer-investigation"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-22T09:09:34Z",
+      "updated_at": "2026-11-22T15:47:01Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/853"
+    },
+    {
+      "number": 852,
+      "title": "`approval_callback` exceptions are swallowed into a normal-looking reply",
+      "body": "## Summary\n`Agent.run(..., approval_callback=cb)` calls `cb(tool_name, args, approval_id)`. The signature is not in the README or getting-started. If `cb` has a different signature, the resulting `TypeError` is caught by the turn state machine and returned as ordinary reply text instead of being raised.\n\nEnvironment: OpenMinion 0.1.24, Python 3.14.0, Windows 11, Gemini preset (`gemini-3.1-flash-lite`).\n\n## Steps to reproduce\n```python\nfrom openminion import Agent, tool\n\n@tool()  # write tool, needs confirmation\ndef save(text: str) -> str:\n    \"\"\"Pretend to save text.\"\"\"\n    return \"saved\"\n\ndef cb(request):          # 1-arg callback\n    return True\n\nwith Agent(instructions=\"Call save with text=hi, then say done.\", tools=[save]) as a:\n    r = a.run(\"Go.\", approval_callback=cb, timeout_seconds=90)\n    print(repr(r.text))\n```\n\n## Expected\nEither the exception reaches the caller, or the docs show the callback signature `(tool_name: str, args: dict, approval_id: str) -> bool`.\n\n## Actual\nNo exception. `r.text` is:\n`'default: State machine error: RUNTIME_ERROR: cb() takes 1 positional argument but 3 were given'`\n\n## Impact\nWith `output_type` set, this surfaces as `AgentOutputValidationError` (\"Invalid JSON\"), which points away from the real cause. It cost several debugging runs.\n\n## Where\n`openminion/modules/brain/execution/runtime/turn/dispatch.py`, `_dispatch_runtime_error` turns any exception into `message=f\"State machine error: ...\"` returned through `_respond_with_meta`.\n\n## Suggested fix\nDocument the callback signature, and re-raise errors that come from user-supplied callbacks. Found while building a project for Cortensor Hackathon #5. Happy to send a PR once the direction is confirmed.",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "status:maintainer-investigation"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-22T09:09:09Z",
+      "updated_at": "2026-11-22T13:18:58Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/852"
+    },
+    {
+      "number": 835,
+      "title": "Freshness classifier on small local models misclassifies session-recall turns as live-data requests and forces a canned refusal",
+      "body": "**Version / environment**\n- openminion 0.1.23 (PyPI), Python 3.12\n- Provider: `ollama` (local), model `qwen2.5:1.5b` — the same model serves both the agent and the internal freshness classifier (`modules/brain/bootstrap/freshness_classify.py`)\n\n**Steps to reproduce**\n1. Run a multi-turn SDK session in which the agent inspects a local git repository with read-only tools and produces a report.\n2. In the same session, ask a pure recall follow-up, e.g.: *\"Which project version and latest tag did you find, and what blockers did your report list? Two short sentences.\"*\n\n**Expected**\nThe follow-up is classified `local_only` and answered from session context.\n\n**Actual**\nThe freshness classifier labels the recall question as a live-data request (observed domains: \"sports\" in one run, \"news\" in another — non-deterministic), and the runtime forces the canned refusal as the turn's answer:\n\n> \"I couldn't provide a grounded current sports answer because Missing live-data evidence for a freshness-sensitive answer.. Please retry with live data available so I can answer with sources and an exact date.\"\n\nThis happens in a session about a local git repository, with no news/sports content anywhere. There appears to be no config option to disable the classifier or pin it to `local_only` for SDK/tool agents.\n\n**Workaround**\nDetect the canned refusal verbatim and retry the turn inside the same session; classification is per-turn and non-deterministic, so retries usually pass.\n\n**Impact / suggestion**\nOn small local models the classifier is effectively random, so ordinary multi-turn SDK workflows intermittently lose turns to a misleading refusal. Suggestions: (a) allow disabling/pinning freshness classification per agent profile, (b) fall back to `local_only` when classifier confidence is low, or (c) don't let a 1-2B-class model make this routing decision unguarded.\n",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-21T09:27:22Z",
+      "updated_at": "2026-11-21T10:15:38Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/835"
+    },
+    {
+      "number": 834,
+      "title": "Localhost provider (ollama) breaks when proxy env vars contain bracketed IPv6 no_proxy entries (Invalid port: ':1]')",
+      "body": "**Version / environment**\n- openminion 0.1.23 (PyPI), Python 3.12, Linux VM (sandboxed CI-style environment)\n- Provider: `ollama` (local), model `qwen2.5:1.5b`, base URL `http://127.0.0.1:11434`\n- Environment has `http_proxy` / `https_proxy` / `all_proxy` set to an HTTP egress proxy, and `no_proxy` / `NO_PROXY` containing bracketed IPv6 entries, e.g. `localhost,127.0.0.1,::1,[::1],...`\n\n**Steps to reproduce**\n1. Configure a project-scoped config with the `ollama` provider (`openminion config init --provider ollama`).\n2. With the proxy variables above present in the environment, run `openminion doctor --check-turn`.\n\n**Expected**\nThe turn smoke test reaches the local Ollama server on `127.0.0.1:11434` (localhost traffic should not be affected by proxy settings, and bracketed `no_proxy` entries are common in sandboxed environments).\n\n**Actual**\n```\n[FAIL] agent.turn_smoke: Agent turn smoke test failed: PROVIDER_ERROR: The configured model provider failed before it could return a decision (InvalidURL: Invalid port: ':1]'). Please retry or switch models.\n```\nThe failing fragment `:1]` is the tail of the bracketed entry `[::1]`, which suggests the proxy / no-proxy parsing mishandles bracketed IPv6 entries even though the target URL is plain IPv4 localhost.\n\n**Workaround**\nUnsetting `http_proxy`, `https_proxy`, `all_proxy`, `no_proxy` (and uppercase variants) for the OpenMinion process makes the smoke test pass immediately.\n\n**Impact**\nAnyone running OpenMinion with a local provider inside a corporate/CI/sandbox network with proxy env vars gets a cryptic failure on the very first turn, with no hint that proxies are involved.\n",
+      "labels": [
+        "bug",
+        "area:providers",
+        "status:maintainer-investigation"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-21T09:27:16Z",
+      "updated_at": "2026-11-21T10:15:35Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/834"
+    },
+    {
+      "number": 827,
+      "title": "import_omx allows out-of-bundle table paths, drops heterogeneous SQLite columns, fails on keyword columns, and ignores fatal verification",
+      "body": "### Summary\n\n`import_omx` (`src/openminion/modules/storage/migrations/transfer.py`) misses five validation, SQLite quoting, and verification boundaries during OMX bundle rehydration:\n\n1. **Unquoted SQL column identifiers & unvalidated table identifiers (`transfer.py:477, 551, 558-561`)**:\n   - `_replace_sqlite_table_rows` interpolates column names directly (`INSERT INTO \"{table_name}\" ({\", \".join(columns)}) VALUES (...)`) without `_quote_ident`, so re-importing an exported SQLite table whose column is a SQLite keyword (`order`, `group`, `index`, `key`, `check`, `default`, `from`, `to`, `where`) fails with `sqlite3.OperationalError: near \"...\": syntax error`.\n   - Neither `_replace_sqlite_table_rows` nor `_import_via_record_store` (`DELETE FROM \"{table.name}\"`) validates `table.name` via `_quote_ident`.\n2. **Silent column truncation on heterogeneous JSONL rows & unvalidated non-object lines (`transfer.py:428-434, 558-561`)**:\n   - `_replace_sqlite_table_rows` builds `columns = list(rows[0].keys())` and ignores any columns present on subsequent rows (`rows[1:]`), silently writing `NULL` instead of rejecting mismatched row schemas (unlike `RecordStore.insert_many`, which raises `ValueError`).\n   - `_read_omx_bundle_rows` accepts non-object JSONL values (`[1, 2]`, `\"str\"`, `123`) until `rows[0].keys()` raises `AttributeError`, and when `verify_checksums=True` it never verifies `len(rows) == table_entry.row_count` (or non-negative `row_count`).\n3. **Table payload path escapes `omx_dir` (`transfer.py:420`)**:\n   - `_read_omx_bundle_rows` resolves `data_path = omx_dir / table_entry.path` without confining `table_entry.path` inside `omx_dir` (or rejecting symlinks resolving outside `omx_dir`), allowing manifest paths such as `\"../outside.jsonl\"` or absolute paths to read files outside the bundle directory.\n4. **Failed post-import SQLite `run_verification` still returns `success=True` (`transfer.py:622-628`)**:\n   - `verification = run_verification(..., raise_on_fatal=False)` is followed unconditionally by `success = True`, so fatal `quick_check_failed` findings return `RehydrateReport(success=True, error=None)` and allow `MigrationRunner.fallback_rehydrate` and `storage",
+      "labels": [
+        "bug",
+        "status:contributor-in-progress",
+        "area:artifacts"
+      ],
+      "comments": 0,
+      "created_at": "2026-11-20T22:25:30Z",
+      "updated_at": "2026-11-21T05:30:07Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/827"
+    },
+    {
+      "number": 826,
+      "title": "session: diff_session_branches hashes session_id/timestamps into refs and carry_forward_branch_fields drops summary refs",
+      "body": "### Summary\n\n`diff_session_branches` and `carry_forward_branch_fields` (`src/openminion/modules/session/fork_restore/branch.py`, exposed via `sessctl branch-diff` and `sessctl branch-carry-forward` in `src/openminion/modules/session/cli.py`) exhibit three concrete structural-diff and carry-forward defects:\n\n1. **`diff_session_branches` hashes per-session identity and row metadata into `summary` and `working_state` refs via `_stable_ref` (`branch.py:128-146`)**:\n   - `_diff_summary` hashes `{\"text\": store.get_summary(sid), \"refs\": store.get_summaries(sid)}` with `_stable_ref`. `SummaryStore.get_summaries(sid)` always returns `{\"session_id\": sid, \"base_ref\": ..., \"delta_refs\": [...], \"delta_items\": [...]}` (including `\"session_id\"` and per-delta `\"ts\"`), and the outer dict is never empty. As a result, for any two distinct sessions (`left != right`):\n     - Two brand-new empty sessions report `summary: status=\"changed\"` (`left_ref != \"empty\"`, `left_ref != right_ref`) instead of `status=\"same\"` (`\"empty\"`).\n     - One summarized session vs one empty session reports `summary: status=\"changed\"` instead of `\"added_or_removed\"`.\n     - Two sessions with identical summaries (including `source` vs the child just created by `carry_forward_branch_fields`), or differing only in `summary_long`, report wrong `summary` status.\n   - `_diff_working_state` hashes `store.get_latest_working_state(sid) or {}` via `_stable_ref`, which includes `\"session_id\"`, `\"version\"`, and `\"ts\"` (`StateStore.get_latest_working_state`), so two distinct sessions with identical `state_ref` and `state_inline` always report `working_state: status=\"changed\"` instead of `\"same\"`.\n2. **`_carry_summary` and `_carry_working_state` drop or alter structural fields (`branch.py:167-187`)**:\n   - `_carry_summary` reads `summaries = store.get_summaries(source)` without copying `base_ref` (`set_summary_base`) or `delta_refs` (`append_summary_delta`), so summary base/delta references are lost on carry-forward (and sessions holding only `base_ref`/`delta_refs` copy nothing), while child summary refresh semantics require keeping the child's local `based_on_seq=0` cursor rather than copying the source event sequence ",
+      "labels": [
+        "bug",
+        "area:sessions",
+        "status:awaiting-release"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-20T22:25:04Z",
+      "updated_at": "2026-11-21T10:14:30Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/826"
+    },
+    {
+      "number": 825,
+      "title": "context: RepoMapCache.refresh drops all subdirectory symbols and returns empty symbols after save_to/load_from",
+      "body": "### Summary\n\n`RepoMapCache` (`src/openminion/modules/context/repo_map/cache.py`, consumed by `build_repo_map_section(..., cache=...)` in `src/openminion/modules/context/repo_map/section.py`) drops all symbols from Python files in subdirectories during `refresh()` and drops all symbols from unchanged files after `save_to()` / `load_from()`:\n\n1. **Subdirectory symbol loss in `RepoMapCache.refresh` (`cache.py:63-70`)**:\n   For any file inside a subdirectory (`file.parent != root`, e.g. `pkg/sub.py`), `refresh()` calls `builder.parse(file.parent)`. `AstRepoMapBuilder.parse(file.parent)` (`parser.py:99`) records `RepoSymbol.path` relative to `file.parent` (`\"sub.py\"`), whereas `refresh()` filters `[s for s in single_map.symbols if s.path == relpath]` against `relpath = str(file.relative_to(root))` (`\"pkg/sub.py\"`). Because `\"sub.py\" != \"pkg/sub.py\"`, `new_for_file` is always `[]` for every subdirectory module, and `builder.parse(...)` also re-walks the directory tree once per stale file.\n2. **Empty symbol map after `save_to` / `load_from` (`cache.py:35-40`, `59-61`, `84-101`)**:\n   `save_to()` serializes only `parser_version` and `entries` (per-file SHA-256 hashes), omitting `cached_symbols`. `load_from()` restores `entries` with `cached_symbols={}`, and `is_fresh(file)` checks only `entries` without verifying `key in self.cached_symbols` (or `parser_version` compatibility with `builder`). Subsequent `loaded.refresh(root, builder=...)` treats every unchanged file as fresh and returns `self.cached_symbols.get(key, [])` -> `[]`, losing all symbols across the entire repository.\n\n### Environment\n\n- `openminion` `dev` (`55c3600da1f168ecd4c78050a6671f7fc0e07232`) and `0.1.23`\n- Python `3.11.18`, Linux `x86_64` (provider-free)\n\n### Steps to reproduce\n\n```python\nimport pathlib, tempfile\nfrom openminion.modules.context.repo_map.cache import RepoMapCache\nfrom openminion.modules.context.repo_map.parser import AstRepoMapBuilder\n\nwith tempfile.TemporaryDirectory() as d:\n    root = pathlib.Path(d)\n    (root / \"top.py\").write_text(\"def top_fn():\\n    return 1\\n\", encoding=\"utf-8\")\n    (root / \"pkg\").mkdir()\n    (root / \"pkg\" / \"sub.py\").write_text(\"class SubClass:\\n    pass\\n\", enc",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:awaiting-release"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-20T22:24:38Z",
+      "updated_at": "2026-11-22T13:13:17Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/825"
+    },
+    {
+      "number": 824,
+      "title": "memory: purge_soft_deleted compares expires_at as text, deleting live offset/non-expiry records and skipping expired offset/Z records",
+      "body": "### Summary\n\n`purge_soft_deleted` (`src/openminion/modules/memory/runtime/purge.py`, invoked by `run_gc` and `memctl gc`) still selects expired records using raw lexicographic string comparison (`expires_at < ?` in `_sqlite_purgeable_ids` at `purge.py:212` and `expires_at < :now` in `_postgres_purgeable_rows` at `purge.py:80`) against `utc_now().isoformat()` (`YYYY-MM-DDTHH:MM:SS.ffffff+00:00`), instead of the instant predicates established for active retrieval in `storage/sqlite/queries.py::expiry_clause` and `storage/postgres/queries.py::_EXPIRY_CLAUSE` (#683 / #677):\n\n1. **Future offset-bearing expiries are permanently hard-deleted**: A live record whose `expires_at` is hours in the future in a negative UTC offset (e.g. `2026-11-20T14:20:00-12:00` when UTC `now` is `2026-11-20T22:20:00+00:00`) is readable through `list`, `search`, and `retrieve_by_entities`, yet `\"2026-11-20T14:20:00-12:00\" < \"2026-11-20T22:20:00+00:00\"` evaluates to `True`, permanently deleting the record, its FTS/entity/relation/tier-transition rows, and its artifact reference edges.\n2. **Non-expiry and calendar-/clock-invalid values are permanently hard-deleted**: Values such as `\"!\"`, `\"0000-01-01T00:00:00+00:00\"`, `\"2020-02-30T00:00:00+00:00\"`, or `\"2020-01-01T24:59:00+00:00\"` — which the read predicates treat as non-expiries that remain visible and must not be deleted — sort lexicographically below current `2026-...` timestamps and are permanently deleted by `purge_soft_deleted`.\n3. **Expired positive-offset, `Z`-suffixed, and exact-boundary instants are skipped**: An already-expired record in a positive UTC offset (e.g. `2026-11-21T08:20:00+14:00` when UTC `now` is `2026-11-20T22:20:00+00:00`), a `Z`-suffixed timestamp in the same second (`\"2026-11-20T22:20:00Z\" > \"2026-11-20T22:20:00.500000+00:00\"` because `'Z' > '.'` / `'+'`), or an instant equal to `now` (`expires_at == now`, already excluded on read via strict `>`) is left unpurged.\n\n### Environment\n\n- `openminion` `dev` (`55c3600da1f168ecd4c78050a6671f7fc0e07232`) and `0.1.23`\n- Python `3.11.18`, Linux `x86_64` (provider-free)\n\n### Steps to reproduce\n\n```python\nimport datetime, pathlib, tempfile\nfrom openminion.modules.memory.mode",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:awaiting-release"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-20T22:21:28Z",
+      "updated_at": "2026-11-21T05:29:59Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/824"
+    },
+    {
+      "number": 823,
+      "title": "SSM transport can leave dispatched attempts unfinished or mark failed/missing-code invocations succeeded",
+      "body": "### Summary\n\n`SsmTransport.run` (`src/openminion/tools/ops/transports/ssm.py`) mishandles malformed synthetic payloads as well as contradictory or unobserved terminal AWS SSM `GetCommandInvocation` responses across four boundaries, either inventing observed outcomes or letting `KeyError`/`TypeError` escape `OpsService.submit` and `OpsService._dispatch_plan` (which catch `(OSError, RuntimeError, ValueError)` and otherwise leave a dispatched plan attempt unfinished with `status=\"running\"`, `attempt_phase=\"dispatch_intent\"`):\n\n1. **Missing, synthetic `None`, boolean, or non-integer `ResponseCode` on terminal invocations (`ssm.py:131-133`)**:\n   - In AWS SSM [`GetCommandInvocation`](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetCommandInvocation.html), `Status` (`Pending | InProgress | Delayed | Success | Cancelled | TimedOut | Failed | Cancelling`) is documented separately from `StatusDetails` (`Delivery Timed Out`, `Execution Timed Out`, `Undeliverable`, `Terminated`, etc.), and `ResponseCode` is an integer (`-1` when the command has not been started or the command result was not received).\n   - On synthetic/malformed payloads where `\"ResponseCode\"` is omitted on `Status=\"Success\"`, `invocation.get(\"ResponseCode\", 0)` invents a zero exit code without an observed return code, while `\"ResponseCode\": False` coerces to `0` (`bool` subclasses `int`).\n   - On synthetic/malformed payloads where `\"ResponseCode\"` is `None` (or non-numeric), `invocation.get(\"ResponseCode\", ...)` returns `None` and `int(None)` raises uncaught `TypeError`, leaving an active `OpsService` plan attempt unfinished.\n2. **Contradictory or unobserved terminal `Status` / `ResponseCode` combinations (`ssm.py:129-140`, `service.py:266-268, 534-536`)**:\n   - When `Status=\"Failed\"` is paired with `ResponseCode=0`, `SsmTransport.run` returns `TransportResult(return_code=0, cancelled=False, timed_out=False)`, causing `build_evidence` and `OpsService._finish_plan_result` to record `claim_status=\"observed\"`, `remote_outcome=\"exit_observed\"`, and `status=\"succeeded\"` (and rewriting `ResponseCode=0` to `1` would fabricate an invented exit code under `remote_outcome=\"exit_observed\"`).\n ",
+      "labels": [
+        "bug",
+        "area:tools",
+        "status:awaiting-release"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-20T22:20:33Z",
+      "updated_at": "2026-11-21T10:16:57Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/823"
+    },
+    {
+      "number": 821,
+      "title": "fetch URL policy crashes or misclassifies malformed IPv6 URLs, invalid/zero ports, and embedded whitespace or control characters",
+      "body": "### Summary\n\n`enforce_url_policy` (`src/openminion/tools/fetch/policy.py`) and redirect resolution in `CoreHttpFetchProvider.fetch` (`src/openminion/tools/fetch/providers/core_http.py:296`) miss four URL syntax boundaries before SSRF resolution or `urllib.request` connection dispatch:\n\n1. **Malformed bracketed IPv6 URLs (`\"http://[::1/path\"`, redirect `Location: http://[::1/next`)**: `urllib.parse.urlparse` (`policy.py:50`) and `urllib.parse.urljoin` (`core_http.py:296`) raise raw `ValueError(\"Invalid IPv6 URL\")`, escaping `_invoke_fetch` (`fetch.get`/`fetch.head`) and `CoreHttpFetchProvider.fetch` uncaught instead of returning `INVALID_URL`.\n2. **Non-numeric or out-of-range ports (`\"http://127.0.0.1:abc/path\"`, `\"https://example.com:99999/path\"`)**:\n   - With `allow_private_hosts=True`, `enforce_url_policy` returns `parsed` (`policy.py:59`) without reading `parsed.port`; `_open_once` then raises uncaught `http.client.InvalidURL(\"nonnumeric port: 'abc'\")` (or attempts TCP connection to out-of-range port `99999`).\n   - With `allow_private_hosts=False`, `parsed.port` is evaluated inside `try: resolved = socket.getaddrinfo(...) except Exception:` (`policy.py:83-96`), misclassifying the port `ValueError` as `SSRF_BLOCKED` (`reason_code=\"ssrf_resolution_failed\"`).\n3. **Reserved TCP port `0` (`\"https://example.com:0/path\"`)**: `parsed.port == 0` is falsy in `parsed.port or (443 if parsed.scheme == \"https\" else 80)` (`policy.py:83`), resolving port `80`/`443` during `getaddrinfo` and allowing port `0` past `enforce_url_policy`.\n4. **Embedded whitespace or ASCII control characters (`\"http://127.0.0.1:8080/a b\"`, `\"https://example.com/a\\nb\"`, redirect `Location: /next path` or `Location: /next\\npath`)**: `enforce_url_policy` accepts embedded spaces/control bytes, causing `_open_once` to raise uncaught `http.client.InvalidURL(\"URL can't contain control characters...\")` (or silently stripping `\\r`/`\\n`/`\\t` inside `urllib.parse.urljoin`).\n\n### Environment\n\n- `openminion` `dev` (`55c3600da1f168ecd4c78050a6671f7fc0e07232`) and `0.1.23`\n- Python `3.11.18`, Linux `x86_64` (provider-free)\n\n### Steps to reproduce\n\n```python\nfrom openminion.tools.fetch.providers.core_http import ",
+      "labels": [
+        "bug",
+        "area:tools",
+        "status:awaiting-release"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-20T17:00:56Z",
+      "updated_at": "2026-11-21T10:18:18Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/821"
+    },
+    {
+      "number": 819,
+      "title": "utility.calculate_expression raises uncaught OverflowError on float-overflowing literals/powers and skips finite/bounds checks on non-binary expressions",
+      "body": "### Summary\n\n`utility.calculate_expression` (`src/openminion/tools/utility/plugin.py`) validates `complex`, `math.isfinite`, and `abs(result) > UTILITY_MAX_ABS_VALUE` (`10**12`) only after `operator_fn(left, right)` returns inside the `ast.BinOp` branch (`plugin.py:113-126`). Four inputs within `CalculateExpressionArgs` (`max_length=512`, `UTILITY_MAX_AST_NODES`) bypass or escape that guard:\n\n1. **Float-overflowing `ast.Pow` (`abs(right) <= 64`)**: `100000 ** 64` and `(-100000) ** 63.5` convert operands to `float` (`plugin.py:99`), pass `abs(right) <= 64`, and raise an uncaught Python `OverflowError: (34, 'Numerical result out of range')` inside `operator.pow` (`plugin.py:113`) before `math.isfinite` or `UTILITY_MAX_ABS_VALUE` runs.\n2. **Integer literals exceeding IEEE-754 float range**: `\"9\" * 350` (length `350 <= 512`) parses as `ast.Constant(int)` and raises an uncaught `OverflowError: int too large to convert to float` at `float(value)` (`plugin.py:99`).\n3. **Non-finite float literals without a binary operator**: `\"1e400\"` and `\"-1e400\"` parse as `ast.Constant(inf)` and return `{\"expression\": \"1e400\", \"result\": inf}` / `-inf` instead of raising `ToolRuntimeError(\"INVALID_ARGUMENT\", \"Expression result is not finite\")`.\n4. **Out-of-bounds literals and unary expressions without a binary operator**: `\"1000000000001\"` and `\"-1000000000001\"` (`abs(x) > 10**12`) return `1000000000001` / `-1000000000001`, whereas `\"1000000000001 + 0\"` raises `ToolRuntimeError(\"INVALID_ARGUMENT\", \"Expression result is out of bounds\")`.\n\nThrough `execute_tool_spec_call` and `run_tool_spec`, the uncaught `OverflowError` cases surface as generic runtime failures (`error=\"OverflowError: ...\"`, `data={}` / `EXEC_ERROR`) instead of `INVALID_ARGUMENT`.\n\n### Environment\n\n- `openminion` `dev` (`55c3600da1f168ecd4c78050a6671f7fc0e07232`) and `0.1.23`\n- Python `3.11.18`, Linux `x86_64` (provider-free)\n\n### Steps to reproduce\n\n```python\nfrom openminion.tools.utility.plugin import _h_calculate_expression\n\nfor expr in (\"100000 ** 64\", \"9\" * 350, \"1e400\", \"-1000000000001\"):\n    try:\n        print(expr[:20], \"->\", _h_calculate_expression({\"expression\": expr}, None))\n    except Exception as exc:\n    ",
+      "labels": [
+        "bug",
+        "area:tools",
+        "status:contributor-in-progress"
+      ],
+      "comments": 0,
+      "created_at": "2026-11-20T16:49:17Z",
+      "updated_at": "2026-11-21T05:29:50Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/819"
+    },
+    {
+      "number": 813,
+      "title": "tool: add file.mkdir and file.copy to the file family",
+      "body": "**Gap.** The file family ships `file.list_dir`, `file.read`, `file.read_range`, `file.write`, `file.find`, `file.search`, `file.edit` and `file.trash`. There is no tool that creates a directory, and none that copies a file. Workspace setup therefore needs `file.write` to a path whose parents it happens to create, or `exec.run`, and copying a file means reading it and writing the contents back through the model.\n\n**Proposal, one bounded slice.**\n\n- `file.mkdir(path, parents=false)`, creates one directory; with `parents` it creates missing parents. Returns `created: true` when it created the directory and `false` when the directory already exists. A non-directory at the path is `INVALID_ARGUMENT`, a missing parent without `parents` is `NOT_FOUND`.\n- `file.copy(source, destination, overwrite=false)`, copies one file's contents to `destination`, creating its parent directories as `file.write` already does; an existing destination without `overwrite` is `PRECONDITION_FAILED`; a directory as source or destination is `INVALID_ARGUMENT`. Returns `bytes` copied.\n\nBoth are `WRITE_SAFE`, blocked under read-only mode, resolved through the existing `resolve_path` containment (`source` as a read, `destination` as a write), and rejected by the memory backend with an explicit reason the way `file.trash` is. Both resolve through the shared path policy before the backend, so a symlinked source is followed to its target; there is no separate symlink policy here, only the existing containment. No recursive directory copy, no metadata preservation, no overwrite-by-default: those are separate decisions.\n\n**Why this shape.** `file.write` already creates parent directories, so `mkdir` exists for the case it cannot express, an empty directory or a tree with no file to write. `file.copy` is the same kind of wrapper and keeps bytes on the machine instead of round-tripping content through the model.\n\n**Validation plan.** Handler controls for create/exists/wrong-type/missing-parent, copy/refuse-existing/overwrite/directory-neighbour/parent-creation, the memory-backend rejection, and the registrar manifest listing both tools; plus the existing file and coding-mode suites, which must stay unc",
+      "labels": [
+        "enhancement",
+        "area:tools",
+        "status:awaiting-release"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-19T19:56:12Z",
+      "updated_at": "2026-11-22T12:46:47Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/813"
+    },
+    {
+      "number": 811,
+      "title": "Agent(instructions=...) longer than ~860 characters is truncated silently; later rules never reach the model",
+      "body": "### Summary\n\nText passed as `Agent(instructions=...)` is rendered into the `[IDENTITY]` block of the system prompt and capped by the context\nbudget `identity_tokens` (160 for `decide`, 180-220 for other purposes in `modules/context/schemas/budgets.py`). Anything past the\ncap is cut and replaced by `...[truncated]`. Nothing is logged to the SDK caller or returned in `AgentRunResult`, so rules placed at the\nend of the instructions (output format, \"never do X\") silently stop working.\n\n### Reproduce\n\nSelf-contained, no model needed (a 20-line local OpenAI-compatible endpoint records the request):\n\n```bash\npython findings/capture_server.py /tmp/req.jsonl &\nexport OPENMINION_HOME=$(mktemp -d) OPENAI_COMPATIBLE_API_KEY=dummy\nopenminion setup --provider custom-openai-compatible --model capture --base-url http://127.0.0.1:18099/v1 --no-chat\npython findings/f3_instructions_truncated.py /tmp/req.jsonl\n```\n\n(Files: https://github.com/swiftbotlabs/repro-scribe/tree/main/findings)\n\n### Expected\n\nAll 40 numbered rules (2,159 characters) reach the model, or the SDK warns that the instructions were shortened.\n\n### Actual\n\n```\ninstructions: 2159 chars, 40 rules; the last rule that reached the model: 16\n```\n\nThe identity block in the captured request ends with `...[truncated]` after rule 16.\n\n### Environment\n\nopenminion 0.1.23 (a55a98a), Python 3.14.4, Linux aarch64; provider-independent (seen with Gemini and with the capture endpoint).\n\n### Suggested fix\n\n1. When SDK-provided instructions exceed the identity budget, emit a warning (log + `AgentRunResult.metadata[\"instructions_truncated\"]`\n   with the kept/total characters).\n2. Document the limit next to `instructions=` in the SDK docs and examples.\n3. Optionally let `Agent(...)` raise the identity budget for caller instructions (e.g. `instructions_budget_tokens=`), since SDK\n   instructions are the caller's contract, not optional persona text.\n\nWe are happy to send a PR for (1) and (2) once you confirm the direction.\n",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:contributor-in-progress"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-19T12:40:35Z",
+      "updated_at": "2026-11-20T01:43:49Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/811"
+    },
+    {
+      "number": 809,
+      "title": "Freshness guardrail intercepts session-recall questions and refuses with a \"regulation answer\" message",
+      "body": "**Affected version:** openminion 0.1.23, Ollama provider, llama3.1:8b\n\n**Steps to reproduce**\n1. Run an agent turn that performs tool work in a session (e.g. records triage decisions via tools).\n2. In the same session, ask a recall question about that work: \"From your triage in this session: which issue ids are release blockers, and what version are the release notes for? Answer briefly.\"\n3. Observe the reply.\n\n**Expected behavior**\nThe question is about the session's own local state — not about current external facts — so it should be answered from session context without a freshness classification.\n\n**Actual behavior**\nReply: *\"I couldn't provide a grounded current regulation answer because Missing live-data evidence for a freshness-sensitive answer.. Please retry with live data available so I can answer with sources and an exact date.\"* The run metadata shows a `freshness_classify` LLM call; the question was classified freshness-sensitive and the turn refused. (The message also says \"regulation\", which has nothing to do with the task.)\n\n**Impact**\nMulti-turn agents that report back on their own work — a basic pattern for release/QA assistants — lose their second turn to a false-positive guardrail, with a confusing message.\n\n**Evidence**\nVerified run transcript from our Cortensor Hackathon #5 project (ReleasePilot), turn 2 of the end-to-end run.",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-19T10:34:19Z",
+      "updated_at": "2026-11-19T10:37:03Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/809"
+    },
+    {
+      "number": 808,
+      "title": "Echo (demo) provider silently produces \"successful\" runs that never call tools",
+      "body": "**Affected version:** openminion 0.1.23 (source checkout, Python 3.12, Linux)\n\n**Steps to reproduce**\n1. `openminion config init --provider echo`\n2. Run `examples/sdk/tool_agent.py` (or any `Agent(tools=[...], forced_tools=[...])` program) against the echo-configured default agent.\n3. Observe the run completes successfully and prints the prompt text back.\n\n**Expected behavior**\nEither the echo provider should honour `forced_tools` with a synthetic tool call (so tool plumbing can be smoke-tested offline), or `Agent.run()` / `openminion doctor` should surface a clear warning that the configured provider cannot call tools and the run exercised no tool code paths.\n\n**Actual behavior**\nThe run returns `run_state` success with the user prompt echoed as the reply (`openminion: <prompt>`). No tool is invoked — including explicitly forced tools — and nothing in the result metadata flags that zero tool calls happened. A builder following the SDK examples can believe their tool agent works when it has never executed a tool.\n\n**Impact**\nHackathon/CI smoke tests built on the documented offline provider can pass vacuously. This cost us one debugging cycle while building a Cortensor Hackathon #5 entry (ReleasePilot, a repo release assistant): our tools were only proven once we switched to a real local model (Ollama).\n\n**Evidence**\n- Run transcript from our project (echo run, both turns echo the prompt, no tool calls in metadata).\n- Echo adapter source: `src/openminion/modules/llm/providers/echo/adapter.py` always returns `tool_calls=[]`.\n\n**Suggested fix**\nIn the runtime, when a run ends with tools registered (or forced) but zero tool calls and the provider is `echo`, add a `warnings` entry to the run result metadata, e.g. `provider_echo_no_tool_calls`.",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "area:providers",
+        "status:maintainer-investigation"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-19T10:34:07Z",
+      "updated_at": "2026-11-19T10:36:57Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/808"
+    },
+    {
+      "number": 806,
+      "title": "cli: capture a clipboard image into a one-shot run",
+      "body": "**Idea.** A seamless capture trigger so a screenshot can go into a turn without a detour through a file: a global hotkey and/or reading recent image payloads from the system clipboard, across Desktop and the CLI/Focus.\n\n**What the framework already owns.** Selected images exist end to end: `openminion run --image`, Focus `/image add`, `/image mode`, `turns.images.v1`, and the artifact ingestion behind `read_selected_images` (`cli/transport/images.py`) with its bounds — at most four images, 10 MiB each, 20 MiB per request, PNG/JPEG/WebP only, decode bounded to 20 megapixels. `docs/selected-images.md` documents the contract, and the Desktop app already consumes the same runtime surface (`POST /v1/sessions/<id>/images` plus `image_refs` on the turn).\n\n**What does not exist.** The only way in is a filesystem path. A screenshot lives in the clipboard, so the user has to save it first. `cli/presentation/clipboard.py` covers only the outbound direction (`copy_to_clipboard`).\n\n**Research findings, so the scope is honest.**\n\n1. *A global hotkey cannot be implemented in the CLI.* A foreground terminal process receives no global key events; the terminal emulator or the OS owns them first. The Desktop app (`openminion/desktop`, a separate repository) is the only surface that can own an OS-level hook, and it needs no new runtime contract to do it — the image endpoint and `image_refs` already exist. The hotkey half is therefore that repository's change.\n2. *Auto-reading the clipboard on a timer is not proposed.* It would turn unrelated clipboard content into model input without an explicit act, and it would need its own permission story. The runtime deliberately keeps pasted paths non-authoritative today; a background read is a bigger promise than this feature needs.\n3. *The in-repo gap is one command: clipboard → the existing selected-image pipeline, explicitly.* That is what a user can invoke over ssh, in tmux, or in a script, where the terminal already has focus and no global hook is possible.\n\n**Proposed slice (this issue, one PR).** `openminion run --image-clipboard` reads one image from the platform clipboard tool and appends it to the selected images through the same b",
+      "labels": [
+        "enhancement",
+        "area:tools",
+        "status:contributor-in-progress",
+        "area:artifacts"
+      ],
+      "comments": 1,
+      "created_at": "2026-11-19T09:50:19Z",
+      "updated_at": "2026-11-19T10:34:03Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/806"
+    },
+    {
+      "number": 805,
+      "title": "memctl cannot run in the standard layout: it requires a memory.yaml file that nothing creates",
+      "body": "## Summary\n\nIn the standard OpenMinion layout, every memctl command that is not given an explicit database path aborts with FileNotFoundError, because memctl requires a memory.yaml config file. No part of the product ever creates that file: not setup, not the agent runtime, and memctl itself has no init command that would write one. The agent runtime works fine in the same layout because it derives the memory configuration from the base config. Only the operator CLI is unusable.\n\nFound while building a Cortensor Hackathon #5 project (an issue triage agent) on the SDK: our agent wrote and read memory records happily, but we could not inspect or delete a single record through the supported operator tooling.\n\n## Environment\n\nopenminion 0.1.21, installed from PyPI. Python 3.12.3.\n\n## Steps to reproduce\n\n1. Point HOME at a fresh directory, or use any standard project layout where no memory.yaml exists.\n2. Run any memctl command without an explicit database path, for example: memctl search \"test\"\n3. The command aborts with a traceback ending in FileNotFoundError: config file not found, naming the home path and memory.yaml.\n\nThe same failure was recorded during development for memctl forget. No model call, provider key or network access is involved.\n\n## Expected behaviour\n\nmemctl works in the layout the runtime produces. When the user has not named a config file, it derives the default memory configuration, including the sqlite store location, the same way the runtime does. When the user explicitly names a config file that does not exist, raising an error is correct and should stay.\n\n## Actual behaviour\n\nEvery memctl command without an explicit database path aborts with FileNotFoundError for a file that nothing creates.\n\n## Where it sits in the code (0.1.21)\n\nIn openminion/modules/memory/config/parser.py, load_config raises FileNotFoundError (line 60) whenever the resolved config path does not exist. There is no fallback to defaults for the case where the user never named a config file.\n\nIn openminion/modules/memory/cli.py, _get_service (line 74) routes every command without an explicit database path through load_config (line 92), so all such commands inherit the failu",
+      "labels": [
+        "bug",
+        "area:config",
+        "status:contributor-in-progress"
+      ],
+      "comments": 7,
+      "created_at": "2026-11-19T09:33:01Z",
+      "updated_at": "2026-11-20T05:09:25Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/805"
+    },
+    {
+      "number": 804,
+      "title": "Agent.run with a user message over 12,000 characters returns a canned \"restate the task\" reply as a completed run",
+      "body": "## Summary\n\nWhen the user message passed to `Agent.run()` is longer than\n`TASK_CONTEXT_MAX_CHARS = 12_000` (`modules/brain/constants.py:21`), the model\nis never asked. The turn ends with the fixed text *\"I could not safely update\nthe task conditions. Please restate the current task and its required\nconditions.\"* and `run_state=\"completed\"` and `metadata[\"respond_kind\"] ==\n\"assistant\"`. Callers cannot tell this apart from a real model answer, and\nnothing is raised.\n\nThe visible symptom is the same as #719, but the trigger is different. #719 is\nan invalid optional `task_update` from the model. Here the trigger is only the\ninput length: the verbatim objective exceeds `ResolvedTaskContext.objective`'s\n`max_length` (`modules/brain/schemas/task_context.py:35`).\n\n## Environment\n\nopenminion 0.1.23 (PyPI), Python 3.12, Windows 11, provider preset `openai`,\nmodel `gpt-4.1-mini`.\n\n## Reproduce\n\n```python\nfrom openminion import Agent\n\nfiller = \"The quick brown fox jumps over the lazy dog. \" * 400\nfor size in (11_500, 12_500):\n    msg = \"Reply with exactly the word PONG and nothing else.\\n\\n\" + filler[: size - 60]\n    with Agent(tools=[]) as agent:\n        r = agent.run(msg)\n    print(len(msg), r.run_state, r.metadata.get(\"respond_kind\"), r.text[:60])\n```\n\nOutput (the agent id prefix is from #567):\n\n```\n11492 completed assistant docdrift: PONG\n12492 completed assistant docdrift: I could not safely update the task conditions. Ple\n```\n\n## Expected\n\nAny one of these:\n- a typed error, for example an `INVALID_ARGUMENT`-style exception that names\n  the 12,000-character limit;\n- a distinct `run_state` or `respond_kind` such as `input_too_long`;\n- a fallback that keeps a truncated objective and still answers.\n\nAt minimum, the input limit should be documented next to `Agent.run`.\n\n## Impact\n\nOur translation agent sends documentation sections for translation and review.\nAny batch over 12,000 characters silently \"succeeded\" with this text. With\n`output_type=...` it then surfaced as `AgentOutputValidationError: Invalid\nJSON`, which points in the wrong direction (#803). Before we found the limit,\n10 of 36 turns in one run failed. All three failed replies we inspected were\nthis canned tex",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-19T08:17:03Z",
+      "updated_at": "2026-11-22T15:40:14Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/804"
+    },
+    {
+      "number": 803,
+      "title": "AgentOutputValidationError reports \"Invalid JSON\" when the recovered JSON object fails the schema",
+      "body": "## Summary\n\n`Agent._coerce_output` first validates the raw reply text. If that fails, it\nrecovers the first JSON object from the text and validates again. When the\nsecond validation also fails, its error is discarded and the **first** error is\nraised.\n\nReplies reach `_coerce_output` with the `\"<agent>: \"` prefix\n(`services/brain/post_execution/postprocess_response.py:276`, see #567), so the\nfirst error is always `json_invalid ... expected value at line 1 column 1`. The\nreal problem, for example a missing field in the recovered object, never\nreaches the caller.\n\n## Environment\n\n- openminion 0.1.23 (PyPI), Python 3.12, Windows 11\n- provider preset `openai`, model `gpt-4.1-mini`\n\n## Reproduce (no provider needed)\n\nWith the `_FakeRuntime` and `_ReplyModel` helpers from `tests/api/test_agent.py`:\n\n```python\ndef test_agent_reports_schema_error_of_recovered_json_object() -> None:\n    reply = 'agent: {\"sentiment\": \"neutral\"}'  # \"summary\" is missing\n    agent = Agent(output_type=_ReplyModel, runtime=_FakeRuntime(reply))\n    with pytest.raises(AgentOutputValidationError) as exc_info:\n        agent.run(\"evaluate\")\n    errors = exc_info.value.validation_error.errors()\n    assert [(e[\"type\"], e[\"loc\"]) for e in errors] == [(\"missing\", (\"summary\",))]\n```\n\n## Expected\n\n`validation_error.errors()` is `[(\"missing\", (\"summary\",))]`, and the\nexception message names the missing field.\n\n## Actual (0.1.23)\n\n`validation_error.errors()` is `[(\"json_invalid\", ())]`, and the message is\n`Invalid JSON: expected value at line 1 column 1`.\n\n## Impact\n\nWe hit this in a live run. The model returned `docdrift: {\"claims_verification\": [...]}`,\nwhich used the wrong top-level key. The exception said the JSON was invalid, so\nwe debugged JSON formatting when the real cause was a schema mismatch. We now\nre-validate the recovered object ourselves only to get a usable error message.\n\n## Suggested fix\n\nKeep the recovered object's `ValidationError` when there is one:\n\n```diff\n             try:\n                 return cast(OutputT, self.output_type.model_validate_json(text))\n             except ValidationError as exc:\n-                # Some providers wrap JSON answers in prose; recover the first\n-      ",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "status:awaiting-release"
+      ],
+      "comments": 4,
+      "created_at": "2026-11-19T08:16:48Z",
+      "updated_at": "2026-11-22T15:46:59Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/803"
+    },
+    {
+      "number": 797,
+      "title": "[0.1.23] A turn that times out during a tool call leaves the session unusable: every later run fails with 'Tool transcript invariant failed'",
+      "body": "**Environment**\n- openminion 0.1.23 (pip), Python 3.13, Windows 11\n- Provider: `openai` adapter pointed at LM Studio (`base_url: http://localhost:1234/v1`, model `qwen/qwen3-4b`, `tool_call_strategy: native`). Any provider that makes tool calls should do.\n- `runtime.chat_turn_timeout_seconds: 20` to make the timeout quick (the default 90 s hits the same path with a slower tool).\n\n**Steps to reproduce**\n```python\nimport json, time\nfrom openminion import Agent, ProviderError, tool\n\n@tool(min_scope=\"READ_ONLY\", idempotent=True)\ndef slow_lookup(item: str) -> str:\n    \"\"\"Look up an item. Takes 40 seconds.\"\"\"\n    time.sleep(40)\n    return json.dumps({\"item\": item, \"status\": \"ok\"})\n\nfor attempt in (1, 2, 3):\n    try:\n        with Agent(instructions=\"Call slow_lookup once, then answer in one line.\",\n                   tools=[slow_lookup], session_id=\"repro-1\", config_path=\"agents.json\") as agent:\n            print(attempt, agent.run(\"Look up item A-1\").text)\n    except Exception as exc:\n        print(attempt, type(exc).__name__, exc)\n```\n\n**Actual**\n```\n1 TurnTimeoutError: Turn execution timed out after 20.00 seconds.\n2 ProviderError: INVALID_ARGUMENT: The configured model provider failed before it could return a decision (Tool transcript invariant failed). Please retry or switch models.\n3 ProviderError: INVALID_ARGUMENT: ... (Tool transcript invariant failed) ...\n```\nEvery later run in that session fails the same way, including a plain `agent.run(\"hello\")` with no tools. A new `session_id` works.\n\nWhat the store shows for the session (`events` table): run 1 has `run.running` and nothing after it, no `run.failed` and no tool result. Runs 2 to 4 each end in `run.failed` with the transcript error. So the call that was in flight when the turn timed out is replayed into every later request without a result, and `validate_tool_transcript` rejects it (`incomplete_result_batch` would be my guess; the reason code is not visible, see below).\n\n**Expected**\n- After a timeout the session stays usable: the next run either drops the unfinished tool call or replays it with a synthetic result such as `{\"status\": \"cancelled\", \"reason\": \"turn timeout\"}`.\n- Run 1 gets a terminal event (`r",
+      "labels": [
+        "bug",
+        "area:sessions",
+        "status:awaiting-release"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-18T20:36:16Z",
+      "updated_at": "2026-11-21T05:30:09Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/797"
+    },
+    {
+      "number": 790,
+      "title": "tools: the prompt truncates every tool output string at a fixed 1200 chars, and agent_loop_tool_result_max_chars does not govern it",
+      "body": "The prompt-facing tool result is capped at a fixed 1200 characters, and the operator knob that looks like it controls\nthat cap does not. A large tool output reaches the model as 0.37% of itself with no way to tell how much was dropped.\n\n## Environment\n\n- Arch Linux, kernel `7.2.11-arch1-1`, x86_64\n- system Python `3.14.9`; project venv Python **3.11.16** (the interpreter everything below ran under)\n- openminion `dev` at `83e535fff814ccb0771a1ea8ca50710023b24a7e`, read-only source checkout with `PYTHONPATH=src` (no\n  install into the shared venv, per the testing doc's worktree rule)\n- no daemon, no provider calls: the measurements are direct calls into the real owners\n\n## Prerequisites (from the repo docs)\n\n`docs/testing-and-validation.md` \"Install baseline\": Python 3.11 or newer; a recent `pip` supporting PEP 660 editable\ninstalls; `python3.11 -m venv .venv && source .venv/bin/activate && make dev-install`. A worktree may reuse another\nenvironment read-only via `PYTHONPATH=src`, but must not install into it.\n\n`docs/getting-started.md` \"Fast bootstrap\": the same venv + `make dev-install` + `make hooks-install`, or\n`pipx install openminion` / `uv tool install openminion` for ordinary use.\n\n## Measured\n\nConstructed real `ActionResult`s and rendered them with the real converter\n(`modules/brain/loop/tools/messages.action_result_to_tool_message`):\n\n| input | raw | what the model sees | retained |\n|---|---|---|---|\n| 5,000-line stdout (~60 chars/line) | 359,999 chars | 1,319 chars, cut mid-line, trailing `...[truncated]` | **0.37%** |\n| 5,000-item list in `outputs` | 5,000 items | 16 items + `...[4984 more item(s)]` | 0.3% |\n| nested value at depth 9 | — | `\"[truncated]\"` at the depth limit | — |\n\nThe boundary event emitted at the same seam (`_pidf_emit_boundary_event(\"tool_output\", body, …)`) carries the\n**truncated** body, and neither the message nor the event carries the original length — `str(359999)` does not appear in\neither.\n\n## Code path, verified twice\n\n1. `modules/brain/loop/tools/messages.py`: `_truncate_tool_message_text(value, limit=TOOL_MESSAGE_STRING_LIMIT)` with\n   `TOOL_MESSAGE_STRING_LIMIT = 1200` (`modules/brain/constants.py:80`), plus\n   `TOOL_MESSA",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:awaiting-release"
+      ],
+      "comments": 9,
+      "created_at": "2026-11-17T19:09:45Z",
+      "updated_at": "2026-11-21T05:33:01Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/790"
+    },
+    {
+      "number": 784,
+      "title": "freshness: a verb-plus-tool-noun message skips classification and proceeds with the neutral contract",
+      "body": "The freshness classifier is skipped whenever a message opens with a verb plus a tool-shaped noun, and the skip leaves the\nturn with the neutral freshness contract — so a genuinely time-sensitive request can bypass freshness checking entirely.\n\n## Mechanism\n\n`modules/brain/bootstrap/freshness_classify.py`:\n\n- `_DIRECT_TOOL_VERB_RE` (`:36-39`) matches `^(please )?(use|run|call|invoke) (the )?<token>`.\n- `_direct_tool_request_name` (`:42-52`) returns that token normalised to a tool name, or the `tool <name>` form.\n- On a match, classification is skipped (`classifier_mode = \"skipped_direct_tool_request\"`) and the contract becomes\n  `FreshnessContract(intent=<tool>)` — no model call at all.\n\n## Measured behaviour (dev `84b2b27e`, real matcher)\n\n| message | returns | classifier |\n|---|---|---|\n| `use the time tool to get now` | `time` | skipped (intended) |\n| `tool time now` | `time` | skipped (intended) |\n| `run time estimates for the crawl` | **`time`** | **skipped (false positive)** |\n| `call time on this project` | **`time`** | **skipped (false positive)** |\n| `invoke search to find the docs` | `None` | runs ('search' is not a registered tool name) |\n| `what time is it right now` | `None` | runs |\n| `use the wall clock please` | `None` | runs |\n| `please don't use the time tool` | `None` | runs (anchored at start) |\n\nConsequence of the skip: `map_freshness_obligations(FreshnessContract(intent=\"time\"))` yields\n`require_live_data=False, require_sources=False, require_exact_date=False, require_explicit_failure_wording=False,\nanswer_mode=local_only` — byte-identical to the neutral empty contract. So the false-positive cases do not merely skip a\nclassification, they proceed with **no freshness obligation at all** while the request plausibly needs live data.\n\n## Bounded fix\n\nAccept the skip only for the explicit, unambiguous `tool <name>` form, and only when `<name>` is an exactly registered\nvisible tool. For the verb form, either drop it or require the matched token to be an exact registered tool name **and**\nnot a common noun that also appears in ordinary prose — which is hard to do by regex, so dropping it is the honest\noption; classification is one call and this is ",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:awaiting-release"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-17T10:12:32Z",
+      "updated_at": "2026-11-18T15:22:59Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/784"
+    },
+    {
+      "number": 783,
+      "title": "brain: the per-loop read cache keeps serving stale results after writes it does not recognise (grep results, exec writes, alias argument names)",
+      "body": "The per-loop read cache can keep serving results after the underlying file changed, because invalidation only recognises a\nnarrow write shape. Measured on dev `84b2b27e` against the real `LoopCache`.\n\n## Mechanism\n\n`modules/brain/loop/tools/cache.py`: a per-loop cache for read tools\n(`file.read`, `file.read_range`, `code.grep`, `file.list_dir`, `file.find`, `file_read`) keyed by\n`sha256({\"tool\": name, \"args\": args})` with `sort_keys=True` and `default=str`. Only successful, non-job results are\nstored. `invalidate_for_write` removes entries whose recorded paths intersect the write's paths, and only for\n`_WRITE_TOOLS` (`file.write`, `code.patch`, `file.edit`, `file.trash`, `file_write`), where paths are taken from the keys\n`path`, `file`, `directory`, `target`.\n\n## Measured gaps\n\nUnit probe against the real class, one loop instance:\n\n| sequence | result |\n|---|---|\n| `file.read a.py` → `file.write {\"path\": \"a.py\"}` | cache entry removed (positive control) |\n| `code.grep {\"pattern\": \"needle\"}` → `file.write {\"path\": \"a.py\"}` | **grep result still served** |\n| `file.read c.py` → `exec.run {\"cmd\": \"echo x > c.py\"}` | **read still served** |\n| `file.read d.py` → `file.write {\"filename\": \"d.py\"}` | **read still served** |\n\nThree distinct causes: a read tool whose args carry no path (grep, find) records an empty path set and can never be\ninvalidated; a write tool outside `_WRITE_TOOLS` (shell/exec, MCP tools, artifact writers) never triggers invalidation\nat all; and a write whose path argument uses another name records nothing.\n\n## Why it matters\n\nWithin one adaptive loop the model sees cached tool output as trusted state. A stale read means it can reason about, and\nact on, file content that no longer exists — and the loop has no TTL, no mtime or size check, and no way for the caller\nto know a hit is old. The cache is per-loop and the loop executes its batches on one thread (no `ThreadPool` in the tools\nengine), so there is no concurrent-writer race today; the correctness risk is invalidation coverage, not locking.\n\n## Bounded fix options\n\n1. **Generation counter (recommended).** Any write-capable tool bumps a generation; cached read results carry the\n   generation they",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:awaiting-release"
+      ],
+      "comments": 3,
+      "created_at": "2026-11-17T10:12:29Z",
+      "updated_at": "2026-11-22T12:46:44Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/783"
+    },
+    {
+      "number": 780,
+      "title": "plugins: enabled external plugins never activate on the one-shot CLI run path (hooks silently skipped, no error)",
+      "body": "External plugins are never activated on the one-shot CLI run path. The config and the discovery root are honoured\neverywhere else, so a plugin that is enabled, discovered and correct simply never runs — with no error.\n\n## Measured on dev `829b0da7`\n\nFixture: `plugins/demo.py` with a `Plugin` subclass whose `on_message` writes a marker file and whose `on_response`\nreturns `dataclasses.replace(response, text=response.text + \" [outbound-hook-ran]\")`; manifest\n`plugins/demo.manifest.json` with `id: demo`, an object `config_schema` and a nested `provenance` block.\n`OPENMINION_PLUGIN_PATHS` points at that directory; the config sets `enabled_plugins: [\"validate\", \"demo\"]`, which\n`openminion config show` confirms as effective.\n\n| path | result |\n|---|---|\n| `build_default_plugin_registry(cfg)` then `apply_inbound` / `apply_outbound` | hook ran: `text=\"base [outbound-hook-ran]\"`, marker file written |\n| `openminion --config <that config> run hello --runtime-source inproc` | `rc=0`, answer `openminion: hello`, **no marker**, no stderr |\n| same, `enabled_plugins: [\"validate\"]` | `rc=0`, no marker (expected) |\n| `enabled_plugins: [\"validate\", \"ghost\"]` | `rc=2`, `Enabled plugin was not found: ghost. Checked built-ins and discovery roots.` |\n\n## Owner\n\n- Hooks are applied at the service boundary: `services/agent/execution/flow.py:39` (`apply_inbound`) and\n  `services/agent/execution/response.py:93` (`apply_outbound`) iterate `service._plugins`.\n- `_plugins` is injected in `services/agent/service.py:253-265` and defaults to an empty `PluginRegistry()`; the\n  in-process brain factory constructs exactly that (`services/brain/factory/adapter.py:130-135`).\n- The only activation path is the extension-runtime builder:\n  `services/runtime/lifecycle.py:151-160` → `build_default_plugin_registry_with_activation_guard(...)`, which is what\n  resolves `enabled_plugins` against built-ins plus `discover_plugin_manifests(resolve_services_plugin_paths(None))`.\n\nSo the two paths disagree: the builder activates what the config names, and the in-process run path wires an empty\nregistry past it. The failure is silent — the turn succeeds and the plugin's transformation is simply absent, which is\ni",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:contributor-in-progress"
+      ],
+      "comments": 10,
+      "created_at": "2026-11-16T18:39:35Z",
+      "updated_at": "2026-11-18T13:53:16Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/780"
+    },
+    {
+      "number": 779,
+      "title": "self_improvement: max_applied_notes and min_token_overlap are accepted, persisted and never enforced",
+      "body": "Two settings in `runtime.self_improvement` are accepted, parsed, persisted and documented, but no runtime consumer\nreads them. An operator who sets them gets no effect, silently.\n\n## What is actually enforced\n\n- `max_applied_notes: int = 3` (`base/config/runtime/__init__.py:157`), parsed at\n  `base/config/parser/storage.py:78-80` and re-emitted at `:109`. `grep -rn max_applied_notes src/` finds only those\n  two files plus the dataclass — nothing consumes it.\n- The effective cap comes from a different owner: `CONTEXT_IMPROVEMENT_NOTE_LIMIT = 6`\n  (`modules/context/config.py:11`), applied at `modules/context/retrieval/bundle.py:292-294` when the pack is ranked\n  for a `decide` purpose. So the real limit is 6 while the config advertises 3.\n- `min_token_overlap: int = 1` (`:158`), parsed at `parser/storage.py:81-83`, serialized at `:110` — and absent\n  everywhere else. Note selection is structural only: tool/error tag intersection in\n  `modules/context/retrieval/ranking.py:56-91` (`_improvement_note_match_score`), with no token comparison at all.\n\nNotes reach a request only through `_improvement_note_overlay` (`modules/brain/runtime/context.py:382-450`) and are\nsurfaced for the `decide` pack only (`bundle.py:287`), so the scope here is that path — not every call.\n\n## Why it matters\n\nThis is the one self-improvement path that is on by default (`enabled=True`, `application_mode=\"automatic\"`,\n`auto_capture_tool_failures=True`) and it changes the prompt without review. A knob that looks like the operator's\ncontrol over how much of that guidance is injected does nothing, so the documented contract and the observed\nbehaviour disagree — and the mismatch is invisible unless you read the source.\n\n## Two bounded fixes, one decision\n\n1. **Honour it**: apply `min(self_improvement.max_applied_notes, CONTEXT_IMPROVEMENT_NOTE_LIMIT)` at the ranking\n   slice, so the operator's tighter cap wins. Control: with 4 matching notes and `max_applied_notes: 1`, the pack\n   carries exactly 1; with the default 3, exactly 3; with 0 or a missing value, the existing 6 still applies.\n2. **Or remove it**: drop `max_applied_notes` and `min_token_overlap` from the dataclass, the parser and the\n   se",
+      "labels": [
+        "bug",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "comments": 9,
+      "created_at": "2026-11-16T17:37:36Z",
+      "updated_at": "2026-11-18T03:20:40Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/779"
+    },
+    {
+      "number": 778,
+      "title": "brain: completion still rests on confidence — unverified closes pass, and two of three closure gates stop blocking at budget exhaustion",
+      "body": "Probe: make reflection goal-aware in the core runtime, tighten its triggers, and make completion depend on\nverification rather than model confidence. Measured against dev `e0aa4b8d`; the table is deterministic and comes\nfrom calling the closure owners directly, not from a language model's judgement.\n\n## What already exists\n\n- The judge receives the goal (`ClosureGateContext.closure_goal`) and returns `satisfied`, `next_action`\n  (`close|continue|replan`), optional `final_answer`, plus `verification` / `review` / `plan_reconciliation` facts\n  (`modules/brain/schemas/closure.py:53-65`).\n- Structural guards (`modules/brain/execution/runtime/closure/evaluator.py:449-487`) force `continue` when the\n  judgment is self-contradictory: unsatisfied-but-close, a `finalization_status` conflict, or\n  `mutation_claimed` without successful mutation tool evidence. The last one is the precedent for this proposal.\n- Three runtime probes, all evidence-conditional (`evaluator.py:521-555`): plan reconciliation from `active_plan`,\n  verification from `tool_results`, review from `tool_results`.\n\n## Measured closure behaviour\n\nInput in every row: `satisfied=True`, `next_action=close`, `final_answer=\"Done. All tests pass.\"`\n\n| verification state | budget | satisfied | next_action | final answer kept |\n|---|---|---|---|---|\n| none ran (default `VerificationFact()`) | remains | **True** | **close** | **yes** |\n| `signal=\"unavailable\", ok=True` | remains | True | close | yes |\n| `signal=\"tests\", ok=True, exit 0` | remains | True | close | yes |\n| `signal=\"tests\", ok=False, exit 1` | remains | False | continue | no |\n| `signal=\"tests\", ok=False, exit 1` | **exhausted** | **True** | **close** | **yes** |\n\n## Findings\n\n**1. \"Verification never ran\" is indistinguishable from \"verification passed\".** `VerificationFact` defaults to\n`signal=\"unavailable\", ok=True`, and `is_verification_failed` returns `False` for that pair\n(`runtime/verification/probe.py:107-112`). So a close backed only by the model's confidence passes the guard\nuntouched, and the recorded fact carries no signal that nothing was verified. Any turn that never invoked a\nverification tool therefore completes on confidence alone — w",
+      "labels": [
+        "bug",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-16T16:55:25Z",
+      "updated_at": "2026-11-20T13:07:45Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/778"
+    },
+    {
+      "number": 777,
+      "title": "llm: measured redundant calls per turn (reflect on no-work turns, duplicate freshness classify, judge on plain answers)",
+      "body": "Probe target: reduce redundant LLM calls across the turn loop without weakening quality or recovery. Everything\nbelow is measured with a scripted OpenAI-compatible provider against dev `e0aa4b8d` (single-process runtime,\n`llm_call_counts_by_purpose` read from turn metadata), not estimated.\n\n## Measured per-turn budgets\n\nFour prompts, one turn each, fresh stub state per run:\n\n| prompt | LLM calls | by purpose | payload chars sent | wall ms |\n|---|---|---|---|---|\n| `what is 2+2` | **2** | entry 1, reflect 1 | 50,278 | 188 |\n| `what time is it right now` (plain-text answer, no carrier) | **6** | entry 1, act 1, freshness_classify 2 (attempt + schema-repair retry), judge 1, reflect 1 | 183,039 | 489 |\n| `use the time tool once` | 3 | entry 1, act 1, reflect 1 | 77,517 | 273 |\n| `use the time tool twice` | 2 (harness limit, see below) | entry 1, reflect 1 | 51,485 | 208 |\n\nThe token counters printed by the stub are synthetic by construction and are not used here; payload characters are\nthe real, measured request sizes.\n\n## Findings, in value order\n\n**1. Success-memory reflection runs on turns that did no work.** A two-word answer costs two LLM calls: the entry\ncall and a `reflect` call. The gate is `_validate_success_preconditions`\n(`modules/brain/execution/runtime/memory/reflection.py:165-235`); it requires a successful `action_result`, and the\nanswer carrier (`respond`) itself produces `ActionResult(status=\"success\")`, so a pure-answer turn qualifies. The\nreflection then spends a full call extracting \"successful procedure\" memories from a turn that executed nothing\nreusable. Bounded fix: require at least one *executed tool* action (or a recovery/compaction event) before\nextraction, as a new precondition with its own config field, defaulting on. Saving: 1 call and ~25k payload chars on\nevery trivial turn — half the calls of a simple turn.\n\n**2. Corrected: the duplicate `freshness_classify` is the designed schema-repair retry, not redundancy.** My stub\nreturned a payload that does not conform to the classifier's schema, and `call_structured_with_retry`\n(`modules/brain/retry.py:572`) walks a schema sequence and retries once — that is exactly `validation_retry_max`.\nS",
+      "labels": [
+        "enhancement",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-16T16:48:54Z",
+      "updated_at": "2026-11-20T13:07:42Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/777"
+    },
+    {
+      "number": 774,
+      "title": "[0.1.22] Handoff cannot bound or approve the delegated target run: build_delegate_tool calls target.run(message) with no timeout or approval_callback",
+      "body": "**Environment**\n- Found on openminion 0.1.21 (PyPI), Python 3.12, Windows 11; still present on 0.1.22 and current `dev` (`e0aa4b8d`).\n- Provider-independent: this is in the SDK handoff tool, before any provider call.\n\n**Steps to reproduce**\n\n```python\nfrom openminion import Agent, Handoff, tool\n\n\n@tool(dangerous=True, min_scope=\"WRITE_SAFE\")\ndef publish(text: str) -> str:\n    return f\"published: {text}\"\n\n\npublisher = Agent(name=\"publisher\", instructions=\"Publish the given text.\", tools=[publish])\ncoordinator = Agent(\n    instructions=\"Hand publishing to the publisher.\",\n    handoffs=[Handoff(target=publisher)],\n)\n\nresult = coordinator.run(\n    \"Publish 'hello'.\",\n    timeout_seconds=180,\n    approval_callback=lambda tool_name, args, approval_id: True,\n)\nprint(result.text)\n```\n\n`Handoff` has only `target`, `name` and `description`, and the compiled `transfer_to_<name>` tool always calls the target with no run options:\n\nhttps://github.com/openminion/openminion/blob/e0aa4b8d552fc8172fb84f1d9579538607a8fdbe/src/openminion/api/handoff.py#L140-L169\n\n**Actual**\n\n1. The delegated `publisher.run(message)` always uses `Agent.run` defaults: `timeout_seconds=None`, so the runtime default ingress timeout (`runtime.chat_turn_timeout_seconds`, 90 s by default) applies regardless of what the caller needs for the delegated turn, and `approval_callback=None`.\n2. With no approval callback, the target's dangerous tool pauses for confirmation; the pause text comes back as the `transfer_to_publisher` tool content, and the coordinator relays or paraphrases it. The developer has no supported way to approve, deny or bound the delegated run from the `Handoff` declaration.\n3. In our app we had to pre-create a `PolicyGrantInput(max_uses=1)` on the target runtime as a workaround to let one delegated publication through.\n\n**Expected**\n\nThe developer who declares a `Handoff` can bound and approve the delegated target run explicitly, e.g. `Handoff(target=publisher, timeout_seconds=120, approval_callback=decide)`, with today's behavior unchanged when those are not set.\n\n**Suggested fix**\n\nAdd two optional fields to `Handoff`, `timeout_seconds: float | None = None` and `approval_callback: ... | ",
+      "labels": [
+        "enhancement",
+        "area:sdk",
+        "status:contributor-in-progress"
+      ],
+      "comments": 4,
+      "created_at": "2026-11-16T13:40:45Z",
+      "updated_at": "2026-11-16T16:51:45Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/774"
+    },
+    {
+      "number": 773,
+      "title": "[0.1.22] TurnResponse.telemetry reports 0 tokens when usage_*_tokens metadata keys are absent (no in-tree producer)",
+      "body": "**Environment**\n- Found on openminion 0.1.21 (PyPI), Python 3.12, Windows 11; still present on 0.1.22 and current `dev` (`e0aa4b8d`).\n- Any provider. The turn completes normally; only the telemetry block is wrong.\n\n**Steps to reproduce**\n\nLive, with any configured provider:\n\n```python\nfrom openminion.api.runtime import APIRuntime\n\nruntime = APIRuntime.from_config(...)  # any configured provider/model\nhandle = runtime.submit_turn(\n    payload={\"session_id\": \"repro\", \"message\": \"Reply with OK.\", \"stream\": True}\n)\nresp = handle.result()\nprint(resp.stats)\nprint(resp.telemetry)\n```\n\nProvider-free, against the response builder itself:\n\n```python\nfrom types import SimpleNamespace\n\nfrom openminion.modules.telemetry.usage.types import RunStats\nfrom openminion.services.runtime.daemon import _turn_success_response\n\nresp = _turn_success_response(\n    turn_result=SimpleNamespace(\n        body=\"OK\",\n        metadata={},\n        stats=RunStats(input_tokens=11841, output_tokens=430, llm_calls=1),\n    ),\n    request=SimpleNamespace(session_id=\"s\", trace_id=\"t\"),\n    duration_ms=6281,\n)\nprint(resp.stats[\"input_tokens\"], resp.stats[\"output_tokens\"])  # 11841 430\nprint(resp.telemetry)  # TurnTelemetry(tokens_in=0, tokens_out=0, duration_ms=6281, ...)\n```\n\n**Actual**\n\nMeasured live on 0.1.21 with `APIRuntime.submit_turn()` (12 `TurnChunk`s streamed):\n\n- `TurnResponse.stats`: `input_tokens=11841`, `output_tokens=430`\n- `TurnResponse.telemetry`: `TurnTelemetry(tokens_in=0, tokens_out=0, duration_ms=6281, retries=0, queue_wait_ms=0)`\n\n`_turn_success_response()` builds `stats` from `turn_result.stats` (`RunStats`), but builds `telemetry` from two metadata keys:\n\nhttps://github.com/openminion/openminion/blob/e0aa4b8d552fc8172fb84f1d9579538607a8fdbe/src/openminion/services/runtime/daemon.py#L543-L552\n\nNo code in `src/` writes `usage_prompt_tokens` or `usage_completion_tokens` into turn metadata; the only other reference is the reader in `src/openminion/cli/status/token_usage.py`. So `telemetry.tokens_in` / `tokens_out` are always 0 on a successful turn, and a caller that trusts `TurnTelemetry` (the typed telemetry field on the public `TurnResponse`) sees a turn that cost nothing.\n\n**Expec",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:contributor-in-progress"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-16T13:40:43Z",
+      "updated_at": "2026-11-16T15:28:14Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/773"
+    },
+    {
+      "number": 770,
+      "title": "[0.1.22] Agent.run(timeout_seconds=...) cannot extend the 300 s brain turn budget, and the budget stop is returned as a normal reply",
+      "body": "**Environment**\n- openminion 0.1.22, Python 3.12, Windows 10\n- Provider: Groq free tier (`openai/gpt-oss-20b`). Its low TPM makes each LLM call wait on rate limits, so a 3-tool turn takes several minutes.\n\n**Steps to reproduce**\n```python\nfrom openminion import Agent\n\nwith Agent(instructions=\"...\", tools=[fetch_page, save_checklist, submit_brief]) as agent:\n    result = agent.run(\"Scout this page: https://...\", timeout_seconds=600)\n    print(result.text)\n```\nUse any provider or tool combination where the turn needs more than 300 s of wall time.\n\n**Actual**\n1. The turn stops at 300 s, even though `timeout_seconds=600` was passed.\n2. Instead of raising, `run()` returns normally with `result.text == \"openminion: Stopped: turn time limit reached (300s/300s). Continue in a new turn to resume, or narrow the scope.\"`\n3. With `output_type=SomeModel`, this surfaces as a misleading `AgentOutputValidationError` (invalid JSON) rather than a timeout.\n\nThe 300 s comes from `runtime.brain_turn_timeout_seconds` (default 300). Only setting `OPENMINION_TURN_TIMEOUT_SECONDS=900` in the environment lifts it. With that set, `timeout_seconds=900` behaves as expected and raises `TurnTimeoutError` when exceeded.\n\n**Expected**\n- `Agent.run(timeout_seconds=N)` raises the effective brain turn budget for that run, or the docs state that the runtime budget is a separate cap.\n- A budget stop is reported the same way as the ingress timeout (`TurnTimeoutError`, or a distinct `run_state`), not as assistant text, so callers can tell \"the model answered\" from \"the runtime stopped\".\n\n**Suggested fix**\n- Thread the per-run `timeout_seconds` into the brain turn budget, for example `min(max(run_timeout, configured_budget), hard_cap)`.\n- When `tick/context.py` builds the \"Stopped: turn time limit reached\" outcome, surface it to `Agent.run` as a typed error (or `run_state=\"budget_exhausted\"`) instead of a plain body.\n\nFound while building an OpenMinion agent for Cortensor Hackathon #5: https://github.com/emilpz320-a11y/hackathon-scout (see FEEDBACK.md, finding 6).",
+      "labels": [
+        "bug",
+        "area:sdk",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-15T23:00:39Z",
+      "updated_at": "2026-11-17T00:32:59Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/770"
+    },
+    {
+      "number": 769,
+      "title": "[0.1.22] Runtime bootstrap fails on Windows (WinError 206) because browser-playwright artifact dirs are created under the CWD even when no browser tool is used",
+      "body": "**Environment**\n- openminion 0.1.22 (`pip install openminion`), Python 3.12, Windows 10 (default MAX_PATH, long paths not enabled)\n- `OPENMINION_HOME` set to a short directory; the process CWD is a deep project directory (~190 chars)\n- Agent uses only three custom `@tool` functions. `allowed_tools` does not include any browser tool.\n\n**Steps to reproduce**\n1. `cd` into a directory whose absolute path is about 190+ characters long.\n2. `set OPENMINION_HOME=C:\\short\\om`\n3. `openminion setup --provider gemini --model <model> --no-chat`\n\n**Actual**\n```\n[FAIL] runtime.bootstrap: Runtime bootstrap failed: [WinError 206] The filename or extension is too long:\n'C:\\\\...\\\\<deep cwd>\\\\.openminion\\\\browser-playwright\\\\artifacts\\\\screenshots'\nSetup validation failed. Fix the reported issues and rerun `openminion setup`.\n```\n`Agent(...).run()` fails the same way when started from that CWD. It only works after moving the process to a short CWD, even though `OPENMINION_HOME` already points to a short path.\n\n**Why**\n- In `tools/browser/providers/playwright/config.py`, when `browser.playwright.artifacts.root_dir` is not configured, the artifacts root falls back to `workspace_root / \".openminion/browser-playwright/artifacts\"`.\n- The workspace root defaults to the CWD, so `DEFAULT_PLAYWRIGHT_ARTIFACTS_ROOT_DIR = \"${data_root}/browser-playwright/artifacts\"` is effectively unused by default.\n- The screenshots, pdf and traces directories are then created eagerly at bootstrap.\n- Any OS error there fails `runtime.bootstrap` for the whole runtime, even for agents that never use the browser.\n- This is a sibling of #342 (artifact index under the CWD): a different component, with the same CWD fallback.\n\n**Expected**\n- No browser artifact directories are created until a browser tool actually runs, or they are created lazily.\n- A failure to create optional tool directories degrades that tool instead of failing the runtime bootstrap.\n- `doctor` names the cause, for example \"path too long; enable Windows long paths or set browser.playwright.artifacts.root_dir\".\n\n**Suggested fix**\n- Create the playwright artifact directories lazily on first browser use.\n- Wrap their creation so an `OSError` disab",
+      "labels": [
+        "bug",
+        "area:tools",
+        "platform:windows",
+        "status:awaiting-release"
+      ],
+      "comments": 2,
+      "created_at": "2026-11-15T23:00:00Z",
+      "updated_at": "2026-11-17T09:39:10Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/769"
+    },
+    {
+      "number": 767,
+      "title": "cli: add `config diff` so an import can be previewed before it overwrites the config",
+      "body": "`config import --force` replaces the stored config with nothing to inspect first. The only way to see what\na candidate file will do is to import it and compare afterwards, and doing that by hand is exactly when\ncredentials leak into a diff.\n\n## Proposal\n\n`openminion config diff <file>`: build the config that `config import <file>` would produce and print the\nleaf-level differences, without writing anything.\n\n- merge by default (what `config import` does), `--replace` to mirror `config import --force`\n- output: per-leaf `added` / `removed` / `changed` paths with before/after values, or `--json`\n- exit `0` when the stored config would be unchanged, `1` when it would differ, `2` through the existing\n  typed-error boundary for an unreadable candidate\n- secret leaves excluded from the comparison and from output, using the same sanitizer `config export`\n  already applies\n- no write in any case\n\n## Reuse, not new surface\n\nActive side loads through the same `load_cli_config` that `config show` uses; the candidate goes through the\nexisting `load_config_import` (so the diff is the import's own merge semantics, not a re-implementation);\nsecrets are stripped with the existing `_strip_secrets_in_place`. One new subparser, one leaf-walk helper.\nNo new config keys, no daemon call, no new state, no change to `config import` behaviour, and no new\nprovider or storage surface.\n\n## Controls\n\n1. identical candidate -> \"No changes\", exit 0\n2. one changed leaf -> reported with both values, exit 1\n3. `--json` payload: `active`, `candidate`, `mode`, `secrets_excluded`, `changed`, `changes`\n4. `--replace` reports removals that merge mode keeps\n5. a changed secret value never appears in text or JSON output\n6. missing candidate file -> typed error, no write\n7. empty argument -> typed error, no write\n\n## Evidence\n\nOn dev `c54cea30`, `openminion config diff cand.yaml` is `invalid choice: 'diff'` (rc 2). With the change:\n\n```\n$ openminion config diff cand.yaml        # cand.yaml sets runtime.log_level: WARNING\n1 change(s) if …/cand.yaml is imported into …/agents.json (merge):\n  ~ runtime.log_level: 'INFO' -> 'WARNING'\nStored values only: secret values are excluded from this diff, and provider",
+      "labels": [
+        "enhancement",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "comments": 4,
+      "created_at": "2026-11-15T21:14:49Z",
+      "updated_at": "2026-11-22T12:46:43Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/767"
+    },
+    {
+      "number": 766,
+      "title": "storage: empty storage.path (\"\") in agents.json resolves to data_root directory and fails with sqlite3.OperationalError",
+      "body": "### Environment\n\n- `openminion` version: `0.1.22` (also reproduced on `dev` / `main`)\n- Python: `3.12.3`\n- OS: Linux (`x86_64`)\n\n### Summary\n\nIn `agents.json`, optional path fields across `OpenMinionConfig` (`runtime.memory_root_path`, `runtime.telemetry_db_path`, `runtime.session_archive_root_path`, `identity.root`, `identity.db_path`, `runtime.daemon_log_file`) use `\"\"` (empty string) to fall back to their default location under `OPENMINION_DATA_ROOT`.\n\nBecause `openminion setup` writes an absolute host-specific path into `storage.path` (for example `/tmp/.../.openminion/state/openminion.db` or `/Users/.../.openminion/state/openminion.db`), clearing `\"storage\": {\"path\": \"\"}` to share a portable project `agents.json` causes `APIRuntime.from_config_path()` to crash during storage bootstrap with `sqlite3.OperationalError: unable to open database file`.\n\n### Steps to Reproduce\n\n```python\nimport tempfile\nfrom pathlib import Path\nfrom openminion.modules.storage.runtime.context import build_runtime_storage\nfrom openminion.modules.storage.runtime.sqlite import resolve_database_path\n\nwith tempfile.TemporaryDirectory() as tmp:\n    data_root = Path(tmp) / \".openminion\"\n    env = {\"OPENMINION_HOME\": tmp, \"OPENMINION_DATA_ROOT\": str(data_root)}\n\n    resolved = resolve_database_path(\"\", env=env)\n    print(\"resolved:\", resolved)\n    # Actual:   PosixPath('<tmp>/.openminion')\n    # Expected: PosixPath('<tmp>/.openminion/state/openminion.db')\n\n    build_runtime_storage(\"\", env=env)\n```\n\n### Expected Behavior\n\n`resolve_database_path(\"\")` (and whitespace-only values) should fall back to `resolved_data_root / DEFAULT_DATABASE_PATH` (`<data_root>/state/openminion.db`), matching `resolve_database_path(None)` and other empty-string path defaults in `OpenMinionConfig`.\n\n### Actual Behavior\n\nIn `src/openminion/modules/storage/runtime/sqlite.py`, `resolve_database_path` checks `if database_path is None:`. For `\"\"`, `Path(\"\").expanduser()` evaluates to `Path(\".\")`, so `resolved_data_root / candidate` resolves to the `resolved_data_root` directory itself, and `RecordStoreSQLite` fails when opening that directory as a SQLite file:\n\n```text\nFile \".../openminion/modules/storage/record_store",
+      "labels": [
+        "bug",
+        "area:config",
+        "status:awaiting-release"
+      ],
+      "comments": 3,
+      "created_at": "2026-11-15T20:27:05Z",
+      "updated_at": "2026-11-16T02:27:26Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/766"
+    },
+    {
+      "number": 759,
+      "title": "llm: add a provider cooldown registry and honour Retry-After instead of a constant retry backoff",
+      "body": "## Summary\n\nNothing in the runtime remembers that a provider just rate-limited us. The retry loop retries with a\nconstant backoff, ignores the `Retry-After` the provider sent, and every later turn starts by calling\nthe same provider again. There is no provider cooldown or breaker anywhere in the tree: a per-minute\nquota therefore costs a full attempt (and often the turn) on every turn until the window happens to\nreset.\n\nThis is a feature request for the general mechanism, not a re-report of the symptoms already tracked in\n#717 (retry ignores `Retry-After`) and #676 (a lease busy error discards `retry_after`).\n\n## Why (current behaviour, dev `68afcecc`)\n\n- Retry schedule is constant: `RetryConfig(max_retries=2, backoff_ms=300)`\n  (`modules/llm/config.py:36-40`); the loop sleeps `backoff_ms * 2**attempt` with no other input\n  (`modules/llm/runtime/flow.py:582-690`).\n- The provider's own pacing is captured and then dropped: `Retry-After` is read into a diagnostic fact\n  (`modules/llm/providers/transport/http.py:51`, `sse.py:200` -> `error_facts.py:47-49`) and is never\n  consulted by the retry decision or the sleep.\n- `RATE_LIMITED`, `TIMEOUT` and `PROVIDER_ERROR` are plain retryable codes (`flow.py:39`), so a 60 s\n  quota window burns both retries in ~0.9 s and returns an error for the turn.\n- Routing only tries a fallback after the primary has already failed\n  (`_execute_with_routing`, `flow.py:545-577`); a provider that is known to be cooling is still attempted\n  first.\n- `runtime_binding_selection_strategy` already accepts `health_first`\n  (`base/config/tool_selection/normalization.py:28-34`) and is carried through policy payloads\n  (`modules/tool/runtime/policy_binding.py:86,149`), but there is no provider-health signal to feed it.\n- `grep -rni 'cooldown|circuit|breaker'` over `src/` returns only skill-suggestion and cron-delivery\n  cooldowns — no provider-side state.\n\n## Proposed behaviour\n\n1. A process-local **provider health registry** keyed by `(provider, model)`: on `RATE_LIMITED`,\n   `TIMEOUT` or `PROVIDER_ERROR` it records a cooldown of\n   `max(retry_after_s, backoff_ms * 2**(streak-1))` clamped to a ceiling; a success clears it.\n2. **Before the first at",
+      "labels": [
+        "enhancement",
+        "area:providers",
+        "status:maintainer-investigation"
+      ],
+      "comments": 22,
+      "created_at": "2026-11-15T11:52:56Z",
+      "updated_at": "2026-11-20T13:36:20Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/759"
+    },
+    {
+      "number": 757,
+      "title": "turn-input: an accepted `steer_current` is never applied or retired when its turn ends, and 20 of them wedge the session queue (QUEUE_FULL)",
+      "body": "## Summary\n\n`POST /v1/sessions/<id>/turn-inputs` with `intent=steer_current` against a **live** turn returns\n`202` with an entry marked `status=queued` and the live `target_trace_id`. If the turn finishes\nbefore the next steering hook, that entry is never applied, never marked deferred, never consumed by\na later turn and never expired — it stays `queued` with no automatic retirement. Because queued entries count against\n`max_pending_per_session` (20), repeating it makes the session refuse **all** turn inputs with\n`429 QUEUE_FULL` until each entry is dropped explicitly (`DELETE /v1/sessions/<session>/turn-inputs/<queue_id>` with its current `status_version`) or the daemon restarts.\n\n## Cause\n\n- The only consumer of a targeted steer is `apply_turn_steering`\n  (`modules/brain/loop/services.py:12-70` -> `queue.reserve_steering`, which matches an exact\n  `target_trace_id`), and it is called only at loop iteration boundaries:\n  `modules/brain/loop/tools/budget_control.py:597`, `:898`;\n  `modules/brain/loop/tools/postprocess/engine.py:242`, `:544`;\n  `modules/brain/loop/tools/budget_finalization.py:180`;\n  `modules/brain/loop/tools/duplicate_batch.py:523`. A turn whose last provider reply ends it never\n  reaches another boundary, so nothing reserves the entry.\n- Nothing retires it afterwards: the next-turn picker accepts only\n  `intent == TurnInputIntent.QUEUE_NEXT` (`services/runtime/turn_input/queue.py:335`), and the queue\n  has no automatic retirement or expiry path (the only staleness check is `status_version` at `:567`); an explicit `DELETE /v1/sessions/<session>/turn-inputs/<queue_id>` does drop it and free capacity.\n- Capacity counts it: `_QUEUE_ACTIVE_STATUSES = {QUEUED, RESERVED, RUNNING}`\n  (`services/runtime/turn_input/queue.py:53-57`) is what `_raise_if_full_locked` (`:490-505`) sums\n  against `max_pending_per_session = 20` (`:136`).\n- The queue is in-memory, so the state is lost on `daemon stop`/`start` — the lost instruction and\n  the wedge both disappear on restart.\n\n## Reproduction\n\nDaemon route, provider stubbed so a turn lasts long enough to steer into (any OpenAI-compatible\nstub that sleeps ~10 s per call and replies `content=\"stub answer\"`, `finish_",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:maintainer-investigation"
+      ],
+      "comments": 15,
+      "created_at": "2026-11-14T18:27:25Z",
+      "updated_at": "2026-11-16T05:35:37Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/757"
+    },
+    {
+      "number": 754,
+      "title": "cli: `mcp import --from` reports a missing or malformed source file as an internal error",
+      "body": "## Summary\n\n`openminion mcp import --from <path>` reads the source file without validating it, so the two most\nlikely user mistakes — a path that does not exist and a file that is not valid JSON — escape the\ncommand and are caught by the CLI's terminal boundary, which classifies them as `internal error`\nand tells the user to re-run with `--verbosity verbose` for a traceback. Both are input errors,\nand two sibling commands that read a user-supplied path already return a specific, structured\nfailure instead.\n\n## Cause\n\n`src/openminion/cli/commands/mcp.py:236-241` (`_mcp_import`):\n\n```python\nsource_path = Path(str(getattr(args, \"source\", \"\") or \"\")).expanduser()\npayload = json.loads(source_path.read_text(encoding=\"utf-8\"))\n```\n\nThere is no existence check and no parse guard, so `FileNotFoundError` / `json.JSONDecodeError`\npropagate. The terminal boundary in `src/openminion/cli/main.py` is a curated tuple of failure\nfamilies (including `OSError`), so these land in its `internal error: <Type>: <msg>` branch — a\nclassification meant for unexpected failures, not for a bad argument value. The success path\n(`mcp.py:254-262`) already prints a JSON payload `{\"ok\": true, \"imported\": [...], \"written\": ...}`,\nso the command has a structured result shape to fail in.\n\nContrast, same class of input, same head:\n\n| command | rc | output |\n|---|---|---|\n| `mcp import --from /nonexistent/mcp.json` | 1 | `openminion: internal error: FileNotFoundError: [Errno 2] No such file or directory: '/nonexistent/mcp.json' (rerun with --verbosity verbose for a traceback)` |\n| `mcp import --from <file containing {\"mcpServers\": {>` | 1 | `openminion: internal error: JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 17 (char 16)` |\n| `skill ingest --file /nonexistent/SKILL.md` | 1 | `{\"ok\": false, \"error\": {\"code\": \"PATH_NOT_FOUND\", \"message\": \"File does not exist\", \"details\": {\"path\": \"/nonexistent/SKILL.md\"}}}` |\n| `identity import --from-bundle /nonexistent/identity.md` | 1 | `ERROR: Path '/nonexistent/identity.md' does not exist` |\n\nThe sibling codes are per-command literals (`modules/skill/runtime/skill/ingest.py:185`), not a\nshared enum, so the point is the sha",
+      "labels": [
+        "bug",
+        "area:mcp",
+        "status:contributor-in-progress"
+      ],
+      "comments": 3,
+      "created_at": "2026-11-14T13:27:02Z",
+      "updated_at": "2026-11-14T14:41:09Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/754"
+    },
+    {
+      "number": 752,
+      "title": "cli: bare `openminion replay` crashes with AttributeError instead of usage",
+      "body": "## Summary\n\nA bare `openminion replay` (group name, no subcommand) dispatches into the group handler with no\nsubcommand selected and crashes with an uncaught `AttributeError` traceback at `rc=1`. Sibling\ngroups and the group's own subcommands reject the same invocation with `rc=2` and a usage line.\n\n## Cause\n\n- `src/openminion/cli/commands/replay.py:163` registers the group's subcommands with\n  `parser.add_subparsers(dest=\"replay_command\")` and no `required=True`, so argparse happily parses\n  `replay` with `replay_command` unset.\n- The handler is then invoked anyway: `src/openminion/cli/commands/replay.py:27` reads\n  `args.task_db`, an attribute only the subcommand parsers define, so the call raises\n  `AttributeError: 'Namespace' object has no attribute 'task_db'`.\n- The CLI's terminal boundary (`src/openminion/cli/main.py:312` dispatch, boundary catches\n  `(ConfigError, RuntimeError, KeyError)` plus the curated failure families) deliberately lets\n  `AttributeError` through as a programming error, so the user sees a traceback rather than usage.\n\nGroups that already do this correctly reject the bare form in the parser: `sessions`, `memory`,\n`channel`, `mcp`, `identity`, `status`, `service` all exit 2 with a usage line, and\n`replay checkpoints` (with its required arguments missing) does too.\n\n## Reproduction\n\n```bash\nSRC=/path/to/openminion                   # source checkout at dev\nPY=/path/to/venv/bin/python\nexport HOME=/tmp/om-replay/home XDG_CONFIG_HOME=/tmp/om-replay/home/.config PYTHONPATH=$SRC\nmkdir -p /tmp/om-replay/home /tmp/om-replay/work && cd /tmp/om-replay/work\n$PY -m openminion config init --provider echo\n\n$PY -m openminion replay; echo \"rc=$?\"\n$PY -m openminion replay --help; echo \"rc=$?\"     # lists checkpoints/replay/compare/rewind/branch\n$PY -m openminion replay checkpoints; echo \"rc=$?\"  # rc=2 + usage: required args\n```\n\nObserved (`replay`, stdout 0 bytes, rc=1):\n\n```\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  ...\n  File \"/path/to/openminion/cli/main.py\", line 312, in main\n    return int(handler(args) or 0)\n  File \"/path/to/openminion/cli/commands/replay.py\", line 27, in run_replay_command\n   ",
+      "labels": [
+        "bug",
+        "area:runtime",
+        "status:awaiting-release"
+      ],
+      "comments": 6,
+      "created_at": "2026-11-14T13:16:39Z",
+      "updated_at": "2026-11-22T12:46:41Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/752"
+    },
+    {
+      "number": 751,
+      "title": "cli: `openminion time <subcommand>` fails with tool_not_found on the default daemon route",
+      "body": "## Summary\n\n`openminion time <subcommand>` fails on the default runtime route with `tool_not_found`. The\n`time` group dispatches per-action tool names (`time.now`, `time.in_zone`, ...), but the HTTP\ntool route resolves those names against the model-facing tool inventory, which exposes a single\naggregated `time` tool. The same command succeeds with `runtime.process_mode = \"single-process\"`,\nso the group is unusable on a default install (the daemon route is the default).\n\n## Cause\n\n- `src/openminion/cli/commands/time.py:16-27` maps every subcommand to a per-action tool name and\n  `_dispatch` (`time.py:34-40`) sets `proxy.tool = tool_name`, so with the daemon runtime the CLI\n  sends `POST /v1/tools/time.now/run`.\n- `src/openminion/api/routes/tools.py:203` resolves that name with `v1_tool_schema`\n  (`api/core/deps.py:73`) -> `api/queries/runtime_reports.py:64-67`, which matches only names\n  present in `build_tool_inventory_report`. That report exposes one `time` entry, so the lookup\n  returns `None`, and the route answers 404 `tool_not_found` before executing anything.\n- The per-action specs themselves do exist (`src/openminion/tools/time/plugin.py:741+` registers\n  `name=\"time.now\"`, `\"time.in_zone\"`, ...), and the in-process CLI path resolves them: the same\n  command returns `ok: true` with `runtime_source: inproc`.\n\nSo the gap is between the name the CLI dispatches and the name set the HTTP tool route accepts;\nit is not a missing tool implementation.\n\n## Reproduction\n\n```bash\nSRC=/path/to/openminion                   # source checkout at dev\nPY=/path/to/venv/bin/python\nexport HOME=/tmp/om-probe/home XDG_CONFIG_HOME=/tmp/om-probe/home/.config PYTHONPATH=$SRC\nmkdir -p /tmp/om-probe/home /tmp/om-probe/work && cd /tmp/om-probe/work\n\n$PY -m openminion config init --provider echo\n$PY -m openminion daemon start            # default route\n\n$PY -m openminion time now; echo \"rc=$?\"\n$PY -m openminion time in-zone --timezone Europe/Helsinki; echo \"rc=$?\"\n\n# what the same route exposes\n$PY -m openminion tools list | grep -o '\"name\": \"[^\"]*\"' | grep -c '\"name\": \"time\"'     # 1\n$PY -m openminion tools list | grep -o '\"name\": \"[^\"]*\"' | grep -c '\"name\": \"time\\.now\"' # 0\n\n# contr",
+      "labels": [
+        "bug",
+        "area:tools",
+        "status:contributor-in-progress"
+      ],
+      "comments": 21,
+      "created_at": "2026-11-14T13:16:32Z",
+      "updated_at": "2026-11-18T15:22:22Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/751"
+    },
+    {
+      "number": 746,
+      "title": "Every turn starts with an undocumented fact-extraction request that carries the agent's prompt, and `agents.<id>.auto_fact_extraction` is silently ignored",
+      "body": "Found at commit cf210575 (0.1.21).\nSeverity: low (docs, config, per-turn cost) / Where: `modules/brain/runner/tick/input_processing.py`, `modules/brain/execution/runtime/memory/afe.py`, `services/runtime/bootstrap.py`, `base/config/parser/profiles.py`, docs/\n\n## Description\n\n**Cause 1 of 3: auto fact extraction is on by default, runs before the agent's own first request, and is not documented.**\n- Expected: the docs tell an operator that each turn may send an extra request, which model it uses, and how to turn it off. The config exists as `AutoFactExtractionConfig` (`modules/brain/schemas/agent.py:95-106`) and `BrainConfig.auto_fact_extraction` (`modules/brain/config.py:546-548`).\n- Actual:\n  - `enabled` defaults to True (`schemas/agent.py:100`).\n  - `process_user_input` calls `extract_user_message_candidates` synchronously, before interpret and the decide/act loop. This happens for every message of 8+ characters when memory writes are allowed (`tick/input_processing.py:241-246, 274-286`; `afe.py:68-103`).\n  - It uses `reflect_model`, which falls back to the decide and act models. By default that is the agent's own model (`execution/memory/records.py:304-315`).\n  - It counts toward the turn's `llm_calls_used` (`afe.py:215`).\n  - `docs/` and `README.md` never mention `auto_fact_extraction`. The only mention is `CHANGELOG.md:498-510`.\n- Why it matters: a one-call turn becomes two calls to the same provider. On a rate-limited free tier, that is one more round trip and one more share of the per-minute tokens. In provider logs, the first request of every turn offers only `submit_output`, which reads as \"my tools are missing\".\n- Fix: document `brain.auto_fact_extraction` in docs/: what it does, when it runs, which model it uses, and how to disable it.\n\n**Cause 2 of 3: the switch under `agents.<id>` is accepted and silently ignored.**\n- Expected: `auto_fact_extraction` set in an agent entry either applies to that agent or is reported as unknown.\n- Actual:\n  - Only the top-level `brain` section reaches the runner profile (`services/runtime/bootstrap.py:834-836, 875-876`).\n  - The agent parser reads a fixed list of keys (`base/config/parser/profiles.py:57-139`), so `agen",
+      "labels": [
+        "bug",
+        "documentation",
+        "area:config",
+        "area:brain",
+        "status:maintainer-investigation"
+      ],
+      "comments": 6,
+      "created_at": "2026-11-13T18:56:55Z",
+      "updated_at": "2026-11-18T03:20:43Z",
+      "state": "open",
+      "url": "https://github.com/openminion/openminion/issues/746"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+
+========================================================================
+MEASUREMENT — per-turn model calls
+========================================================================
+decision          : S2 area:tools
+LLM calls         : 12
+tool calls        : 3
+input tokens      : 75298
+output tokens     : 828
+elapsed (ms)      : 912
+calls by purpose  :
+    act                    5
+    entry                  2
+    freshness_classify     1
+    judge                  3
+    reflect                1
+
+Reading: the tool loop is the small part. The fixed per-turn calls
+(afe + freshness + reflect + judge) dominate; a 5-issue batch pays them
+five times over, which is why the CLI keeps batches small and caches
+the issue snapshot locally.
