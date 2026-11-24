@@ -1,0 +1,11 @@
+
+========================================================================
+FINDING 1 — instructions truncation
+========================================================================
+instructions sent : 2599 characters, 30 rules, sentinel at the end
+turn state        : completed
+rules that reached the model: ['01', '02', '03', '04', '05', '06', '07', '08']
+sentinel reached the model   : False
+
+RESULT: REPRODUCED — the later rules never reach the model.
+        8 of 30 rules survived; everything from rule 09 onward was dropped.

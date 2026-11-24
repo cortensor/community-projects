@@ -1,0 +1,19 @@
+Attempt: run one triage turn (issue #859) against a real hosted model.
+Endpoint: https://text.pollinations.ai/v1 (OpenAI-compatible, model "openai-fast" = gpt-oss-20b)
+Setup:    OPENAI_COMPATIBLE_BASE_URL=... repo-triager --provider configured triage --issue 859 --apply auto
+Result:   openminion setup and runtime bootstrap succeeded; the action loop then failed because
+          the provider rate-limits anonymous callers to one reply per 45 s:
+
+  openminion.modules.llm.providers.contracts.ProviderError: PROVIDER_ERROR:
+  The configured model provider failed before it could return a decision
+  (openai request failed with HTTP 402: Free limit reached: 1 reply every 45 seconds per IP.
+   Retry after 37s, or get unlimited replies with a pollen key ...).
+
+Reason this matters: one triage turn issues 12 model calls (see findings/measure_turn_cost.py),
+which needs ~9 minutes at 1 call / 45 s. The runtime's provider retry (3 attempts) cannot span
+that. A real model run needs a provider without a per-request throttle - Cortensor Portal,
+OpenAI, Groq, Cerebras, or a local Ollama - which is a configuration change, not a code change.
+
+Verified instead: the same workflow end-to-end with the scripted provider on the real runtime
+(repo-triager --provider scripted demo), and the live read-only GitHub path
+(tests/test_github.py::test_live_fetch_reads_public_repository).

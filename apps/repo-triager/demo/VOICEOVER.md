@@ -1,0 +1,16 @@
+# Voice-over and shot list — demo.mp4
+
+Voice: `en-US-AndrewNeural` at -3%  ·  1280×720, 30 fps, H.264 + AAC  ·  total 2:33.7
+
+| # | Scene | In | Out | On screen | Narration |
+| --- | --- | --- | --- | --- | --- |
+| 1 | OVERVIEW | 0:00.0 | 0:16.5 | `title card` | Repo Triager is a maintainer tool built on the OpenMinion 0.1 Python SDK. It reads one open issue, classifies it against the repository's own labels, drafts the maintainer's reply, and stops at a human approval gate before anything is written. |
+| 2 | SDK WORKFLOW | 0:16.5 | 0:36.2 | `src/repo_triager/ — one runtime, four turns` | The workflow is four steps on a single runtime. A read-only analysis turn returns a pydantic-validated decision. A bounded subagent double-checks duplicates. Then a staging turn whose only write tool is gated by OpenMinion's action policy. Approved decisions go to memory, so the next run stays consistent. |
+| 3 | RUNTIME | 0:36.2 | 0:51.0 | `repo-triager doctor — the real OpenMinion runtime` | Everything runs in process. The runtime bootstraps into a local home, one hundred and six tools register, memory and skill tools are present, and doctor reports OK: twenty-three checks pass, three warn, none fail. |
+| 4 | TRIAGE | 0:51.0 | 1:12.6 | `repo-triager --provider scripted demo` | The demo uses a local scripted provider, so the run is reproducible with no credential and no network. Only the token stream is scripted: the runtime, the tools, the policy gate, sessions and memory are the real SDK. Issue 859 comes back as S2, area tools, from a decision the runtime validated. |
+| 5 | THE APPROVAL GATE | 1:12.6 | 1:29.2 | `the same gate, approved and denied` | Now the gate. The write tool is a bare tool, so the action policy requires a confirmation before it can run. Approved, the plan is staged. Denied, the same gate refuses and nothing is written. Both decisions are recorded with the policy source that produced them. |
+| 6 | OUTPUT | 1:29.2 | 1:44.9 | `the staged plan and the run report` | The staged plan is a dry-run artifact: severity, component, labels, duplicates and the reply draft, marked as never sent to GitHub. Every run also leaves a Markdown and JSON report with the policy audit line and the model call count. |
+| 7 | WHAT BROKE | 1:44.9 | 2:17.8 | `openminion 0.1.24 — six reproducible issues` | The hackathon asks what broke. Testing the SDK at this depth surfaced six reproducible issues in 0.1.24: instructions silently truncated at eight hundred and sixty characters; output_type never sending the schema; a policy denial breaking structured output; session ids with a slash disabling memory; operator command-line tools crashing without a passwd entry; and memory search hiding the content it found. Each has a runnable reproduction, and the container crash has a two-line patch. |
+| 8 | REPRODUCE | 2:17.8 | 2:33.7 | `the reproduction, the suite, the repository` | Here is one reproduction running: eight of thirty rules survive, and the turn still reports completed. The suite is sixty-nine tests, offline, in about half a minute. Code, six reproductions and these notes are MIT licensed — the links are below. |
+
+Regenerate: `python demo/build_demo_video.py`  ·  check: `python demo/verify_demo.py`

@@ -1,0 +1,14 @@
+- name: repo-triager
+  category: apps
+  owner: "@dorithesky"
+  status: active
+  created: 2026-11-24
+  version: v0.1.0
+  tags: [openminion, agent, python, github, triage, approval-gate, hackathon-5]
+  description: >-
+    GitHub issue triage agent built on the OpenMinion 0.1.24 Python SDK. Reads one open
+    issue, classifies severity, component, type and duplicates against the repository's
+    own label taxonomy, drafts the maintainer's reply, and stages the plan only after
+    OpenMinion's action policy approves the write tool. Nothing is ever sent to GitHub.
+  repository: https://github.com/dorithesky/cortensor-triager
+  hackathon: Cortensor Hackathon #5 (DoraHacks #2418)

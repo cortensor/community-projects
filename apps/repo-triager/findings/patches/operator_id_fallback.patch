@@ -1,0 +1,30 @@
+--- a/src/openminion/cli/identity/operator.py
++++ b/src/openminion/cli/identity/operator.py
+@@ -1,9 +1,21 @@
+-"""Resolve the local operator identity for CLI actions."""
++"""Resolve the local operator identity for CLI actions."""
+ 
+ from __future__ import annotations
+ 
++import os
+ import getpass
+ 
+ 
++def _local_user() -> str:
++    """Return a user name for the current process.
++
++    ``getpass.getuser()`` raises KeyError when the uid has no passwd entry,
++    which is the normal shape of a container or CI runner.  Fall back to the
++    environment and finally to the numeric uid so operator-scoped CLI actions
++    keep working there.
++    """
++
++    try:
++        return getpass.getuser()
++    except (KeyError, OSError):
++        return os.environ.get("USER") or os.environ.get("LOGNAME") or f"uid-{os.getuid()}"
++
++
+ def local_operator_id() -> str:
+-    return f"local:{getpass.getuser()}"
++    return f"local:{_local_user()}"
