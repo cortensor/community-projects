@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+.DS_Store
+outputs/live_demo_transcript.txt
+outputs/*.tar.gz

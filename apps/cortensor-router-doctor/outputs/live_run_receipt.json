@@ -1,0 +1,117 @@
+{
+  "memory_portability": {
+    "bundle_path": "/Users/jiezhou/.gemini/antigravity/scratch/cortensor-router-doctor/outputs/router_doctor_memory_bundle.tar.gz",
+    "exported_records": 2,
+    "import_applied": true,
+    "imported_records": 2,
+    "replicated_count": 2
+  },
+  "model": "qwen2.5:1.5b",
+  "provider": "ollama",
+  "scenarios": {
+    "healthy": {
+      "approval_events": [],
+      "delta_count": 40,
+      "memory_record_id": "93b7aa7ed29b4007b06a4e2587e96cb4",
+      "reconciled_from_tool_ledger": true,
+      "report": {
+        "endpoint_url": "http://127.0.0.1:56276/api/v2/completions",
+        "measured_p95_ms": 25.46,
+        "measured_poi_agreement": 1.0,
+        "measured_success_rate": 1.0,
+        "quarantine_applied": false,
+        "quarantine_file": null,
+        "recommended_action": "NONE",
+        "summary": "Deterministic tool-ledger verdict (HEALTHY, action=NONE) over 3 PoI rounds on http://127.0.0.1:56276/api/v2/completions. Model note: router-doctor: [act] repeated identical tool calls detected without reaching a final answer..",
+        "verdict": "HEALTHY",
+        "violations": []
+      },
+      "tool_trace": [
+        "probe_cortensor_router(http://127.0.0.1:56276/api/v2/completions)",
+        "evaluate_sla_policy(HEALTHY)"
+      ]
+    },
+    "poi_drift_approved": {
+      "approval_events": [
+        {
+          "approval_id": "call_4s8x11rv",
+          "approved": true,
+          "args": {
+            "endpoint_url": "http://127.0.0.1:56277/api/v2/completions",
+            "quarantine_file": "/Users/jiezhou/.gemini/antigravity/scratch/cortensor-router-doctor/outputs/quarantine_approved.json",
+            "reason": "PoI consensus agreement 0.1842 < 0.8500",
+            "severity": "CRITICAL"
+          },
+          "tool_name": "apply_router_quarantine"
+        }
+      ],
+      "delta_count": 54,
+      "memory_record_id": "889752b5eb334e3c8c3d08a4b3564a32",
+      "quarantine_file_exists": true,
+      "quarantine_signature_sha256": "8b447e868047e6a484b41c4ac632be0167dfc9e470703882d4555d133bd68367",
+      "reconciled_from_tool_ledger": true,
+      "report": {
+        "endpoint_url": "http://127.0.0.1:56277/api/v2/completions",
+        "measured_p95_ms": 33.94,
+        "measured_poi_agreement": 0.1842,
+        "measured_success_rate": 1.0,
+        "quarantine_applied": true,
+        "quarantine_file": "/Users/jiezhou/.gemini/antigravity/scratch/cortensor-router-doctor/outputs/quarantine_approved.json",
+        "recommended_action": "QUARANTINE",
+        "summary": "Deterministic tool-ledger verdict (CRITICAL_DRIFT, action=QUARANTINE) over 3 PoI rounds on http://127.0.0.1:56277/api/v2/completions. Model note: router-doctor: [act] repeated identical tool calls detected without reaching a final answer..",
+        "verdict": "CRITICAL_DRIFT",
+        "violations": [
+          "poi_agreement_below_threshold: 0.1842 < 0.8500"
+        ]
+      },
+      "tool_trace": [
+        "probe_cortensor_router(http://127.0.0.1:56277/api/v2/completions)",
+        "probe_cortensor_router(http://127.0.0.1:56277/api/v2/completions)",
+        "evaluate_sla_policy(CRITICAL_DRIFT)",
+        "apply_router_quarantine(CRITICAL)"
+      ]
+    },
+    "poi_drift_denied": {
+      "approval_events": [
+        {
+          "approval_id": "call_iwn8e0cz",
+          "approved": false,
+          "args": {
+            "endpoint_url": "http://127.0.0.1:56277/api/v2/completions",
+            "quarantine_file": "/Users/jiezhou/.gemini/antigravity/scratch/cortensor-router-doctor/outputs/quarantine_denied.json",
+            "reason": "PoI consensus agreement 0.1842 < 0.8500",
+            "severity": "CRITICAL"
+          },
+          "tool_name": "apply_router_quarantine"
+        }
+      ],
+      "delta_count": 54,
+      "quarantine_file_exists": false,
+      "reconciled_from_tool_ledger": true,
+      "report": {
+        "endpoint_url": "http://127.0.0.1:56277/api/v2/completions",
+        "measured_p95_ms": 33.56,
+        "measured_poi_agreement": 0.1842,
+        "measured_success_rate": 1.0,
+        "quarantine_applied": false,
+        "quarantine_file": null,
+        "recommended_action": "QUARANTINE",
+        "summary": "Deterministic tool-ledger verdict (CRITICAL_DRIFT, action=QUARANTINE) over 3 PoI rounds on http://127.0.0.1:56277/api/v2/completions. Model note: router-doctor: [act] repeated identical tool calls detected without reaching a final answer..",
+        "verdict": "CRITICAL_DRIFT",
+        "violations": [
+          "poi_agreement_below_threshold: 0.1842 < 0.8500"
+        ]
+      },
+      "tool_trace": [
+        "probe_cortensor_router(http://127.0.0.1:56277/api/v2/completions)",
+        "probe_cortensor_router(http://127.0.0.1:56277/api/v2/completions)",
+        "evaluate_sla_policy(CRITICAL_DRIFT)"
+      ]
+    }
+  },
+  "simulators": {
+    "healthy": "http://127.0.0.1:56276/api/v2/completions",
+    "poi_drift": "http://127.0.0.1:56277/api/v2/completions"
+  },
+  "timestamp_utc": "2026-11-25T10:20:00.063669+00:00"
+}

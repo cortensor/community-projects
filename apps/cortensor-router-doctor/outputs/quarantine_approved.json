@@ -1,0 +1,9 @@
+{
+  "endpoint_url": "http://127.0.0.1:56277/api/v2/completions",
+  "reason": "PoI consensus agreement 0.1842 < 0.8500",
+  "schema_version": "cortensor.quarantine.v1",
+  "severity": "CRITICAL",
+  "signature_sha256": "8b447e868047e6a484b41c4ac632be0167dfc9e470703882d4555d133bd68367",
+  "status": "QUARANTINED",
+  "timestamp_utc": "2026-11-25T10:25:28.107733+00:00"
+}

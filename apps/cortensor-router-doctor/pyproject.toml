@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cortensor-router-doctor"
+version = "0.1.0"
+description = "OpenMinion 0.1.24 agent for Cortensor Router SLA diagnostics, Proof-of-Inference (PoI) consensus drift auditing, and approval-gated quarantine remediation."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Jie Zhou" },
+]
+dependencies = [
+    "openminion>=0.1.24",
+    "pydantic>=2.0.0",
+    "httpx>=0.27.0",
+    "typer>=0.12.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+cortensor-router-doctor = "cortensor_router_doctor.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cortensor_router_doctor"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
