@@ -1,0 +1,61 @@
+# Cortensor Release Guardian (`openminion` 0.1 Python SDK)
+
+An inspectable, repeatable **release & repository readiness audit agent** built with the **OpenMinion 0.1 Python SDK** for Cortensor Hackathon #5.
+
+Before a Cortensor / OpenMinion builder opens a public PR or tags a release, `cortensor-release-guardian` runs four read-only OpenMinion `@tool` checks (repository structure, secret leak scan, Python AST syntax audit, and OpenMinion `agents.json` policy safety), synthesizes an executive **GO / CONDITIONAL_GO / NO_GO** verdict via a real LLM, and supports multi-turn follow-up questions in the same durable OpenMinion session.
+
+## OpenMinion 0.1 SDK Building Blocks Exercised
+
+- **Shared `APIRuntime` lifecycle:** `APIRuntime.from_config_path(...)` with explicit `runtime.close()`.
+- **Custom read-only `@tool` definitions:** 4 idempotent `READ_ONLY` tools (`scan_repo_structure`, `scan_secret_leaks`, `run_syntax_audit`, `check_openminion_config`) with `forced_tools` verification.
+- **Action Policy safety:** Enforces `action_policy.mode = "auto"` with `allow_read_only_without_prompt: true` and env-var credentials (`env:CORTENSOR_API_KEY`).
+- **Typed structured output:** Pydantic `ReleaseVerdict` (`output_type=ReleaseVerdict`) with graceful `AgentOutputValidationError` fallback for smaller local models.
+- **Streaming progress:** `agent.run_stream(..., on_delta=...)`.
+- **Durable sessions:** Shared `session_id` continuity between `audit` and `followup` commands.
+- **Provider switching:** Drop-in configs for local **Ollama** (`qwen2.5:1.5b`), **Cortensor Portal** (`oss-20b`), and offline **Echo** (for CI/pytest).
+
+## Quick Start
+
+### 1. Install
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+### 2. Run Automated Tests (Offline via OpenMinion `echo` provider)
+
+```bash
+pytest -v
+```
+
+### 3. Run Against a Real Local Model (Ollama — Free, No API Key)
+
+Install Ollama and pull a lightweight tool-capable model:
+
+```bash
+ollama pull qwen2.5:1.5b
+```
+
+Run a full repository audit with streaming output:
+
+```bash
+release-guardian audit --repo . --config configs/agents.ollama.json --stream --out reports/audit.json
+```
+
+Ask a follow-up question in the same durable OpenMinion session:
+
+```bash
+release-guardian followup "Which single improvement should I prioritize before opening my Hackathon #5 PR?" --config configs/agents.ollama.json
+```
+
+### 4. Switch to Cortensor Portal (When API Key Is Available)
+
+```bash
+export CORTENSOR_API_KEY="your-portal-key"
+release-guardian audit --repo . --config configs/agents.cortensor-portal.json --structured
+```
+
+## Documentation & Hackathon #5 Findings
+
+- [Building Blocks Tested](docs/BUILDING_BLOCKS_TESTED.md)
+- [What We Learned & Actionable SDK Feedback](docs/WHAT_WE_LEARNED.md)

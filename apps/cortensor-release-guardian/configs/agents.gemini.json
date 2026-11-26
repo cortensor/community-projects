@@ -1,0 +1,21 @@
+{
+  "default_agent": "guardian-gemini",
+  "action_policy": {
+    "mode": "auto",
+    "default_action": "require_confirm",
+    "allow_read_only_without_prompt": true
+  },
+  "providers": {
+    "openai": {
+      "model": "gemini-3.1-flash-lite",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/"
+    }
+  },
+  "agents": {
+    "guardian-gemini": {
+      "provider": "openai",
+      "model": "gemini-3.1-flash-lite",
+      "default_channel": "cli"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "default_agent": "guardian-echo",
+  "action_policy": {
+    "mode": "auto",
+    "default_action": "require_confirm",
+    "allow_read_only_without_prompt": true
+  },
+  "agents": {
+    "guardian-echo": {
+      "provider": "echo",
+      "default_channel": "cli"
+    }
+  }
+}
