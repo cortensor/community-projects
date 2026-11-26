@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites name="synthetic-ci-suite">
+  <testsuite name="checkout" tests="5" failures="2" errors="1" skipped="1">
+    <testcase classname="tests.test_payments" name="test_charge_retry">
+      <failure message="AssertionError: expected HTTP 200 got 503" type="AssertionError">Upstream gateway timeout during charge retry</failure>
+    </testcase>
+    <testcase classname="tests.test_payments" name="test_healthcheck"/>
+    <testcase classname="tests.test_auth" name="test_token_refresh">
+      <error message="RuntimeError: session lease expired" type="RuntimeError">Lease expired before refresh commit</error>
+    </testcase>
+    <testcase classname="tests.test_ledger" name="test_balance_fold">
+      <failure message="AssertionError: ledger balance drift" type="AssertionError">Expected 100 got 99</failure>
+    </testcase>
+    <testcase classname="tests.test_optional" name="test_slow_report">
+      <skipped message="skipped in fast ci"/>
+    </testcase>
+  </testsuite>
+</testsuites>
