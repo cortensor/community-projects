@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cortensor-prompt-shield"
+version = "0.1.0"
+description = "Prompt-Injection, Tool-Scope & Session-Isolation Security Auditor for Cortensor / OpenMinion 0.1 Agents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "openminion>=0.1.24",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+prompt-shield = "cortensor_prompt_shield.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
