@@ -1,0 +1,204 @@
+{
+  "base_request_id": "live-v1",
+  "context_traces": {
+    "available": false,
+    "event_type": "context.manifest.created",
+    "reason": "no_context.manifest.created_events_recorded",
+    "sessions_found": [
+      "live-v1-deny-s1",
+      "live-v1-post-s1",
+      "live-v1-post-s2",
+      "live-v1-pre-s1",
+      "live-v1-pre-s2"
+    ],
+    "total_events": 52,
+    "trace_count": 0
+  },
+  "elapsed_ms": 179088,
+  "fixture_name": "sample_junit.xml",
+  "handoff_peer_read_only": true,
+  "handoff_peer_write_tools": [],
+  "mode": "LIVE",
+  "model": "openai/gpt-oss-20b",
+  "openminion_version": "0.1.24",
+  "provider": "groq",
+  "runtime_closed": true,
+  "scenarios": {
+    "approval_denial": {
+      "approval_callback_invoked": true,
+      "attempts": [
+        {
+          "approval_calls": [
+            {
+              "approval_id": "fc_7a948427-c1a8-4d2e-9ea9-e9661fc3c975",
+              "approved": false,
+              "item_id": "tests.test_auth::test_token_refresh",
+              "queue_path": "queue.sqlite",
+              "request_id": "live-v1-deny",
+              "tool_name": "enqueue_rerun"
+            }
+          ],
+          "attempt_id": "att-deny-1",
+          "fault_seam": "none",
+          "injected_committed_job_id": null,
+          "injected_fault": null,
+          "reply_excerpt": "coord: Confirmation denied. The action was not run.",
+          "sdk_error": null,
+          "session_id": "live-v1-deny-s1",
+          "stats": {
+            "cache_read_tokens": 0,
+            "duration_ms": 9815,
+            "input_tokens": 2401,
+            "llm_calls": 1,
+            "output_tokens": 851,
+            "tool_calls": 0,
+            "tool_errors": 0
+          },
+          "tool_result": null
+        }
+      ],
+      "committed_enqueue_count": 0,
+      "denied_events_count": 1,
+      "item_id": "tests.test_auth::test_token_refresh",
+      "memory_bundle_file": "memory-bundle-live-v1-deny.json",
+      "pending_item_ids": [
+        "tests.test_auth::test_token_refresh"
+      ],
+      "request_id": "live-v1-deny",
+      "session_ids": [
+        "live-v1-deny-s1"
+      ]
+    },
+    "post_commit_crash": {
+      "after_crash_committed_count": 1,
+      "attempts": [
+        {
+          "approval_calls": [
+            {
+              "approval_id": "fc_97dcb29a-26c3-4d01-8960-457c7c2cb57a",
+              "approved": true,
+              "item_id": "tests.test_payments::test_charge_retry",
+              "queue_path": "queue.sqlite",
+              "request_id": "live-v1-post",
+              "tool_name": "enqueue_rerun"
+            }
+          ],
+          "attempt_id": "att-post-1",
+          "fault_seam": "post-commit",
+          "injected_committed_job_id": "job-5852d88f0621",
+          "injected_fault": "post-commit",
+          "reply_excerpt": "",
+          "sdk_error": "RuntimeError: Turn cancelled.",
+          "session_id": "live-v1-post-s1",
+          "stats": {},
+          "tool_result": null
+        },
+        {
+          "approval_calls": [
+            {
+              "approval_id": "fc_bb60b11c-8a25-485a-9a24-b42fac063f11",
+              "approved": true,
+              "item_id": "tests.test_payments::test_charge_retry",
+              "queue_path": "queue.sqlite",
+              "request_id": "live-v1-post",
+              "tool_name": "enqueue_rerun"
+            }
+          ],
+          "attempt_id": "att-post-2",
+          "fault_seam": "none",
+          "injected_committed_job_id": null,
+          "injected_fault": null,
+          "reply_excerpt": "",
+          "sdk_error": "ProviderError: RATE_LIMITED: The configured model provider could not continue this turn because it reported a quota, billing, or rate-limit block (groq rate limited: Rate limit reached for model `openai/gpt-oss-20b` in organization `[REDACTED]` service tier `on_demand` on tokens per minute (TPM): Limit ...). Please retry shortly or check the provider quota/billing state and try again. Provider request ID: req_01m89eshe7ed8rfaj99y345t27.",
+          "session_id": "live-v1-post-s2",
+          "stats": {},
+          "tool_result": {
+            "action": "reused",
+            "created_by_attempt_id": "att-post-1",
+            "error_code": null,
+            "job_id": "job-5852d88f0621",
+            "recovered_job_id": "job-5852d88f0621"
+          }
+        }
+      ],
+      "committed_enqueue_count": 1,
+      "created_by_attempt_id": "att-post-1",
+      "exact_once_ok": true,
+      "initial_attempt_id": "att-post-1",
+      "initial_committed_job_id": "job-5852d88f0621",
+      "item_id": "tests.test_payments::test_charge_retry",
+      "memory_bundle_file": "memory-bundle-live-v1-post.json",
+      "recovered_job_id": "job-5852d88f0621",
+      "replay_action": "reused",
+      "request_id": "live-v1-post",
+      "session_ids": [
+        "live-v1-post-s1",
+        "live-v1-post-s2"
+      ]
+    },
+    "pre_commit_crash": {
+      "after_crash_committed_count": 0,
+      "attempts": [
+        {
+          "approval_calls": [
+            {
+              "approval_id": "fc_301a7144-6d09-4bfc-beb3-2648d71356e9",
+              "approved": true,
+              "item_id": "tests.test_ledger::test_balance_fold",
+              "queue_path": "queue.sqlite",
+              "request_id": "live-v1-pre",
+              "tool_name": "enqueue_rerun"
+            }
+          ],
+          "attempt_id": "att-pre-1",
+          "fault_seam": "pre-commit",
+          "injected_committed_job_id": null,
+          "injected_fault": "pre-commit",
+          "reply_excerpt": "",
+          "sdk_error": "RuntimeError: Turn cancelled.",
+          "session_id": "live-v1-pre-s1",
+          "stats": {},
+          "tool_result": null
+        },
+        {
+          "approval_calls": [
+            {
+              "approval_id": "fc_0bc35612-169e-49fe-a3eb-21dd16a421d3",
+              "approved": true,
+              "item_id": "tests.test_ledger::test_balance_fold",
+              "queue_path": "queue.sqlite",
+              "request_id": "live-v1-pre",
+              "tool_name": "enqueue_rerun"
+            }
+          ],
+          "attempt_id": "att-pre-2",
+          "fault_seam": "none",
+          "injected_committed_job_id": null,
+          "injected_fault": null,
+          "reply_excerpt": "",
+          "sdk_error": "ProviderError: RATE_LIMITED: The configured model provider could not continue this turn because it reported a quota, billing, or rate-limit block (groq rate limited: Rate limit reached for model `openai/gpt-oss-20b` in organization `[REDACTED]` service tier `on_demand` on tokens per minute (TPM): Limit ...). Please retry shortly or check the provider quota/billing state and try again. Provider request ID: req_01m89epzfbe01svjgqy5ktr0rm.",
+          "session_id": "live-v1-pre-s2",
+          "stats": {},
+          "tool_result": {
+            "action": "created",
+            "created_by_attempt_id": "att-pre-2",
+            "error_code": null,
+            "job_id": "job-d8f135b36452",
+            "recovered_job_id": null
+          }
+        }
+      ],
+      "committed_enqueue_count": 1,
+      "created_by_attempt_id": "att-pre-2",
+      "exact_once_ok": true,
+      "item_id": "tests.test_ledger::test_balance_fold",
+      "job_id": "job-d8f135b36452",
+      "memory_bundle_file": "memory-bundle-live-v1-pre.json",
+      "request_id": "live-v1-pre",
+      "session_ids": [
+        "live-v1-pre-s1",
+        "live-v1-pre-s2"
+      ]
+    }
+  }
+}
