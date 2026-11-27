@@ -1,0 +1,8 @@
+- name: cortensor-novatriage-minion
+  category: apps
+  owner: "@z121245017-ai"
+  collaborators: []
+  status: active
+  created: 2026-11-27
+  version: v1.0.0
+  tags: [openminion, cortensor, web3, solidity, security, x402, agent]
