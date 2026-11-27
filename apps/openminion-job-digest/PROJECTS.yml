@@ -1,0 +1,8 @@
+- name: openminion-job-digest
+  category: apps
+  owner: "@abdalla-dawoud"
+  collaborators: []
+  status: active
+  created: 2026-11-27
+  version: v0.1.0
+  tags: [openminion, hackathon-5, jobs, agent]
