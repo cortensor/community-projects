@@ -1,0 +1,223 @@
+{
+  "repo_name": "proof-audit",
+  "session_id": "proof-audit-eff1f9debb",
+  "approvals": [
+    {
+      "tool_name": "run_repo_smoke_check",
+      "args": {
+        "repo_path": "E:\\ai\u8d5a\u94b1\\projects\\cortensor-openminion-agent\\proof-audit"
+      },
+      "approval_id": "call-4698e8ed-7cbf-43b3-8805-b729cd4f4998",
+      "approved": true
+    }
+  ],
+  "used_offline_fallback": false,
+  "provider_error": null,
+  "facts": {
+    "manifest": {
+      "repo_path": "E:\\ai\u8d5a\u94b1\\projects\\cortensor-openminion-agent\\proof-audit",
+      "repo_name": "proof-audit",
+      "ok": true,
+      "findings": [
+        {
+          "check_id": "manifest.license",
+          "category": "manifest",
+          "status": "PASS",
+          "evidence": "LICENSE present (MIT License detected).",
+          "fix": ""
+        },
+        {
+          "check_id": "manifest.readme",
+          "category": "manifest",
+          "status": "PASS",
+          "evidence": "README.md present (3462 bytes).",
+          "fix": ""
+        },
+        {
+          "check_id": "manifest.openminion_pin",
+          "category": "manifest",
+          "status": "PASS",
+          "evidence": "requirements.txt pins openminion==0.1.24.",
+          "fix": ""
+        },
+        {
+          "check_id": "manifest.gitignore",
+          "category": "manifest",
+          "status": "PASS",
+          "evidence": ".gitignore covers .venv, __pycache__, .openminion, and .env.",
+          "fix": ""
+        },
+        {
+          "check_id": "manifest.secrets_hygiene",
+          "category": "manifest",
+          "status": "PASS",
+          "evidence": "No hardcoded secrets or disallowed labels detected in scanned repository files.",
+          "fix": ""
+        }
+      ]
+    },
+    "sdk": {
+      "repo_path": "E:\\ai\u8d5a\u94b1\\projects\\cortensor-openminion-agent\\proof-audit",
+      "files_scanned": 6,
+      "building_blocks_detected": [
+        "@tool",
+        "APIRuntime",
+        "Agent",
+        "AgentOutputValidationError",
+        "ProviderError",
+        "TurnTimeoutError",
+        "approval_callback",
+        "openminion CLI/doctor",
+        "output_type",
+        "session_id"
+      ],
+      "per_file": [
+        {
+          "file": "audit.py",
+          "blocks": [
+            "session_id"
+          ]
+        },
+        {
+          "file": "proof_audit\\agent.py",
+          "blocks": [
+            "APIRuntime",
+            "Agent",
+            "AgentOutputValidationError",
+            "ProviderError",
+            "TurnTimeoutError",
+            "approval_callback",
+            "output_type",
+            "session_id"
+          ]
+        },
+        {
+          "file": "proof_audit\\checks.py",
+          "blocks": [
+            "@tool"
+          ]
+        },
+        {
+          "file": "tests\\test_proof_audit.py",
+          "blocks": [
+            "ProviderError",
+            "session_id"
+          ]
+        }
+      ],
+      "finding": {
+        "check_id": "sdk.surface_coverage",
+        "category": "sdk",
+        "status": "PASS",
+        "evidence": "Detected 10 OpenMinion building blocks across 6 Python files: @tool, APIRuntime, Agent, AgentOutputValidationError, ProviderError, TurnTimeoutError, approval_callback, openminion CLI/doctor, output_type, session_id.",
+        "fix": ""
+      }
+    },
+    "endpoint": {
+      "base_url": "https://api.cortensor.app/v1",
+      "probed_url": "https://api.cortensor.app/v1/models",
+      "reachable": true,
+      "status_code": 401,
+      "latency_ms": 1039.76,
+      "error": "",
+      "finding": {
+        "check_id": "endpoint.reachability",
+        "category": "endpoint",
+        "status": "PASS",
+        "evidence": "Endpoint https://api.cortensor.app/v1/models responded with HTTP 401 in 1039.76 ms.",
+        "fix": ""
+      }
+    },
+    "smoke": {
+      "repo_path": "E:\\ai\u8d5a\u94b1\\projects\\cortensor-openminion-agent\\proof-audit",
+      "files_checked": 6,
+      "compiled_count": 6,
+      "errors": [],
+      "finding": {
+        "check_id": "smoke.py_compile",
+        "category": "smoke",
+        "status": "PASS",
+        "evidence": "py_compile succeeded on all 6 Python files.",
+        "fix": ""
+      }
+    },
+    "collector_text": "default: ## ProofAudit Collector \u2014 Audit Summary\n\nAll four audit tools ran successfully. Consolidated JSON facts:\n\n### 1. `inspect_repo_manifest`\n**Status: PASS** \u2014 All 5 checks pass:\n- **LICENSE**: Present \u2014 MIT License\n- **README.md**: Present \u2014 3,462 bytes\n- **OpenMinion pin**: `requirements.txt` pins `openminion==0.1.24`\n- **.gitignore**: Covers `.venv`, `__pycache__`, `.openminion`, `.env`\n- **Secrets hygiene**: No hardcoded secrets or disallowed labels detected\n\n### 2. `scan_sdk_surface`\n**Status: PASS** \u2014 6 Python files scanned, 10 OpenMinion building blocks detected:\n`@tool`, `APIRuntime`, `Agent`, `AgentOutputValidationError`, `ProviderError`, `TurnTimeoutError`, `approval_callback`, `openminion CLI/doctor`, `output_type`, `session_id`\n\nPer-file breakdown:\n| File | Blocks |\n|------|--------|\n| `audit.py` | `session_id` |\n| `proof_audit\\agent.py` | `APIRuntime`, `Agent`, `AgentOutputValidationError`, `ProviderError`, `TurnTimeoutError`, `approval_callback`, `output_type`, `session_id` |\n| `proof_audit\\checks.py` | `@tool` |\n| `tests\\test_proof_audit.py` | `ProviderError`, `session_id` |\n\n### 3. `probe_openai_compatible_endpoint`\n**Status: PASS** \u2014 Endpoint reachable:\n- Probed URL: `https://api.cortensor.app/v1/models`\n- Status code: `401` (reachable, authentication required)\n- Latency: ~991 ms\n\n### 4. `run_repo_smoke_check`\n**Status: PASS** \u2014 `py_compile` succeeded on all 6 Python files with zero errors.\n\n**Overall: All four checks passed with no failures or errors detected.**"
+  },
+  "report": {
+    "repo_name": "proof-audit",
+    "verdict": "READY",
+    "score": 100,
+    "building_blocks_detected": [
+      "@tool",
+      "APIRuntime",
+      "Agent",
+      "AgentOutputValidationError",
+      "ProviderError",
+      "TurnTimeoutError",
+      "approval_callback",
+      "openminion CLI/doctor",
+      "output_type",
+      "session_id"
+    ],
+    "findings": [
+      {
+        "check_id": "manifest.license",
+        "category": "manifest",
+        "status": "PASS",
+        "evidence": "LICENSE present (MIT License detected).",
+        "fix": ""
+      },
+      {
+        "check_id": "manifest.readme",
+        "category": "manifest",
+        "status": "PASS",
+        "evidence": "README.md present (3462 bytes).",
+        "fix": ""
+      },
+      {
+        "check_id": "manifest.openminion_pin",
+        "category": "manifest",
+        "status": "PASS",
+        "evidence": "requirements.txt pins openminion==0.1.24.",
+        "fix": ""
+      },
+      {
+        "check_id": "manifest.gitignore",
+        "category": "manifest",
+        "status": "PASS",
+        "evidence": ".gitignore covers .venv, __pycache__, .openminion, and .env.",
+        "fix": ""
+      },
+      {
+        "check_id": "manifest.secrets_hygiene",
+        "category": "manifest",
+        "status": "PASS",
+        "evidence": "No hardcoded secrets or disallowed labels detected in scanned repository files.",
+        "fix": ""
+      },
+      {
+        "check_id": "sdk.surface_coverage",
+        "category": "sdk",
+        "status": "PASS",
+        "evidence": "Detected 10 OpenMinion building blocks across 6 Python files: @tool, APIRuntime, Agent, AgentOutputValidationError, ProviderError, TurnTimeoutError, approval_callback, openminion CLI/doctor, output_type, session_id.",
+        "fix": ""
+      },
+      {
+        "check_id": "endpoint.reachability",
+        "category": "endpoint",
+        "status": "PASS",
+        "evidence": "Endpoint https://api.cortensor.app/v1/models responded with HTTP 401 in 1039.76 ms.",
+        "fix": ""
+      },
+      {
+        "check_id": "smoke.py_compile",
+        "category": "smoke",
+        "status": "PASS",
+        "evidence": "py_compile succeeded on all 6 Python files.",
+        "fix": ""
+      }
+    ],
+    "remediation_steps": [],
+    "summary": "ProofAudit repository proof-audit is clean and ready: all four audit domains (manifest, SDK surface, endpoint reachability, smoke compile) passed with zero failures. Ten OpenMinion building blocks were detected across six Python files, the endpoint is reachable (HTTP 401, authentication required), and all files compile cleanly."
+  }
+}
