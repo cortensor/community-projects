@@ -130,6 +130,7 @@ the submitted code, not from the model's reply.
   feedback; 561 critical-path tests, ruff, and mypy type checks pass with it).
 - The maintainer accepted the source fix on 2026-11-26 after independent review. The PR now waits on
   their hosted macOS checks, and #733 stays open until a published release carries the fix.
+- Follow-up issues filed upstream from these findings, each with a minimal repro on current `dev` `0c99b454`: [#887](https://github.com/openminion/openminion/issues/887) (a `@tool` returning a dataclass or Pydantic model fails the turn while stats report 0 tool calls, finding 3E), [#888](https://github.com/openminion/openminion/issues/888) (opt-in HTTP retry for Cortensor Portal, since `runtime.provider_retry_max_attempts` is ignored there, finding 3L) and [#889](https://github.com/openminion/openminion/issues/889) (transcript recovery after a turn timeout hits a closed SQLite connection, finding 3L).
 
 ### K. OpenMinion 0.1.24 Re-Verification (2026-11-24 UTC)
 - Upgraded `pyproject.toml` and `uv.lock` to PyPI `openminion==0.1.24`. All 21 offline tests in `tests/test_validator.py` pass unchanged.
