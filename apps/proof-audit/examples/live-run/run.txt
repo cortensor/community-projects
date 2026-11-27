@@ -1,0 +1,11 @@
+timestamp_utc=2026-11-27T11:29:12.948265+00:00
+provider=openrouter
+model=nvidia/nemotron-3.5-super-vl:free
+base_url=https://openrouter.ai/api/v1
+session_id=proof-audit-eff1f9debb
+approvals_count=1
+approvals=[{"tool_name": "run_repo_smoke_check", "args": {"repo_path": "E:\\ai\u8d5a\u94b1\\projects\\cortensor-openminion-agent\\proof-audit"}, "approval_id": "call-4698e8ed-7cbf-43b3-8805-b729cd4f4998", "approved": true}]
+used_offline_fallback=False
+provider_error=none
+verdict=READY
+score=100
