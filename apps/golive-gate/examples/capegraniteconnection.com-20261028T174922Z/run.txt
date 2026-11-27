@@ -1,0 +1,30 @@
+[approval] plugin.golive.inspect_home -> read-only, allowed
+[approval] plugin.golive.inspect_crawlers -> read-only, allowed
+[approval] plugin.golive.inspect_404 -> read-only, allowed
+[investigator] run_id=194c08bf825c4a1387373a6338546c89 232.3s
+openminion: I couldn't provide a grounded current general answer because Missing exact-date evidence for an exact-date freshness answer.. Please retry with live data available so I can answer with sources and an exact date.
+[judge] run_id=70dc2463e92241cdb7c802526ee14041 state=completed 354.8s
+# Go-Live Gate: capegraniteconnection.com
+
+**Verdict: ready**
+
+All pre-launch checks pass. The site meets every technical requirement for title, description, canonical, Open Graph, JSON-LD, language, icons, robots.txt, sitemap, llms.txt, and 404 handling.
+
+| check | status | evidence | fix |
+|---|---|---|---|
+| title | pass | Title length is 63 characters (within 10-65 range) |  |
+| description | pass | Meta description length is 149 characters (within 50-160 range) |  |
+| canonical | pass | Canonical URL present: https://www.capegraniteconnection.com/ |  |
+| og | pass | All required Open Graph tags present: og:title, og:description, og:image, og:url |  |
+| json_ld | pass | JSON-LD contains 12 types including LocalBusiness, WebSite, FAQPage, Service |  |
+| lang | pass | Page language declared as en-US |  |
+| icons | pass | Both favicon and apple-touch-icon are present |  |
+| robots_ai | pass | No AI crawlers blocked in robots.txt; ai_bots_blocked array is empty |  |
+| sitemap | pass | Sitemap returns HTTP 200 with 44 URLs |  |
+| llms_txt | pass | /llms.txt returns HTTP 200 with valid content (3902 bytes) |  |
+| real_404 | pass | Missing page returns HTTP 404 (real_404: true) |  |
+
+[approval] plugin.golive.save_report -> auto yes
+[publish] openminion: ✅ **Go-Live Gate: capegraniteconnection.com — VERDICT: READY** All 11 pre-launch checks pass. The site meets every technical requirement for title, description, canonical, Open Graph, JSON-LD, language, icons, robots.txt, sitemap, llms.txt, and 404 handling. Report saved to `out/capegraniteconnection.com-20261028T174922Z/`.
+[stats] {'input_tokens': 10476, 'output_tokens': 889, 'cache_read_tokens': 0, 'llm_calls': 1, 'tool_calls': 0, 'tool_errors': 0, 'duration_ms': 122105}
+rc=0

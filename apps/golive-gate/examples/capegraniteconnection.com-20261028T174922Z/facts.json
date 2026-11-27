@@ -1,0 +1,78 @@
+{
+  "verdict": "ready",
+  "home": {
+    "url": "https://capegraniteconnection.com/",
+    "status": 200,
+    "final_url": "https://www.capegraniteconnection.com/",
+    "title": "Granite & Quartz Countertops Cape Cod | Cape Granite Connection",
+    "title_len": 63,
+    "description": "Cape Cod's own stone shop: granite, quartz and marble countertops fabricated in South Yarmouth and installed by our own crew. Free in-home estimates.",
+    "description_len": 149,
+    "canonical": "https://www.capegraniteconnection.com/",
+    "og": {
+      "og:title": "Granite & Quartz Countertops Cape Cod | Cape Granite Connection",
+      "og:description": "Cape Cod's own stone shop: granite, quartz and marble countertops fabricated in South Yarmouth and installed by our own crew. Free in-home estimates.",
+      "og:image": "https://www.capegraniteconnection.com/assets/site/og.jpg",
+      "og:url": "https://www.capegraniteconnection.com/"
+    },
+    "lang": "en-US",
+    "viewport": true,
+    "favicon": true,
+    "apple_touch_icon": true,
+    "h1": [
+      "Stone, cut for Cape\u00a0Cod kitchens"
+    ],
+    "json_ld_types": [
+      "AdministrativeArea",
+      "Answer",
+      "FAQPage",
+      "GeoCoordinates",
+      "HomeAndConstructionBusiness",
+      "LocalBusiness",
+      "Offer",
+      "OpeningHoursSpecification",
+      "PostalAddress",
+      "Question",
+      "Service",
+      "WebPage",
+      "WebSite"
+    ],
+    "error": ""
+  },
+  "crawlers": {
+    "robots": {
+      "status": 200,
+      "exists": true,
+      "sitemaps": [
+        "https://www.capegraniteconnection.com/sitemap.xml"
+      ],
+      "ai_bots_blocked": [],
+      "wildcard_blocks_all": false
+    },
+    "sitemap": {
+      "url": "https://www.capegraniteconnection.com/sitemap.xml",
+      "status": 200,
+      "url_count": 44,
+      "is_index": false
+    },
+    "llms": {
+      "/llms.txt": {
+        "status": 200,
+        "ok": true,
+        "bytes": 3902,
+        "first_line": "# Cape Granite Connection"
+      },
+      "/llms-full.txt": {
+        "status": 200,
+        "ok": true,
+        "bytes": 10459,
+        "first_line": "# Cape Granite Connection: full reference for AI systems"
+      }
+    }
+  },
+  "404": {
+    "status": 404,
+    "final_url": "https://capegraniteconnection.com/golive-gate-missing-page-7f3a",
+    "real_404": true
+  }
+}

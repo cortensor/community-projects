@@ -1,0 +1,2 @@
+openminion==0.1.14
+pydantic>=2
