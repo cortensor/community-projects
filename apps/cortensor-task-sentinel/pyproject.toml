@@ -1,0 +1,35 @@
+[project]
+name = "cortensor-subnet-validator"
+version = "0.1.0"
+description = "Cortensor Subnet Task Verification Agent built with OpenMinion 0.1 SDK"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Mike Anderson" }
+]
+dependencies = [
+    "openminion>=0.1.24",
+    "pydantic>=2.0.0",
+]
+
+[project.scripts]
+sentinel = "cortensor_validator.sentinel:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cortensor_validator"]
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+pythonpath = ['src', '.']
+asyncio_mode = 'strict'
+asyncio_default_fixture_loop_scope = 'function'

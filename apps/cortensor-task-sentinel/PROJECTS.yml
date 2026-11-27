@@ -1,0 +1,13 @@
+- name: cortensor-task-sentinel
+  category: apps
+  owner: "@manderson240"
+  status: active
+  created: 2026-11-23
+  version: v0.1.0
+  tags: [openminion, agent, python, verification, ast, hackathon-5]
+  description: >-
+    Subnet task verification agent built on OpenMinion 0.1.24. Derives verdicts
+    from AST-verified tool outputs on the submitted program so a model rewriting
+    an exploit cannot certify it.
+  repository: https://github.com/manderson240/cortensor-subnet-validator
+  hackathon: Cortensor Hackathon #5 (DoraHacks #2418)
