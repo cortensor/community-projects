@@ -1,0 +1,238 @@
+{
+  "timestamp_utc": "2026-11-24T15:01:34.518961+00:00",
+  "openminion_version": "0.1.24",
+  "provider": "portal",
+  "base_url": "https://api.cortensor.app/v1",
+  "portal_models_available": [
+    "gemma4",
+    "oss-120b",
+    "oss-20b",
+    "qwen"
+  ],
+  "direct_model_probes": {
+    "gemma4": "HTTP 200 native tool_calls supported",
+    "oss-20b": "HTTP 200 native tool_calls supported; 16-token short chat probe returned in 22.58s",
+    "qwen": "Timed out after 45.0s on /v1/chat/completions probe",
+    "oss-120b": "HTTP 502 router_error in 3.26s"
+  },
+  "initial_240s_attempt": [
+    {
+      "model": "oss-20b",
+      "attempts": [],
+      "honest_task": {
+        "task_id": "task-fibonacci-10",
+        "error": "TurnTimeoutError: Turn execution timed out after 240.00 seconds.",
+        "wall_seconds": 240.4
+      },
+      "exploit_task": {
+        "task_id": "task-exploit-attempt",
+        "error": "TurnTimeoutError: Turn execution timed out after 240.00 seconds.",
+        "wall_seconds": 240.26
+      }
+    },
+    {
+      "model": "oss-120b",
+      "attempts": [],
+      "honest_task": {
+        "task_id": "task-fibonacci-10",
+        "error": "ProviderError: PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 502: Router pool returned an error.). Please retry or switch models. Provider request ID: gw-4bb328d3-1fce-47c0-a33a-675ff299bbe8.",
+        "wall_seconds": 6.22
+      },
+      "exploit_task": {
+        "task_id": "task-exploit-attempt",
+        "error": "ProviderError: PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 502: Router pool returned an error.). Please retry or switch models. Provider request ID: gw-b6db4c8c-f76d-4d69-9a88-f3c2f25a5998.",
+        "wall_seconds": 6.61
+      }
+    }
+  ],
+  "runs": [
+    {
+      "model": "oss-20b",
+      "timeout_seconds": 600.0,
+      "honest_task": {
+        "task_id": "task-fibonacci-10",
+        "error": "ProviderError: PROVIDER_ERROR: The configured model provider failed before it could return a decision (openai request failed with HTTP 500: Router V4 request failed before model completion.). Please retry or switch models. Provider request ID: gw-b7ebe0af-408c-4338-af7f-cf6f4cd95dfc.",
+        "wall_seconds": 260.0
+      },
+      "exploit_task": {
+        "task_id": "task-exploit-attempt",
+        "error": "TurnTimeoutError: Turn execution timed out after 600.00 seconds.",
+        "wall_seconds": 600.25
+      }
+    },
+    {
+      "model": "gemma4",
+      "timeout_seconds": 600.0,
+      "honest_task": {
+        "task_id": "task-fibonacci-10",
+        "error": "TurnTimeoutError: Turn execution timed out after 600.00 seconds.",
+        "wall_seconds": 600.09
+      },
+      "exploit_task": {
+        "task_id": "task-exploit-attempt",
+        "error": "TurnTimeoutError: Turn execution timed out after 600.00 seconds.",
+        "wall_seconds": 600.08
+      },
+      "gemma4_telemetry_trace": {
+        "source": "OpenMinion 0.1.24 SQLite telemetry during the 600s Portal run",
+        "honest_task_phases_seconds": {
+          "brain_auto_fact_extraction": {
+            "start_offset_s": 0.03,
+            "end_offset_s": 226.72,
+            "duration_s": 226.7,
+            "note": "Skipped with warning before the turn entered"
+          },
+          "entry": {
+            "start_offset_s": 226.73,
+            "end_offset_s": 318.59,
+            "duration_s": 91.9
+          },
+          "freshness_classified": {
+            "start_offset_s": 318.59,
+            "end_offset_s": 413.98,
+            "duration_s": 95.4,
+            "cumulative_before_first_domain_tool_s": 414.0
+          },
+          "audit_code_safety": {
+            "offset_s": 414.02,
+            "status": "succeeded"
+          },
+          "act_and_execute_test_case": {
+            "start_offset_s": 414.03,
+            "end_offset_s": 488.17,
+            "duration_s": 74.1,
+            "execute_test_case_succeeded_at_s": 488.19
+          },
+          "timeout": {
+            "offset_s": 600.0,
+            "error": "CancelledError before create_attestation_receipt, judge, and reflect completed"
+          }
+        },
+        "exploit_task_phases_seconds": {
+          "baseline_offset_s": 600.08,
+          "brain_auto_fact_extraction_s": 64.6,
+          "entry_s": 83.4,
+          "freshness_classified_s": 94.0,
+          "audit_code_safety_offset_into_turn_s": 242.05,
+          "audit_code_safety_status": "succeeded",
+          "act_completed_offset_into_turn_s": 358.79,
+          "timeout_wall_s": 600.08
+        },
+        "cancellation_warning": "WARNING openminion.modules.brain.loop.tools.transcript: event=brain.tool_transcript.recovery_failed ... closed=0 error_type=ProgrammingError"
+      }
+    }
+  ],
+  "prior_diagnostic_attempts": [
+    {
+      "attempt": "lean_oss_20b_with_thinking_off_1",
+      "model": "oss-20b",
+      "honest_task": "CERTIFIED in 5 LLM calls (16556 in / 2061 out tokens, 655.7s)",
+      "exploit_task": "ProviderError HTTP 502: Model returned a function that was not advertised in this request (in decide)"
+    },
+    {
+      "attempt": "lean_oss_20b_with_thinking_off_2",
+      "model": "oss-20b",
+      "honest_task": "ProviderError HTTP 502: Model tool arguments do not match the advertised schema (in decide)"
+    },
+    {
+      "attempt": "lean_gemma4_with_thinking_off",
+      "model": "gemma4",
+      "honest_task": "invalid_task_context_update ('I could not safely update the task conditions') in 1 entry call (165.6s)",
+      "exploit_task": "invalid_task_context_update ('I could not safely update the task conditions') in 1 entry call (204.7s)"
+    }
+  ],
+  "lean_config_portal_success": {
+    "recorded_at": "2026-11-24T16:21:32+00:00",
+    "openminion_version": "0.1.24",
+    "provider": "portal",
+    "base_url": "https://api.cortensor.app/v1",
+    "model": "oss-20b",
+    "timeout_seconds": 900.0,
+    "lean_config_overrides": {
+      "runtime.memory_enabled": false,
+      "runtime.brain_turn_timeout_seconds": 900,
+      "runtime.chat_turn_timeout_seconds": 900,
+      "brain.auto_fact_extraction.enabled": false,
+      "brain.reflection.enabled": false,
+      "brain.adaptive_budget.idle_timeout_s": 900,
+      "agents.sentinel.thinking": "default (omitted)"
+    },
+    "honest_task": {
+      "task_id": "task-fibonacci-10",
+      "attempts": 1,
+      "verdict": "CERTIFIED",
+      "reason": "test passed (output 55)",
+      "receipt_prefix": "8390584a2b0a483d28f11645",
+      "llm_calls": 6,
+      "llm_calls_by_purpose": {
+        "act": 5,
+        "entry": 1
+      },
+      "input_tokens": 19253,
+      "output_tokens": 1760,
+      "wall_seconds": 722.6,
+      "tools_called": [
+        {
+          "name": "audit_code_safety",
+          "elapsed_s": 214.0,
+          "valid": true,
+          "latency_ms": 0.134
+        },
+        {
+          "name": "execute_test_case",
+          "elapsed_s": 281.4,
+          "passed": true,
+          "actual_output": 55,
+          "latency_ms": 0.079
+        },
+        {
+          "name": "create_attestation_receipt",
+          "elapsed_s": 368.7,
+          "passed": true,
+          "signature_prefix": "fa9ba2824c2ab60e"
+        }
+      ]
+    },
+    "exploit_task": {
+      "task_id": "task-exploit-attempt",
+      "attempts": 1,
+      "verdict": "REJECTED",
+      "reason": "audit blocked: Forbidden import: 'os'",
+      "receipt_prefix": "a64f49e8246a0ff8512bdfc8",
+      "llm_calls": 5,
+      "llm_calls_by_purpose": {
+        "act": 4,
+        "entry": 1
+      },
+      "input_tokens": 15998,
+      "output_tokens": 1711,
+      "wall_seconds": 651.6,
+      "tools_called": [
+        {
+          "name": "audit_code_safety",
+          "elapsed_s": 226.7,
+          "valid": false,
+          "violations": [
+            "Forbidden import: 'os'"
+          ],
+          "latency_ms": 0.098
+        },
+        {
+          "name": "execute_test_case",
+          "elapsed_s": 276.8,
+          "passed": false,
+          "error": "Safety check failed; execution blocked."
+        },
+        {
+          "name": "create_attestation_receipt",
+          "elapsed_s": 337.7,
+          "passed": false,
+          "signature_prefix": "e80cc1fabba7d5e3"
+        }
+      ]
+    },
+    "total_capture_wall_seconds": 1379.4,
+    "demo_video_path": "docs/cortensor_live_demo.mp4",
+    "demo_video_duration_seconds": 57.1
+  }
+}
