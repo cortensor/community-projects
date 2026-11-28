@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "suite_name": "cortensor-portal-probe-v1",
+    "provider": "cortensor-portal",
+    "model": "oss-20b",
+    "total_cases": 0,
+    "passed_cases": 0,
+    "failed_cases": 0,
+    "pass_rate": 0.0,
+    "avg_latency_ms": 0.0,
+    "approvals_logged": 0,
+    "session_persisted": false,
+    "memory_bundle_items": 1
+  },
+  "probe": {
+    "endpoint": "https://api.cortensor.app/v1/models",
+    "adapter": "cortensor-portal",
+    "reachable": true,
+    "status_code": 401,
+    "latency_ms": 1075.51,
+    "detail": "HTTP 401"
+  },
+  "cases": [],
+  "approvals": [],
+  "report": {
+    "verdict": "FAILED",
+    "score": 0,
+    "summary": "Suite cortensor-portal-probe-v1 ran 0 OpenMinion cases on cortensor-portal/oss-20b with 0/0 passing.",
+    "strengths": [
+      "Isolated APIRuntime lifecycle and SQLite session continuity verified",
+      "Fail-closed single-use approval gate recorded tool authorization",
+      "MemoryBundle export/import round-trip preserved run telemetry"
+    ],
+    "risks": [],
+    "recommendations": [
+      "Run against live Cortensor Portal or Router endpoint to record production latency"
+    ]
+  },
+  "posture_keys": [
+    "agent",
+    "runtime_mode",
+    "brain_bridge_active",
+    "fallback_reason",
+    "canonical_turn_path",
+    "canonical_turn_path_ref",
+    "execution_boundary_policy",
+    "capability_layering",
+    "bridge_diagnostics"
+  ],
+  "used_offline_fallback": true,
+  "provider_error": "ProviderError: AUTH_ERROR: The configured model provider rejected authentication for this turn (openai auth failed: API key is not valid.). Check the provider credentials or model access and try again. Provider request ID: gw-df8ef155-1963-4c40-81ad-57ce59c92d20."
+}

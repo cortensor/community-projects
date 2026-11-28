@@ -1,0 +1,144 @@
+{
+  "summary": {
+    "suite_name": "openminion-core-v1",
+    "provider": "openai",
+    "model": "mock-eval-model",
+    "total_cases": 5,
+    "passed_cases": 5,
+    "failed_cases": 0,
+    "pass_rate": 1.0,
+    "avg_latency_ms": 1066.34,
+    "approvals_logged": 1,
+    "session_persisted": true,
+    "posture_keys": [
+      "agent",
+      "runtime_mode",
+      "brain_bridge_active",
+      "fallback_reason",
+      "canonical_turn_path",
+      "canonical_turn_path_ref",
+      "execution_boundary_policy",
+      "capability_layering",
+      "bridge_diagnostics"
+    ],
+    "capability_keys": [
+      "agent",
+      "providers",
+      "modes",
+      "thinking",
+      "plugins",
+      "tools",
+      "mcp"
+    ],
+    "self_model_health": "unavailable",
+    "tool_inventory_count": 106,
+    "stream_events_observed": 9,
+    "memory_bundle_items": 6
+  },
+  "probe": {
+    "endpoint": "http://127.0.0.1:7847/v1/models",
+    "adapter": "openai",
+    "reachable": true,
+    "status_code": 200,
+    "latency_ms": 358.32,
+    "detail": "HTTP 200"
+  },
+  "cases": [
+    {
+      "case_id": "case_probe_tool",
+      "category": "tool_calling",
+      "passed": true,
+      "run_state": "completed",
+      "latency_ms": 1657.21,
+      "llm_calls": 7,
+      "tool_calls_observed": 1,
+      "detail": "probe_count=2",
+      "session_id": "cortensor-h5-e2e-001"
+    },
+    {
+      "case_id": "case_subagent_delegation",
+      "category": "delegated_subagent",
+      "passed": true,
+      "run_state": "completed",
+      "latency_ms": 1203.4,
+      "llm_calls": 7,
+      "tool_calls_observed": 1,
+      "detail": "child_session=3a8014f0332547b29cf62ea9c7c8499c",
+      "session_id": "3a8014f0332547b29cf62ea9c7c8499c"
+    },
+    {
+      "case_id": "case_approval_gated_write",
+      "category": "policy_gate",
+      "passed": true,
+      "run_state": "completed",
+      "latency_ms": 1222.33,
+      "llm_calls": 7,
+      "tool_calls_observed": 1,
+      "detail": "approvals=1",
+      "session_id": "cortensor-h5-e2e-001"
+    },
+    {
+      "case_id": "case_session_continuity",
+      "category": "session_continuity",
+      "passed": true,
+      "run_state": "completed",
+      "latency_ms": 414.81,
+      "llm_calls": 4,
+      "tool_calls_observed": 0,
+      "detail": "session_id=cortensor-h5-e2e-001, stream_events=9",
+      "session_id": "cortensor-h5-e2e-001"
+    },
+    {
+      "case_id": "case_structured_judge",
+      "category": "structured_output",
+      "passed": true,
+      "run_state": "completed",
+      "latency_ms": 833.97,
+      "llm_calls": 4,
+      "tool_calls_observed": 0,
+      "detail": "verdict=READY, score=100",
+      "session_id": "cortensor-h5-e2e-001"
+    }
+  ],
+  "approvals": [
+    {
+      "tool_name": "write_eval_artifact",
+      "approval_id": "tc3",
+      "decision": "approved",
+      "reason": "single_use_artifact_write_approved",
+      "args_keys": [
+        "content",
+        "filename"
+      ]
+    }
+  ],
+  "report": {
+    "verdict": "READY",
+    "score": 100,
+    "summary": "All 5 OpenMinion benchmark cases passed cleanly.",
+    "strengths": [
+      "Isolated APIRuntime & SQLite session persistence",
+      "Bounded subagent delegation",
+      "Fail-closed single-use approval gate",
+      "Agent.run_stream PhaseStatus callbacks",
+      "MemoryBundle round-trip"
+    ],
+    "risks": [],
+    "recommendations": [
+      "Connect live CORTENSOR_API_KEY for production latency profiling"
+    ]
+  },
+  "posture_keys": [
+    "agent",
+    "runtime_mode",
+    "brain_bridge_active",
+    "fallback_reason",
+    "canonical_turn_path",
+    "canonical_turn_path_ref",
+    "execution_boundary_policy",
+    "capability_layering",
+    "bridge_diagnostics"
+  ],
+  "used_offline_fallback": false,
+  "provider_error": null
+}
