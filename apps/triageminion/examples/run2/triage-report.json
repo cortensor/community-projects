@@ -1,0 +1,26 @@
+{
+  "repo": "Textualize/rich",
+  "model": "ollama/qwen2.5:3b",
+  "verdicts": [
+    {
+      "issue_number": 4272,
+      "classification": "bug",
+      "priority": "high",
+      "suggested_labels": [
+        "bug"
+      ],
+      "justification": "The proposed fix addresses an issue where the `_emoji_replace` function runs emoji replacement on text parts that have no colon, which does not affect the text content. The fix improves the performance of `console.print` by reducing unnecessary emoji replacements. The proposed changes are based on the provided code snippet and the observed performance improvements.",
+      "draft_response": "Fix for #4272: The fix only runs emoji replacement when the text has a colon, improving performance by about 1%. No changes to the text content are affected. The fix is proposed and no further action is needed.",
+      "title": "console.print runs the emoji replacement on text that has no colon",
+      "html_url": "https://github.com/Textualize/rich/issues/4272",
+      "elapsed_seconds": 1502.0,
+      "persisted_via_tool": true,
+      "recovered_from_tool_record": true
+    }
+  ],
+  "skipped": [
+    4274,
+    4271
+  ],
+  "failures": []
+}

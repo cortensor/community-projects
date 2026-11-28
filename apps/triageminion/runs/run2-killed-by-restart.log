@@ -1,0 +1,11 @@
+[env] removed 3 bracketed IPv6 entries from NO_PROXY (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[env] removed 3 bracketed IPv6 entries from no_proxy (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[triage] fetching open issues from Textualize/rich (limit 3) ...
+[triage] fetched 3 open issues
+[memory] new=0 changed=1 skipped=2
+[memory] skip #4274 (unchanged since last run)
+[memory] skip #4271 (unchanged since last run)
+
+[triage] === issue #4272: console.print runs the emoji replacement on text that has no colon
+[approval] AUTO-APPROVE save_triage_record #4272 bug/high
+[approval] AUTO-APPROVE save_triage_record #4272 bug/high

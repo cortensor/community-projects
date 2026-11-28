@@ -1,0 +1,24 @@
+[env] removed 3 bracketed IPv6 entries from NO_PROXY (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[env] removed 3 bracketed IPv6 entries from no_proxy (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[triage] fetching open issues from Textualize/rich (limit 3) ...
+[triage] fetched 3 open issues
+[memory] new=3 changed=0 skipped=0
+
+[triage] === issue #4274: [BUG] Do not convert IPv6 addresses containing `:100:` to emojis
+[approval] AUTO-APPROVE save_triage_record #4274 bug/critical
+[recover-pending] issue #4274: tool record exists, skipping retry
+[recover] issue #4274: using approval-gated tool record after turn failure (invalid output (missing/invalid fields): openminion: The issue #4274 has been classified as a [BUG] with critical priority and labeled `needs-fix`. The draft response by the maintainer is to investigat)
+
+[triage] === issue #4272: console.print runs the emoji replacement on text that has no colon
+[approval] AUTO-APPROVE save_triage_record #4272 bug/high
+[recover-pending] issue #4272: tool record exists, skipping retry
+[recover] issue #4272: using approval-gated tool record after turn failure (invalid output (missing/invalid fields): openminion: The issue #4272 has been triaged as a **bug** with a **high** priority. The suggested labels are **bug, performance**. A triage record has been save)
+
+[triage] === issue #4271: [Feature request] Add Console.export_markdown() to export recorded output as Mar
+[approval] AUTO-APPROVE save_triage_record #4271 feature/medium
+[recover-pending] issue #4271: tool record exists, skipping retry
+[recover] issue #4271: using approval-gated tool record after turn failure (invalid output (missing/invalid fields): openminion: The issue #4271 has been triaged as a feature request. The suggested labels are "export,markdown" with a medium priority. A draft response to the ma)
+
+[done] triaged=3 skipped=0 failed=0
+[done] wrote triage-report.md and triage-report.json
+exit=0

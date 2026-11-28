@@ -1,0 +1,13 @@
+[env] removed 3 bracketed IPv6 entries from NO_PROXY (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[env] removed 3 bracketed IPv6 entries from no_proxy (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[setup] raised providers.ollama.timeout_seconds to 900
+[triage] fetching open issues from Textualize/rich (limit 1) ...
+[triage] fetched 1 open issues
+[memory] new=1 changed=0 skipped=0
+
+[triage] === issue #4274: [BUG] Do not convert IPv6 addresses containing `:100:` to emojis
+[error] turn timed out on #4274: Turn execution timed out after 1200.00 seconds.
+
+[done] triaged=0 skipped=0 failed=1
+[done] wrote triage-report.md and triage-report.json
+exit=2
