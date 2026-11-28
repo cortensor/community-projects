@@ -1,0 +1,3 @@
+openminion==0.1.24
+pydantic>=2.0
+httpx>=0.27,<1
