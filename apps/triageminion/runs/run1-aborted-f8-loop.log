@@ -1,0 +1,13 @@
+[env] removed 3 bracketed IPv6 entries from NO_PROXY (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[env] removed 3 bracketed IPv6 entries from no_proxy (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[triage] fetching open issues from Textualize/rich (limit 3) ...
+[triage] fetched 3 open issues
+[memory] new=3 changed=0 skipped=0
+
+[triage] === issue #4274: [BUG] Do not convert IPv6 addresses containing `:100:` to emojis
+[approval] AUTO-APPROVE save_triage_record #4274 bug/medium
+[retry] issue #4274: invalid output (missing/invalid fields): openminion: The issue #4274 has been triaged as a bug with a medium priority. The suggested labels are [needs-fix,bug]. The following response will be sent to t
+[approval] AUTO-APPROVE save_triage_record #4274 Bug/Medium
+[approval] AUTO-APPROVE save_triage_record #4274 bug/medium
+[approval] AUTO-APPROVE save_triage_record #4274 bug/medium
+[approval] AUTO-APPROVE save_triage_record #4274 bug/medium

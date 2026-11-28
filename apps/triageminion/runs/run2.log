@@ -1,0 +1,17 @@
+[env] removed 3 bracketed IPv6 entries from NO_PROXY (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[env] removed 3 bracketed IPv6 entries from no_proxy (workaround for the OpenMinion/httpx NO_PROXY bug, FINDINGS F1)
+[triage] fetching open issues from Textualize/rich (limit 3) ...
+[triage] fetched 3 open issues
+[memory] new=0 changed=1 skipped=2
+[memory] skip #4274 (unchanged since last run)
+[memory] skip #4271 (unchanged since last run)
+
+[triage] === issue #4272: console.print runs the emoji replacement on text that has no colon
+[retry] issue #4272: invalid output (missing/invalid fields): openminion: The issue #4272 has been triaged as a bug with a high priority. The suggested labels are "bug". The draft response provided details the observed beh
+[approval] AUTO-APPROVE save_triage_record #4272 bug/high
+[recover-pending] issue #4272: tool record exists, skipping retry
+[recover] issue #4272: using approval-gated tool record after turn failure (invalid output (missing/invalid fields): openminion: The triage verdict for issue #4272 has been successfully persisted. The issue is classified as a bug with a high priority. The suggested labels are )
+
+[done] triaged=1 skipped=2 failed=0
+[done] wrote triage-report.md and triage-report.json
+exit=0

@@ -1,0 +1,10 @@
+[setup] creating config: /home/hatch/workspace/cortensor-hackathon/triageminion/../.venv/bin/openminion setup --provider ollama --model qwen2.5:3b --no-chat
+[triage] fetching open issues from Textualize/rich (limit 1) ...
+[triage] fetched 1 open issues
+[memory] new=1 changed=0 skipped=0
+
+[triage] === issue #4274: [BUG] Do not convert IPv6 addresses containing `:100:` to emojis
+[error] provider failed on #4274: PROVIDER_ERROR: The configured model provider failed before it could return a decision (InvalidURL: Invalid port: ':1]'). Please retry or switch models.
+
+[done] triaged=0 skipped=0 failed=1
+[done] wrote triage-report.md and triage-report.json

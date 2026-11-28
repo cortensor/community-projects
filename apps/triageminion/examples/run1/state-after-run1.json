@@ -1,0 +1,26 @@
+{
+  "repos": {
+    "Textualize/rich": {
+      "issues": {
+        "4274": {
+          "updated_at": "2026-11-27T16:18:14Z",
+          "classification": "bug",
+          "priority": "critical",
+          "triaged_at": "2026-11-28T04:18:44.655196+00:00"
+        },
+        "4272": {
+          "updated_at": "2026-11-25T15:22:23Z",
+          "classification": "bug",
+          "priority": "high",
+          "triaged_at": "2026-11-28T04:46:33.532629+00:00"
+        },
+        "4271": {
+          "updated_at": "2026-11-22T10:25:39Z",
+          "classification": "feature",
+          "priority": "medium",
+          "triaged_at": "2026-11-28T05:03:51.941609+00:00"
+        }
+      }
+    }
+  }
+}
